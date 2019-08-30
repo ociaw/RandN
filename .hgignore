@@ -1,0 +1,9 @@
+syntax: glob
+
+bin/
+obj/
+.vs/
+
+*.suo
+*.psess
+packages/
