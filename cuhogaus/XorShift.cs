@@ -47,7 +47,7 @@ namespace Cuhogaus
             return state;
         }
 
-        public sealed class Factory : IRngFactory, ISeekableRngFactory
+        public sealed class Factory : IReproducibleRngFactory, ISeekableRngFactory
         {
             public static Factory Instance { get; } = new Factory();
 

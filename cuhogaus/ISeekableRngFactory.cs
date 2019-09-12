@@ -5,7 +5,7 @@ namespace Cuhogaus
     /// <summary>
     /// A factory that produces seekable Random Number Generators.
     /// </summary>
-    public interface ISeekableRngFactory : IRngFactory
+    public interface ISeekableRngFactory : IReproducibleRngFactory
     {
         /// <summary>
         /// Creates an <see cref="ISeekableRng"/> using the given state.

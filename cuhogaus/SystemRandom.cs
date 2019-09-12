@@ -38,7 +38,7 @@ namespace Cuhogaus
 
         public void Fill(Span<byte> buffer) => _rng.NextBytes(buffer);
 
-        public sealed class Factory : IRngFactory
+        public sealed class Factory : IReproducibleRngFactory
         {
             public static Factory Instance { get; } = new Factory();
 
