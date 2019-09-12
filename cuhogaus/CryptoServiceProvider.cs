@@ -45,9 +45,7 @@ namespace Cuhogaus
         {
             public static Factory Instance { get; } = new Factory();
 
-            public Int32 SeedLength => 0;
-
-            public IRng Create(ReadOnlySpan<byte> seed)
+            public IRng Create()
             {
                 var rng = new RNGCryptoServiceProvider();
                 return new CryptoServiceProvider(rng);

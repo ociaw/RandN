@@ -83,7 +83,7 @@ namespace Cuhogaus
             _index = 0;
         }
 
-        public sealed class Factory : IRngFactory
+        public sealed class Factory : IReproducibleRngFactory
         {
             public Int32 SeedLength => sizeof(ulong);
 
