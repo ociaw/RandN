@@ -4,10 +4,10 @@ using System.Buffers.Binary;
 namespace Cuhogaus
 {
     /// <summary>
-    /// An implementation of MT19937-64.
+    /// An implementation of Mersenne Twister, variant MT19937-64.
     /// Based on the pseudocode provided from https://en.wikipedia.org/wiki/Mersenne_twister.
     /// </summary>
-    public sealed class MersenneTwister : IRng
+    public sealed class Mt1993764 : IRng
     {
         private const int WordSize = sizeof(ulong) * 8; // 64 bits (w)
         private const int RecurrenceDegree = 312; // (n)
@@ -37,7 +37,7 @@ namespace Cuhogaus
         private ulong[] _state;
         private Int32 _index;
 
-        private MersenneTwister(ulong[] state)
+        private Mt1993764(ulong[] state)
         {
             _state = state;
             _index = state.Length;
@@ -98,7 +98,7 @@ namespace Cuhogaus
                     state[i] = F * (state[i - 1] ^ (state[i - 1] >> (WordSize - 2))) + i;
                 }
 
-                return new MersenneTwister(state);
+                return new Mt1993764(state);
             }
         }
     }
