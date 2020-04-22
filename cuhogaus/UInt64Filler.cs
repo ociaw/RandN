@@ -5,9 +5,7 @@ namespace Cuhogaus
 {
     internal sealed class UInt64Filler
     {
-        public static uint ToUInt32(ulong num) => (uint)(num);
-
-        public static void Fill(byte[] buffer, Func<ulong> source) => Fill(buffer.AsSpan(), source);
+        public static uint ToUInt32(ulong num) => (uint)num;
 
         public static void Fill(Span<byte> buffer, Func<ulong> source)
         {
@@ -29,7 +27,7 @@ namespace Cuhogaus
 
         private static Int32 FillInternal(Span<byte> buffer, ulong num)
         {
-            Span<byte> bytes = stackalloc byte[sizeof(uint)];
+            Span<byte> bytes = stackalloc byte[sizeof(ulong)];
             BinaryPrimitives.TryWriteUInt64LittleEndian(bytes, num);
 
             Int32 length = Math.Min(buffer.Length, bytes.Length);

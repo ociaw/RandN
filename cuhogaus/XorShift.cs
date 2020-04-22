@@ -33,8 +33,6 @@ namespace Cuhogaus
 
         public ulong NextUInt64() => UInt32Filler.ToUInt64(NextUInt32(), NextUInt32());
 
-        public void Fill(byte[] buffer) => UInt32Filler.Fill(buffer, NextUInt32);
-
         public void Fill(Span<Byte> buffer) => UInt32Filler.Fill(buffer, NextUInt32);
 
         public ReadOnlySpan<byte> GetState()
@@ -47,15 +45,21 @@ namespace Cuhogaus
             return state;
         }
 
-        public sealed class Factory : IReproducibleRngFactory, ISeekableRngFactory
+        public sealed class Factory : IReproducibleRngFactory<XorShift>, ISeekableRngFactory<XorShift>
         {
             public static Factory Instance { get; } = new Factory();
 
-            public Int32 SeedLength => 4;
+            public Int32 MinimumSeedLength => sizeof(uint) * 4;
 
-            public IRng Create(ReadOnlySpan<byte> seed) => CreateWithState(seed); // For XorShift, the seed is equivalent to the state.
+            public Int32 MaximumSeedLength => sizeof(uint) * 4;
 
-            public ISeekableRng CreateWithState(ReadOnlySpan<byte> state)
+            public Int32 SeedStride => sizeof(uint) * 4;
+
+            public Int32 StateLength => sizeof(byte) * 4;
+
+            public XorShift Create(ReadOnlySpan<byte> seed) => CreateWithState(seed); // For XorShift, the seed is equivalent to the state.
+
+            public XorShift CreateWithState(ReadOnlySpan<byte> state)
             {
                 BinaryPrimitives.TryReadUInt32LittleEndian(state.Slice(sizeof(uint) * 0), out uint x);
                 BinaryPrimitives.TryReadUInt32LittleEndian(state.Slice(sizeof(uint) * 1), out uint y);

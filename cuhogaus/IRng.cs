@@ -18,12 +18,6 @@ namespace Cuhogaus
         ulong NextUInt64();
 
         /// <summary>
-        /// Completely fills the array with random bytes.
-        /// </summary>
-        /// <param name="buffer">The array to fill.</param>
-        void Fill(Byte[] buffer);
-
-        /// <summary>
         /// Completely fills the span with random bytes.
         /// </summary>
         /// <param name="buffer">The span to fill.</param>
