@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cuhogaus
+namespace Rand
 {
     /// <summary>
     /// A Random Number Generator (RNG)

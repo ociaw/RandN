@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cuhogaus
+namespace Rand
 {
     /// <summary>
     /// Creates instances of an <see cref="IReproducibleRngFactory"/> using automatically generated seeds.

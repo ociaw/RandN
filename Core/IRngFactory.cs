@@ -1,4 +1,4 @@
-﻿namespace Cuhogaus
+﻿namespace Rand
 {
     /// <summary>
     /// A factory that produces Random Number Generators.

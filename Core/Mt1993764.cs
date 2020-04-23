@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Buffers.Binary;
 
-namespace Cuhogaus
+namespace Rand
 {
     /// <summary>
     /// An implementation of Mersenne Twister, variant MT19937-64.

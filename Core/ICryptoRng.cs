@@ -1,4 +1,4 @@
-﻿namespace Cuhogaus
+﻿namespace Rand
 {
     /// <summary>
     /// A marker interface used to indicate that an <see cref="IRng"/>

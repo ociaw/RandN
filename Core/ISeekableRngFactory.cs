@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cuhogaus
+namespace Rand
 {
     /// <summary>
     /// A factory that produces seekable Random Number Generators.

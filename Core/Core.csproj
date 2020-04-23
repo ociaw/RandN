@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>Cuhogaus</AssemblyName>
-    <RootNamespace>Cuhogaus</RootNamespace>
+    <AssemblyName>Rand</AssemblyName>
+    <RootNamespace>Rand</RootNamespace>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Buffers.Binary;
 
-namespace Cuhogaus
+namespace Rand
 {
     /// <summary>
     /// XOR Shift algorithm for generating random numbers. Based off of the algorithm used in Rust's rand crate.

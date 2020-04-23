@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Buffers.Binary;
 
-namespace Cuhogaus
+namespace Rand
 {
     internal sealed class UInt64Filler
     {
