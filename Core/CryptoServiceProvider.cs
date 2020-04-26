@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace Cuhogaus
+namespace Rand
 {
     /// <summary>
     /// Wraps <see cref="RNGCryptoServiceProvider"/>.
@@ -29,23 +29,15 @@ namespace Cuhogaus
             return BitConverter.ToUInt64(buffer);
         }
 
-        public void Fill(byte[] buffer)
-        {
-            if (buffer == null)
-                throw new ArgumentNullException(nameof(buffer));
-
-            _rng.GetBytes(buffer);
-        }
-
         public void Fill(Span<byte> buffer) => _rng.GetBytes(buffer);
 
         public void Dispose() => _rng.Dispose();
 
-        public sealed class Factory : IRngFactory
+        public sealed class Factory : IRngFactory<CryptoServiceProvider>
         {
             public static Factory Instance { get; } = new Factory();
 
-            public IRng Create()
+            public CryptoServiceProvider Create()
             {
                 var rng = new RNGCryptoServiceProvider();
                 return new CryptoServiceProvider(rng);

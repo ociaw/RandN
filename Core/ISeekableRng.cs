@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cuhogaus
+namespace Rand
 {
     /// <summary>
     /// An RNG that is seekable - i.e. it can be fast forwarded to any point in the stream.

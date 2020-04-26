@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cuhogaus
+namespace Rand
 {
     /// <summary>
     /// Wraps <see cref="Random"/>.
@@ -28,23 +28,19 @@ namespace Cuhogaus
             return BitConverter.ToUInt64(buffer);
         }
 
-        public void Fill(byte[] buffer)
-        {
-            if (buffer == null)
-                throw new ArgumentNullException(nameof(buffer));
-
-            _rng.NextBytes(buffer);
-        }
-
         public void Fill(Span<byte> buffer) => _rng.NextBytes(buffer);
 
-        public sealed class Factory : IReproducibleRngFactory
+        public sealed class Factory : IReproducibleRngFactory<SystemRandom>
         {
             public static Factory Instance { get; } = new Factory();
 
-            public Int32 SeedLength => 4;
+            public int MinimumSeedLength => 4;
 
-            public IRng Create(ReadOnlySpan<byte> seed)
+            public int MaximumSeedLength => 4;
+
+            public Int32 SeedStride => 4;
+
+            public SystemRandom Create(ReadOnlySpan<byte> seed)
             {
                 int num = 0;
                 for (int i = 0; i < Math.Min(sizeof(int), seed.Length); i++)

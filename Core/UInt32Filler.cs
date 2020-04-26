@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Buffers.Binary;
 
-namespace Cuhogaus
+namespace Rand
 {
     internal sealed class UInt32Filler
     {
         public static ulong ToUInt64(uint first, uint second) => (((ulong)first) << sizeof(uint)) | second;
-
-        public static void Fill(byte[] buffer, Func<uint> source) => Fill(buffer.AsSpan(), source);
 
         public static void Fill(Span<byte> buffer, Func<uint> source)
         {

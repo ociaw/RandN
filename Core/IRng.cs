@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Cuhogaus
+namespace Rand
 {
     /// <summary>
     /// A Random Number Generator (RNG)
@@ -16,12 +16,6 @@ namespace Cuhogaus
         /// Returns the next 64 bits in the sequence as a UInt64.
         /// </summary>
         ulong NextUInt64();
-
-        /// <summary>
-        /// Completely fills the array with random bytes.
-        /// </summary>
-        /// <param name="buffer">The array to fill.</param>
-        void Fill(Byte[] buffer);
 
         /// <summary>
         /// Completely fills the span with random bytes.

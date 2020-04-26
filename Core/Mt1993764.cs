@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Buffers.Binary;
 
-namespace Cuhogaus
+namespace Rand
 {
     /// <summary>
     /// An implementation of Mersenne Twister, variant MT19937-64.
@@ -34,7 +34,7 @@ namespace Cuhogaus
 
         private const ulong F = 6364136223846793005;
 
-        private ulong[] _state;
+        private readonly ulong[] _state;
         private Int32 _index;
 
         private Mt1993764(ulong[] state)
@@ -61,8 +61,6 @@ namespace Cuhogaus
             return y;
         }
 
-        public void Fill(byte[] buffer) => UInt64Filler.Fill(buffer, NextUInt64);
-
         public void Fill(Span<Byte> buffer) => UInt64Filler.Fill(buffer, NextUInt64);
 
         private void Twist()
@@ -83,11 +81,15 @@ namespace Cuhogaus
             _index = 0;
         }
 
-        public sealed class Factory : IReproducibleRngFactory
+        public sealed class Factory : IReproducibleRngFactory<Mt1993764>
         {
-            public Int32 SeedLength => sizeof(ulong);
+            public Int32 MinimumSeedLength => sizeof(ulong);
 
-            public IRng Create(ReadOnlySpan<Byte> seed)
+            public Int32 MaximumSeedLength => sizeof(ulong);
+
+            public Int32 SeedStride => sizeof(ulong);
+
+            public Mt1993764 Create(ReadOnlySpan<Byte> seed)
             {
                 // Init state from seed
                 ulong[] state = new ulong[RecurrenceDegree];

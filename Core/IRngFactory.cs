@@ -1,14 +1,14 @@
-﻿namespace Cuhogaus
+﻿namespace Rand
 {
     /// <summary>
     /// A factory that produces Random Number Generators.
     /// </summary>
-    public interface IRngFactory
+    public interface IRngFactory<TRng>
     {
         /// <summary>
-        /// Creates a new <see cref="IRng"/>.
+        /// Creates a new <see cref="TRng"/>.
         /// </summary>
-        /// <returns>A new <see cref="IRng"/> instance.</returns>
-        IRng Create();
+        /// <returns>A new <see cref="TRng"/> instance.</returns>
+        TRng Create();
     }
 }
