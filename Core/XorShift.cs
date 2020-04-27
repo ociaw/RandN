@@ -6,7 +6,7 @@ namespace Rand
     /// <summary>
     /// XOR Shift algorithm for generating random numbers. Based off of the algorithm used in Rust's rand crate.
     /// </summary>
-    public sealed class XorShift : ISeekableRng
+    public sealed class XorShift : IRng
     {
         private uint _x;
         private uint _y;
@@ -45,7 +45,7 @@ namespace Rand
             return state;
         }
 
-        public sealed class Factory : IReproducibleRngFactory<XorShift>, ISeekableRngFactory<XorShift>
+        public sealed class Factory : IReproducibleRngFactory<XorShift>
         {
             public static Factory Instance { get; } = new Factory();
 
@@ -57,14 +57,12 @@ namespace Rand
 
             public Int32 StateLength => sizeof(byte) * 4;
 
-            public XorShift Create(ReadOnlySpan<byte> seed) => CreateWithState(seed); // For XorShift, the seed is equivalent to the state.
-
-            public XorShift CreateWithState(ReadOnlySpan<byte> state)
+            public XorShift Create(ReadOnlySpan<byte> seed)
             {
-                BinaryPrimitives.TryReadUInt32LittleEndian(state.Slice(sizeof(uint) * 0), out uint x);
-                BinaryPrimitives.TryReadUInt32LittleEndian(state.Slice(sizeof(uint) * 1), out uint y);
-                BinaryPrimitives.TryReadUInt32LittleEndian(state.Slice(sizeof(uint) * 2), out uint z);
-                BinaryPrimitives.TryReadUInt32LittleEndian(state.Slice(sizeof(uint) * 3), out uint w);
+                BinaryPrimitives.TryReadUInt32LittleEndian(seed.Slice(sizeof(uint) * 0), out uint x);
+                BinaryPrimitives.TryReadUInt32LittleEndian(seed.Slice(sizeof(uint) * 1), out uint y);
+                BinaryPrimitives.TryReadUInt32LittleEndian(seed.Slice(sizeof(uint) * 2), out uint z);
+                BinaryPrimitives.TryReadUInt32LittleEndian(seed.Slice(sizeof(uint) * 3), out uint w);
 
                 return new XorShift(x, y, z, w);
             }
