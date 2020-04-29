@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>Cuhogaus.Tests</RootNamespace>
+    <RootNamespace>Rand.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

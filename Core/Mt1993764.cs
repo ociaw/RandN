@@ -4,7 +4,8 @@ namespace Rand
 {
     /// <summary>
     /// An implementation of Mersenne Twister, variant MT19937-64.
-    /// Based on the pseudocode provided from https://en.wikipedia.org/wiki/Mersenne_twister.
+    /// Based on the pseudocode provided from https://en.wikipedia.org/wiki/Mersenne_twister
+    /// and the original C code at http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/VERSIONS/C-LANG/mt19937-64.c
     /// </summary>
     public sealed class Mt1993764 : IRng
     {
