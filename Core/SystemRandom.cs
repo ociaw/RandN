@@ -30,23 +30,13 @@ namespace Rand
 
         public void Fill(Span<byte> buffer) => _rng.NextBytes(buffer);
 
-        public sealed class Factory : IReproducibleRngFactory<SystemRandom>
+        public sealed class Factory : IReproducibleRngFactory<SystemRandom, Int32>
         {
             public static Factory Instance { get; } = new Factory();
 
-            public int MinimumSeedLength => 4;
-
-            public int MaximumSeedLength => 4;
-
-            public Int32 SeedStride => 4;
-
-            public SystemRandom Create(ReadOnlySpan<byte> seed)
+            public SystemRandom Create(Int32 seed)
             {
-                int num = 0;
-                for (int i = 0; i < Math.Min(sizeof(int), seed.Length); i++)
-                    num |= seed[i] << (8 * i);
-
-                var rng = new Random(num);
+                var rng = new Random(seed);
                 return new SystemRandom(rng);
             }
         }

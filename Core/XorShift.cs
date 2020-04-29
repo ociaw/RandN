@@ -45,27 +45,35 @@ namespace Rand
             return state;
         }
 
-        public sealed class Factory : IReproducibleRngFactory<XorShift>
+        public sealed class Factory : IReproducibleRngFactory<XorShift, Seed>
         {
             public static Factory Instance { get; } = new Factory();
 
-            public Int32 MinimumSeedLength => sizeof(uint) * 4;
+            public Int32 SeedLength => sizeof(uint) * 4;
 
-            public Int32 MaximumSeedLength => sizeof(uint) * 4;
-
-            public Int32 SeedStride => sizeof(uint) * 4;
-
-            public Int32 StateLength => sizeof(byte) * 4;
-
-            public XorShift Create(ReadOnlySpan<byte> seed)
+            public XorShift Create(Seed seed)
             {
-                BinaryPrimitives.TryReadUInt32LittleEndian(seed.Slice(sizeof(uint) * 0), out uint x);
-                BinaryPrimitives.TryReadUInt32LittleEndian(seed.Slice(sizeof(uint) * 1), out uint y);
-                BinaryPrimitives.TryReadUInt32LittleEndian(seed.Slice(sizeof(uint) * 2), out uint z);
-                BinaryPrimitives.TryReadUInt32LittleEndian(seed.Slice(sizeof(uint) * 3), out uint w);
-
-                return new XorShift(x, y, z, w);
+                return new XorShift(seed.X, seed.Y, seed.Z, seed.W);
             }
+        }
+
+        public readonly struct Seed
+        {
+            public Seed(uint x, uint y, uint z, uint w)
+            {
+                X = x;
+                Y = y;
+                Z = z;
+                W = w;
+            }
+
+            public uint X { get; }
+
+            public uint Y { get; }
+
+            public uint Z { get; }
+
+            public uint W { get; }
         }
     }
 }
