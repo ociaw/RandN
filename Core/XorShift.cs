@@ -55,6 +55,16 @@ namespace Rand
             {
                 return new XorShift(seed.X, seed.Y, seed.Z, seed.W);
             }
+
+            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
+            {
+                return new Seed(
+                    seedingRng.NextUInt32(),
+                    seedingRng.NextUInt32(),
+                    seedingRng.NextUInt32(),
+                    seedingRng.NextUInt32()
+                );
+            }
         }
 
         public readonly struct Seed

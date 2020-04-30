@@ -39,6 +39,11 @@ namespace Rand
                 var rng = new Random(seed);
                 return new SystemRandom(rng);
             }
+
+            public Int32 CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
+            {
+                return (int)seedingRng.NextUInt32();
+            }
         }
     }
 }

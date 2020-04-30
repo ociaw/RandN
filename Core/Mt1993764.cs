@@ -136,6 +136,16 @@ namespace Rand
                 state[0] = 1ul << 63;
                 return rng;
             }
+
+            public UInt64[] CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
+            {
+                UInt64[] seed = new UInt64[RecurrenceDegree];
+                Span<Byte> byteSeed = System.Runtime.InteropServices.MemoryMarshal.AsBytes<UInt64>(seed);
+                seedingRng.Fill(byteSeed);
+                return seed;
+            }
+
+            UInt64 IReproducibleRngFactory<Mt1993764, UInt64>.CreateSeed<TSeedingRng>(TSeedingRng seedingRng) => seedingRng.NextUInt64();
         }
     }
 }
