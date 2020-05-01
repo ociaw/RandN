@@ -31,9 +31,9 @@ namespace Rand
             return _w;
         }
 
-        public ulong NextUInt64() => UInt32Filler.ToUInt64(NextUInt32(), NextUInt32());
+        public ulong NextUInt64() => Filler.NextUInt32ViaUInt64(this);
 
-        public void Fill(Span<Byte> buffer) => UInt32Filler.Fill(buffer, NextUInt32);
+        public void Fill(Span<Byte> buffer) => Filler.FillBytesViaNext(this, buffer);
 
         public ReadOnlySpan<byte> GetState()
         {

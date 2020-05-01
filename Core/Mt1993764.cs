@@ -43,7 +43,7 @@ namespace Rand
             _index = state.Length;
         }
 
-        public uint NextUInt32() => UInt64Filler.ToUInt32(NextUInt64());
+        public uint NextUInt32() => Filler.NextUInt32ViaUInt64(this);
 
         public ulong NextUInt64()
         {
@@ -61,7 +61,7 @@ namespace Rand
             return y;
         }
 
-        public void Fill(Span<Byte> buffer) => UInt64Filler.Fill(buffer, NextUInt64);
+        public void Fill(Span<Byte> buffer) => Filler.FillBytesViaNext(this, buffer);
 
         private void Twist()
         {
