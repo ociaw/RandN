@@ -19,4 +19,32 @@
     <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Distributions\Uniform.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Uniform.cs</LastGenOutput>
+    </None>
+    <None Update="Distributions\UniformInt.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UniformInt.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Distributions\Uniform.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Uniform.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Distributions\UniformInt.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UniformInt.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
 </Project>

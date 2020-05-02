@@ -1,0 +1,89 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ output extension=".cs" #>
+<#
+var types = new (Type type, Type unsigned, Type ularge)[]
+{
+    (typeof(SByte), typeof(Byte), typeof(UInt32)),
+    (typeof(Int16), typeof(UInt16), typeof(UInt32)),
+    (typeof(Int32), typeof(UInt32), typeof(UInt32)),
+    (typeof(Int64), typeof(UInt64), typeof(UInt64)),
+    (typeof(Byte), typeof(Byte), typeof(UInt32)),
+    (typeof(UInt16), typeof(UInt16), typeof(UInt32)),
+    (typeof(UInt32), typeof(UInt32), typeof(UInt32)),
+    (typeof(UInt64), typeof(UInt64), typeof(UInt64)),
+};
+#>
+using System;
+
+/*** This file is auto generated - any changes made here will be lost. ***/
+namespace Rand.Distributions
+{
+<#
+foreach (var tuple in types)
+{
+    String type = tuple.type.Name;
+    String unsigned = tuple.unsigned.Name;
+    String ularge = tuple.ularge.Name;
+#>
+    public sealed class Uniform<#= type #> : IDistribution<<#= type #>>
+    {
+        private readonly <#= type #> _low;
+        private readonly <#= type #> _range;
+        private readonly <#= type #> _z;
+
+        private Uniform<#= type #>(<#= type #> low, <#= type #> range, <#= type #> z)
+        {
+            _low = low;
+            _range = range;
+            _z = z;
+        }
+
+        public static Uniform<#= type #> Create(<#= type #> low, <#= type #> high)
+        {
+            if (low >= high) 
+                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+
+            return CreateInclusive(low, (<#= type #>)(high - 1));
+        }
+
+        public static Uniform<#= type #> CreateInclusive(<#= type #> low, <#= type #> high)
+        {
+            if (low > high) 
+                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+                    
+            var unsignedMax = <#= ularge #>.MaxValue;
+            var range = (<#= unsigned #>)unchecked(high - low + 1);
+            var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+
+            return new Uniform<#= type #>(low, (<#= type #>)range, (<#= type #>)(<#= unsigned #>)intsToReject);
+        }
+
+        public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
+        {
+            var unsigned = rng.Next<#= ularge #>();
+            var range = (<#= ularge #>)(<#= unsigned #>)_range;
+            if (range == 0) // 0 is a special case where we sample the entire range.
+            {
+                result = (<#= type #>)unsigned;
+                return true;
+            }
+
+            var unsignedMax = <#= ularge #>.MaxValue;
+            var zone = unsignedMax - (<#= ularge #>)(<#= unsigned #>)_z;
+                
+            if (unsigned <= zone)
+            {
+                result = (<#= type #>)unchecked((<#= type #>)(unsigned % range) + _low);
+                return true;
+            }
+
+            result = default;
+            return false;
+        }
+    }
+<#
+}
+#>
+}

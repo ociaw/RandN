@@ -1,0 +1,46 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ output extension=".cs" #>
+<#
+var types = new Type[]
+{
+    typeof(SByte),
+    typeof(Int16),
+    typeof(Int32),
+    typeof(Int64),
+    typeof(Byte),
+    typeof(UInt16),
+    typeof(UInt32),
+    typeof(UInt64),
+};
+#>
+using System;
+
+namespace Rand.Distributions
+{
+    public static class Uniform
+    {
+<#
+foreach (var type in types)
+{
+    String typeName = type.Name;
+#>
+        /// <summary>
+        /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
+        /// </summary>
+        /// <param name="low">The inclusive lower bound.</param>
+        /// <param name="high">The exclusive upper bound.</param>
+        public static Uniform<#= typeName #> New(<#= typeName #> low, <#= typeName #> high) => Uniform<#= typeName #>.Create(low, high);
+        
+        /// <summary>
+        /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
+        /// </summary>
+        /// <param name="low">The inclusive lower bound.</param>
+        /// <param name="high">The inclusive upper bound.</param>
+        public static Uniform<#= typeName #> NewInclusive(<#= typeName #> low, <#= typeName #> high) => Uniform<#= typeName #>.CreateInclusive(low, high);
+
+<#
+}
+#>
+    }
+}
