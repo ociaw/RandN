@@ -30,14 +30,14 @@ foreach (var tuple in types)
     public sealed class Uniform<#= type #> : IDistribution<<#= type #>>
     {
         private readonly <#= type #> _low;
-        private readonly <#= type #> _range;
-        private readonly <#= type #> _z;
+        private readonly <#= ularge #> _range;
+        private readonly <#= unsigned #> _zone;
 
-        private Uniform<#= type #>(<#= type #> low, <#= type #> range, <#= type #> z)
+        private Uniform<#= type #>(<#= type #> low, <#= ularge #> range, <#= unsigned #> zone)
         {
             _low = low;
             _range = range;
-            _z = z;
+            _zone = zone;
         }
 
         public static Uniform<#= type #> Create(<#= type #> low, <#= type #> high)
@@ -54,28 +54,26 @@ foreach (var tuple in types)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
                     
             var unsignedMax = <#= ularge #>.MaxValue;
-            var range = (<#= unsigned #>)unchecked(high - low + 1);
+            var range = unchecked((<#= ularge #>)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
-            return new Uniform<#= type #>(low, (<#= type #>)range, (<#= type #>)(<#= unsigned #>)intsToReject);
+            return new Uniform<#= type #>(low, range, (<#= unsigned #>)intsToReject);
         }
 
         public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
         {
             var unsigned = rng.Next<#= ularge #>();
-            var range = (<#= ularge #>)(<#= unsigned #>)_range;
-            if (range == 0) // 0 is a special case where we sample the entire range.
+            if (_range == 0) // 0 is a special case where we sample the entire range.
             {
                 result = (<#= type #>)unsigned;
                 return true;
             }
 
-            var unsignedMax = <#= ularge #>.MaxValue;
-            var zone = unsignedMax - (<#= ularge #>)(<#= unsigned #>)_z;
+            var zone = <#= ularge #>.MaxValue - _zone;
                 
             if (unsigned <= zone)
             {
-                result = (<#= type #>)unchecked((<#= type #>)(unsigned % range) + _low);
+                result = unchecked((<#= type #>)((<#= type #>)(unsigned % _range) + _low));
                 return true;
             }
 

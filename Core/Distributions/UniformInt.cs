@@ -6,14 +6,14 @@ namespace Rand.Distributions
     public sealed class UniformSByte : IDistribution<SByte>
     {
         private readonly SByte _low;
-        private readonly SByte _range;
-        private readonly SByte _z;
+        private readonly UInt32 _range;
+        private readonly Byte _zone;
 
-        private UniformSByte(SByte low, SByte range, SByte z)
+        private UniformSByte(SByte low, UInt32 range, Byte zone)
         {
             _low = low;
             _range = range;
-            _z = z;
+            _zone = zone;
         }
 
         public static UniformSByte Create(SByte low, SByte high)
@@ -30,28 +30,26 @@ namespace Rand.Distributions
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
                     
             var unsignedMax = UInt32.MaxValue;
-            var range = (Byte)unchecked(high - low + 1);
+            var range = unchecked((UInt32)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
-            return new UniformSByte(low, (SByte)range, (SByte)(Byte)intsToReject);
+            return new UniformSByte(low, range, (Byte)intsToReject);
         }
 
         public Boolean TrySample<TRng>(TRng rng, out SByte result) where TRng : IRng
         {
             var unsigned = rng.NextUInt32();
-            var range = (UInt32)(Byte)_range;
-            if (range == 0) // 0 is a special case where we sample the entire range.
+            if (_range == 0) // 0 is a special case where we sample the entire range.
             {
                 result = (SByte)unsigned;
                 return true;
             }
 
-            var unsignedMax = UInt32.MaxValue;
-            var zone = unsignedMax - (UInt32)(Byte)_z;
+            var zone = UInt32.MaxValue - _zone;
                 
             if (unsigned <= zone)
             {
-                result = (SByte)unchecked((SByte)(unsigned % range) + _low);
+                result = unchecked((SByte)((SByte)(unsigned % _range) + _low));
                 return true;
             }
 
@@ -62,14 +60,14 @@ namespace Rand.Distributions
     public sealed class UniformInt16 : IDistribution<Int16>
     {
         private readonly Int16 _low;
-        private readonly Int16 _range;
-        private readonly Int16 _z;
+        private readonly UInt32 _range;
+        private readonly UInt16 _zone;
 
-        private UniformInt16(Int16 low, Int16 range, Int16 z)
+        private UniformInt16(Int16 low, UInt32 range, UInt16 zone)
         {
             _low = low;
             _range = range;
-            _z = z;
+            _zone = zone;
         }
 
         public static UniformInt16 Create(Int16 low, Int16 high)
@@ -86,28 +84,26 @@ namespace Rand.Distributions
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
                     
             var unsignedMax = UInt32.MaxValue;
-            var range = (UInt16)unchecked(high - low + 1);
+            var range = unchecked((UInt32)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
-            return new UniformInt16(low, (Int16)range, (Int16)(UInt16)intsToReject);
+            return new UniformInt16(low, range, (UInt16)intsToReject);
         }
 
         public Boolean TrySample<TRng>(TRng rng, out Int16 result) where TRng : IRng
         {
             var unsigned = rng.NextUInt32();
-            var range = (UInt32)(UInt16)_range;
-            if (range == 0) // 0 is a special case where we sample the entire range.
+            if (_range == 0) // 0 is a special case where we sample the entire range.
             {
                 result = (Int16)unsigned;
                 return true;
             }
 
-            var unsignedMax = UInt32.MaxValue;
-            var zone = unsignedMax - (UInt32)(UInt16)_z;
+            var zone = UInt32.MaxValue - _zone;
                 
             if (unsigned <= zone)
             {
-                result = (Int16)unchecked((Int16)(unsigned % range) + _low);
+                result = unchecked((Int16)((Int16)(unsigned % _range) + _low));
                 return true;
             }
 
@@ -118,14 +114,14 @@ namespace Rand.Distributions
     public sealed class UniformInt32 : IDistribution<Int32>
     {
         private readonly Int32 _low;
-        private readonly Int32 _range;
-        private readonly Int32 _z;
+        private readonly UInt32 _range;
+        private readonly UInt32 _zone;
 
-        private UniformInt32(Int32 low, Int32 range, Int32 z)
+        private UniformInt32(Int32 low, UInt32 range, UInt32 zone)
         {
             _low = low;
             _range = range;
-            _z = z;
+            _zone = zone;
         }
 
         public static UniformInt32 Create(Int32 low, Int32 high)
@@ -142,28 +138,26 @@ namespace Rand.Distributions
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
                     
             var unsignedMax = UInt32.MaxValue;
-            var range = (UInt32)unchecked(high - low + 1);
+            var range = unchecked((UInt32)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
-            return new UniformInt32(low, (Int32)range, (Int32)(UInt32)intsToReject);
+            return new UniformInt32(low, range, (UInt32)intsToReject);
         }
 
         public Boolean TrySample<TRng>(TRng rng, out Int32 result) where TRng : IRng
         {
             var unsigned = rng.NextUInt32();
-            var range = (UInt32)(UInt32)_range;
-            if (range == 0) // 0 is a special case where we sample the entire range.
+            if (_range == 0) // 0 is a special case where we sample the entire range.
             {
                 result = (Int32)unsigned;
                 return true;
             }
 
-            var unsignedMax = UInt32.MaxValue;
-            var zone = unsignedMax - (UInt32)(UInt32)_z;
+            var zone = UInt32.MaxValue - _zone;
                 
             if (unsigned <= zone)
             {
-                result = (Int32)unchecked((Int32)(unsigned % range) + _low);
+                result = unchecked((Int32)((Int32)(unsigned % _range) + _low));
                 return true;
             }
 
@@ -174,14 +168,14 @@ namespace Rand.Distributions
     public sealed class UniformInt64 : IDistribution<Int64>
     {
         private readonly Int64 _low;
-        private readonly Int64 _range;
-        private readonly Int64 _z;
+        private readonly UInt64 _range;
+        private readonly UInt64 _zone;
 
-        private UniformInt64(Int64 low, Int64 range, Int64 z)
+        private UniformInt64(Int64 low, UInt64 range, UInt64 zone)
         {
             _low = low;
             _range = range;
-            _z = z;
+            _zone = zone;
         }
 
         public static UniformInt64 Create(Int64 low, Int64 high)
@@ -198,28 +192,26 @@ namespace Rand.Distributions
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
                     
             var unsignedMax = UInt64.MaxValue;
-            var range = (UInt64)unchecked(high - low + 1);
+            var range = unchecked((UInt64)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
-            return new UniformInt64(low, (Int64)range, (Int64)(UInt64)intsToReject);
+            return new UniformInt64(low, range, (UInt64)intsToReject);
         }
 
         public Boolean TrySample<TRng>(TRng rng, out Int64 result) where TRng : IRng
         {
             var unsigned = rng.NextUInt64();
-            var range = (UInt64)(UInt64)_range;
-            if (range == 0) // 0 is a special case where we sample the entire range.
+            if (_range == 0) // 0 is a special case where we sample the entire range.
             {
                 result = (Int64)unsigned;
                 return true;
             }
 
-            var unsignedMax = UInt64.MaxValue;
-            var zone = unsignedMax - (UInt64)(UInt64)_z;
+            var zone = UInt64.MaxValue - _zone;
                 
             if (unsigned <= zone)
             {
-                result = (Int64)unchecked((Int64)(unsigned % range) + _low);
+                result = unchecked((Int64)((Int64)(unsigned % _range) + _low));
                 return true;
             }
 
@@ -230,14 +222,14 @@ namespace Rand.Distributions
     public sealed class UniformByte : IDistribution<Byte>
     {
         private readonly Byte _low;
-        private readonly Byte _range;
-        private readonly Byte _z;
+        private readonly UInt32 _range;
+        private readonly Byte _zone;
 
-        private UniformByte(Byte low, Byte range, Byte z)
+        private UniformByte(Byte low, UInt32 range, Byte zone)
         {
             _low = low;
             _range = range;
-            _z = z;
+            _zone = zone;
         }
 
         public static UniformByte Create(Byte low, Byte high)
@@ -254,28 +246,26 @@ namespace Rand.Distributions
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
                     
             var unsignedMax = UInt32.MaxValue;
-            var range = (Byte)unchecked(high - low + 1);
+            var range = unchecked((UInt32)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
-            return new UniformByte(low, (Byte)range, (Byte)(Byte)intsToReject);
+            return new UniformByte(low, range, (Byte)intsToReject);
         }
 
         public Boolean TrySample<TRng>(TRng rng, out Byte result) where TRng : IRng
         {
             var unsigned = rng.NextUInt32();
-            var range = (UInt32)(Byte)_range;
-            if (range == 0) // 0 is a special case where we sample the entire range.
+            if (_range == 0) // 0 is a special case where we sample the entire range.
             {
                 result = (Byte)unsigned;
                 return true;
             }
 
-            var unsignedMax = UInt32.MaxValue;
-            var zone = unsignedMax - (UInt32)(Byte)_z;
+            var zone = UInt32.MaxValue - _zone;
                 
             if (unsigned <= zone)
             {
-                result = (Byte)unchecked((Byte)(unsigned % range) + _low);
+                result = unchecked((Byte)((Byte)(unsigned % _range) + _low));
                 return true;
             }
 
@@ -286,14 +276,14 @@ namespace Rand.Distributions
     public sealed class UniformUInt16 : IDistribution<UInt16>
     {
         private readonly UInt16 _low;
-        private readonly UInt16 _range;
-        private readonly UInt16 _z;
+        private readonly UInt32 _range;
+        private readonly UInt16 _zone;
 
-        private UniformUInt16(UInt16 low, UInt16 range, UInt16 z)
+        private UniformUInt16(UInt16 low, UInt32 range, UInt16 zone)
         {
             _low = low;
             _range = range;
-            _z = z;
+            _zone = zone;
         }
 
         public static UniformUInt16 Create(UInt16 low, UInt16 high)
@@ -310,28 +300,26 @@ namespace Rand.Distributions
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
                     
             var unsignedMax = UInt32.MaxValue;
-            var range = (UInt16)unchecked(high - low + 1);
+            var range = unchecked((UInt32)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
-            return new UniformUInt16(low, (UInt16)range, (UInt16)(UInt16)intsToReject);
+            return new UniformUInt16(low, range, (UInt16)intsToReject);
         }
 
         public Boolean TrySample<TRng>(TRng rng, out UInt16 result) where TRng : IRng
         {
             var unsigned = rng.NextUInt32();
-            var range = (UInt32)(UInt16)_range;
-            if (range == 0) // 0 is a special case where we sample the entire range.
+            if (_range == 0) // 0 is a special case where we sample the entire range.
             {
                 result = (UInt16)unsigned;
                 return true;
             }
 
-            var unsignedMax = UInt32.MaxValue;
-            var zone = unsignedMax - (UInt32)(UInt16)_z;
+            var zone = UInt32.MaxValue - _zone;
                 
             if (unsigned <= zone)
             {
-                result = (UInt16)unchecked((UInt16)(unsigned % range) + _low);
+                result = unchecked((UInt16)((UInt16)(unsigned % _range) + _low));
                 return true;
             }
 
@@ -343,13 +331,13 @@ namespace Rand.Distributions
     {
         private readonly UInt32 _low;
         private readonly UInt32 _range;
-        private readonly UInt32 _z;
+        private readonly UInt32 _zone;
 
-        private UniformUInt32(UInt32 low, UInt32 range, UInt32 z)
+        private UniformUInt32(UInt32 low, UInt32 range, UInt32 zone)
         {
             _low = low;
             _range = range;
-            _z = z;
+            _zone = zone;
         }
 
         public static UniformUInt32 Create(UInt32 low, UInt32 high)
@@ -366,28 +354,26 @@ namespace Rand.Distributions
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
                     
             var unsignedMax = UInt32.MaxValue;
-            var range = (UInt32)unchecked(high - low + 1);
+            var range = unchecked((UInt32)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
-            return new UniformUInt32(low, (UInt32)range, (UInt32)(UInt32)intsToReject);
+            return new UniformUInt32(low, range, (UInt32)intsToReject);
         }
 
         public Boolean TrySample<TRng>(TRng rng, out UInt32 result) where TRng : IRng
         {
             var unsigned = rng.NextUInt32();
-            var range = (UInt32)(UInt32)_range;
-            if (range == 0) // 0 is a special case where we sample the entire range.
+            if (_range == 0) // 0 is a special case where we sample the entire range.
             {
                 result = (UInt32)unsigned;
                 return true;
             }
 
-            var unsignedMax = UInt32.MaxValue;
-            var zone = unsignedMax - (UInt32)(UInt32)_z;
+            var zone = UInt32.MaxValue - _zone;
                 
             if (unsigned <= zone)
             {
-                result = (UInt32)unchecked((UInt32)(unsigned % range) + _low);
+                result = unchecked((UInt32)((UInt32)(unsigned % _range) + _low));
                 return true;
             }
 
@@ -399,13 +385,13 @@ namespace Rand.Distributions
     {
         private readonly UInt64 _low;
         private readonly UInt64 _range;
-        private readonly UInt64 _z;
+        private readonly UInt64 _zone;
 
-        private UniformUInt64(UInt64 low, UInt64 range, UInt64 z)
+        private UniformUInt64(UInt64 low, UInt64 range, UInt64 zone)
         {
             _low = low;
             _range = range;
-            _z = z;
+            _zone = zone;
         }
 
         public static UniformUInt64 Create(UInt64 low, UInt64 high)
@@ -422,28 +408,26 @@ namespace Rand.Distributions
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
                     
             var unsignedMax = UInt64.MaxValue;
-            var range = (UInt64)unchecked(high - low + 1);
+            var range = unchecked((UInt64)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
-            return new UniformUInt64(low, (UInt64)range, (UInt64)(UInt64)intsToReject);
+            return new UniformUInt64(low, range, (UInt64)intsToReject);
         }
 
         public Boolean TrySample<TRng>(TRng rng, out UInt64 result) where TRng : IRng
         {
             var unsigned = rng.NextUInt64();
-            var range = (UInt64)(UInt64)_range;
-            if (range == 0) // 0 is a special case where we sample the entire range.
+            if (_range == 0) // 0 is a special case where we sample the entire range.
             {
                 result = (UInt64)unsigned;
                 return true;
             }
 
-            var unsignedMax = UInt64.MaxValue;
-            var zone = unsignedMax - (UInt64)(UInt64)_z;
+            var zone = UInt64.MaxValue - _zone;
                 
             if (unsigned <= zone)
             {
-                result = (UInt64)unchecked((UInt64)(unsigned % range) + _low);
+                result = unchecked((UInt64)((UInt64)(unsigned % _range) + _low));
                 return true;
             }
 

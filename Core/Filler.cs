@@ -28,7 +28,7 @@ namespace Rand
         /// <summary>
         /// Implement NextUInt32 via NextUInt64.
         /// </summary>
-        public static UInt32 NextUInt32ViaUInt64<TRng>(TRng rng) where TRng : IRng => (UInt32)rng.NextUInt64();
+        public static UInt32 NextUInt32ViaUInt64<TRng>(TRng rng) where TRng : IRng => unchecked((UInt32)rng.NextUInt64());
 
         /// <summary>
         /// Implement FillBytes via NextUInt64 and NextUInt32, little-endian order.

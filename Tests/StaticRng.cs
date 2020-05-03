@@ -4,7 +4,7 @@ namespace Rand.Tests
 {
     internal sealed class StaticRng : IRng
     {
-        private UInt64 _state;
+        private readonly UInt64 _state;
 
         public StaticRng(UInt64 state) => _state = state;
 

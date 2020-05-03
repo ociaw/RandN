@@ -4,9 +4,9 @@ namespace Rand.Tests
 {
     internal sealed class SequentialRng : IRng
     {
-        private UInt64 _state;
+        public SequentialRng(UInt64 state) => State = state;
 
-        public SequentialRng(UInt64 state) => _state = state;
+        public UInt64 State { get; set; }
 
         public void Fill(Span<Byte> buffer)
         {
@@ -28,8 +28,8 @@ namespace Rand.Tests
 
         public UInt64 NextUInt64()
         {
-            var value = _state;
-            _state = unchecked(_state + 1);
+            var value = State;
+            State = unchecked(State + 1);
             return value;
         }
 
