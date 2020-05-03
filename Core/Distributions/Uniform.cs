@@ -116,5 +116,19 @@ namespace Rand.Distributions
         /// <param name="high">The inclusive upper bound.</param>
         public static UniformUInt64 NewInclusive(UInt64 low, UInt64 high) => UniformUInt64.CreateInclusive(low, high);
 
+        /// <summary>
+        /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
+        /// </summary>
+        /// <param name="low">The inclusive lower bound.</param>
+        /// <param name="high">The exclusive upper bound.</param>
+        public static UniformTimeSpan New(TimeSpan low, TimeSpan high) => UniformTimeSpan.Create(low, high);
+        
+        /// <summary>
+        /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
+        /// </summary>
+        /// <param name="low">The inclusive lower bound.</param>
+        /// <param name="high">The inclusive upper bound.</param>
+        public static UniformTimeSpan NewInclusive(TimeSpan low, TimeSpan high) => UniformTimeSpan.CreateInclusive(low, high);
+
     }
 }

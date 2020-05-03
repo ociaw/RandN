@@ -12,6 +12,7 @@ var types = new Type[]
     typeof(UInt16),
     typeof(UInt32),
     typeof(UInt64),
+    typeof(TimeSpan),
 };
 #>
 using System;

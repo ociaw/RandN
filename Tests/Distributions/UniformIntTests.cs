@@ -190,5 +190,29 @@ namespace Rand.Distributions.Tests
                 Assert.True(result <= high);
             }
         }
+
+        [Fact]
+        public void SampleTimeSpan()
+        {
+            TimeSpan low = TimeSpan.FromTicks(-500);
+            TimeSpan high = TimeSpan.FromTicks(500);
+            var exclusiveDist = Uniform.New(low, high);
+            var inclusiveDist = Uniform.New(low, high);
+            var rng = new Mt1993764.Factory().Create(5489);
+
+            for (var i = 0; i < 10000; i++)
+            {
+                var result = rng.Sample(exclusiveDist);
+                Assert.True(low <= result);
+                Assert.True(result < high);
+            }
+
+            for (var i = 0; i < 10000; i++)
+            {
+                var result = rng.Sample(inclusiveDist);
+                Assert.True(low <= result);
+                Assert.True(result <= high);
+            }
+        }
     }
 }
