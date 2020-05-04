@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>Rand</AssemblyName>
+    <AssemblyName>Rand.Core</AssemblyName>
     <RootNamespace>Rand</RootNamespace>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
@@ -20,40 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Distributions\StandardInt.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>StandardInt.cs</LastGenOutput>
-    </None>
-    <None Update="Distributions\Uniform.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Uniform.cs</LastGenOutput>
-    </None>
-    <None Update="Distributions\UniformInt.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>UniformInt.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Distributions\StandardInt.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>StandardInt.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Distributions\Uniform.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Uniform.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Distributions\UniformInt.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>UniformInt.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
 
 </Project>
