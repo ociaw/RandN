@@ -1,4 +1,5 @@
 ﻿using System;
+using Rand.RngHelpers;
 
 namespace Rand
 {
