@@ -14,21 +14,21 @@ namespace Rand
             _rng = rng;
         }
 
-        public uint NextUInt32()
+        public UInt32 NextUInt32()
         {
-            Span<byte> buffer = stackalloc byte[4];
+            Span<Byte> buffer = stackalloc Byte[4];
             Fill(buffer);
             return BitConverter.ToUInt32(buffer);
         }
 
-        public ulong NextUInt64()
+        public UInt64 NextUInt64()
         {
-            Span<byte> buffer = stackalloc byte[8];
+            Span<Byte> buffer = stackalloc Byte[8];
             Fill(buffer);
             return BitConverter.ToUInt64(buffer);
         }
 
-        public void Fill(Span<byte> buffer) => _rng.NextBytes(buffer);
+        public void Fill(Span<Byte> buffer) => _rng.NextBytes(buffer);
 
         public sealed class Factory : IReproducibleRngFactory<SystemRandom, Int32>
         {
@@ -42,7 +42,7 @@ namespace Rand
 
             public Int32 CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
             {
-                return (int)seedingRng.NextUInt32();
+                return (Int32)seedingRng.NextUInt32();
             }
         }
     }

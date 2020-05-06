@@ -10,12 +10,12 @@ namespace Rand
         /// <summary>
         /// Returns the next 32 bits in the sequence as a UInt32.
         /// </summary>
-        uint NextUInt32();
+        UInt32 NextUInt32();
 
         /// <summary>
         /// Returns the next 64 bits in the sequence as a UInt64.
         /// </summary>
-        ulong NextUInt64();
+        UInt64 NextUInt64();
 
         /// <summary>
         /// Completely fills the span with random bytes.

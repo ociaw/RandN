@@ -9,12 +9,12 @@ namespace Rand
     /// </summary>
     public sealed class XorShift : IRng
     {
-        private uint _x;
-        private uint _y;
-        private uint _z;
-        private uint _w;
+        private UInt32 _x;
+        private UInt32 _y;
+        private UInt32 _z;
+        private UInt32 _w;
 
-        private XorShift(uint x, uint y, uint z, uint w)
+        private XorShift(UInt32 x, UInt32 y, UInt32 z, UInt32 w)
         {
             _x = x;
             _y = y;
@@ -22,9 +22,9 @@ namespace Rand
             _w = w;
         }
 
-        public uint NextUInt32()
+        public UInt32 NextUInt32()
         {
-            uint t = _x ^ (_x << 11);
+            UInt32 t = _x ^ (_x << 11);
             _x = _y;
             _y = _z;
             _z = _w;
@@ -32,17 +32,17 @@ namespace Rand
             return _w;
         }
 
-        public ulong NextUInt64() => Filler.NextUInt32ViaUInt64(this);
+        public UInt64 NextUInt64() => Filler.NextUInt32ViaUInt64(this);
 
         public void Fill(Span<Byte> buffer) => Filler.FillBytesViaNext(this, buffer);
 
-        public ReadOnlySpan<byte> GetState()
+        public ReadOnlySpan<Byte> GetState()
         {
-            Span<byte> state = new byte[4 * sizeof(uint)];
-            BinaryPrimitives.WriteUInt32LittleEndian(state.Slice(sizeof(uint) * 0), _x);
-            BinaryPrimitives.WriteUInt32LittleEndian(state.Slice(sizeof(uint) * 1), _y);
-            BinaryPrimitives.WriteUInt32LittleEndian(state.Slice(sizeof(uint) * 2), _z);
-            BinaryPrimitives.WriteUInt32LittleEndian(state.Slice(sizeof(uint) * 3), _w);
+            Span<Byte> state = new Byte[4 * sizeof(UInt32)];
+            BinaryPrimitives.WriteUInt32LittleEndian(state.Slice(sizeof(UInt32) * 0), _x);
+            BinaryPrimitives.WriteUInt32LittleEndian(state.Slice(sizeof(UInt32) * 1), _y);
+            BinaryPrimitives.WriteUInt32LittleEndian(state.Slice(sizeof(UInt32) * 2), _z);
+            BinaryPrimitives.WriteUInt32LittleEndian(state.Slice(sizeof(UInt32) * 3), _w);
             return state;
         }
 
@@ -50,7 +50,7 @@ namespace Rand
         {
             public static Factory Instance { get; } = new Factory();
 
-            public Int32 SeedLength => sizeof(uint) * 4;
+            public Int32 SeedLength => sizeof(UInt32) * 4;
 
             public XorShift Create(Seed seed)
             {
@@ -70,7 +70,7 @@ namespace Rand
 
         public readonly struct Seed
         {
-            public Seed(uint x, uint y, uint z, uint w)
+            public Seed(UInt32 x, UInt32 y, UInt32 z, UInt32 w)
             {
                 X = x;
                 Y = y;
@@ -78,13 +78,13 @@ namespace Rand
                 W = w;
             }
 
-            public uint X { get; }
+            public UInt32 X { get; }
 
-            public uint Y { get; }
+            public UInt32 Y { get; }
 
-            public uint Z { get; }
+            public UInt32 Z { get; }
 
-            public uint W { get; }
+            public UInt32 W { get; }
         }
     }
 }

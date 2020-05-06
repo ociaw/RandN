@@ -10,48 +10,48 @@ namespace Rand
     /// </summary>
     public sealed class Mt1993764 : IRng
     {
-        private const int WordSize = sizeof(ulong) * 8; // 64 bits (w)
-        private const int RecurrenceDegree = 312; // (n)
-        private const int MiddleWord = 156; // (m)
-        private const int OneWordSeparationPoint = 31; // (r)
+        private const Int32 WordSize = sizeof(UInt64) * 8; // 64 bits (w)
+        private const Int32 RecurrenceDegree = 312; // (n)
+        private const Int32 MiddleWord = 156; // (m)
+        private const Int32 OneWordSeparationPoint = 31; // (r)
 
-        private const ulong LowerMask = (1ul << OneWordSeparationPoint) - 1;
-        private const ulong UpperMask = ~LowerMask;
+        private const UInt64 LowerMask = (1ul << OneWordSeparationPoint) - 1;
+        private const UInt64 UpperMask = ~LowerMask;
 
-        private const ulong TwistMatrixCoefficients = 0xB5026F5AA96619E9; // (a)
+        private const UInt64 TwistMatrixCoefficients = 0xB5026F5AA96619E9; // (a)
 
         // TGSFSR(R) tempering bitmasks
-        private const ulong BMask = 0x71D67FFFEDA60000;
-        private const ulong CMask = 0xFFF7EEE000000000;
+        private const UInt64 BMask = 0x71D67FFFEDA60000;
+        private const UInt64 CMask = 0xFFF7EEE000000000;
 
         // TGSFSR(R) tempering bit shifts
-        private const int SShift = 17;
-        private const int TShift = 37;
+        private const Int32 SShift = 17;
+        private const Int32 TShift = 37;
 
         // Additional tempering bit shifts and masks
-        private const int LShift = 43;
-        private const int UShift = 29;
-        private const ulong DMask = 0x5555555555555555;
+        private const Int32 LShift = 43;
+        private const Int32 UShift = 29;
+        private const UInt64 DMask = 0x5555555555555555;
 
-        private const ulong F = 6364136223846793005;
+        private const UInt64 F = 6364136223846793005;
 
-        private readonly ulong[] _state;
+        private readonly UInt64[] _state;
         private Int32 _index;
 
-        private Mt1993764(ulong[] state)
+        private Mt1993764(UInt64[] state)
         {
             _state = state;
             _index = state.Length;
         }
 
-        public uint NextUInt32() => Filler.NextUInt32ViaUInt64(this);
+        public UInt32 NextUInt32() => Filler.NextUInt32ViaUInt64(this);
 
-        public ulong NextUInt64()
+        public UInt64 NextUInt64()
         {
             if (_index == _state.Length)
                 Twist();
 
-            ulong y = _state[_index];
+            UInt64 y = _state[_index];
             y ^= (y >> UShift) & DMask;
             y ^= (y << SShift) & BMask;
             y ^= (y << TShift) & CMask;
@@ -66,13 +66,13 @@ namespace Rand
 
         private void Twist()
         {
-            for (int i = 0; i < _state.Length; i++)
+            for (Int32 i = 0; i < _state.Length; i++)
             {
-                ulong upper = _state[i] & UpperMask;
-                ulong lower = _state[(i + 1) % RecurrenceDegree] & LowerMask;
-                ulong x = upper | lower;
+                UInt64 upper = _state[i] & UpperMask;
+                UInt64 lower = _state[(i + 1) % RecurrenceDegree] & LowerMask;
+                UInt64 x = upper | lower;
 
-                ulong xA = x >> 1;
+                UInt64 xA = x >> 1;
                 if (x % 2 != 0)
                     xA ^= TwistMatrixCoefficients;
 
@@ -82,15 +82,15 @@ namespace Rand
             _index = 0;
         }
 
-        public sealed class Factory : IReproducibleRngFactory<Mt1993764, UInt64>, IReproducibleRngFactory<Mt1993764, ulong[]>
+        public sealed class Factory : IReproducibleRngFactory<Mt1993764, UInt64>, IReproducibleRngFactory<Mt1993764, UInt64[]>
         {
             public Mt1993764 Create(UInt64 seed)
             {
                 // Init state from seed
-                ulong[] state = new ulong[RecurrenceDegree];
+                UInt64[] state = new UInt64[RecurrenceDegree];
                 state[0] = seed;
 
-                for (uint i = 1; i < state.Length; i++)
+                for (UInt32 i = 1; i < state.Length; i++)
                 {
                     state[i] = unchecked(F * (state[i - 1] ^ (state[i - 1] >> (WordSize - 2))) + i);
                 }
@@ -98,7 +98,7 @@ namespace Rand
                 return new Mt1993764(state);
             }
 
-            public Mt1993764 Create(ulong[] seed)
+            public Mt1993764 Create(UInt64[] seed)
             {
                 const UInt64 INITIAL_SEED = 19650218ul;
                 const UInt64 F1 = 3935559000370003845ul;
@@ -106,12 +106,12 @@ namespace Rand
 
                 var rng = Create(INITIAL_SEED);
                 var state = rng._state;
-                int stateIndex = 1;
-                int seedIndex = 0;
-                int iterationCount = Math.Max(RecurrenceDegree, seed.Length);
-                for (int i = 0; i < iterationCount; i++)
+                Int32 stateIndex = 1;
+                Int32 seedIndex = 0;
+                Int32 iterationCount = Math.Max(RecurrenceDegree, seed.Length);
+                for (Int32 i = 0; i < iterationCount; i++)
                 {
-                    state[stateIndex] = unchecked((state[stateIndex] ^ ((state[stateIndex - 1] ^ (state[stateIndex - 1] >> 62)) * F1)) + seed[seedIndex] + (ulong)seedIndex);
+                    state[stateIndex] = unchecked((state[stateIndex] ^ ((state[stateIndex - 1] ^ (state[stateIndex - 1] >> 62)) * F1)) + seed[seedIndex] + (UInt64)seedIndex);
                     stateIndex += 1;
                     seedIndex += 1;
                     if (stateIndex >= state.Length)
@@ -123,9 +123,9 @@ namespace Rand
                         seedIndex = 0;
                 }
 
-                for (int k = state.Length - 1; k > 0; k--)
+                for (Int32 k = state.Length - 1; k > 0; k--)
                 {
-                    state[stateIndex] = unchecked((state[stateIndex] ^ ((state[stateIndex - 1] ^ (state[stateIndex - 1] >> 62)) * F2)) - (ulong)stateIndex);
+                    state[stateIndex] = unchecked((state[stateIndex] ^ ((state[stateIndex - 1] ^ (state[stateIndex - 1] >> 62)) * F2)) - (UInt64)stateIndex);
                     stateIndex += 1;
                     if (stateIndex >= state.Length)
                     {

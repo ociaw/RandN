@@ -15,21 +15,21 @@ namespace Rand
             _rng = rng;
         }
 
-        public uint NextUInt32()
+        public UInt32 NextUInt32()
         {
-            Span<byte> buffer = stackalloc byte[4];
+            Span<Byte> buffer = stackalloc Byte[4];
             Fill(buffer);
             return BitConverter.ToUInt32(buffer);
         }
 
-        public ulong NextUInt64()
+        public UInt64 NextUInt64()
         {
-            Span<byte> buffer = stackalloc byte[8];
+            Span<Byte> buffer = stackalloc Byte[8];
             Fill(buffer);
             return BitConverter.ToUInt64(buffer);
         }
 
-        public void Fill(Span<byte> buffer) => _rng.GetBytes(buffer);
+        public void Fill(Span<Byte> buffer) => _rng.GetBytes(buffer);
 
         public void Dispose() => _rng.Dispose();
 
