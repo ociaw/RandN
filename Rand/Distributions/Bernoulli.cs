@@ -1,0 +1,69 @@
+﻿using System;
+
+namespace Rand.Distributions
+{
+    public sealed class Bernoulli : IDistribution<Boolean>
+    {
+        /// <summary>
+        /// Probability represented as _p / 2^64.
+        /// </summary>
+        private readonly UInt64 _p;
+
+        /// <summary>
+        /// Indicates whether or not this distribution always samples true.
+        /// </summary>
+        private readonly Boolean _alwaysTrue;
+
+        /// <summary>
+        /// 2^64
+        /// </summary>
+        private const Double SCALE = 2.0 * (1ul << 63);
+
+        private Bernoulli(UInt64 p, Boolean alwaysTrue)
+        {
+            _p = p;
+            _alwaysTrue = alwaysTrue;
+        }
+
+        /// <summary>
+        /// Creates a new Bernoulli distribution with a probability of p.
+        /// </summary>
+        /// <param name="p">The probability of success. 0 <= p <= 1</param>
+        public static Bernoulli FromP(Double p)
+        {
+            if (p < 0.0)
+                throw new ArgumentOutOfRangeException(nameof(p), p, $"{nameof(p)} must be greater than or equal to 0.");
+            if (p > 1.0)
+                throw new ArgumentOutOfRangeException(nameof(p), p, $"{nameof(p)} must be less than or equal to 1.");
+            if (p == 1.0)
+                return new Bernoulli(0, true);
+
+            return new Bernoulli((UInt64)(p * SCALE), false);
+        }
+
+        /// <summary>
+        /// Creates a new Bernoulli distribution, with a probability of <paramref name="numerator"/> / <paramref name="denominator"/>.
+        /// </summary>
+        public static Bernoulli FromRatio(UInt32 numerator, UInt32 denominator)
+        {
+            if (numerator > denominator)
+                throw new ArgumentOutOfRangeException(nameof(numerator), numerator, $"{nameof(numerator)} must be less than or equal to {nameof(denominator)}.");
+            if (numerator == denominator)
+                return new Bernoulli(0, true);
+
+            var p = (Double)numerator / denominator * SCALE;
+            return new Bernoulli((UInt64)p, false);
+        }
+
+        /// <summary>
+        /// Creates a new Bernoulli distribution, with a probability of <paramref name="numerator"/> / <see cref="UInt64.MaxValue"/>.
+        /// </summary>
+        public static Bernoulli FromInverse(UInt64 numerator) => new Bernoulli(numerator, false);
+
+        public Boolean TrySample<TRng>(TRng rng, out Boolean result) where TRng : IRng
+        {
+            result = _alwaysTrue || rng.NextUInt64() < _p;
+            return true;
+        }
+    }
+}
