@@ -1,8 +1,8 @@
 ﻿using System;
 using Xunit;
-using Rand.Tests;
+using RandN.Tests;
 
-namespace Rand.Distributions.Tests
+namespace RandN.Distributions.Tests
 {
     public class UniformIntTests
     {

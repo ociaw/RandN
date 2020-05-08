@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <AssemblyName>Rand</AssemblyName>
-    <RootNamespace>Rand</RootNamespace>
+    <AssemblyName>RandN</AssemblyName>
+    <RootNamespace>RandN</RootNamespace>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <Nullable>enable</Nullable>

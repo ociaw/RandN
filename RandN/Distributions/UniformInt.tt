@@ -18,7 +18,7 @@ var types = new (Type type, Type unsigned, Type ularge)[]
 using System;
 
 /*** This file is auto generated - any changes made here will be lost. ***/
-namespace Rand.Distributions
+namespace RandN.Distributions
 {
 <#
 foreach (var tuple in types)

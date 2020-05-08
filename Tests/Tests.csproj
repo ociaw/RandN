@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>Rand.Tests</RootNamespace>
+    <RootNamespace>RandN.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Rand\Rand.csproj" />
+    <ProjectReference Include="..\RandN\RandN.csproj" />
   </ItemGroup>
 
 </Project>

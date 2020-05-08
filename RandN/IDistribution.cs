@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rand
+namespace RandN
 {
     public interface IDistribution<TResult>
     {

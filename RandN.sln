@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{ED866C80-C670-432B-8F7A-F705DBFA21D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rand", "Rand\Rand.csproj", "{D9C3778C-E616-4F6E-9DAD-9FA0D7F198A6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandN", "RandN\RandN.csproj", "{D9C3778C-E616-4F6E-9DAD-9FA0D7F198A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

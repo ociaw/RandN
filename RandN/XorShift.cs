@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Buffers.Binary;
-using Rand.RngHelpers;
+using RandN.RngHelpers;
 
-namespace Rand
+namespace RandN
 {
     /// <summary>
     /// XOR Shift algorithm for generating random numbers. Based off of the algorithm used in Rust's rand crate.

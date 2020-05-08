@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Buffers.Binary;
 
-namespace Rand.RngHelpers
+namespace RandN.RngHelpers
 {
     /// <summary>
     /// A helper class to implement <see cref="IRng"/> methods via either NextUInt32 or NextUInt64.

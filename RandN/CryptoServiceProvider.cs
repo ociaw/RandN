@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace Rand
+namespace RandN
 {
     /// <summary>
     /// Wraps <see cref="RNGCryptoServiceProvider"/>.

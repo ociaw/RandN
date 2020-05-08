@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Developers of the Rand project.
+﻿// Copyright 2018 Developers of the RandN project.
 // Copyright 2017 Paul Dicker.
 // Copyright 2014-2017 Melissa O'Neill and PCG Project contributors
 //
@@ -8,10 +8,10 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 
-using Rand.RngHelpers;
+using RandN.RngHelpers;
 using System;
 
-namespace Rand.Rngs
+namespace RandN.Rngs
 {
     /// <summary>
     /// A PCG random number generator (XSH RR 64/32 (LCG) variant).

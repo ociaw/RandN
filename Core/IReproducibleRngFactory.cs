@@ -1,4 +1,4 @@
-﻿namespace Rand
+﻿namespace RandN
 {
     /// <summary>
     /// A factory that produces reproducible Random Number Generators.

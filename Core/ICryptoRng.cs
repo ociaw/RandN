@@ -1,4 +1,4 @@
-﻿namespace Rand
+﻿namespace RandN
 {
     /// <summary>
     /// A marker interface used to indicate that an <see cref="IRng"/>

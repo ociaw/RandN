@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace Rand.Distributions.Tests
+namespace RandN.Distributions.Tests
 {
     public class BernoulliTests
     {

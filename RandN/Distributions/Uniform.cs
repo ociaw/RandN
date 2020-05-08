@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rand.Distributions
+namespace RandN.Distributions
 {
     public static class Uniform
     {

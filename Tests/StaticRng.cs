@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rand.Tests
+namespace RandN.Tests
 {
     internal sealed class StaticRng : IRng
     {

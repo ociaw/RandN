@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rand
+namespace RandN
 {
     /// <summary>
     /// A Random Number Generator (RNG)

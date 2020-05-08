@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rand
+namespace RandN
 {
     /// <summary>
     /// Creates instances of an <see cref="IReproducibleRngFactory"/> using automatically generated seeds.
