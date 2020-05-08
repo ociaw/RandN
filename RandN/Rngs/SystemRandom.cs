@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RandN
+namespace RandN.Rngs
 {
     /// <summary>
     /// Wraps <see cref="Random"/>.

@@ -1,7 +1,7 @@
 ﻿using System;
 using RandN.RngHelpers;
 
-namespace RandN
+namespace RandN.Rngs
 {
     /// <summary>
     /// An implementation of Mersenne Twister, variant MT19937-64.
