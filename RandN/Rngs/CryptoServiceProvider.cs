@@ -8,12 +8,14 @@ namespace RandN.Rngs
     /// </summary>
     public sealed class CryptoServiceProvider : IRng, IDisposable
     {
+        private static readonly Factory _factory = new Factory();
         private readonly RNGCryptoServiceProvider _rng;
 
-        private CryptoServiceProvider(RNGCryptoServiceProvider rng)
-        {
-            _rng = rng;
-        }
+        private CryptoServiceProvider(RNGCryptoServiceProvider rng) => _rng = rng;
+
+        public static CryptoServiceProvider Create() => new CryptoServiceProvider(new RNGCryptoServiceProvider());
+
+        public static Factory GetFactory() => _factory;
 
         public UInt32 NextUInt32()
         {
@@ -35,13 +37,9 @@ namespace RandN.Rngs
 
         public sealed class Factory : IRngFactory<CryptoServiceProvider>
         {
-            public static Factory Instance { get; } = new Factory();
+            internal Factory() { }
 
-            public CryptoServiceProvider Create()
-            {
-                var rng = new RNGCryptoServiceProvider();
-                return new CryptoServiceProvider(rng);
-            }
+            public CryptoServiceProvider Create() => CryptoServiceProvider.Create();
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using Xunit;
+using RandN.Rngs;
 
 namespace RandN.Tests
 {
@@ -11,7 +12,7 @@ namespace RandN.Tests
         [Fact]
         public void ReferenceUInt64()
         {
-            var factory = new Mt1993764.Factory();
+            var factory = Mt1993764.GetFactory();
             var seed = new UInt64[] { 0x12345ul, 0x23456ul, 0x34567ul, 0x45678ul };
             var rng = factory.Create(seed);
 

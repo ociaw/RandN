@@ -9,6 +9,8 @@ namespace RandN.Rngs
     /// </summary>
     public sealed class XorShift : IRng
     {
+        private static readonly Factory _factory = new Factory();
+
         private UInt32 _x;
         private UInt32 _y;
         private UInt32 _z;
@@ -21,6 +23,13 @@ namespace RandN.Rngs
             _z = z;
             _w = w;
         }
+
+        public static XorShift Create(UInt32 x, UInt32 y, UInt32 z, UInt32 w)
+        {
+            return new XorShift(x, y, z, w);
+        }
+
+        public static Factory GetFactory() => _factory;
 
         public UInt32 NextUInt32()
         {
@@ -48,14 +57,11 @@ namespace RandN.Rngs
 
         public sealed class Factory : IReproducibleRngFactory<XorShift, Seed>
         {
-            public static Factory Instance { get; } = new Factory();
+            internal Factory() { }
 
             public Int32 SeedLength => sizeof(UInt32) * 4;
 
-            public XorShift Create(Seed seed)
-            {
-                return new XorShift(seed.X, seed.Y, seed.Z, seed.W);
-            }
+            public XorShift Create(Seed seed) => XorShift.Create(seed.X, seed.Y, seed.Z, seed.W);
 
             public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
             {

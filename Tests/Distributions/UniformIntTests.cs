@@ -1,5 +1,6 @@
 ﻿using System;
 using Xunit;
+using RandN.Rngs;
 using RandN.Tests;
 
 namespace RandN.Distributions.Tests
@@ -78,7 +79,7 @@ namespace RandN.Distributions.Tests
             const UInt64 high = 1000;
             var exclusiveDist = Uniform.New(low, high);
             var inclusiveDist = Uniform.New(low, high);
-            var rng = new Mt1993764.Factory().Create(5489);
+            var rng = Mt1993764.Create(5489);
 
             for (var i = 0; i < 10000; i++)
             {
@@ -102,7 +103,7 @@ namespace RandN.Distributions.Tests
             const SByte high = 127;
             var exclusiveDist = Uniform.New(low, high);
             var inclusiveDist = Uniform.New(low, high);
-            var rng = new Mt1993764.Factory().Create(5489);
+            var rng = Mt1993764.Create(5489);
 
             for (var i = 0; i < 10000; i++)
             {
@@ -126,7 +127,7 @@ namespace RandN.Distributions.Tests
             const Int16 high = 500;
             var exclusiveDist = Uniform.New(low, high);
             var inclusiveDist = Uniform.New(low, high);
-            var rng = new Mt1993764.Factory().Create(5489);
+            var rng = Mt1993764.Create(5489);
 
             for (var i = 0; i < 10000; i++)
             {
@@ -150,7 +151,7 @@ namespace RandN.Distributions.Tests
             const Int32 high = 500;
             var exclusiveDist = Uniform.New(low, high);
             var inclusiveDist = Uniform.New(low, high);
-            var rng = new Mt1993764.Factory().Create(5489);
+            var rng = Mt1993764.Create(5489);
 
             for (var i = 0; i < 10000; i++)
             {
@@ -174,7 +175,7 @@ namespace RandN.Distributions.Tests
             const Int64 high = 500;
             var exclusiveDist = Uniform.New(low, high);
             var inclusiveDist = Uniform.New(low, high);
-            var rng = new Mt1993764.Factory().Create(5489);
+            var rng = Mt1993764.Create(5489);
 
             for (var i = 0; i < 10000; i++)
             {
@@ -198,7 +199,7 @@ namespace RandN.Distributions.Tests
             TimeSpan high = TimeSpan.FromTicks(500);
             var exclusiveDist = Uniform.New(low, high);
             var inclusiveDist = Uniform.New(low, high);
-            var rng = new Mt1993764.Factory().Create(5489);
+            var rng = Mt1993764.Create(5489);
 
             for (var i = 0; i < 10000; i++)
             {

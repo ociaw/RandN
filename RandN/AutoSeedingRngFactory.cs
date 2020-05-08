@@ -1,4 +1,5 @@
 ﻿using System;
+using RandN.Rngs;
 
 namespace RandN
 {
@@ -41,7 +42,7 @@ namespace RandN
             if (rngFactory == null)
                 throw new ArgumentNullException(nameof(rngFactory));
 
-            var seedSource = CryptoServiceProvider.Factory.Instance.Create();
+            var seedSource = CryptoServiceProvider.GetFactory().Create();
             return new AutoSeedingRngFactory<TRng, CryptoServiceProvider, TSeed>(rngFactory, seedSource);
         }
 

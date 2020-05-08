@@ -7,12 +7,15 @@ namespace RandN.Rngs
     /// </summary>
     public sealed class SystemRandom : IRng
     {
+        private static readonly Factory _factory = new Factory();
+
         private readonly Random _rng;
 
-        private SystemRandom(Random rng)
-        {
-            _rng = rng;
-        }
+        public SystemRandom(Random rng) => _rng = rng;
+
+        public static SystemRandom Create(Int32 seed) => new SystemRandom(new Random(seed));
+
+        public static Factory GetFactory() => _factory;
 
         public UInt32 NextUInt32()
         {
@@ -32,18 +35,11 @@ namespace RandN.Rngs
 
         public sealed class Factory : IReproducibleRngFactory<SystemRandom, Int32>
         {
-            public static Factory Instance { get; } = new Factory();
+            internal Factory() { }
 
-            public SystemRandom Create(Int32 seed)
-            {
-                var rng = new Random(seed);
-                return new SystemRandom(rng);
-            }
+            public SystemRandom Create(Int32 seed) => SystemRandom.Create(seed);
 
-            public Int32 CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
-            {
-                return (Int32)seedingRng.NextUInt32();
-            }
+            public Int32 CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng => (Int32)seedingRng.NextUInt32();
         }
     }
 }
