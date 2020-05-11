@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Buffers.Binary;
+using System.Runtime.InteropServices;
 
 namespace RandN.RngHelpers
 {
@@ -57,6 +58,62 @@ namespace RandN.RngHelpers
                 BinaryPrimitives.WriteUInt32LittleEndian(chunk, num);
                 chunk.Slice(destination.Length).CopyTo(destination);
             }
+        }
+
+        /// <summary>
+        /// Fills <paramref name="dest"/> with UInt32 chunks from <paramref name="src"/>.
+        /// </summary>
+        /// <returns>A tuple with the number of UInt32 chunks consumed from <paramref name="src"/> and the number of bytes filled into <paramref name="dest"/>.</returns>
+        public static (Int32 consumedUInt32, Int32 filledBytes) FillViaUInt32Chunks(ReadOnlySpan<UInt32> src, Span<Byte> dest)
+        {
+            const Int32 size = sizeof(UInt32);
+            var chunkSizeByte = Math.Min(src.Length * size, dest.Length);
+            var chunkSize = (chunkSizeByte + size - 1) / size;
+            if (BitConverter.IsLittleEndian)
+            {
+                var srcBytes = MemoryMarshal.AsBytes(src).Slice(0, chunkSizeByte);
+                srcBytes.CopyTo(dest);
+            }
+            else
+            {
+                for (var i = 0; i < chunkSize; i++)
+                {
+                    Span<Byte> leBytes = stackalloc Byte[size];
+                    BinaryPrimitives.WriteUInt32LittleEndian(leBytes, src[i]);
+                    var byteCount = Math.Min(size, chunkSizeByte - i * size);
+                    leBytes.Slice(0, i * byteCount).CopyTo(dest);
+                    dest = dest.Slice(byteCount);
+                }
+            }
+            return (chunkSize, chunkSizeByte);
+        }
+
+        /// <summary>
+        /// Fills <paramref name="dest"/> with UInt64 chunks from <paramref name="src"/>.
+        /// </summary>
+        /// <returns>A tuple with the number of UInt64 chunks consumed from <paramref name="src"/> and the number of bytes filled into <paramref name="dest"/>.</returns>
+        public static (Int32 consumedUInt64, Int32 filledBytes) FillViaUInt64(ReadOnlySpan<UInt64> src, Span<Byte> dest)
+        {
+            const Int32 size = sizeof(UInt64);
+            var chunkSizeByte = Math.Min(src.Length * size, dest.Length);
+            var chunkSize = (chunkSizeByte + size - 1) / size;
+            if (BitConverter.IsLittleEndian)
+            {
+                var srcBytes = MemoryMarshal.AsBytes(src).Slice(0, chunkSizeByte);
+                srcBytes.CopyTo(dest);
+            }
+            else
+            {
+                for (var i = 0; i < chunkSize; i++)
+                {
+                    Span<Byte> leBytes = stackalloc Byte[size];
+                    BinaryPrimitives.WriteUInt64LittleEndian(leBytes, src[i]);
+                    var byteCount = Math.Min(size, chunkSizeByte - i * size);
+                    leBytes.Slice(0, i * byteCount).CopyTo(dest);
+                    dest = dest.Slice(byteCount);
+                }
+            }
+            return (chunkSize, chunkSizeByte);
         }
     }
 }
