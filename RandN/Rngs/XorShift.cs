@@ -41,7 +41,7 @@ namespace RandN.Rngs
             return _w;
         }
 
-        public UInt64 NextUInt64() => Filler.NextUInt32ViaUInt64(this);
+        public UInt64 NextUInt64() => Filler.NextUInt64ViaUInt32(this);
 
         public void Fill(Span<Byte> buffer) => Filler.FillBytesViaNext(this, buffer);
 
