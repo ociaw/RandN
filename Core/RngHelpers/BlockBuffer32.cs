@@ -70,7 +70,7 @@ namespace RandN.RngHelpers
         /// <inheritdoc />
         public UInt64 NextUInt64()
         {
-            static UInt64 readUInt64(ReadOnlySpan<UInt32> results) => (results[1] << 32) | results[0];
+            static UInt64 readUInt64(ReadOnlySpan<UInt32> results) => ((UInt64)results[1] << 32) | results[0];
 
             Span<UInt32> span = _results;
             Int32 length = _rng.BlockLength;
