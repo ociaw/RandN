@@ -8,17 +8,9 @@ namespace RandN
         /// Samples a value from <paramref name="rng"/>, blocking until a suitable value is returned.
         /// </summary>
         /// <remarks>
-        /// This method could block indefinitely if the quality of the RNG is poor or if luck hates you.
+        /// Depending on the distribution, this method could block indefinitely if the quality of the RNG is poor or if you're extraordinarily unlucky.
         /// </remarks>
-        TResult Sample<TRng>(TRng rng)
-            where TRng : IRng
-        {
-            TResult result;
-            while (!TrySample(rng, out result))
-            { }
-
-            return result;
-        }
+        TResult Sample<TRng>(TRng rng) where TRng : IRng;
 
         /// <summary>
         /// Attempts to sample a value from <paramref name="rng"/> once, returning false if the value returned

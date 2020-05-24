@@ -60,9 +60,13 @@ namespace RandN.Distributions
         /// </summary>
         public static Bernoulli FromInverse(UInt64 numerator) => new Bernoulli(numerator, false);
 
+        /// <inheritdoc />
+        public Boolean Sample<TRng>(TRng rng) where TRng : IRng => _alwaysTrue || rng.NextUInt64() < _p;
+
+        /// <inheritdoc />
         public Boolean TrySample<TRng>(TRng rng, out Boolean result) where TRng : IRng
         {
-            result = _alwaysTrue || rng.NextUInt64() < _p;
+            result = Sample(rng);
             return true;
         }
     }

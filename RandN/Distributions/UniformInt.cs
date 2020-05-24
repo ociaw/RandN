@@ -36,6 +36,24 @@ namespace RandN.Distributions
             return new UniformSByte(low, range, (Byte)intsToReject);
         }
 
+        /// <inheritdoc />
+        public SByte Sample<TRng>(TRng rng) where TRng : IRng
+        {
+            var unsigned = rng.NextUInt32();
+            if (_range == 0) // 0 is a special case where we sample the entire range.
+                return (SByte)unsigned;
+
+            var zone = UInt32.MaxValue - _zone;
+
+            while (unsigned > zone)
+            {
+                unsigned = rng.NextUInt32();
+            }
+
+            return unchecked((SByte)((SByte)(unsigned % _range) + _low));
+        }
+
+        /// <inheritdoc />
         public Boolean TrySample<TRng>(TRng rng, out SByte result) where TRng : IRng
         {
             var unsigned = rng.NextUInt32();
@@ -90,6 +108,24 @@ namespace RandN.Distributions
             return new UniformInt16(low, range, (UInt16)intsToReject);
         }
 
+        /// <inheritdoc />
+        public Int16 Sample<TRng>(TRng rng) where TRng : IRng
+        {
+            var unsigned = rng.NextUInt32();
+            if (_range == 0) // 0 is a special case where we sample the entire range.
+                return (Int16)unsigned;
+
+            var zone = UInt32.MaxValue - _zone;
+
+            while (unsigned > zone)
+            {
+                unsigned = rng.NextUInt32();
+            }
+
+            return unchecked((Int16)((Int16)(unsigned % _range) + _low));
+        }
+
+        /// <inheritdoc />
         public Boolean TrySample<TRng>(TRng rng, out Int16 result) where TRng : IRng
         {
             var unsigned = rng.NextUInt32();
@@ -144,6 +180,24 @@ namespace RandN.Distributions
             return new UniformInt32(low, range, (UInt32)intsToReject);
         }
 
+        /// <inheritdoc />
+        public Int32 Sample<TRng>(TRng rng) where TRng : IRng
+        {
+            var unsigned = rng.NextUInt32();
+            if (_range == 0) // 0 is a special case where we sample the entire range.
+                return (Int32)unsigned;
+
+            var zone = UInt32.MaxValue - _zone;
+
+            while (unsigned > zone)
+            {
+                unsigned = rng.NextUInt32();
+            }
+
+            return unchecked((Int32)((Int32)(unsigned % _range) + _low));
+        }
+
+        /// <inheritdoc />
         public Boolean TrySample<TRng>(TRng rng, out Int32 result) where TRng : IRng
         {
             var unsigned = rng.NextUInt32();
@@ -198,6 +252,24 @@ namespace RandN.Distributions
             return new UniformInt64(low, range, (UInt64)intsToReject);
         }
 
+        /// <inheritdoc />
+        public Int64 Sample<TRng>(TRng rng) where TRng : IRng
+        {
+            var unsigned = rng.NextUInt64();
+            if (_range == 0) // 0 is a special case where we sample the entire range.
+                return (Int64)unsigned;
+
+            var zone = UInt64.MaxValue - _zone;
+
+            while (unsigned > zone)
+            {
+                unsigned = rng.NextUInt64();
+            }
+
+            return unchecked((Int64)((Int64)(unsigned % _range) + _low));
+        }
+
+        /// <inheritdoc />
         public Boolean TrySample<TRng>(TRng rng, out Int64 result) where TRng : IRng
         {
             var unsigned = rng.NextUInt64();
@@ -252,6 +324,24 @@ namespace RandN.Distributions
             return new UniformByte(low, range, (Byte)intsToReject);
         }
 
+        /// <inheritdoc />
+        public Byte Sample<TRng>(TRng rng) where TRng : IRng
+        {
+            var unsigned = rng.NextUInt32();
+            if (_range == 0) // 0 is a special case where we sample the entire range.
+                return (Byte)unsigned;
+
+            var zone = UInt32.MaxValue - _zone;
+
+            while (unsigned > zone)
+            {
+                unsigned = rng.NextUInt32();
+            }
+
+            return unchecked((Byte)((Byte)(unsigned % _range) + _low));
+        }
+
+        /// <inheritdoc />
         public Boolean TrySample<TRng>(TRng rng, out Byte result) where TRng : IRng
         {
             var unsigned = rng.NextUInt32();
@@ -306,6 +396,24 @@ namespace RandN.Distributions
             return new UniformUInt16(low, range, (UInt16)intsToReject);
         }
 
+        /// <inheritdoc />
+        public UInt16 Sample<TRng>(TRng rng) where TRng : IRng
+        {
+            var unsigned = rng.NextUInt32();
+            if (_range == 0) // 0 is a special case where we sample the entire range.
+                return (UInt16)unsigned;
+
+            var zone = UInt32.MaxValue - _zone;
+
+            while (unsigned > zone)
+            {
+                unsigned = rng.NextUInt32();
+            }
+
+            return unchecked((UInt16)((UInt16)(unsigned % _range) + _low));
+        }
+
+        /// <inheritdoc />
         public Boolean TrySample<TRng>(TRng rng, out UInt16 result) where TRng : IRng
         {
             var unsigned = rng.NextUInt32();
@@ -360,6 +468,24 @@ namespace RandN.Distributions
             return new UniformUInt32(low, range, (UInt32)intsToReject);
         }
 
+        /// <inheritdoc />
+        public UInt32 Sample<TRng>(TRng rng) where TRng : IRng
+        {
+            var unsigned = rng.NextUInt32();
+            if (_range == 0) // 0 is a special case where we sample the entire range.
+                return (UInt32)unsigned;
+
+            var zone = UInt32.MaxValue - _zone;
+
+            while (unsigned > zone)
+            {
+                unsigned = rng.NextUInt32();
+            }
+
+            return unchecked((UInt32)((UInt32)(unsigned % _range) + _low));
+        }
+
+        /// <inheritdoc />
         public Boolean TrySample<TRng>(TRng rng, out UInt32 result) where TRng : IRng
         {
             var unsigned = rng.NextUInt32();
@@ -414,6 +540,24 @@ namespace RandN.Distributions
             return new UniformUInt64(low, range, (UInt64)intsToReject);
         }
 
+        /// <inheritdoc />
+        public UInt64 Sample<TRng>(TRng rng) where TRng : IRng
+        {
+            var unsigned = rng.NextUInt64();
+            if (_range == 0) // 0 is a special case where we sample the entire range.
+                return (UInt64)unsigned;
+
+            var zone = UInt64.MaxValue - _zone;
+
+            while (unsigned > zone)
+            {
+                unsigned = rng.NextUInt64();
+            }
+
+            return unchecked((UInt64)((UInt64)(unsigned % _range) + _low));
+        }
+
+        /// <inheritdoc />
         public Boolean TrySample<TRng>(TRng rng, out UInt64 result) where TRng : IRng
         {
             var unsigned = rng.NextUInt64();

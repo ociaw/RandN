@@ -72,7 +72,8 @@ namespace RandN.Distributions
             return new UniformDouble(low, scale);
         }
 
-        public Boolean TrySample<TRng>(TRng rng, out Double result) where TRng : IRng
+        /// <inheritdoc />
+        public Double Sample<TRng>(TRng rng) where TRng : IRng
         {
             // Generate a value in the range [1, 2)
             var sample = rng.NextUInt64();
@@ -82,7 +83,13 @@ namespace RandN.Distributions
             // overflowing into infinity when multiplying with scale
             Double value01 = value12 - 1.0;
 
-            result = value01 * _scale + _low;
+            return value01 * _scale + _low;
+        }
+
+        /// <inheritdoc />
+        public Boolean TrySample<TRng>(TRng rng, out Double result) where TRng : IRng
+        {
+            result = Sample(rng);
             return true;
         }
     }

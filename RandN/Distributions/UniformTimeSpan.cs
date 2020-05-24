@@ -24,7 +24,15 @@ namespace RandN.Distributions
             UniformInt64 backing = UniformInt64.CreateInclusive(low.Ticks, high.Ticks);
             return new UniformTimeSpan(backing);
         }
-            
+
+        /// <inheritdoc />
+        public TimeSpan Sample<TRng>(TRng rng) where TRng : IRng
+        {
+            var ticks = _backing.Sample(rng);
+            return TimeSpan.FromTicks(ticks);
+        }
+
+        /// <inheritdoc />
         public Boolean TrySample<TRng>(TRng rng, out TimeSpan result) where TRng : IRng
         {
             if (_backing.TrySample(rng, out var ticks))

@@ -60,6 +60,24 @@ foreach (var tuple in types)
             return new Uniform<#= type #>(low, range, (<#= unsigned #>)intsToReject);
         }
 
+        /// <inheritdoc />
+        public <#= type #> Sample<TRng>(TRng rng) where TRng : IRng
+        {
+            var unsigned = rng.Next<#= ularge #>();
+            if (_range == 0) // 0 is a special case where we sample the entire range.
+                return (<#= type #>)unsigned;
+
+            var zone = <#= ularge #>.MaxValue - _zone;
+
+            while (unsigned > zone)
+            {
+                unsigned = rng.Next<#= ularge #>();
+            }
+
+            return unchecked((<#= type #>)((<#= type #>)(unsigned % _range) + _low));
+        }
+
+        /// <inheritdoc />
         public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
         {
             var unsigned = rng.Next<#= ularge #>();
