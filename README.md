@@ -1,5 +1,5 @@
 # RandN
-RandN is a library for generating random numbers in .NET. It aims to rectify deficiencies in
+RandN is a .NET library for random number generation. It aims to rectify deficiencies in
 `System.Random` with adaptability and extensibility in mind. RandN is heavily inspired by the
 design of the Rust crate [rand](https://github.com/rust-random/rand), and aims to maintain some
 level of compatibility with it.
@@ -39,6 +39,11 @@ or you can use it to sample a distribution:
 ```
 var distribution = Uniform.NewInclusive(42, 54);
 var answer = distribution.sample(rng);
+```
+Any type implementing `IRng` can be wrapped with `RandomWrapper`, which can be used as a drop-in
+replacement for `Random`.
+```
+Random random = RandomWrapper.Create(rng);
 ```
 
 # Compatibility
