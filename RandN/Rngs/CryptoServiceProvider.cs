@@ -6,7 +6,7 @@ namespace RandN.Rngs
     /// <summary>
     /// Wraps <see cref="RNGCryptoServiceProvider"/>.
     /// </summary>
-    public sealed class CryptoServiceProvider : IRng, IDisposable
+    public sealed class CryptoServiceProvider : IRng, ICryptoRng, IDisposable
     {
         private static readonly Factory _factory = new Factory();
         private readonly RNGCryptoServiceProvider _rng;
