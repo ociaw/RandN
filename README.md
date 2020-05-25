@@ -35,13 +35,17 @@ var bigNum = rng.NextUInt64();
 var buffer = new Byte[1000];
 rng.Fill(buffer);
 ```
+
 or you can use it to sample a distribution:
+
 ```
 var distribution = Uniform.NewInclusive(42, 54);
 var answer = distribution.sample(rng);
 ```
+
 Any type implementing `IRng` can be wrapped with `RandomWrapper`, which can be used as a drop-in
 replacement for `Random`.
+
 ```
 Random random = RandomWrapper.Create(rng);
 ```
