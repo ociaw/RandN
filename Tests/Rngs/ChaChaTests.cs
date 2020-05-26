@@ -1,9 +1,8 @@
-﻿using RandN.Rngs;
-using System;
+﻿using System;
 using Xunit;
 using Seed = RandN.Rngs.ChaCha.Seed;
 
-namespace RandN.Tests.Rngs
+namespace RandN.Rngs.Tests
 {
     public sealed class ChaChaTests
     {
