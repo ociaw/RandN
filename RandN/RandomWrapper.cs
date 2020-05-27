@@ -29,8 +29,10 @@ namespace RandN
         /// <inheritdoc />
         public override void NextBytes(Byte[] buffer) => _rng.Fill(buffer);
 
+#if !NETSTANDARD2_0
         /// <inheritdoc />
         public override void NextBytes(Span<Byte> buffer) => _rng.Fill(buffer);
+#endif
 
         /// <inheritdoc />
         public override Double NextDouble() => _doubleDist.Sample(_rng);

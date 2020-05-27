@@ -51,7 +51,5 @@ Random random = RandomWrapper.Create(rng);
 ```
 
 # Compatibility
-* RandN currently targets .NET Standard 2.1, so .NET Framework is not supported. This may change in
-the future.
 * RandN is written with the assumption that C# 8 Nullable Reference types are enabled and therefore
 does not null check arguments.

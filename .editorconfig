@@ -1,0 +1,5 @@
+﻿[*.cs]
+
+# IDE0056: Use index operator
+# We can't use index operators since we target .NET Standard 2.0
+csharp_style_prefer_index_operator = true:none

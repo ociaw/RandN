@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Buffers.Binary;
 using System.Security.Cryptography;
 
 namespace RandN.Rngs
@@ -21,17 +22,26 @@ namespace RandN.Rngs
         {
             Span<Byte> buffer = stackalloc Byte[4];
             Fill(buffer);
-            return BitConverter.ToUInt32(buffer);
+            return BinaryPrimitives.ReadUInt32LittleEndian(buffer);
         }
 
         public UInt64 NextUInt64()
         {
             Span<Byte> buffer = stackalloc Byte[8];
             Fill(buffer);
-            return BitConverter.ToUInt64(buffer);
+            return BinaryPrimitives.ReadUInt64LittleEndian(buffer);
         }
 
-        public void Fill(Span<Byte> buffer) => _rng.GetBytes(buffer);
+        public void Fill(Span<Byte> buffer)
+        {
+#if NETSTANDARD2_0
+            var tmp = new Byte[buffer.Length];
+            _rng.GetBytes(tmp);
+            tmp.CopyTo(buffer);
+#else
+            _rng.GetBytes(buffer);
+#endif
+        }
 
         public void Dispose() => _rng.Dispose();
 
