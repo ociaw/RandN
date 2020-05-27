@@ -2,10 +2,14 @@
 using System.Buffers.Binary;
 using RandN.RngHelpers;
 
+// Based off of
+// Marsaglia, George (July 2003). "Xorshift RNGs". Journal of Statistical Software. Vol. 8 (Issue 14).
+// https://www.jstatsoft.org/v08/i14/paper
+
 namespace RandN.Rngs
 {
     /// <summary>
-    /// XOR Shift algorithm for generating random numbers. Based off of the algorithm used in Rust's rand crate.
+    /// XOR Shift algorithm for generating random numbers.
     /// </summary>
     public sealed class XorShift : IRng
     {
@@ -24,13 +28,26 @@ namespace RandN.Rngs
             _w = w;
         }
 
+        /// <summary>
+        /// Creates an XorShift RNG using the given seed.
+        /// </summary>
         public static XorShift Create(UInt32 x, UInt32 y, UInt32 z, UInt32 w)
         {
+            // XorShift can't be seeded with all zeros, but we don't want to throw an exception
+            // since it's possible for a random seed to be all zeroes, and it would be inconsistent
+            // with other RNGs. Instead, we seed it with a constant.
+            if (x == 0 && y == 0 && z == 0 && w == 0)
+                return new XorShift(0xBAD_5EED, 0xBAD_5EED, 0xBAD_5EED, 0xBAD_5EED);
+
             return new XorShift(x, y, z, w);
         }
 
+        /// <summary>
+        /// Gets the XorShift factory.
+        /// </summary>
         public static Factory GetFactory() => _factory;
 
+        /// <inheritdoc />
         public UInt32 NextUInt32()
         {
             UInt32 t = _x ^ (_x << 11);
@@ -41,8 +58,10 @@ namespace RandN.Rngs
             return _w;
         }
 
+        /// <inheritdoc />
         public UInt64 NextUInt64() => Filler.NextUInt64ViaUInt32(this);
 
+        /// <inheritdoc />
         public void Fill(Span<Byte> buffer) => Filler.FillBytesViaNext(this, buffer);
 
         public ReadOnlySpan<Byte> GetState()
@@ -61,8 +80,10 @@ namespace RandN.Rngs
 
             public Int32 SeedLength => sizeof(UInt32) * 4;
 
+            /// <inheritdoc />
             public XorShift Create(Seed seed) => XorShift.Create(seed.X, seed.Y, seed.Z, seed.W);
 
+            /// <inheritdoc />
             public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
             {
                 return new Seed(
