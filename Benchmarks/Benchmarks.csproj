@@ -6,6 +6,7 @@
     <AssemblyName>Benchmarks</AssemblyName>
     <RootNamespace>RandN.Benchmarks</RootNamespace>
     <Optimize>true</Optimize>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
