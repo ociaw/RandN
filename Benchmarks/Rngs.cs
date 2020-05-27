@@ -13,7 +13,6 @@ namespace RandN.Benchmarks
         private readonly ChaCha _chaCha20;
         private readonly Pcg32 _pcg32;
         private readonly Mt1993764 _mt1993764;
-        private readonly SystemRandom _systemRandom;
         private readonly XorShift _xorShift;
         private readonly CryptoServiceProvider _cryptoServiceProvider;
 
@@ -24,7 +23,6 @@ namespace RandN.Benchmarks
             _chaCha20 = ChaCha.Create(new ChaCha.Seed(), 20);
             _pcg32 = Pcg32.Create(0, 0);
             _mt1993764 = Mt1993764.Create(0);
-            _systemRandom = SystemRandom.Create(0);
             _xorShift = XorShift.Create(1, 1, 1, 1);
             _cryptoServiceProvider = CryptoServiceProvider.Create();
         }
@@ -66,14 +64,6 @@ namespace RandN.Benchmarks
         {
             Byte[] buffer = new Byte[BUFFER_LENGTH];
             _pcg32.Fill(buffer);
-            return buffer;
-        }
-
-        [Benchmark]
-        public Byte[] SystemRandomFill()
-        {
-            Byte[] buffer = new Byte[BUFFER_LENGTH];
-            _systemRandom.Fill(buffer);
             return buffer;
         }
 
