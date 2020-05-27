@@ -9,6 +9,16 @@
     <StartupObject />
     <Nullable>enable</Nullable>
     <LangVersion>8.0</LangVersion>
+    <Version>0.1.0-alpha</Version>
+    <Authors>ociaw</Authors>
+    <Company>ociaw</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>RandN.Core defines the core interfaces of RandN, thus is intended only to be used by those implementing a random number generator. Others should instead use the RandN package itself. RandN.Core also provides RNG implementation helpers.</Description>
+    <PackageProjectUrl>https://github.com/ociaw/RandN</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ociaw/RandN.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>rng random</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
