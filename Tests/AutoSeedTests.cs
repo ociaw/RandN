@@ -8,8 +8,8 @@ namespace RandN.Tests
         [Fact]
         public void SequentialSeedStaticRng()
         {
-            var seedSource = new SequentialRng(0);
-            var rngFactory = new StaticRng.Factory();
+            var seedSource = new StepRng(0);
+            var rngFactory = new StepRng.Factory(increment: 0);
             var autoSeeder = AutoSeedingRngFactory.Create(rngFactory, seedSource);
 
             for (UInt64 i = 0; i < 10; i++)

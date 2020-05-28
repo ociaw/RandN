@@ -24,7 +24,7 @@ namespace RandN.Distributions.Tests
         {
             const UInt32 halfway = UInt32.MaxValue / 2;
             var distribution = Uniform.NewInclusive(0, halfway + 1);
-            var rng = new SequentialRng(halfway);
+            var rng = new StepRng(halfway);
             Assert.True(distribution.TrySample(rng, out UInt32 result));
             Assert.Equal(halfway, result);
             Assert.True(distribution.TrySample(rng, out result));
@@ -41,7 +41,7 @@ namespace RandN.Distributions.Tests
         {
             const Int32 halfway = -1;
             var distribution = Uniform.NewInclusive(Int32.MinValue, halfway + 1);
-            var rng = new SequentialRng(Int32.MaxValue);
+            var rng = new StepRng(Int32.MaxValue);
             Assert.True(distribution.TrySample(rng, out Int32 result));
             Assert.Equal(halfway, result);
             Assert.True(distribution.TrySample(rng, out result));
@@ -61,7 +61,7 @@ namespace RandN.Distributions.Tests
             const Byte range = high - low + 1;
             const UInt32 seed = UInt32.MaxValue - 16;
             var distribution = Uniform.NewInclusive(low, high);
-            var rng = new SequentialRng(seed);
+            var rng = new StepRng(seed);
             Assert.True(distribution.TrySample(rng, out Byte result));
             Assert.Equal(seed % range, result);
             for (Int32 i = 0; i < 16; i++)
