@@ -2,7 +2,7 @@
 using System.Buffers.Binary;
 using RandN.RngHelpers;
 
-// Based off of
+// Algorithm based off of https://github.com/rust-random/rngs/tree/master/rand_xorshift and
 // Marsaglia, George (July 2003). "Xorshift RNGs". Journal of Statistical Software. Vol. 8 (Issue 14).
 // https://www.jstatsoft.org/v08/i14/paper
 
@@ -43,6 +43,11 @@ namespace RandN.Rngs
         }
 
         /// <summary>
+        /// Creates an XorShift RNG using the given seed.
+        /// </summary>
+        public static XorShift Create(Seed seed) => XorShift.Create(seed.X, seed.Y, seed.Z, seed.W);
+
+        /// <summary>
         /// Gets the XorShift factory.
         /// </summary>
         public static Factory GetFactory() => _factory;
@@ -81,7 +86,7 @@ namespace RandN.Rngs
             public Int32 SeedLength => sizeof(UInt32) * 4;
 
             /// <inheritdoc />
-            public XorShift Create(Seed seed) => XorShift.Create(seed.X, seed.Y, seed.Z, seed.W);
+            public XorShift Create(Seed seed) => XorShift.Create(seed);
 
             /// <inheritdoc />
             public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng

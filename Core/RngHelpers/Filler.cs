@@ -49,14 +49,14 @@ namespace RandN.RngHelpers
                 Span<Byte> chunk = stackalloc Byte[8];
                 var num = rng.NextUInt64();
                 BinaryPrimitives.WriteUInt64LittleEndian(chunk, num);
-                chunk.Slice(destination.Length).CopyTo(destination);
+                chunk.Slice(0, destination.Length).CopyTo(destination);
             }
             else if (destination.Length > 0)
             {
                 Span<Byte> chunk = stackalloc Byte[4];
                 var num = rng.NextUInt32();
                 BinaryPrimitives.WriteUInt32LittleEndian(chunk, num);
-                chunk.Slice(destination.Length).CopyTo(destination);
+                chunk.Slice(0, destination.Length).CopyTo(destination);
             }
         }
 
