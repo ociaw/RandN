@@ -69,16 +69,6 @@ namespace RandN.Rngs
         /// <inheritdoc />
         public void Fill(Span<Byte> buffer) => Filler.FillBytesViaNext(this, buffer);
 
-        public ReadOnlySpan<Byte> GetState()
-        {
-            Span<Byte> state = new Byte[4 * sizeof(UInt32)];
-            BinaryPrimitives.WriteUInt32LittleEndian(state.Slice(sizeof(UInt32) * 0), _x);
-            BinaryPrimitives.WriteUInt32LittleEndian(state.Slice(sizeof(UInt32) * 1), _y);
-            BinaryPrimitives.WriteUInt32LittleEndian(state.Slice(sizeof(UInt32) * 2), _z);
-            BinaryPrimitives.WriteUInt32LittleEndian(state.Slice(sizeof(UInt32) * 3), _w);
-            return state;
-        }
-
         public sealed class Factory : IReproducibleRngFactory<XorShift, Seed>
         {
             internal Factory() { }
