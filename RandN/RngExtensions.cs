@@ -16,5 +16,18 @@ namespace RandN
         {
             return distribution.Sample(rng);
         }
+
+        /// <summary>
+        /// Creates a new <see cref="TRng"/> using a seed created from <paramref name="seedingRng"/>.
+        /// </summary>
+        /// <param name="seedingRng">The RNG used to create the seed.</param>
+        /// <returns>A new <see cref="TRng"/> instance.</returns>
+        public static TRng Create<TRng, TSeed, TSeedingRng>(this IReproducibleRngFactory<TRng, TSeed> factory, TSeedingRng seedingRng)
+            where TRng : IRng
+            where TSeedingRng : IRng
+        {
+            var seed = factory.CreateSeed(seedingRng);
+            return factory.Create(seed);
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Runtime.InteropServices;
 using Xunit;
 
@@ -19,7 +18,7 @@ namespace RandN.Rngs.Tests
             var rng1 = XorShift.GetFactory().Create(seed);
             Assert.Equal(4325440999699518727ul, rng1.NextUInt64());
 
-            var rng2 = XorShift.GetFactory().Create(XorShift.GetFactory().CreateSeed(rng1));
+            var rng2 = XorShift.GetFactory().Create(rng1);
             Assert.Equal(15614385950550801700ul, rng1.NextUInt64());
             Assert.Equal(15614385950550801700ul, rng2.NextUInt64());
         }

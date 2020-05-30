@@ -17,8 +17,7 @@ namespace RandN.Rngs.Tests
             var seed1 = new Seed(new UInt32[] { 0, 0, 1, 0, 2, 0, 3, 0 }, 0);
             var rng1 = factory.Create(seed1);
             Assert.Equal(137206642u, rng1.NextUInt32());
-            var seed2 = factory.CreateSeed(rng1);
-            var rng2 = factory.Create(seed2);
+            var rng2 = factory.Create(rng1);
             Assert.Equal(1325750369u, rng2.NextUInt32());
         }
 

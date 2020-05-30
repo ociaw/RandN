@@ -1,6 +1,5 @@
 using System;
 using Xunit;
-using RandN.Rngs;
 
 namespace RandN.Rngs.Tests
 {
