@@ -16,9 +16,9 @@ namespace RandN
         });
 
         /// <summary>
-        /// Creates a <see cref="ThreadLocalRng"/>.
+        /// The singleton instance of <see cref="ThreadLocalRng"/>.
         /// </summary>
-        public static ThreadLocalRng Get() => new ThreadLocalRng();
+        public static ThreadLocalRng Instance { get; } = new ThreadLocalRng();
 
         /// <inheritdoc />
         public void Fill(Span<Byte> buffer) => _threadLocal.Value.Fill(buffer);
