@@ -13,6 +13,7 @@ var types = new Type[]
     typeof(UInt32),
     typeof(UInt64),
     typeof(TimeSpan),
+    typeof(Single),
     typeof(Double),
 };
 #>

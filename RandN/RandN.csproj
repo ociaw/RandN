@@ -27,6 +27,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Distributions\UniformFloat.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UniformFloat.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="RandN.Core" Version="0.1.0-alpha" />
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
@@ -37,6 +45,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Distributions\UniformFloat.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UniformFloat.tt</DependentUpon>
+    </Compile>
     <Compile Update="Distributions\UniformInt.cs">
       <DependentUpon>UniformInt.tt</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -45,6 +58,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Distributions\UniformFloat.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UniformFloat.cs</LastGenOutput>
+    </None>
     <None Update="Distributions\Uniform.tt">
       <LastGenOutput>Uniform.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>

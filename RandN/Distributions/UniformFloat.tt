@@ -1,36 +1,53 @@
-﻿using System;
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ output extension=".cs" #>
+<#
+var parameters = new (Type type, Type unsigned, Int32 bitsToDiscard)[]
+{
+    (typeof(Single), typeof(UInt32), 32 - 23),
+    (typeof(Double), typeof(UInt64), 64 - 52),
+};
+#>
+using System;
 using System.Diagnostics;
 
+/*** This file is auto generated - any changes made here will be lost. ***/
 namespace RandN.Distributions
 {
-    public sealed class UniformDouble : IDistribution<Double>
+<# foreach (var param in parameters)
+{
+    String type = param.type.Name;
+    String unsigned = param.unsigned.Name;
+#>
+    public sealed class Uniform<#= type #> : IDistribution<<#= type #>>
     {
-        private const Int32 BITS_TO_DISCARD = 64 - 52;
+        private const Int32 BITS_TO_DISCARD = <#= param.bitsToDiscard #>;
 
-        private readonly Double _low;
-        private readonly Double _scale;
+        private readonly <#= type #> _low;
+        private readonly <#= type #> _scale;
 
-        private UniformDouble(Double low, Double scale)
+        private Uniform<#= type #>(<#= type #> low, <#= type #> scale)
         {
             _low = low;
             _scale = scale;
         }
 
-        public static UniformDouble Create(Double low, Double high)
+        public static Uniform<#= type #> Create(<#= type #> low, <#= type #> high)
         {
             if (low >= high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-            if (Double.IsInfinity(low))
+            if (<#= type #>.IsInfinity(low))
                 throw new ArgumentOutOfRangeException(nameof(low), low, "Must be finite.");
-            if (Double.IsInfinity(high))
+            if (<#= type #>.IsInfinity(high))
                 throw new ArgumentOutOfRangeException(nameof(high), high, "Must be finite.");
-            if (Double.IsNaN(low))
+            if (<#= type #>.IsNaN(low))
                 throw new ArgumentOutOfRangeException(nameof(low), low, "Must be a number.");
-            if (Double.IsNaN(high))
+            if (<#= type #>.IsNaN(high))
                 throw new ArgumentOutOfRangeException(nameof(high), high, "Must be a number.");
 
-            Double maxRand = (UInt64.MaxValue >> BITS_TO_DISCARD).IntoFloatWithExponent(0) - 1.0;
-            Double scale = high - low;
+            <#= type #> maxRand = (<#= unsigned #>.MaxValue >> BITS_TO_DISCARD).IntoFloatWithExponent(0) - 1;
+            <#= type #> scale = high - low;
             while (true)
             {
                 var mask = (scale * maxRand + low) >= high;
@@ -41,24 +58,24 @@ namespace RandN.Distributions
             }
 
             Debug.Assert(0.0 <= scale);
-            return new UniformDouble(low, scale);
+            return new Uniform<#= type #>(low, scale);
         }
 
-        public static UniformDouble CreateInclusive(Double low, Double high)
+        public static Uniform<#= type #> CreateInclusive(<#= type #> low, <#= type #> high)
         {
             if (low > high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-            if (Double.IsInfinity(low))
+            if (<#= type #>.IsInfinity(low))
                 throw new ArgumentOutOfRangeException(nameof(low), low, "Must be finite.");
-            if (Double.IsInfinity(high))
+            if (<#= type #>.IsInfinity(high))
                 throw new ArgumentOutOfRangeException(nameof(high), high, "Must be finite.");
-            if (Double.IsNaN(low))
+            if (<#= type #>.IsNaN(low))
                 throw new ArgumentOutOfRangeException(nameof(low), low, "Must be a number.");
-            if (Double.IsNaN(high))
+            if (<#= type #>.IsNaN(high))
                 throw new ArgumentOutOfRangeException(nameof(high), high, "Must be a number.");
 
-            Double maxRand = (UInt64.MaxValue >> BITS_TO_DISCARD).IntoFloatWithExponent(0) - 1.0;
-            Double scale = (high - low) / maxRand;
+            <#= type #> maxRand = (<#= unsigned #>.MaxValue >> BITS_TO_DISCARD).IntoFloatWithExponent(0) - 1;
+            <#= type #> scale = (high - low) / maxRand;
             while (true)
             {
                 var mask = (scale * maxRand + low) > high;
@@ -69,28 +86,32 @@ namespace RandN.Distributions
             }
 
             Debug.Assert(0.0 <= scale);
-            return new UniformDouble(low, scale);
+            return new Uniform<#= type #>(low, scale);
         }
 
         /// <inheritdoc />
-        public Double Sample<TRng>(TRng rng) where TRng : IRng
+        public <#= type #> Sample<TRng>(TRng rng) where TRng : IRng
         {
             // Generate a value in the range [1, 2)
-            var sample = rng.NextUInt64();
-            Double value12 = (sample >> BITS_TO_DISCARD).IntoFloatWithExponent(0);
+            var sample = rng.Next<#= unsigned #>();
+            <#= type #> value12 = (sample >> BITS_TO_DISCARD).IntoFloatWithExponent(0);
 
             // Get a value in the range [0, 1) in order to avoid
             // overflowing into infinity when multiplying with scale
-            Double value01 = value12 - 1.0;
+            <#= type #> value01 = value12 - 1;
 
             return value01 * _scale + _low;
         }
 
         /// <inheritdoc />
-        public Boolean TrySample<TRng>(TRng rng, out Double result) where TRng : IRng
+        public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
         {
             result = Sample(rng);
             return true;
         }
     }
+
+<#
+}
+#>
 }

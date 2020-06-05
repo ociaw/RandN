@@ -4,10 +4,17 @@ namespace RandN.Distributions
 {
     public static class FloatUtils
     {
+        public static Single IntoFloatWithExponent(this UInt32 original, Int32 exponent)
+        {
+            const Int32 exponentBias = 127;
+            const Int32 fractionBits = 23;
+            UInt32 exponentBits = (UInt32)(exponentBias + exponent) << fractionBits;
+            UInt32 bits = original | exponentBits;
+            return bits.ToFloat();
+        }
+
         public static Double IntoFloatWithExponent(this UInt64 original, Int32 exponent)
         {
-            // ($ty:ident, $uty:ident, $f_scalar:ident, $u_scalar:ty, $fraction_bits: expr, $exponent_bias: expr)
-            // {      f64,        u64,             f64,          u64,                   52,                 1023 }
             const Int32 exponentBias = 1023;
             const Int32 fractionBits = 52;
             UInt64 exponentBits = (UInt64)(exponentBias + exponent) << fractionBits;
@@ -15,11 +22,27 @@ namespace RandN.Distributions
             return bits.ToFloat();
         }
 
+        public static UInt32 ToBits(this Single num)
+        {
+            unsafe
+            {
+                return *(UInt32*)&num;
+            }
+        }
+
         public static UInt64 ToBits(this Double num)
         {
             unsafe
             {
                 return *(UInt64*)&num;
+            }
+        }
+
+        public static Single ToFloat(this UInt32 bits)
+        {
+            unsafe
+            {
+                return *(Single*)&bits;
             }
         }
 
