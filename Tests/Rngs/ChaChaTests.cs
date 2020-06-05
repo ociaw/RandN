@@ -2,7 +2,7 @@
 using Xunit;
 using Seed = RandN.Rngs.ChaCha.Seed;
 
-namespace RandN.Rngs.Tests
+namespace RandN.Rngs
 {
     public sealed class ChaChaTests
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Xunit;
 
-namespace RandN.Tests
+namespace RandN
 {
     public class RngSeederTests
     {

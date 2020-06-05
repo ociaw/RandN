@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using Xunit;
 
-namespace RandN.Rngs.Tests
+namespace RandN.Rngs
 {
     // Test vectors sourced from
     // https://github.com/rust-random/rngs/blob/0a72c77f34f6ae4bd14963b9435f236ee6492fba/rand_xorshift/tests/mod.rs

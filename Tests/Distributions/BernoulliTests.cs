@@ -2,7 +2,7 @@
 using Xunit;
 using RandN.Rngs;
 
-namespace RandN.Distributions.Tests
+namespace RandN.Distributions
 {
     public class BernoulliTests
     {

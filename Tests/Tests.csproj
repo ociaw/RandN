@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>RandN.Tests</RootNamespace>
+    <RootNamespace>RandN</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

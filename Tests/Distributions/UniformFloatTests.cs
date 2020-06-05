@@ -1,10 +1,9 @@
 ﻿using System;
 using Xunit;
 using RandN.Rngs;
-using RandN.Tests;
 
 /*** This file is auto generated - any changes made here will be lost. ***/
-namespace RandN.Distributions.Tests
+namespace RandN.Distributions
 {
     public class UniformFloatTests
     {

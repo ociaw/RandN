@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace RandN.Rngs.Tests
+namespace RandN.Rngs
 {
     public class MtTests
     {

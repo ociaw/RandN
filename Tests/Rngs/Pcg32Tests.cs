@@ -1,6 +1,6 @@
 ﻿using Xunit;
 
-namespace RandN.Rngs.Tests
+namespace RandN.Rngs
 {
     public class Pcg32Tests
     {

@@ -1,7 +1,7 @@
 ﻿using RandN.RngHelpers;
 using System;
 
-namespace RandN.Tests
+namespace RandN
 {
     internal sealed class StepRng : IRng
     {
