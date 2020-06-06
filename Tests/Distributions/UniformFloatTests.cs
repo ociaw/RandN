@@ -252,14 +252,8 @@ namespace RandN.Distributions
                     Assert.True(inclusive < high);
                 }
 
-                // 99% confidence interval
-                const Double z = 2.576;
-                var margin = popStdDev / Math.Sqrt(iterations) * z;
-
-                var exclusiveSampleMeanDiff = Math.Abs(populationMean - exclusiveMean);
-                Assert.True(exclusiveSampleMeanDiff < margin);
-                var inclusiveSampleMeanDiff = Math.Abs(populationMean - inclusiveMean);
-                Assert.True(inclusiveSampleMeanDiff < margin);
+                Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
+                Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
             }
 
             Average(0f, 1000f, 0);
@@ -302,14 +296,8 @@ namespace RandN.Distributions
                     Assert.True(inclusive < high);
                 }
 
-                // 99% confidence interval
-                const Double z = 2.576;
-                var margin = popStdDev / Math.Sqrt(iterations) * z;
-
-                var exclusiveSampleMeanDiff = Math.Abs(populationMean - exclusiveMean);
-                Assert.True(exclusiveSampleMeanDiff < margin);
-                var inclusiveSampleMeanDiff = Math.Abs(populationMean - inclusiveMean);
-                Assert.True(inclusiveSampleMeanDiff < margin);
+                Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
+                Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
             }
 
             Average(0d, 1000d, 0);

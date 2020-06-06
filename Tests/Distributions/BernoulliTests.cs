@@ -65,8 +65,7 @@ namespace RandN.Distributions
                     sum++;
             }
 
-            var average = (Double)sum / SAMPLE_COUNT;
-            Assert.True(Math.Abs(average - P) < 0.005);
+            Assert.True(Statistics.WithinConfidenceBernoulli(sum, P, SAMPLE_COUNT));
         }
     }
 }
