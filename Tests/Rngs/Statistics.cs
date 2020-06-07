@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics.X86;
+using Xunit;
 
 namespace RandN.Rngs
 {
@@ -8,6 +11,11 @@ namespace RandN.Rngs
         public static Double ConfidenceInterval => .99;
 
         public static Double ZScore => 2.576;
+
+        /// <summary>
+        /// Length of the block used in <see cref="TestBlockFrequency{TRng}(TRng, uint)"/>
+        /// </summary>
+        public static Int32 FrequencyBlockLength => 8;
 
         public static Boolean WithinConfidenceBernoulli(UInt64 actual, UInt64 expected, UInt64 sampleCount)
         {
@@ -27,6 +35,20 @@ namespace RandN.Rngs
             var margin = popStdDev / Math.Sqrt(sampleCount) * ZScore;
             var difference = Math.Abs(popMean - sampleMean);
             return difference < margin;
+        }
+
+        /// <summary>
+        /// A simple test checking that the number of 1s and 0s is about equal.
+        /// </summary>
+        public static Boolean TestMonobitFrequency<TRng>(TRng rng, UInt32 wordCount)
+            where TRng : IRng
+        {
+            UInt64 oneCount = 0;
+            for (UInt32 i = 0; i < wordCount; i++)
+                oneCount += Popcnt.PopCount(rng.NextUInt32());
+
+            UInt64 bitCount = wordCount * 32;
+            return WithinConfidenceBernoulli(oneCount, bitCount / 2, bitCount);
         }
     }
 }
