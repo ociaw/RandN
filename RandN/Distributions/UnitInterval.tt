@@ -1,0 +1,170 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ output extension=".cs" #>
+<#
+var parameters = new (Type type, Type unsigned, String floatSuffix, String unsignedSuffix, Int32 fractionBits)[]
+{
+    (typeof(Single), typeof(UInt32), "f", "u", 23),
+    (typeof(Double), typeof(UInt64), "d", "ul", 52),
+};
+#>
+using System;
+
+/*** This file is auto generated - any changes made here will be lost. Modify UnitInterval.tt instead. ***/
+
+// The algorithms used in the ClosedOpen, OpenClosed, and Open distributions for Single and Double
+// are based off of those used in the rust rand crate:
+// https://github.com/rust-random/rand/blob/2c2fbd6463bb3dba492d0387f05f953bdc297d2f/src/distributions/float.rs
+
+namespace RandN.Distributions
+{
+    /// <summary>
+    /// A collection of distributions over the interval 0-1.
+    /// </summary>
+    public sealed partial class UnitInterval
+    {
+<# foreach (var param in parameters)
+{
+    String type = param.type.Name;
+    String unsigned = param.unsigned.Name;
+    String floatSuffix = param.floatSuffix;
+    String unsignedSuffix = param.unsignedSuffix;
+    String fractionBits = param.fractionBits.ToString();
+#>
+        /// <summary>
+        /// A distribution over the closed-open interval [0, 1).
+        /// </summary>
+        public sealed class ClosedOpen<#= type #> : IDistribution<<#= type #>>
+        {
+            private ClosedOpen<#= type #>() { }
+
+            /// <summary>
+            /// Gets the instance of <see cref="ClosedOpen<#= type #>" />.
+            /// </summary>
+            public static ClosedOpen<#= type #> Instance { get; } = new ClosedOpen<#= type #>();
+
+            /// <inheritdoc />
+            public <#= type #> Sample<TRng>(TRng rng) where TRng : IRng
+            {
+                // 24 or 53 bits of precision
+                const Int32 floatSize = sizeof(<#= type #>) * 8;
+                const Int32 precision = <#= fractionBits #> + 1;
+                const <#= type #> scale = 1.0<#= floatSuffix #> / (1<#= unsignedSuffix #> << precision);
+
+                var random = rng.Next<#= unsigned #>();
+                var value = random >> (floatSize - precision);
+                return scale * value;
+            }
+
+            /// <inheritdoc />
+            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
+            {
+                result = Sample(rng);
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// A distribution over the open-closed interval (0, 1].
+        /// </summary>
+        public sealed class OpenClosed<#= type #> : IDistribution<<#= type #>>
+        {
+            private OpenClosed<#= type #>() { }
+
+            /// <summary>
+            /// Gets the instance of <see cref="OpenClosed<#= type #>" />.
+            /// </summary>
+            public static OpenClosed<#= type #> Instance { get; } = new OpenClosed<#= type #>();
+
+            /// <inheritdoc />
+            public <#= type #> Sample<TRng>(TRng rng) where TRng : IRng
+            {
+                // 24 or 53 bits of precision
+                const Int32 floatSize = sizeof(<#= type #>) * 8;
+                const Int32 precision = <#= fractionBits #> + 1;
+                const <#= type #> scale = 1.0<#= floatSuffix #> / (1<#= unsignedSuffix #> << precision);
+
+                var random = rng.Next<#= unsigned #>();
+                var value = random >> (floatSize - precision);
+                return scale * (value + 1);
+            }
+
+            /// <inheritdoc />
+            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
+            {
+                result = Sample(rng);
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// A distribution over the closed interval [0, 1].
+        /// </summary>
+        public sealed class Closed<#= type #> : IDistribution<<#= type #>>
+        {
+            private Closed<#= type #>() { }
+
+            /// <summary>
+            /// Gets the instance of <see cref="Closed<#= type #>" />.
+            /// </summary>
+            public static Closed<#= type #> Instance { get; } = new Closed<#= type #>();
+
+            /// <inheritdoc />
+            public <#= type #> Sample<TRng>(TRng rng) where TRng : IRng
+            {
+                // 24 or 53 bits of precision
+                const Int32 floatSize = sizeof(<#= type #>) * 8;
+                const Int32 precision = <#= fractionBits #> + 1;
+                const <#= type #> scale = (1.0<#= floatSuffix #> + FloatUtils.MachineEpsilon<#= type #>) / (1<#= unsignedSuffix #> << precision);
+
+                var random = rng.Next<#= unsigned #>();
+                var value = random >> (floatSize - precision);
+                return scale * (value);
+            }
+
+            /// <inheritdoc />
+            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
+            {
+                result = Sample(rng);
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// A distribution over the open interval (0, 1).
+        /// </summary>
+        public sealed class Open<#= type #> : IDistribution<<#= type #>>
+        {
+            private Open<#= type #>() { }
+
+            /// <summary>
+            /// Gets the instance of <see cref="Open<#= type #>" />.
+            /// </summary>
+            public static Open<#= type #> Instance { get; } = new Open<#= type #>();
+
+            /// <inheritdoc />
+            public <#= type #> Sample<TRng>(TRng rng) where TRng : IRng
+            {
+                // 23 or 52 bits of precision
+                const Int32 floatSize = sizeof(<#= type #>) * 8;
+                const Int32 precision = <#= fractionBits #>;
+
+                var random = rng.Next<#= unsigned #>();
+                var value = random >> (floatSize - precision);
+                return value.IntoFloatWithExponent(0) - (1.0<#= floatSuffix #> - FloatUtils.MachineEpsilon<#= type #> / 2.0<#= floatSuffix #>);
+            }
+
+            /// <inheritdoc />
+            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
+            {
+                result = Sample(rng);
+                return true;
+            }
+        }
+
+<#
+}
+#>
+    }
+}

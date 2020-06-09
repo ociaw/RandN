@@ -1,0 +1,94 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ output extension=".cs" #>
+<#
+var parameters = new (Type type, String floatSuffix, String uintSuffix, Int32 bitsDiscarded)[]
+{
+    (typeof(Single), "f", "u", 32 - 23),
+    (typeof(Double), "d", "ul", 64 - 52),
+};
+#>
+using System;
+using Xunit;
+using RandN.Rngs;
+
+/*** This file is auto generated - any changes made here will be lost. Modify UnitIntervalTests.tt instead. ***/
+namespace RandN.Distributions
+{
+    public class UnitIntervalTests
+    {
+<# foreach (var param in parameters)
+{
+    String type = param.type.Name;
+    String floatSuffix = param.floatSuffix;
+    String uintSuffix = param.uintSuffix;
+    String bitsDiscarded = param.bitsDiscarded.ToString();
+#>
+        [Fact]
+        public void <#= type #>Ranges()
+        {
+            var zeroRng = new StepRng(0) { Increment = 0 };
+            var maxRng = new StepRng(UInt64.MaxValue) { Increment = 0 };
+            Double low, high;
+
+            var closedOpen = UnitInterval.ClosedOpen<#= type #>.Instance;
+            low = closedOpen.Sample(zeroRng);
+            high = closedOpen.Sample(maxRng);
+
+            Assert.Equal(0, low);
+            Assert.True(0 < high && high < 1);
+
+            var openClosed = UnitInterval.OpenClosed<#= type #>.Instance;
+            low = openClosed.Sample(zeroRng);
+            high = openClosed.Sample(maxRng);
+
+            Assert.True(0 < low && low < 1);
+            Assert.Equal(1, high);
+
+            var closed = UnitInterval.Closed<#= type #>.Instance;
+            low = closed.Sample(zeroRng);
+            high = closed.Sample(maxRng);
+
+            Assert.Equal(0, low);
+            Assert.Equal(1, high);
+
+            var open = UnitInterval.Open<#= type #>.Instance;
+            low = open.Sample(zeroRng);
+            high = open.Sample(maxRng);
+
+            Assert.True(0 < low && low < 1);
+            Assert.True(0 < high && high < 1);
+        }
+
+        [Fact]
+        public void <#= type #>Average()
+        {
+            Average(UnitInterval.OpenClosed<#= type #>.Instance, 900);
+            Average(UnitInterval.ClosedOpen<#= type #>.Instance, 901);
+            Average(UnitInterval.Closed<#= type #>.Instance, 902);
+            Average(UnitInterval.Open<#= type #>.Instance, 903);
+        }
+
+        private void Average(IDistribution<<#= type #>> dist, UInt64 seed)
+        {
+            const Int32 iterations = 10_000;
+            var rng = Pcg32.Create(seed, 11634580027462260723ul);
+
+            Double mean = 0;
+            for (var i = 0; i < iterations; i++)
+            {
+                var result = dist.Sample(rng);
+                var delta = result - mean;
+                mean += delta / (i + 1);
+                Assert.True(0 <= result);
+                Assert.True(result <= 1);
+            }
+
+            Assert.True(Statistics.WithinConfidence(popMean: 0.5, popStdDev: 0.5, mean, iterations));
+        }
+<#
+}
+#>
+    }
+}

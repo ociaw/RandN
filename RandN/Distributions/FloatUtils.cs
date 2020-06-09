@@ -4,6 +4,28 @@ namespace RandN.Distributions
 {
     public static class FloatUtils
     {
+        /// <summary>
+        /// The machine epsilon value for <see cref="Single"/>.
+        /// </summary>
+        /// <remarks>
+        /// The value provided by <see cref="Single.Epsilon"/> is *not* the typical machine
+        /// epsilon value, despite its name.
+        /// See <see href="https://en.wikipedia.org/wiki/Machine_epsilon">Machine epsilon</see> on
+        /// Wikipedia for more details.
+        /// </remarks>
+        public const Single MachineEpsilonSingle = 1.19209290e-07f;
+
+        /// <summary>
+        /// The machine epsilon value for <see cref="Double"/>.
+        /// </summary>
+        /// <remarks>
+        /// The value provided by <see cref="Double.Epsilon"/> is *not* the typical machine
+        /// epsilon value, despite its name.
+        /// See <see href="https://en.wikipedia.org/wiki/Machine_epsilon">Machine epsilon</see> on
+        /// Wikipedia for more details.
+        /// </remarks>
+        public const Double MachineEpsilonDouble = 2.2204460492503131e-16d;
+
         public static Single IntoFloatWithExponent(this UInt32 original, Int32 exponent)
         {
             const Int32 exponentBias = 127;
