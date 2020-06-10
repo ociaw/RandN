@@ -1,7 +1,11 @@
 ﻿using System;
 
+/*** This file is auto generated - any changes made here will be lost. ***/
 namespace RandN.Distributions
 {
+    /// <summary>
+    /// A uniform distribution where each possible value has an equal probability of occuring.
+    /// </summary>
     public static class Uniform
     {
         /// <summary>

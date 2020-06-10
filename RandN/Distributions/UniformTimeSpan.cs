@@ -2,12 +2,19 @@
 
 namespace RandN.Distributions
 {
+    /// <summary>
+    /// A uniform distribution of type <see cref="TimeSpan" />.
+    /// </summary>
     public sealed class UniformTimeSpan : IDistribution<TimeSpan>
     {
         private readonly UniformInt64 _backing;
 
         private UniformTimeSpan(UniformInt64 backing) => _backing = backing;
 
+        /// <summary>
+        /// Creates a <see cref="UniformTimeSpan" /> with an exclusive upper bound. Should not
+        /// be used directly; instead, use <see cref="Uniform.New(TimeSpan, TimeSpan)" />.
+        /// </summary>
         public static UniformTimeSpan Create(TimeSpan low, TimeSpan high)
         {
             if (low >= high) 
@@ -16,6 +23,10 @@ namespace RandN.Distributions
             return CreateInclusive(low, high - TimeSpan.FromTicks(1));
         }
 
+        /// <summary>
+        /// Creates a <see cref="UniformTimeSpan" /> with an exclusive lower bound. Should not
+        /// be used directly; instead, use <see cref="Uniform.NewInclusive(TimeSpan, TimeSpan)" />.
+        /// </summary>
         public static UniformTimeSpan CreateInclusive(TimeSpan low, TimeSpan high)
         {
             if (low > high) 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Buffers.Binary;
 using RandN.RngHelpers;
 
 // Algorithm based off of https://github.com/rust-random/rngs/tree/master/rand_xorshift and
@@ -9,7 +8,7 @@ using RandN.RngHelpers;
 namespace RandN.Rngs
 {
     /// <summary>
-    /// XOR Shift algorithm for generating random numbers.
+    /// A random number generator using the XOR Shift algorithm.
     /// </summary>
     public sealed class XorShift : IRng
     {
@@ -90,6 +89,9 @@ namespace RandN.Rngs
             }
         }
 
+        /// <summary>
+        /// The seed for <see cref="XorShift"/>.
+        /// </summary>
         public readonly struct Seed
         {
             public Seed(UInt32 x, UInt32 y, UInt32 z, UInt32 w)

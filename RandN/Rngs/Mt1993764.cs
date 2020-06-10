@@ -4,7 +4,7 @@ using RandN.RngHelpers;
 namespace RandN.Rngs
 {
     /// <summary>
-    /// An implementation of Mersenne Twister, variant MT19937-64.
+    /// A random number generator using the Mersenne Twister algorithm, variant MT19937-64.
     /// Based on the pseudocode provided from https://en.wikipedia.org/wiki/Mersenne_twister
     /// and the original C code at http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/VERSIONS/C-LANG/mt19937-64.c
     /// </summary>
@@ -46,6 +46,9 @@ namespace RandN.Rngs
             _index = state.Length;
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Mt1993764" /> using the specified seed.
+        /// </summary>
         public static Mt1993764 Create(UInt64 seed)
         {
             // Init state from seed
@@ -60,6 +63,9 @@ namespace RandN.Rngs
             return new Mt1993764(state);
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Mt1993764" /> using the specified seed.
+        /// </summary>
         public static Mt1993764 Create(UInt64[] seed)
         {
             const UInt64 INITIAL_SEED = 19650218ul;
@@ -100,10 +106,15 @@ namespace RandN.Rngs
             return rng;
         }
 
+        /// <summary>
+        /// Gets the <see cref="Mt1993764" /> factory.
+        /// </summary>
         public static Factory GetFactory() => _factory;
 
+        /// <inheritdoc />
         public UInt32 NextUInt32() => Filler.NextUInt32ViaUInt64(this);
 
+        /// <inheritdoc />
         public UInt64 NextUInt64()
         {
             if (_index == _state.Length)
@@ -120,6 +131,7 @@ namespace RandN.Rngs
             return y;
         }
 
+        /// <inheritdoc />
         public void Fill(Span<Byte> buffer) => Filler.FillBytesViaNext(this, buffer);
 
         private void Twist()
@@ -140,14 +152,20 @@ namespace RandN.Rngs
             _index = 0;
         }
 
+        /// <summary>
+        /// Produces Mersenne Twister RNGs and seeds.
+        /// </summary>
         public sealed class Factory : IReproducibleRngFactory<Mt1993764, UInt64>, IReproducibleRngFactory<Mt1993764, UInt64[]>
         {
             internal Factory() { }
 
+            /// <inheritdoc />
             public Mt1993764 Create(UInt64 seed) => Mt1993764.Create(seed);
 
+            /// <inheritdoc />
             public Mt1993764 Create(UInt64[] seed) => Mt1993764.Create(seed);
 
+            /// <inheritdoc />
             public UInt64[] CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
             {
                 UInt64[] seed = new UInt64[RecurrenceDegree];
@@ -156,6 +174,7 @@ namespace RandN.Rngs
                 return seed;
             }
 
+            /// <inheritdoc />
             UInt64 IReproducibleRngFactory<Mt1993764, UInt64>.CreateSeed<TSeedingRng>(TSeedingRng seedingRng) => seedingRng.NextUInt64();
         }
     }

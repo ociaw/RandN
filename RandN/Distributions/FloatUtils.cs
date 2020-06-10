@@ -2,6 +2,9 @@
 
 namespace RandN.Distributions
 {
+    /// <summary>
+    /// Utilities to facilitate bitwise manipulation of floating point numbers.
+    /// </summary>
     public static class FloatUtils
     {
         /// <summary>
@@ -26,6 +29,11 @@ namespace RandN.Distributions
         /// </remarks>
         public const Double MachineEpsilonDouble = 2.2204460492503131e-16d;
 
+        /// <summary>
+        /// Converts the given <see cref="UInt32"/> into a <see cref="Single"/> with the given exponent.
+        /// </summary>
+        /// <param name="original">The bits used for the mantissa of the <see cref="Single"/>.</param>
+        /// <param name="exponent">The exponent of the <see cref="Single"/>.</param>
         public static Single IntoFloatWithExponent(this UInt32 original, Int32 exponent)
         {
             const Int32 exponentBias = 127;
@@ -35,6 +43,11 @@ namespace RandN.Distributions
             return bits.ToFloat();
         }
 
+        /// <summary>
+        /// Converts the given <see cref="UInt64"/> into a <see cref="Double"/> with the given exponent.
+        /// </summary>
+        /// <param name="original">The bits used for the mantissa of the <see cref="Double"/>.</param>
+        /// <param name="exponent">The exponent of the <see cref="Double"/>.</param>
         public static Double IntoFloatWithExponent(this UInt64 original, Int32 exponent)
         {
             const Int32 exponentBias = 1023;
@@ -44,6 +57,9 @@ namespace RandN.Distributions
             return bits.ToFloat();
         }
 
+        /// <summary>
+        /// Reinterprets the bits of <paramref name="num"/> as a <see cref="UInt32"/>.
+        /// </summary>
         public static UInt32 ToBits(this Single num)
         {
             unsafe
@@ -52,6 +68,9 @@ namespace RandN.Distributions
             }
         }
 
+        /// <summary>
+        /// Reinterprets the bits of <paramref name="num"/> as a <see cref="UInt64"/>.
+        /// </summary>
         public static UInt64 ToBits(this Double num)
         {
             unsafe
@@ -60,6 +79,9 @@ namespace RandN.Distributions
             }
         }
 
+        /// <summary>
+        /// Reinterprets <paramref name="bits"/> as a <see cref="Single"/>.
+        /// </summary>
         public static Single ToFloat(this UInt32 bits)
         {
             unsafe
@@ -68,6 +90,9 @@ namespace RandN.Distributions
             }
         }
 
+        /// <summary>
+        /// Reinterprets <paramref name="bits"/> as a <see cref="Double"/>.
+        /// </summary>
         public static Double ToFloat(this UInt64 bits)
         {
             unsafe

@@ -2,10 +2,9 @@
 // Copyright 2017 Paul Dicker.
 // Copyright 2014-2017 Melissa O'Neill and PCG Project contributors
 //
-// Licensed under the Apache License, Version 2.0 <LICENSE-APACHE or
-// https://www.apache.org/licenses/LICENSE-2.0> or the MIT license
-// <LICENSE-MIT or https://opensource.org/licenses/MIT>, at your
-// option. This file may not be copied, modified, or distributed
+// Licensed under the MIT license
+// <LICENSE-MIT or https://opensource.org/licenses/MIT>.
+// This file may not be copied, modified, or distributed
 // except according to those terms.
 
 using RandN.RngHelpers;
@@ -26,7 +25,7 @@ namespace RandN.Rngs
     ///
     /// Despite the name, this implementation uses 16 bytes (128 bit) space
     /// comprising 64 bits of state and 64 bits stream selector. These are both set
-    /// by <see cref="Pcg32.Factory"/>, using a 128-bit seed.
+    /// by <see cref="Factory"/>, using a 128-bit seed.
     /// </remarks>
     public sealed class Pcg32 : IRng
     {
@@ -57,8 +56,12 @@ namespace RandN.Rngs
             return new Pcg32(state, increment);
         }
 
+        /// <summary>
+        /// Gets the <see cref="XorShift" /> factory.
+        /// </summary>
         public static Factory GetFactory() => _factory;
 
+        /// <inheritdoc />
         public UInt32 NextUInt32()
         {
             var state = _state;
@@ -76,18 +79,25 @@ namespace RandN.Rngs
             return (xShift >> rotation) | (xShift << (32 - rotation));
         }
 
+        /// <inheritdoc />
         public UInt64 NextUInt64() => Filler.NextUInt64ViaUInt32(this);
 
+        /// <inheritdoc />
         public void Fill(Span<Byte> buffer) => Filler.FillBytesViaNext(this, buffer);
 
         private void Step() => _state = unchecked(_state * MULTIPLIER + _increment);
 
+        /// <summary>
+        /// Produces Pcg32 RNGs and seeds.
+        /// </summary>
         public sealed class Factory : IReproducibleRngFactory<Pcg32, Seed>
         {
             internal Factory() { }
 
+            /// <inheritdoc />
             public Pcg32 Create(Seed seed) => Pcg32.Create(seed.State, seed.Stream);
 
+            /// <inheritdoc />
             public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng => new Seed(seedingRng.NextUInt64(), seedingRng.NextUInt64());
         }
 

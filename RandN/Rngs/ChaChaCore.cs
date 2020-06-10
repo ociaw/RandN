@@ -71,13 +71,15 @@ namespace RandN.Rngs
         public Int32 BlockLength => WORD_COUNT;
 
         /// <summary>
-        /// Creates a new instance of ChaChaCore.
+        /// Creates a new instance of <see cref="ChaChaCore"/>.
         /// </summary>
         /// <param name="key">ChaCha20's key. Must have a length of 8.</param>
         /// <param name="counter">ChaCha's 64-bit block counter.</param>
         /// <param name="stream">ChaCha20's 64-bit stream id.</param>
-        /// <param name="doubleRoundCount"></param>
-        /// <returns></returns>
+        /// <param name="doubleRoundCount">
+        /// The number of double rounds to perform. Half the total number of rounds,
+        /// ex. ChaCha20 has 10 double rounds and ChaCha8 has 4 double rounds.
+        /// </param>
         public static ChaChaCore Create(ReadOnlySpan<UInt32> key, UInt64 counter, UInt64 stream, UInt32 doubleRoundCount)
         {
             Debug.Assert(key.Length == KEY_LENGTH);

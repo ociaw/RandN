@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 namespace RandN.Rngs
 {
     /// <summary>
-    /// Wraps <see cref="RNGCryptoServiceProvider"/>.
+    /// A cryptographically secure random number generator wrapping <see cref="RNGCryptoServiceProvider"/>.
     /// </summary>
     public sealed class CryptoServiceProvider : IRng, ICryptoRng, IDisposable
     {

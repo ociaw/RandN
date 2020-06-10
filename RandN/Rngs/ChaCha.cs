@@ -4,7 +4,7 @@ using RandN.RngHelpers;
 namespace RandN.Rngs
 {
     /// <summary>
-    /// The ChaCha algorithm as a random number generator.
+    /// A cryptographically secure random number generator using the ChaCha algorithm.
     /// </summary>
     public sealed class ChaCha : IRng, ISeekableRng<ChaCha.Counter>, ICryptoRng
     {
@@ -41,7 +41,7 @@ namespace RandN.Rngs
         public static ChaCha Create(Seed seed) => Create(seed, 10);
 
         /// <summary>
-        /// Creates a ChaCha20 rng using the given seed and number of double rounds.
+        /// Creates a ChaCha RNG using the given seed and number of double rounds.
         /// </summary>
         /// <param name="seed">A seed containing the key and stream.</param>
         /// <param name="doubleRounds">

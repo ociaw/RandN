@@ -20,6 +20,9 @@ namespace RandN.Distributions
     String type = param.type.Name;
     String unsigned = param.unsigned.Name;
 #>
+    /// <summary>
+    /// A uniform distribution of type <see cref="<#= type #>" />.
+    /// </summary>
     public sealed class Uniform<#= type #> : IDistribution<<#= type #>>
     {
         private const Int32 BITS_TO_DISCARD = <#= param.bitsToDiscard #>;
@@ -32,7 +35,11 @@ namespace RandN.Distributions
             _low = low;
             _scale = scale;
         }
-
+        
+        /// <summary>
+        /// Creates a <see cref="Uniform<#= type #>" /> with an exclusive upper bound. Should not
+        /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
+        /// </summary>
         public static Uniform<#= type #> Create(<#= type #> low, <#= type #> high)
         {
             if (low >= high)
@@ -60,7 +67,11 @@ namespace RandN.Distributions
             Debug.Assert(0.0 <= scale);
             return new Uniform<#= type #>(low, scale);
         }
-
+        
+        /// <summary>
+        /// Creates a <see cref="Uniform<#= type #>" /> with an exclusive lower bound. Should not
+        /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
+        /// </summary>
         public static Uniform<#= type #> CreateInclusive(<#= type #> low, <#= type #> high)
         {
             if (low > high)

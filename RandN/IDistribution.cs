@@ -2,6 +2,14 @@
 
 namespace RandN
 {
+    /// <summary>
+    /// Produces values random of <see cref="TResult" />.
+    /// </summary>
+    /// <remarks>
+    /// Implementations are immutable and therefore thread safe. Results are also reproducible
+    /// within the same assembly version.
+    /// </remarks>
+    /// <typeparam name="TResult">The type that is produced by this distribution.</typeparam>
     public interface IDistribution<TResult>
     {
         /// <summary>

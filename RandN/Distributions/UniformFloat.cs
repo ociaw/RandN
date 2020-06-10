@@ -4,6 +4,9 @@ using System.Diagnostics;
 /*** This file is auto generated - any changes made here will be lost. ***/
 namespace RandN.Distributions
 {
+    /// <summary>
+    /// A uniform distribution of type <see cref="Single" />.
+    /// </summary>
     public sealed class UniformSingle : IDistribution<Single>
     {
         private const Int32 BITS_TO_DISCARD = 9;
@@ -16,7 +19,11 @@ namespace RandN.Distributions
             _low = low;
             _scale = scale;
         }
-
+        
+        /// <summary>
+        /// Creates a <see cref="UniformSingle" /> with an exclusive upper bound. Should not
+        /// be used directly; instead, use <see cref="Uniform.New(Single, Single)" />.
+        /// </summary>
         public static UniformSingle Create(Single low, Single high)
         {
             if (low >= high)
@@ -44,7 +51,11 @@ namespace RandN.Distributions
             Debug.Assert(0.0 <= scale);
             return new UniformSingle(low, scale);
         }
-
+        
+        /// <summary>
+        /// Creates a <see cref="UniformSingle" /> with an exclusive lower bound. Should not
+        /// be used directly; instead, use <see cref="Uniform.New(Single, Single)" />.
+        /// </summary>
         public static UniformSingle CreateInclusive(Single low, Single high)
         {
             if (low > high)
@@ -95,6 +106,9 @@ namespace RandN.Distributions
         }
     }
 
+    /// <summary>
+    /// A uniform distribution of type <see cref="Double" />.
+    /// </summary>
     public sealed class UniformDouble : IDistribution<Double>
     {
         private const Int32 BITS_TO_DISCARD = 12;
@@ -107,7 +121,11 @@ namespace RandN.Distributions
             _low = low;
             _scale = scale;
         }
-
+        
+        /// <summary>
+        /// Creates a <see cref="UniformDouble" /> with an exclusive upper bound. Should not
+        /// be used directly; instead, use <see cref="Uniform.New(Double, Double)" />.
+        /// </summary>
         public static UniformDouble Create(Double low, Double high)
         {
             if (low >= high)
@@ -135,7 +153,11 @@ namespace RandN.Distributions
             Debug.Assert(0.0 <= scale);
             return new UniformDouble(low, scale);
         }
-
+        
+        /// <summary>
+        /// Creates a <see cref="UniformDouble" /> with an exclusive lower bound. Should not
+        /// be used directly; instead, use <see cref="Uniform.New(Double, Double)" />.
+        /// </summary>
         public static UniformDouble CreateInclusive(Double low, Double high)
         {
             if (low > high)

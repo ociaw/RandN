@@ -2,8 +2,17 @@
 
 namespace RandN
 {
+    /// <summary>
+    /// Various extension methods to simplify use of RNGs.
+    /// </summary>
     public static class RngExtensions
     {
+        /// <summary>
+        /// Samples the distribution from <paramref name="rng"/>.
+        /// </summary>
+        /// <remarks>
+        /// The is equivalent to calling <see cref="IDistribution{TResult}.Sample{TRng}(TRng)"/>.
+        /// </remarks>
         public static TResult Sample<TRng, TDistribution, TResult>(this TRng rng, TDistribution distribution)
             where TRng : IRng
             where TDistribution : IDistribution<TResult>
@@ -11,6 +20,12 @@ namespace RandN
             return distribution.Sample(rng);
         }
 
+        /// <summary>
+        /// Samples the distribution from <paramref name="rng"/>.
+        /// </summary>
+        /// <remarks>
+        /// The is equivalent to calling <see cref="IDistribution{TResult}.Sample{TRng}(TRng)"/>.
+        /// </remarks>
         public static TResult Sample<TRng, TResult>(this TRng rng, IDistribution<TResult> distribution)
             where TRng : IRng
         {

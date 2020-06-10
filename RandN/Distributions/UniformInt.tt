@@ -27,6 +27,9 @@ foreach (var tuple in types)
     String unsigned = tuple.unsigned.Name;
     String ularge = tuple.ularge.Name;
 #>
+    /// <summary>
+    /// A uniform distribution of type <see cref="<#= type #>" />.
+    /// </summary>
     public sealed class Uniform<#= type #> : IDistribution<<#= type #>>
     {
         private readonly <#= type #> _low;
@@ -39,7 +42,11 @@ foreach (var tuple in types)
             _range = range;
             _zone = zone;
         }
-
+        
+        /// <summary>
+        /// Creates a <see cref="Uniform<#= type #>" /> with an exclusive upper bound. Should not
+        /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
+        /// </summary>
         public static Uniform<#= type #> Create(<#= type #> low, <#= type #> high)
         {
             if (low >= high) 
@@ -47,7 +54,11 @@ foreach (var tuple in types)
 
             return CreateInclusive(low, (<#= type #>)(high - 1));
         }
-
+        
+        /// <summary>
+        /// Creates a <see cref="Uniform<#= type #>" /> with an exclusive lower bound. Should not
+        /// be used directly; instead, use <see cref="Uniform.NewInclusive(<#= type #>, <#= type #>)" />.
+        /// </summary>
         public static Uniform<#= type #> CreateInclusive(<#= type #> low, <#= type #> high)
         {
             if (low > high) 

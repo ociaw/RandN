@@ -2,6 +2,9 @@
 
 namespace RandN.Distributions
 {
+    /// <summary>
+    /// A Bernoulli distribution, where each sample returns either <see langword="true" /> or <see langword="false" />.
+    /// </summary>
     public sealed class Bernoulli : IDistribution<Boolean>
     {
         /// <summary>
@@ -56,7 +59,7 @@ namespace RandN.Distributions
         }
 
         /// <summary>
-        /// Creates a new Bernoulli distribution, with a probability of <paramref name="numerator"/> / <see cref="UInt64.MaxValue"/>.
+        /// Creates a new Bernoulli distribution, with a probability of <paramref name="numerator"/> / 2^64.
         /// </summary>
         public static Bernoulli FromInverse(UInt64 numerator) => new Bernoulli(numerator, false);
 
