@@ -1,5 +1,20 @@
 ﻿[*.cs]
 
+# General text
+indent_size = 4
+indent_style = space
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+trim_trailing_whitespace = true;
+
+# Organize usings
+dotnet_sort_system_directives_first = true
+
+# Prefer BCL types names instead of Language keywords
+dotnet_style_predefined_type_for_locals_parameters_members = false:suggestion
+dotnet_style_predefined_type_for_member_access = false:suggestion
+
 # IDE0056: Use index operator
 # We can't use index operators since we target .NET Standard 2.0
 csharp_style_prefer_index_operator = true:none
