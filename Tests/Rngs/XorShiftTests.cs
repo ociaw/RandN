@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using Xunit;
 
@@ -13,7 +13,7 @@ namespace RandN.Rngs
         {
             var byteSeed = new Byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
             var uintSeed = MemoryMarshal.Cast<Byte, UInt32>(byteSeed);
-            var seed = new XorShift.Seed(uintSeed[0], uintSeed[1], uintSeed[2], uintSeed[3]);
+            var seed = (uintSeed[0], uintSeed[1], uintSeed[2], uintSeed[3]);
 
             var rng1 = XorShift.GetFactory().Create(seed);
             Assert.Equal(4325440999699518727ul, rng1.NextUInt64());
@@ -28,7 +28,7 @@ namespace RandN.Rngs
         {
             var byteSeed = new Byte[] { 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
             var uintSeed = MemoryMarshal.Cast<Byte, UInt32>(byteSeed);
-            var seed = new XorShift.Seed(uintSeed[0], uintSeed[1], uintSeed[2], uintSeed[3]);
+            var seed = (uintSeed[0], uintSeed[1], uintSeed[2], uintSeed[3]);
             var rng = XorShift.Create(seed);
 
             var expected32 = new UInt32[]
@@ -59,7 +59,7 @@ namespace RandN.Rngs
         [Fact]
         public void BadSeed()
         {
-            var seed = new XorShift.Seed(0, 0, 0, 0);
+            var seed = (0u, 0u, 0u, 0u);
             var rng1 = XorShift.GetFactory().Create(seed);
 
             var num1 = rng1.NextUInt64();

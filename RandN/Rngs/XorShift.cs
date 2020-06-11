@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using RandN.RngHelpers;
 
 // Algorithm based off of https://github.com/rust-random/rngs/tree/master/rand_xorshift and
@@ -44,7 +44,7 @@ namespace RandN.Rngs
         /// <summary>
         /// Creates an XorShift RNG using the given seed.
         /// </summary>
-        public static XorShift Create(Seed seed) => XorShift.Create(seed.X, seed.Y, seed.Z, seed.W);
+        public static XorShift Create((UInt32 x, UInt32 y, UInt32 z, UInt32 w) seed) => Create(seed.x, seed.y, seed.z, seed.w);
 
         /// <summary>
         /// Gets the XorShift factory.
@@ -68,47 +68,25 @@ namespace RandN.Rngs
         /// <inheritdoc />
         public void Fill(Span<Byte> buffer) => Filler.FillBytesViaNext(this, buffer);
 
-        public sealed class Factory : IReproducibleRngFactory<XorShift, Seed>
+        public sealed class Factory : IReproducibleRngFactory<XorShift, (UInt32 x, UInt32 y, UInt32 z, UInt32 w)>
         {
             internal Factory() { }
 
             public Int32 SeedLength => sizeof(UInt32) * 4;
 
             /// <inheritdoc />
-            public XorShift Create(Seed seed) => XorShift.Create(seed);
+            public XorShift Create((UInt32 x, UInt32 y, UInt32 z, UInt32 w) seed) => XorShift.Create(seed);
 
             /// <inheritdoc />
-            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
+            public (UInt32 x, UInt32 y, UInt32 z, UInt32 w) CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
             {
-                return new Seed(
+                return (
                     seedingRng.NextUInt32(),
                     seedingRng.NextUInt32(),
                     seedingRng.NextUInt32(),
                     seedingRng.NextUInt32()
                 );
             }
-        }
-
-        /// <summary>
-        /// The seed for <see cref="XorShift"/>.
-        /// </summary>
-        public readonly struct Seed
-        {
-            public Seed(UInt32 x, UInt32 y, UInt32 z, UInt32 w)
-            {
-                X = x;
-                Y = y;
-                Z = z;
-                W = w;
-            }
-
-            public UInt32 X { get; }
-
-            public UInt32 Y { get; }
-
-            public UInt32 Z { get; }
-
-            public UInt32 W { get; }
         }
     }
 }
