@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using BenchmarkDotNet.Attributes;
 using RandN.Rngs;
 
@@ -32,78 +32,70 @@ namespace RandN.Benchmarks
         }
 
         [Benchmark]
-        public Byte[] ChaCha8()
+        public void ChaCha8()
         {
-            Byte[] buffer = new Byte[BUFFER_LENGTH];
+            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
             for (Int32 i = 0; i < ITERATIONS; i++)
                 _chaCha8.Fill(buffer);
-            return buffer;
         }
 
         [Benchmark]
-        public Byte[] ChaCha12()
+        public void ChaCha12()
         {
-            Byte[] buffer = new Byte[BUFFER_LENGTH];
+            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
             for (Int32 i = 0; i < ITERATIONS; i++)
                 _chaCha12.Fill(buffer);
-            return buffer;
         }
 
         [Benchmark]
-        public Byte[] ChaCha20()
+        public void ChaCha20()
         {
-            Byte[] buffer = new Byte[BUFFER_LENGTH];
+            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
             for (Int32 i = 0; i < ITERATIONS; i++)
                 _chaCha20.Fill(buffer);
-            return buffer;
         }
 
         [Benchmark]
-        public Byte[] Mt1993764()
+        public void Mt1993764()
         {
-            Byte[] buffer = new Byte[BUFFER_LENGTH];
+            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
             for (Int32 i = 0; i < ITERATIONS; i++)
                 _mt1993764.Fill(buffer);
-            return buffer;
         }
 
         [Benchmark]
-        public Byte[] Pcg32()
+        public void Pcg32()
         {
-            Byte[] buffer = new Byte[BUFFER_LENGTH];
+            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
             for (Int32 i = 0; i < ITERATIONS; i++)
                 _pcg32.Fill(buffer);
-            return buffer;
         }
 
         [Benchmark]
-        public Byte[] XorShift()
+        public void XorShift()
         {
-            Byte[] buffer = new Byte[BUFFER_LENGTH];
+            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
             for (Int32 i = 0; i < ITERATIONS; i++)
                 _xorShift.Fill(buffer);
-            return buffer;
         }
 
         [Benchmark]
-        public Byte[] CryptoServiceProvider()
+        public void CryptoServiceProvider()
         {
-            Byte[] buffer = new Byte[BUFFER_LENGTH];
+            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
             for (Int32 i = 0; i < ITERATIONS; i++)
                 _cryptoServiceProvider.Fill(buffer);
-            return buffer;
         }
 
         /// <summary>
         /// Provided as a point of comparison.
         /// </summary>
         [Benchmark]
-        public Byte[] SystemRandom()
+        public void SystemRandom()
         {
-            Byte[] buffer = new Byte[BUFFER_LENGTH];
+            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
             for (Int32 i = 0; i < ITERATIONS; i++)
                 _random.NextBytes(buffer);
-            return buffer;
         }
     }
 }
