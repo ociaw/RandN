@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Developers of the RandN project.
+// Copyright 2018 Developers of the RandN project.
 // Copyright 2017 Paul Dicker.
 // Copyright 2014-2017 Melissa O'Neill and PCG Project contributors
 //
@@ -6,6 +6,9 @@
 // <LICENSE-MIT or https://opensource.org/licenses/MIT>.
 // This file may not be copied, modified, or distributed
 // except according to those terms.
+
+// Read more about PCG here: https://www.pcg-random.org/paper.html
+// And read the paper here: https://www.pcg-random.org/pdf/hmc-cs-2014-0905.pdf
 
 using RandN.RngHelpers;
 using System;
@@ -24,8 +27,8 @@ namespace RandN.Rngs
     /// output function. This combination is the standard pcg32.
     ///
     /// Despite the name, this implementation uses 16 bytes (128 bit) space
-    /// comprising 64 bits of state and 64 bits stream selector. These are both set
-    /// by <see cref="Factory"/>, using a 128-bit seed.
+    /// comprising 64 bits of state and a 64 bit stream selector. These are both set
+    /// by <see cref="Factory"/>, using a 127-bit seed.
     /// </remarks>
     public sealed class Pcg32 : IRng
     {
@@ -121,11 +124,11 @@ namespace RandN.Rngs
             /// The 63 bit stream id. The highest bit is ignored.
             /// </summary>
             /// <remarks>
-            /// Our implementation is consistent with the reference PCG implementation, where the highest bit is discarded.
-            /// However, the rust implementation discards the lowest bit
-            /// (<see href="https://github.com/rust-random/rand/blob/bf8b5a98ac95da19953f0b3b0f6da6ec8eda940b/rand_pcg/src/pcg64.rs#L87" />)
-            /// which results in surprising behavior for someone using incremental stream ids. A rust stream id can be right shifted once if
-            /// identical results are desired.
+            /// Our implementation is consistent with the reference PCG implementation, where the
+            /// highest bit is discarded. However, the some implementations discard the lowest bit instead
+            /// (<see href="https://github.com/rust-random/rand/blob/bf8b5a98ac95da19953f0b3b0f6da6ec8eda940b/rand_pcg/src/pcg64.rs#L87">such as Rust's Rand</see>)
+            /// which results in surprising behavior for someone using incremental stream ids. A
+            /// stream id such as this can be right shifted once if identical results are desired.
             /// </remarks>
             public UInt64 Stream { get; }
         }
