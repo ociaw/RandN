@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 
 /*** This file is auto generated - any changes made here will be lost. ***/

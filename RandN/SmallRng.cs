@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using RandN.Rngs;
 
 namespace RandN

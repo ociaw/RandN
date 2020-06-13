@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Xunit;
 using Seed = RandN.Rngs.ChaCha.Seed;
 

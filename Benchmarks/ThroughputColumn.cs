@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Reports;
 using BenchmarkDotNet.Running;

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using RandN.Rngs;
 
 namespace RandN
@@ -30,7 +30,7 @@ namespace RandN
             return _rngFactory.Create(seed);
         }
 
-        /// <summary>
+        /// <summary>   
         /// Disposes the seeding RNG if it implements <see cref="IDisposable"/>.
         /// </summary>
         public void Dispose()
