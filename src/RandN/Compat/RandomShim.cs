@@ -4,7 +4,7 @@ using RandN.Distributions;
 namespace RandN
 {
     /// <summary>
-    /// A wrapper type able to wrap any <see cref="IRng"/> as a <see cref="Random"/>.
+    /// A shim able to wrap any <see cref="IRng"/> as a <see cref="Random"/>.
     /// </summary>
     public sealed class RandomShim<TRng> : Random
         where TRng : IRng

@@ -3,7 +3,7 @@ using System;
 
 namespace RandN
 {
-    internal sealed class StepRng : IRng
+    internal sealed class StepRng : ICryptoRng
     {
         public StepRng(UInt64 state) => State = state;
 

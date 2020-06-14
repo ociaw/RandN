@@ -6,7 +6,7 @@ namespace RandN
     /// <summary>
     /// An RNG repeating a fixed sequence;
     /// </summary>
-    internal sealed class SequenceRng : IRng
+    internal sealed class SequenceRng : ICryptoRng
     {
         public SequenceRng(UInt32[] sequence) => Sequence = sequence;
 
