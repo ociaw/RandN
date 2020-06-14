@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using RandN.Distributions;
 
 namespace RandN
 {
@@ -30,6 +32,20 @@ namespace RandN
             where TRng : IRng
         {
             return distribution.Sample(rng);
+        }
+
+        public static void ShuffleInPlace<TRng, T>(this TRng rng, IList<T> list)
+            where TRng : IRng
+        {
+            // Fisher-Yates shuffle
+            for (Int32 i = list.Count - 1; i >= 1; i--)
+            {
+                var dist = Uniform.NewInclusive(0, i);
+                var swapIndex = dist.Sample(rng);
+                T temp = list[swapIndex];
+                list[swapIndex] = list[i];
+                list[i] = temp;
+            }
         }
 
         /// <summary>
