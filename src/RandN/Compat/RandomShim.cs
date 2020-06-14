@@ -6,7 +6,7 @@ namespace RandN
     /// <summary>
     /// A wrapper type able to wrap any <see cref="IRng"/> as a <see cref="Random"/>.
     /// </summary>
-    public sealed class RandomWrapper<TRng> : Random
+    public sealed class RandomShim<TRng> : Random
         where TRng : IRng
     {
         private readonly TRng _rng;
@@ -15,7 +15,7 @@ namespace RandN
         /// <summary>
         /// Constructs a new <see cref="Random"/> wrapper over <paramref name="rng"/> .
         /// </summary>
-        public RandomWrapper(TRng rng) => _rng = rng;
+        public RandomShim(TRng rng) => _rng = rng;
 
         /// <inheritdoc />
         public override Int32 Next() => Next(Int32.MaxValue);
@@ -42,13 +42,13 @@ namespace RandN
     }
 
     /// <summary>
-    /// Contains static helper methods for <see cref="RandomWrapper{TRng}"/>.
+    /// Contains static helper methods for <see cref="RandomShim{TRng}"/>.
     /// </summary>
     public static class RandomWrapper
     {
         /// <summary>
         /// Constructs a new <see cref="Random"/> wrapper over <paramref name="rng"/> .
         /// </summary>
-        public static RandomWrapper<TRng> Create<TRng>(TRng rng) where TRng : IRng => new RandomWrapper<TRng>(rng);
+        public static RandomShim<TRng> Create<TRng>(TRng rng) where TRng : IRng => new RandomShim<TRng>(rng);
     }
 }
