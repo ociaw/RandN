@@ -1,7 +1,7 @@
 using System;
 using RandN.Distributions;
 
-namespace RandN
+namespace RandN.Compat
 {
     /// <summary>
     /// A shim able to wrap any <see cref="IRng"/> as a <see cref="Random"/>.
