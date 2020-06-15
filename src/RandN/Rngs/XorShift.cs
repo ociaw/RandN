@@ -73,8 +73,6 @@ namespace RandN.Rngs
         {
             internal Factory() { }
 
-            public Int32 SeedLength => sizeof(UInt32) * 4;
-
             /// <inheritdoc />
             public XorShift Create((UInt32 x, UInt32 y, UInt32 z, UInt32 w) seed) => XorShift.Create(seed);
 
