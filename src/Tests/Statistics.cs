@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Intrinsics.X86;
 
-namespace RandN.Rngs
+namespace RandN
 {
     public static class Statistics
     {
