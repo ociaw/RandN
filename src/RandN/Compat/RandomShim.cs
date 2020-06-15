@@ -44,7 +44,7 @@ namespace RandN
     /// <summary>
     /// Contains static helper methods for <see cref="RandomShim{TRng}"/>.
     /// </summary>
-    public static class RandomWrapper
+    public static class RandomShim
     {
         /// <summary>
         /// Constructs a new <see cref="Random"/> wrapper over <paramref name="rng"/> .
