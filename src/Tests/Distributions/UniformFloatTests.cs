@@ -1,6 +1,12 @@
+
+
+
+
+
 using System;
 using Xunit;
 using RandN.Rngs;
+using RandN.Implementation;
 
 /*** This file is auto generated - any changes made here will be lost. ***/
 namespace RandN.Distributions
@@ -10,6 +16,7 @@ namespace RandN.Distributions
         [Fact]
         public void BadRange()
         {
+
             // Equal
             Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(0f, 0f));
             Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(Single.MaxValue, Single.MaxValue));
@@ -57,6 +64,7 @@ namespace RandN.Distributions
             Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(Single.PositiveInfinity, Single.NaN));
             Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(Single.NaN, Single.NegativeInfinity));
             Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(Single.NegativeInfinity, Single.NaN));
+
 
             // Equal
             Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(0d, 0d));
@@ -106,6 +114,7 @@ namespace RandN.Distributions
             Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(Double.NaN, Double.NegativeInfinity));
             Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(Double.NegativeInfinity, Double.NaN));
 
+
         }
 
         [Fact]
@@ -114,6 +123,7 @@ namespace RandN.Distributions
             var rng = Pcg32.Create(252, 11634580027462260723ul);
             var zeroRng = new StepRng(0) { Increment = 0 };
             var maxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = 0 };
+
 
             var vectorsSingle = new (Single, Single)[]
             {
@@ -167,6 +177,7 @@ namespace RandN.Distributions
             Assert.Equal(Single.MaxValue, maxSingleInclusive.Sample(rng));
             var minSingleInclusive = Uniform.NewInclusive(-Single.MaxValue, -Single.MaxValue);
             Assert.Equal(-Single.MaxValue, minSingleInclusive.Sample(rng));
+
             var vectorsDouble = new (Double, Double)[]
             {
                 (0.0d, 100.0d),
@@ -219,7 +230,9 @@ namespace RandN.Distributions
             Assert.Equal(Double.MaxValue, maxDoubleInclusive.Sample(rng));
             var minDoubleInclusive = Uniform.NewInclusive(-Double.MaxValue, -Double.MaxValue);
             Assert.Equal(-Double.MaxValue, minDoubleInclusive.Sample(rng));
+
         }
+
 
         [Fact]
         public void AverageSingles()
@@ -265,6 +278,7 @@ namespace RandN.Distributions
             Average(1e-35f, 1e-30f, 6);
         }
 
+
         [Fact]
         public void AverageDoubles()
         {
@@ -308,6 +322,7 @@ namespace RandN.Distributions
             Average(38.9d, 64.6d, 5);
             Average(1e-35d, 1e-30d, 6);
         }
+
 
     }
 }

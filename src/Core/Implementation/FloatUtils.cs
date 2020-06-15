@@ -1,6 +1,6 @@
 using System;
 
-namespace RandN.Distributions
+namespace RandN.Implementation
 {
     /// <summary>
     /// Utilities to facilitate bitwise manipulation of floating point numbers.
@@ -120,12 +120,12 @@ namespace RandN.Distributions
             }
 
             var bits = Decimal.GetBits(original);
-            var lo = (UInt32)bits[0];
-            var mid = (UInt32)bits[1];
-            var hi = (UInt32)bits[2];
+            var lo = unchecked((UInt32)bits[0]);
+            var mid = unchecked((UInt32)bits[1]);
+            var hi = unchecked((UInt32)bits[2]);
             var flags = bits[3];
             var isNegative = flags < 0;
-            var scale = (Byte)((flags & 0xFF0000) >> 16);
+            var scale = unchecked((Byte)((flags & 0xFF0000) >> 16));
 
             if (lo == 1 && mid == 0 && hi == 0)
             {
@@ -163,7 +163,7 @@ namespace RandN.Distributions
                 lo = UInt32.MaxValue;
             }
 
-            return new Decimal((Int32)lo, (Int32)mid, (Int32)hi, isNegative, scale);
+            return unchecked(new Decimal((Int32)lo, (Int32)mid, (Int32)hi, isNegative, scale));
         }
     }
 }

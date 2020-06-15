@@ -1,6 +1,6 @@
 using System;
 
-namespace RandN.RngHelpers
+namespace RandN.Implementation
 {
     /// <summary>
     /// Represents a block RNG with a result type of <typeparamref name="TItem"/>.

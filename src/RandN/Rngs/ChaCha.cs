@@ -1,5 +1,5 @@
 using System;
-using RandN.RngHelpers;
+using RandN.Implementation;
 
 namespace RandN.Rngs
 {

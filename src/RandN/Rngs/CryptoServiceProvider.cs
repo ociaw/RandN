@@ -1,7 +1,7 @@
-using RandN.RngHelpers;
 using System;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using RandN.Implementation;
 
 namespace RandN.Rngs
 {

@@ -1,6 +1,6 @@
 using System;
 
-namespace RandN.RngHelpers
+namespace RandN.Implementation
 {
     /// <summary>
     /// Assists in implementing block based RNGs.

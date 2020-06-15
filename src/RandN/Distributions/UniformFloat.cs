@@ -5,6 +5,7 @@
 
 using System;
 using System.Diagnostics;
+using RandN.Implementation;
 
 /*** This file is auto generated - any changes made here will be lost. ***/
 namespace RandN.Distributions

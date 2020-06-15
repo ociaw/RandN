@@ -1,5 +1,5 @@
 using System;
-using RandN.RngHelpers;
+using RandN.Implementation;
 
 // Algorithm based off of https://github.com/rust-random/rngs/tree/master/rand_xorshift and
 // Marsaglia, George (July 2003). "Xorshift RNGs". Journal of Statistical Software. Vol. 8 (Issue 14).

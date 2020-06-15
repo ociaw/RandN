@@ -1,4 +1,10 @@
+
+
+
+
+
 using System;
+using RandN.Implementation;
 
 /*** This file is auto generated - any changes made here will be lost. Modify UnitInterval.tt instead. ***/
 
@@ -13,6 +19,7 @@ namespace RandN.Distributions
     /// </summary>
     public sealed partial class UnitInterval
     {
+
         /// <summary>
         /// A distribution over the closed-open interval [0, 1).
         /// </summary>
@@ -144,6 +151,7 @@ namespace RandN.Distributions
             }
         }
 
+
         /// <summary>
         /// A distribution over the closed-open interval [0, 1).
         /// </summary>
@@ -274,6 +282,7 @@ namespace RandN.Distributions
                 return true;
             }
         }
+
 
     }
 }

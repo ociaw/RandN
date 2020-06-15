@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using RandN.RngHelpers;
+using RandN.Implementation;
 
 /* References:
  * https://cr.yp.to/chacha/chacha-20080128.pdf

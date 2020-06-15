@@ -10,6 +10,7 @@ var parameters = new (Type type, Type unsigned, String floatSuffix, String unsig
 };
 #>
 using System;
+using RandN.Implementation;
 
 /*** This file is auto generated - any changes made here will be lost. Modify UnitInterval.tt instead. ***/
 

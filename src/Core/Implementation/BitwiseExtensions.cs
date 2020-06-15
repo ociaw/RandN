@@ -1,7 +1,10 @@
 using System;
 
-namespace RandN.RngHelpers
+namespace RandN.Implementation
 {
+    /// <summary>
+    /// Bitwise extensions to unsigned integer types.
+    /// </summary>
     public static class BitwiseExtensions
     {
         /// <summary>

@@ -10,8 +10,8 @@
 // Read more about PCG here: https://www.pcg-random.org/paper.html
 // And read the paper here: https://www.pcg-random.org/pdf/hmc-cs-2014-0905.pdf
 
-using RandN.RngHelpers;
 using System;
+using RandN.Implementation;
 
 namespace RandN.Rngs
 {
