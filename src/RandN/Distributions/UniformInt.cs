@@ -1,8 +1,14 @@
+
+
+
+
+
 using System;
 
 /*** This file is auto generated - any changes made here will be lost. ***/
 namespace RandN.Distributions
 {
+
     /// <summary>
     /// A uniform distribution of type <see cref="SByte" />.
     /// </summary>
@@ -18,28 +24,28 @@ namespace RandN.Distributions
             _range = range;
             _zone = zone;
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformSByte" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(SByte, SByte)" />.
         /// </summary>
         public static UniformSByte Create(SByte low, SByte high)
         {
-            if (low >= high) 
+            if (low >= high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
 
             return CreateInclusive(low, (SByte)(high - 1));
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformSByte" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(SByte, SByte)" />.
         /// </summary>
         public static UniformSByte CreateInclusive(SByte low, SByte high)
         {
-            if (low > high) 
+            if (low > high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-                    
+
             var unsignedMax = UInt32.MaxValue;
             var range = unchecked((UInt32)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
@@ -75,7 +81,7 @@ namespace RandN.Distributions
             }
 
             var zone = UInt32.MaxValue - _zone;
-                
+
             if (unsigned <= zone)
             {
                 result = unchecked((SByte)((SByte)(unsigned % _range) + _low));
@@ -86,6 +92,7 @@ namespace RandN.Distributions
             return false;
         }
     }
+
     /// <summary>
     /// A uniform distribution of type <see cref="Int16" />.
     /// </summary>
@@ -101,28 +108,28 @@ namespace RandN.Distributions
             _range = range;
             _zone = zone;
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformInt16" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(Int16, Int16)" />.
         /// </summary>
         public static UniformInt16 Create(Int16 low, Int16 high)
         {
-            if (low >= high) 
+            if (low >= high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
 
             return CreateInclusive(low, (Int16)(high - 1));
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformInt16" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(Int16, Int16)" />.
         /// </summary>
         public static UniformInt16 CreateInclusive(Int16 low, Int16 high)
         {
-            if (low > high) 
+            if (low > high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-                    
+
             var unsignedMax = UInt32.MaxValue;
             var range = unchecked((UInt32)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
@@ -158,7 +165,7 @@ namespace RandN.Distributions
             }
 
             var zone = UInt32.MaxValue - _zone;
-                
+
             if (unsigned <= zone)
             {
                 result = unchecked((Int16)((Int16)(unsigned % _range) + _low));
@@ -169,6 +176,7 @@ namespace RandN.Distributions
             return false;
         }
     }
+
     /// <summary>
     /// A uniform distribution of type <see cref="Int32" />.
     /// </summary>
@@ -184,28 +192,28 @@ namespace RandN.Distributions
             _range = range;
             _zone = zone;
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformInt32" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(Int32, Int32)" />.
         /// </summary>
         public static UniformInt32 Create(Int32 low, Int32 high)
         {
-            if (low >= high) 
+            if (low >= high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
 
             return CreateInclusive(low, (Int32)(high - 1));
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformInt32" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(Int32, Int32)" />.
         /// </summary>
         public static UniformInt32 CreateInclusive(Int32 low, Int32 high)
         {
-            if (low > high) 
+            if (low > high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-                    
+
             var unsignedMax = UInt32.MaxValue;
             var range = unchecked((UInt32)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
@@ -241,7 +249,7 @@ namespace RandN.Distributions
             }
 
             var zone = UInt32.MaxValue - _zone;
-                
+
             if (unsigned <= zone)
             {
                 result = unchecked((Int32)((Int32)(unsigned % _range) + _low));
@@ -252,6 +260,7 @@ namespace RandN.Distributions
             return false;
         }
     }
+
     /// <summary>
     /// A uniform distribution of type <see cref="Int64" />.
     /// </summary>
@@ -267,28 +276,28 @@ namespace RandN.Distributions
             _range = range;
             _zone = zone;
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformInt64" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(Int64, Int64)" />.
         /// </summary>
         public static UniformInt64 Create(Int64 low, Int64 high)
         {
-            if (low >= high) 
+            if (low >= high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
 
             return CreateInclusive(low, (Int64)(high - 1));
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformInt64" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(Int64, Int64)" />.
         /// </summary>
         public static UniformInt64 CreateInclusive(Int64 low, Int64 high)
         {
-            if (low > high) 
+            if (low > high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-                    
+
             var unsignedMax = UInt64.MaxValue;
             var range = unchecked((UInt64)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
@@ -324,7 +333,7 @@ namespace RandN.Distributions
             }
 
             var zone = UInt64.MaxValue - _zone;
-                
+
             if (unsigned <= zone)
             {
                 result = unchecked((Int64)((Int64)(unsigned % _range) + _low));
@@ -335,6 +344,7 @@ namespace RandN.Distributions
             return false;
         }
     }
+
     /// <summary>
     /// A uniform distribution of type <see cref="Byte" />.
     /// </summary>
@@ -350,28 +360,28 @@ namespace RandN.Distributions
             _range = range;
             _zone = zone;
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformByte" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(Byte, Byte)" />.
         /// </summary>
         public static UniformByte Create(Byte low, Byte high)
         {
-            if (low >= high) 
+            if (low >= high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
 
             return CreateInclusive(low, (Byte)(high - 1));
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformByte" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(Byte, Byte)" />.
         /// </summary>
         public static UniformByte CreateInclusive(Byte low, Byte high)
         {
-            if (low > high) 
+            if (low > high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-                    
+
             var unsignedMax = UInt32.MaxValue;
             var range = unchecked((UInt32)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
@@ -407,7 +417,7 @@ namespace RandN.Distributions
             }
 
             var zone = UInt32.MaxValue - _zone;
-                
+
             if (unsigned <= zone)
             {
                 result = unchecked((Byte)((Byte)(unsigned % _range) + _low));
@@ -418,6 +428,7 @@ namespace RandN.Distributions
             return false;
         }
     }
+
     /// <summary>
     /// A uniform distribution of type <see cref="UInt16" />.
     /// </summary>
@@ -433,28 +444,28 @@ namespace RandN.Distributions
             _range = range;
             _zone = zone;
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformUInt16" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(UInt16, UInt16)" />.
         /// </summary>
         public static UniformUInt16 Create(UInt16 low, UInt16 high)
         {
-            if (low >= high) 
+            if (low >= high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
 
             return CreateInclusive(low, (UInt16)(high - 1));
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformUInt16" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(UInt16, UInt16)" />.
         /// </summary>
         public static UniformUInt16 CreateInclusive(UInt16 low, UInt16 high)
         {
-            if (low > high) 
+            if (low > high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-                    
+
             var unsignedMax = UInt32.MaxValue;
             var range = unchecked((UInt32)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
@@ -490,7 +501,7 @@ namespace RandN.Distributions
             }
 
             var zone = UInt32.MaxValue - _zone;
-                
+
             if (unsigned <= zone)
             {
                 result = unchecked((UInt16)((UInt16)(unsigned % _range) + _low));
@@ -501,6 +512,7 @@ namespace RandN.Distributions
             return false;
         }
     }
+
     /// <summary>
     /// A uniform distribution of type <see cref="UInt32" />.
     /// </summary>
@@ -516,28 +528,28 @@ namespace RandN.Distributions
             _range = range;
             _zone = zone;
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformUInt32" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(UInt32, UInt32)" />.
         /// </summary>
         public static UniformUInt32 Create(UInt32 low, UInt32 high)
         {
-            if (low >= high) 
+            if (low >= high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
 
             return CreateInclusive(low, (UInt32)(high - 1));
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformUInt32" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(UInt32, UInt32)" />.
         /// </summary>
         public static UniformUInt32 CreateInclusive(UInt32 low, UInt32 high)
         {
-            if (low > high) 
+            if (low > high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-                    
+
             var unsignedMax = UInt32.MaxValue;
             var range = unchecked((UInt32)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
@@ -573,7 +585,7 @@ namespace RandN.Distributions
             }
 
             var zone = UInt32.MaxValue - _zone;
-                
+
             if (unsigned <= zone)
             {
                 result = unchecked((UInt32)((UInt32)(unsigned % _range) + _low));
@@ -584,6 +596,7 @@ namespace RandN.Distributions
             return false;
         }
     }
+
     /// <summary>
     /// A uniform distribution of type <see cref="UInt64" />.
     /// </summary>
@@ -599,28 +612,28 @@ namespace RandN.Distributions
             _range = range;
             _zone = zone;
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformUInt64" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(UInt64, UInt64)" />.
         /// </summary>
         public static UniformUInt64 Create(UInt64 low, UInt64 high)
         {
-            if (low >= high) 
+            if (low >= high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
 
             return CreateInclusive(low, (UInt64)(high - 1));
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformUInt64" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(UInt64, UInt64)" />.
         /// </summary>
         public static UniformUInt64 CreateInclusive(UInt64 low, UInt64 high)
         {
-            if (low > high) 
+            if (low > high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-                    
+
             var unsignedMax = UInt64.MaxValue;
             var range = unchecked((UInt64)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
@@ -656,7 +669,7 @@ namespace RandN.Distributions
             }
 
             var zone = UInt64.MaxValue - _zone;
-                
+
             if (unsigned <= zone)
             {
                 result = unchecked((UInt64)((UInt64)(unsigned % _range) + _low));
@@ -667,4 +680,5 @@ namespace RandN.Distributions
             return false;
         }
     }
+
 }

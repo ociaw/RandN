@@ -19,7 +19,7 @@ namespace RandN.Distributions
             _low = low;
             _scale = scale;
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformSingle" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(Single, Single)" />.
@@ -51,7 +51,7 @@ namespace RandN.Distributions
             Debug.Assert(0.0 <= scale);
             return new UniformSingle(low, scale);
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformSingle" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(Single, Single)" />.
@@ -121,7 +121,7 @@ namespace RandN.Distributions
             _low = low;
             _scale = scale;
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformDouble" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(Double, Double)" />.
@@ -153,7 +153,7 @@ namespace RandN.Distributions
             Debug.Assert(0.0 <= scale);
             return new UniformDouble(low, scale);
         }
-        
+
         /// <summary>
         /// Creates a <see cref="UniformDouble" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(Double, Double)" />.

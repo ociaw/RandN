@@ -42,28 +42,28 @@ foreach (var tuple in types)
             _range = range;
             _zone = zone;
         }
-        
+
         /// <summary>
         /// Creates a <see cref="Uniform<#= type #>" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
         /// </summary>
         public static Uniform<#= type #> Create(<#= type #> low, <#= type #> high)
         {
-            if (low >= high) 
+            if (low >= high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
 
             return CreateInclusive(low, (<#= type #>)(high - 1));
         }
-        
+
         /// <summary>
         /// Creates a <see cref="Uniform<#= type #>" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(<#= type #>, <#= type #>)" />.
         /// </summary>
         public static Uniform<#= type #> CreateInclusive(<#= type #> low, <#= type #> high)
         {
-            if (low > high) 
+            if (low > high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-                    
+
             var unsignedMax = <#= ularge #>.MaxValue;
             var range = unchecked((<#= ularge #>)(high - low + 1));
             var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
@@ -99,7 +99,7 @@ foreach (var tuple in types)
             }
 
             var zone = <#= ularge #>.MaxValue - _zone;
-                
+
             if (unsigned <= zone)
             {
                 result = unchecked((<#= type #>)((<#= type #>)(unsigned % _range) + _low));

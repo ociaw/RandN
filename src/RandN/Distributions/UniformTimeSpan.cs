@@ -17,7 +17,7 @@ namespace RandN.Distributions
         /// </summary>
         public static UniformTimeSpan Create(TimeSpan low, TimeSpan high)
         {
-            if (low >= high) 
+            if (low >= high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
 
             return CreateInclusive(low, high - TimeSpan.FromTicks(1));
@@ -29,9 +29,9 @@ namespace RandN.Distributions
         /// </summary>
         public static UniformTimeSpan CreateInclusive(TimeSpan low, TimeSpan high)
         {
-            if (low > high) 
+            if (low > high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-            
+
             UniformInt64 backing = UniformInt64.CreateInclusive(low.Ticks, high.Ticks);
             return new UniformTimeSpan(backing);
         }

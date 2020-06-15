@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics.X86;
-using Xunit;
 
 namespace RandN.Rngs
 {
@@ -13,7 +10,7 @@ namespace RandN.Rngs
         public static Double ZScore => 2.576;
 
         /// <summary>
-        /// Length of the block used in <see cref="TestBlockFrequency{TRng}(TRng, uint)"/>
+        /// Length of the block used in <see cref="TestBlockFrequency{TRng}(TRng, UInt32)"/>
         /// </summary>
         public static Int32 FrequencyBlockLength => 8;
 
@@ -21,7 +18,7 @@ namespace RandN.Rngs
         {
             return WithinConfidenceBernoulli(actual, (Double)expected / sampleCount, sampleCount);
         }
-        
+
         public static Boolean WithinConfidenceBernoulli(UInt64 actual, Double p, UInt64 sampleCount)
         {
             var popStdDev = Math.Sqrt(p * (1.0 - p));

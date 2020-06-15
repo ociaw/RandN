@@ -11,8 +11,8 @@ namespace RandN.Distributions
         {
             var zeroRng = new StepRng(0) { Increment = 0 }; // Generates 0.0
             var openZeroRng = new SequenceRng(new UInt32[] { 1, 0, 0 }); // Generates the lowest non-zero value
-            var openOneRng = new SequenceRng(new UInt32[] { 0x1000_0000, 0x3E25_0261, 0x204F_CE5Du << 2  }); // Generates the value just under 1.0
-            var oneRng     = new SequenceRng(new UInt32[] { 0x1000_0000, 0x3E25_0261, 0x204F_CE5Eu << 2 }); // Generates 1.0
+            var openOneRng = new SequenceRng(new UInt32[] { 0x1000_0000, 0x3E25_0261, 0x204F_CE5Du << 2 }); // Generates the value just under 1.0
+            var oneRng = new SequenceRng(new UInt32[] { 0x1000_0000, 0x3E25_0261, 0x204F_CE5Eu << 2 }); // Generates 1.0
             var invalidRng = new SequenceRng(new UInt32[] { 0x1000_0000, 0x3E25_0261, 0x204F_CE5Fu << 2 }); // Generates the value just over 1.0
             Decimal zero, openZero, openOne, one;
 

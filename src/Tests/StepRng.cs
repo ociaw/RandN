@@ -1,5 +1,5 @@
-using RandN.RngHelpers;
 using System;
+using RandN.RngHelpers;
 
 namespace RandN
 {
@@ -32,7 +32,7 @@ namespace RandN
             {
                 var rng = new StepRng(seed);
                 rng.Increment = _increment;
-                return rng; 
+                return rng;
             }
 
             public UInt64 CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng => seedingRng.NextUInt64();
