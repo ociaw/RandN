@@ -15,6 +15,7 @@ var types = new Type[]
     typeof(TimeSpan),
     typeof(Single),
     typeof(Double),
+    typeof(Decimal),
 };
 #>
 using System;

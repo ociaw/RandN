@@ -34,6 +34,13 @@ namespace RandN.Rngs
             return difference < margin;
         }
 
+        public static Boolean WithinConfidence(Decimal popMean, Decimal popStdDev, Decimal sampleMean, UInt64 sampleCount)
+        {
+            var margin = popStdDev / (Decimal)Math.Sqrt(sampleCount) * (Decimal)ZScore;
+            var difference = Math.Abs(popMean - sampleMean);
+            return difference < margin;
+        }
+
         /// <summary>
         /// A simple test checking that the number of 1s and 0s is about equal.
         /// </summary>

@@ -100,5 +100,70 @@ namespace RandN.Distributions
                 return *(Double*)&bits;
             }
         }
+
+        /// <summary>
+        /// Decrements the mantissa of a decimal by one, wrapping by increasing the scale if necessary.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="original"/> is equal to zero.</exception>
+        public static Decimal DecrementMantissa(this Decimal original)
+        {
+            // If the mantissa == 0, throw exception
+            // If the mantissa == 1 and scale < 28, increment scale
+            // If the mantissa == 1 and scale == 28, decrement mantissa
+            // Otherwise, decrement mantissa
+
+            if (original == 0)
+            {
+                // The original is equal to zero, so we can't make it smaller without
+                // going into negative numbers.
+                throw new ArgumentOutOfRangeException(nameof(original), 0, "Cannot decrement mantissa of 0.");
+            }
+
+            var bits = Decimal.GetBits(original);
+            var lo = (UInt32)bits[0];
+            var mid = (UInt32)bits[1];
+            var hi = (UInt32)bits[2];
+            var flags = bits[3];
+            var isNegative = flags < 0;
+            var scale = (Byte)((flags & 0xFF0000) >> 16);
+
+            if (lo == 1 && mid == 0 && hi == 0)
+            {
+                // Decrementing a mantissa of 1 makes the entire number 0,
+                // so first we'll try to increase the scale
+                if (scale == 28)
+                {
+                    // We're at the smallest positive number, so
+                    // the only smaller number is zero.
+                    lo = 0;
+                }
+                else
+                {
+                    // We bump up the scale by one, then set the lowest bit to
+                    // 9. For reference, if we set lo = 10, the result would
+                    // equal a mantissa of 1 with the original scale. So this
+                    // is the same as multiplying the original by .9.
+                    scale += 1;
+                    lo = 9;
+                }
+            }
+            else if (lo != 0)
+            {
+                lo -= 1;
+            }
+            else if (mid != 0)
+            {
+                mid -= 1;
+                lo = UInt32.MaxValue;
+            }
+            else if (hi != 0)
+            {
+                hi -= 1;
+                mid = UInt32.MaxValue;
+                lo = UInt32.MaxValue;
+            }
+
+            return new Decimal((Int32)lo, (Int32)mid, (Int32)hi, isNegative, scale);
+        }
     }
 }
