@@ -12,7 +12,7 @@ namespace RandN.Rngs
         {
             var factory = StandardRng.GetFactory();
             var rng = factory.Create();
-            Assert.True(Statistics.TestMonobitFrequency(rng, 100_000));
+            Assert.True(Statistics.TestMonobitFrequency(rng, 100_000, Statistics.WideZScore));
         }
     }
 }
