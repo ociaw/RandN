@@ -1,9 +1,15 @@
+
+
+
+
+
 using System;
 using System.Diagnostics;
 
 /*** This file is auto generated - any changes made here will be lost. ***/
 namespace RandN.Distributions
 {
+
     /// <summary>
     /// A uniform distribution of type <see cref="Single" />.
     /// </summary>
@@ -27,7 +33,7 @@ namespace RandN.Distributions
         public static UniformSingle Create(Single low, Single high)
         {
             if (low >= high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
             if (Single.IsInfinity(low))
                 throw new ArgumentOutOfRangeException(nameof(low), low, "Must be finite.");
             if (Single.IsInfinity(high))
@@ -106,6 +112,7 @@ namespace RandN.Distributions
         }
     }
 
+
     /// <summary>
     /// A uniform distribution of type <see cref="Double" />.
     /// </summary>
@@ -129,7 +136,7 @@ namespace RandN.Distributions
         public static UniformDouble Create(Double low, Double high)
         {
             if (low >= high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
             if (Double.IsInfinity(low))
                 throw new ArgumentOutOfRangeException(nameof(low), low, "Must be finite.");
             if (Double.IsInfinity(high))
@@ -207,5 +214,6 @@ namespace RandN.Distributions
             return true;
         }
     }
+
 
 }

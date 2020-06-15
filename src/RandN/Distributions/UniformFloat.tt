@@ -35,7 +35,7 @@ namespace RandN.Distributions
             _low = low;
             _scale = scale;
         }
-        
+
         /// <summary>
         /// Creates a <see cref="Uniform<#= type #>" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
@@ -43,7 +43,7 @@ namespace RandN.Distributions
         public static Uniform<#= type #> Create(<#= type #> low, <#= type #> high)
         {
             if (low >= high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
             if (<#= type #>.IsInfinity(low))
                 throw new ArgumentOutOfRangeException(nameof(low), low, "Must be finite.");
             if (<#= type #>.IsInfinity(high))
@@ -67,7 +67,7 @@ namespace RandN.Distributions
             Debug.Assert(0.0 <= scale);
             return new Uniform<#= type #>(low, scale);
         }
-        
+
         /// <summary>
         /// Creates a <see cref="Uniform<#= type #>" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
