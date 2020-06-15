@@ -109,6 +109,9 @@ namespace RandN.Rngs
         /// </summary>
         public readonly struct Seed
         {
+            /// <summary>
+            /// Creates a new Pcg32 seed with the given state and stream.
+            /// </summary>
             public Seed(UInt64 state, UInt64 stream)
             {
                 State = state;

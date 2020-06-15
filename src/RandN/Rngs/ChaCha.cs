@@ -157,8 +157,15 @@ namespace RandN.Rngs
         /// </summary>
         public readonly struct Seed
         {
+            /// <summary>
+            /// Constructs a new ChaCha seed from a key with a stream id of 0.
+            /// </summary>
+            /// <param name="key">ChaCha's key. Must have a length of 8.</param>
             public Seed(ReadOnlySpan<UInt32> key) : this(key, 0) { }
 
+            /// <summary>
+            /// Constructs a new ChaCha seed from a key and a stream id.
+            /// </summary>
             /// <param name="key">ChaCha's key. Must have a length of 8.</param>
             /// <param name="stream">ChaCha's 64-bit stream id.</param>
             public Seed(ReadOnlySpan<UInt32> key, UInt64 stream)

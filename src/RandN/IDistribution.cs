@@ -3,7 +3,7 @@ using System;
 namespace RandN
 {
     /// <summary>
-    /// Produces values random of <see cref="TResult" />.
+    /// Produces values random of <typeparamref name="TResult"/>.
     /// </summary>
     /// <remarks>
     /// Implementations are immutable and therefore thread safe. Results are also reproducible

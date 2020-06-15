@@ -41,7 +41,7 @@ namespace RandN
     }
 
     /// <summary>
-    /// Creates instances of an <see cref="TRng"/> using automatically generated seeds.
+    /// Creates instances of an <see cref="IRng"/> using automatically generated seeds.
     /// </summary>
     public static class RngSeeder
     {

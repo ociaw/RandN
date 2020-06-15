@@ -34,6 +34,11 @@ namespace RandN
             return distribution.Sample(rng);
         }
 
+        /// <summary>
+        /// Shuffles a list using the in-place Fisher-Yates shuffling algorithm.
+        /// </summary>
+        /// <param name="rng">The RNG used to shuffle the list.</param>
+        /// <param name="list">The list to be shuffled.</param>
         public static void ShuffleInPlace<TRng, T>(this TRng rng, IList<T> list)
             where TRng : IRng
         {
@@ -49,10 +54,11 @@ namespace RandN
         }
 
         /// <summary>
-        /// Creates a new <see cref="TRng"/> using a seed created from <paramref name="seedingRng"/>.
+        /// Creates a new <typeparamref name="TRng"/> using a seed created from <paramref name="seedingRng"/>.
         /// </summary>
+        /// <param name="factory">The factory creating the new RNG.</param>
         /// <param name="seedingRng">The RNG used to create the seed.</param>
-        /// <returns>A new <see cref="TRng"/> instance.</returns>
+        /// <returns>A new <typeparamref name="TRng"/> instance.</returns>
         public static TRng Create<TRng, TSeed, TSeedingRng>(this IReproducibleRngFactory<TRng, TSeed> factory, TSeedingRng seedingRng)
             where TRng : IRng
             where TSeedingRng : IRng

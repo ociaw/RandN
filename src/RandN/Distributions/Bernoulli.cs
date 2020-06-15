@@ -31,7 +31,7 @@ namespace RandN.Distributions
         /// <summary>
         /// Creates a new Bernoulli distribution with a probability of p.
         /// </summary>
-        /// <param name="p">The probability of success. 0 <= p <= 1</param>
+        /// <param name="p">The probability of success. 0 &lt;= p &lt;= 1</param>
         public static Bernoulli FromP(Double p)
         {
             if (p < 0.0)

@@ -20,14 +20,23 @@ namespace RandN.Rngs
             _rng = rng;
         }
 
+        /// <summary>
+        /// Creates a new instance of <see cref="CryptoServiceProvider"/>.
+        /// </summary>
         public static CryptoServiceProvider Create() => new CryptoServiceProvider(new RNGCryptoServiceProvider());
 
+        /// <summary>
+        /// Returns a singleton instance of <see cref="CryptoServiceProvider.Factory"/>.
+        /// </summary>
         public static Factory GetFactory() => _factory;
 
+        /// <inheritdoc />
         public UInt32 NextUInt32() => _buffer.NextUInt32();
 
+        /// <inheritdoc />
         public UInt64 NextUInt64() => _buffer.NextUInt64();
 
+        /// <inheritdoc />
         public void Fill(Span<Byte> buffer)
         {
             // Only use the block buffer if it's longer than the destination.
@@ -47,12 +56,15 @@ namespace RandN.Rngs
 #endif
         }
 
+        /// <inheritdoc />
         public void Dispose() => _rng.Dispose();
 
+        /// <inheritdoc cref="IRngFactory{CryptoServiceProvider}" />
         public sealed class Factory : IRngFactory<CryptoServiceProvider>
         {
             internal Factory() { }
 
+            /// <inheritdoc />
             public CryptoServiceProvider Create() => CryptoServiceProvider.Create();
         }
 

@@ -68,6 +68,7 @@ namespace RandN.Rngs
         /// <inheritdoc />
         public void Fill(Span<Byte> buffer) => Filler.FillBytesViaNext(this, buffer);
 
+        /// <inheritdoc cref="IRngFactory{CryptoServiceProvider}" />
         public sealed class Factory : IReproducibleRngFactory<XorShift, (UInt32 x, UInt32 y, UInt32 z, UInt32 w)>
         {
             internal Factory() { }
