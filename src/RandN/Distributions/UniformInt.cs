@@ -12,7 +12,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="SByte" />.
     /// </summary>
-    public sealed class UniformSByte : IDistribution<SByte>
+    public readonly struct UniformSByte : IDistribution<SByte>
     {
         private readonly SByte _low;
         private readonly UInt32 _range;
@@ -96,7 +96,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="Int16" />.
     /// </summary>
-    public sealed class UniformInt16 : IDistribution<Int16>
+    public readonly struct UniformInt16 : IDistribution<Int16>
     {
         private readonly Int16 _low;
         private readonly UInt32 _range;
@@ -180,7 +180,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="Int32" />.
     /// </summary>
-    public sealed class UniformInt32 : IDistribution<Int32>
+    public readonly struct UniformInt32 : IDistribution<Int32>
     {
         private readonly Int32 _low;
         private readonly UInt32 _range;
@@ -264,7 +264,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="Int64" />.
     /// </summary>
-    public sealed class UniformInt64 : IDistribution<Int64>
+    public readonly struct UniformInt64 : IDistribution<Int64>
     {
         private readonly Int64 _low;
         private readonly UInt64 _range;
@@ -348,7 +348,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="Byte" />.
     /// </summary>
-    public sealed class UniformByte : IDistribution<Byte>
+    public readonly struct UniformByte : IDistribution<Byte>
     {
         private readonly Byte _low;
         private readonly UInt32 _range;
@@ -432,7 +432,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="UInt16" />.
     /// </summary>
-    public sealed class UniformUInt16 : IDistribution<UInt16>
+    public readonly struct UniformUInt16 : IDistribution<UInt16>
     {
         private readonly UInt16 _low;
         private readonly UInt32 _range;
@@ -516,7 +516,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="UInt32" />.
     /// </summary>
-    public sealed class UniformUInt32 : IDistribution<UInt32>
+    public readonly struct UniformUInt32 : IDistribution<UInt32>
     {
         private readonly UInt32 _low;
         private readonly UInt32 _range;
@@ -600,7 +600,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="UInt64" />.
     /// </summary>
-    public sealed class UniformUInt64 : IDistribution<UInt64>
+    public readonly struct UniformUInt64 : IDistribution<UInt64>
     {
         private readonly UInt64 _low;
         private readonly UInt64 _range;

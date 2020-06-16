@@ -2,15 +2,13 @@ using System;
 
 namespace RandN.Distributions
 {
-    public sealed partial class UnitInterval
+    public static partial class UnitInterval
     {
         /// <summary>
         /// A distribution over the closed-open interval [0, 1).
         /// </summary>
-        public sealed class ClosedOpenDecimal : IDistribution<Decimal>
+        public readonly struct ClosedOpenDecimal : IDistribution<Decimal>
         {
-            private ClosedOpenDecimal() { }
-
             /// <summary>
             /// Gets the instance of <see cref="ClosedOpenDecimal" />.
             /// </summary>
@@ -35,10 +33,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the open-closed interval (0, 1].
         /// </summary>
-        public sealed class OpenClosedDecimal : IDistribution<Decimal>
+        public readonly struct OpenClosedDecimal : IDistribution<Decimal>
         {
-            private OpenClosedDecimal() { }
-
             /// <summary>
             /// Gets the instance of <see cref="OpenClosedDecimal" />.
             /// </summary>
@@ -63,10 +59,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the closed interval [0, 1].
         /// </summary>
-        public sealed class ClosedDecimal : IDistribution<Decimal>
+        public readonly struct ClosedDecimal : IDistribution<Decimal>
         {
-            private ClosedDecimal() { }
-
             /// <summary>
             /// Gets the instance of <see cref="ClosedDecimal" />.
             /// </summary>
@@ -91,10 +85,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the open interval (0, 1).
         /// </summary>
-        public sealed class OpenDecimal : IDistribution<Decimal>
+        public readonly struct OpenDecimal : IDistribution<Decimal>
         {
-            private OpenDecimal() { }
-
             /// <summary>
             /// Gets the instance of <see cref="ClosedDecimal" />.
             /// </summary>

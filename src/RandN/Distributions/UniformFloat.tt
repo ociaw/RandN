@@ -24,7 +24,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="<#= type #>" />.
     /// </summary>
-    public sealed class Uniform<#= type #> : IDistribution<<#= type #>>
+    public readonly struct Uniform<#= type #> : IDistribution<<#= type #>>
     {
         private const Int32 BITS_TO_DISCARD = <#= param.bitsToDiscard #>;
 

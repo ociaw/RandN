@@ -23,7 +23,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A collection of distributions over the interval 0-1.
     /// </summary>
-    public sealed partial class UnitInterval
+    public static partial class UnitInterval
     {
 <# foreach (var param in parameters)
 {
@@ -36,10 +36,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the closed-open interval [0, 1).
         /// </summary>
-        public sealed class ClosedOpen<#= type #> : IDistribution<<#= type #>>
+        public readonly struct ClosedOpen<#= type #> : IDistribution<<#= type #>>
         {
-            private ClosedOpen<#= type #>() { }
-
             /// <summary>
             /// Gets the instance of <see cref="ClosedOpen<#= type #>" />.
             /// </summary>
@@ -69,10 +67,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the open-closed interval (0, 1].
         /// </summary>
-        public sealed class OpenClosed<#= type #> : IDistribution<<#= type #>>
+        public readonly struct OpenClosed<#= type #> : IDistribution<<#= type #>>
         {
-            private OpenClosed<#= type #>() { }
-
             /// <summary>
             /// Gets the instance of <see cref="OpenClosed<#= type #>" />.
             /// </summary>
@@ -102,10 +98,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the closed interval [0, 1].
         /// </summary>
-        public sealed class Closed<#= type #> : IDistribution<<#= type #>>
+        public readonly struct Closed<#= type #> : IDistribution<<#= type #>>
         {
-            private Closed<#= type #>() { }
-
             /// <summary>
             /// Gets the instance of <see cref="Closed<#= type #>" />.
             /// </summary>
@@ -135,10 +129,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the open interval (0, 1).
         /// </summary>
-        public sealed class Open<#= type #> : IDistribution<<#= type #>>
+        public readonly struct Open<#= type #> : IDistribution<<#= type #>>
         {
-            private Open<#= type #>() { }
-
             /// <summary>
             /// Gets the instance of <see cref="Open<#= type #>" />.
             /// </summary>

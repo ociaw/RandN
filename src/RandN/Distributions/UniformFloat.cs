@@ -14,7 +14,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="Single" />.
     /// </summary>
-    public sealed class UniformSingle : IDistribution<Single>
+    public readonly struct UniformSingle : IDistribution<Single>
     {
         private const Int32 BITS_TO_DISCARD = 9;
 
@@ -117,7 +117,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="Double" />.
     /// </summary>
-    public sealed class UniformDouble : IDistribution<Double>
+    public readonly struct UniformDouble : IDistribution<Double>
     {
         private const Int32 BITS_TO_DISCARD = 12;
 

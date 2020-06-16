@@ -17,16 +17,14 @@ namespace RandN.Distributions
     /// <summary>
     /// A collection of distributions over the interval 0-1.
     /// </summary>
-    public sealed partial class UnitInterval
+    public static partial class UnitInterval
     {
 
         /// <summary>
         /// A distribution over the closed-open interval [0, 1).
         /// </summary>
-        public sealed class ClosedOpenSingle : IDistribution<Single>
+        public readonly struct ClosedOpenSingle : IDistribution<Single>
         {
-            private ClosedOpenSingle() { }
-
             /// <summary>
             /// Gets the instance of <see cref="ClosedOpenSingle" />.
             /// </summary>
@@ -56,10 +54,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the open-closed interval (0, 1].
         /// </summary>
-        public sealed class OpenClosedSingle : IDistribution<Single>
+        public readonly struct OpenClosedSingle : IDistribution<Single>
         {
-            private OpenClosedSingle() { }
-
             /// <summary>
             /// Gets the instance of <see cref="OpenClosedSingle" />.
             /// </summary>
@@ -89,10 +85,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the closed interval [0, 1].
         /// </summary>
-        public sealed class ClosedSingle : IDistribution<Single>
+        public readonly struct ClosedSingle : IDistribution<Single>
         {
-            private ClosedSingle() { }
-
             /// <summary>
             /// Gets the instance of <see cref="ClosedSingle" />.
             /// </summary>
@@ -122,10 +116,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the open interval (0, 1).
         /// </summary>
-        public sealed class OpenSingle : IDistribution<Single>
+        public readonly struct OpenSingle : IDistribution<Single>
         {
-            private OpenSingle() { }
-
             /// <summary>
             /// Gets the instance of <see cref="OpenSingle" />.
             /// </summary>
@@ -155,10 +147,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the closed-open interval [0, 1).
         /// </summary>
-        public sealed class ClosedOpenDouble : IDistribution<Double>
+        public readonly struct ClosedOpenDouble : IDistribution<Double>
         {
-            private ClosedOpenDouble() { }
-
             /// <summary>
             /// Gets the instance of <see cref="ClosedOpenDouble" />.
             /// </summary>
@@ -188,10 +178,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the open-closed interval (0, 1].
         /// </summary>
-        public sealed class OpenClosedDouble : IDistribution<Double>
+        public readonly struct OpenClosedDouble : IDistribution<Double>
         {
-            private OpenClosedDouble() { }
-
             /// <summary>
             /// Gets the instance of <see cref="OpenClosedDouble" />.
             /// </summary>
@@ -221,10 +209,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the closed interval [0, 1].
         /// </summary>
-        public sealed class ClosedDouble : IDistribution<Double>
+        public readonly struct ClosedDouble : IDistribution<Double>
         {
-            private ClosedDouble() { }
-
             /// <summary>
             /// Gets the instance of <see cref="ClosedDouble" />.
             /// </summary>
@@ -254,10 +240,8 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the open interval (0, 1).
         /// </summary>
-        public sealed class OpenDouble : IDistribution<Double>
+        public readonly struct OpenDouble : IDistribution<Double>
         {
-            private OpenDouble() { }
-
             /// <summary>
             /// Gets the instance of <see cref="OpenDouble" />.
             /// </summary>

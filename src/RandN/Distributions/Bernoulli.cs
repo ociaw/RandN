@@ -5,7 +5,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A Bernoulli distribution, where each sample returns either <see langword="true" /> or <see langword="false" />.
     /// </summary>
-    public sealed class Bernoulli : IDistribution<Boolean>
+    public readonly struct Bernoulli : IDistribution<Boolean>
     {
         /// <summary>
         /// Probability represented as _p / 2^64.
