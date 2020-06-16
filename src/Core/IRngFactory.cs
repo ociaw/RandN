@@ -7,9 +7,9 @@ namespace RandN
         where TRng : IRng
     {
         /// <summary>
-        /// Creates a new <see cref="TRng"/>.
+        /// Creates a new <typeparamref name="TRng" />.
         /// </summary>
-        /// <returns>A new <see cref="TRng"/> instance.</returns>
+        /// <returns>A new <typeparamref name="TRng" /> instance.</returns>
         TRng Create();
     }
 }

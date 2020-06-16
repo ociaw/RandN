@@ -7,10 +7,10 @@ namespace RandN
         where TRng : IRng
     {
         /// <summary>
-        /// Creates a new <see cref="TRng"/> using the specified seed.
+        /// Creates a new <typeparamref name="TRng" /> using the specified seed.
         /// </summary>
         /// <param name="seed">The seed to create the RNG with.</param>
-        /// <returns>A new <see cref="TRng"/> instance.</returns>
+        /// <returns>A new <typeparamref name="TRng" /> instance.</returns>
         TRng Create(TSeed seed);
 
         /// <summary>
