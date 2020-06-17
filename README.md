@@ -1,4 +1,7 @@
 # RandN
+
+[![RandN on NuGet](https://img.shields.io/nuget/v/RandN)](https://www.nuget.org/packages/RandN/)
+
 RandN is a .NET library for random number generation. It aims to rectify [deficiencies in
 `System.Random`](https://ociaw.com/posts/pitfalls-of-system-random) with adaptability and
 extensibility in mind. RandN is heavily inspired by the design of the Rust crate
@@ -15,9 +18,15 @@ RandN provides a clear and obvious API that is difficult to use incorrectly, unl
 `System.Random`. This is accomplished by clearly separating two concepts; generating randomness
 with an `IRng`, and turning that data into something useful with an `IDistribution`.
 
-# Examples
+# Usage
 
-## Creating an RNG
+Install the RandN package from [Nuget](https://www.nuget.org/packages/RandN/) for most use cases.
+If you just want to implement an random number generator (ex. you're publishing a package with a new
+RNG), instead depend on [RandN.Core](https://www.nuget.org/packages/RandN.Core/).
+
+## Examples
+
+### Creating an RNG
 
 ```
 using RandN;
@@ -45,6 +54,8 @@ var seed = factory.CreateSeed(seeder);
 // Create the RNG from the seed
 var rng = factory.Create(seed);
 ```
+
+### Getting random numbers
 
 Once you have an RNG, you can either use it directly,
 
