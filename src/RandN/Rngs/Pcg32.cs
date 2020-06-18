@@ -76,8 +76,8 @@ namespace RandN.Rngs
             const Int32 XSHIFT = 18; // (5 + 32) / 2
             const Int32 SPARE = 27; // 64 - 32 - 5
 
-            var rotation = (Int32)(state >> ROTATE);
-            var xShift = (UInt32)(((state >> XSHIFT) ^ state) >> SPARE);
+            var rotation = unchecked((Int32)(state >> ROTATE));
+            var xShift = unchecked((UInt32)(((state >> XSHIFT) ^ state) >> SPARE));
             // Rotate Right
             return (xShift >> rotation) | (xShift << (32 - rotation));
         }

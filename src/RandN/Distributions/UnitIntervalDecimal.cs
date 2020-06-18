@@ -115,9 +115,9 @@ namespace RandN.Distributions
             // of sample attempts will be rejected.
             const Int32 scale = 28;
             const Int32 bitsToDiscard = 2;
-            Int32 lo = (Int32)rng.NextUInt32();
-            Int32 mid = (Int32)rng.NextUInt32();
-            Int32 hi = (Int32)(rng.NextUInt32() >> bitsToDiscard);
+            Int32 lo = unchecked((Int32)rng.NextUInt32());
+            Int32 mid = unchecked((Int32)rng.NextUInt32());
+            Int32 hi = unchecked((Int32)(rng.NextUInt32() >> bitsToDiscard));
             return new Decimal(lo, mid, hi, isNegative: false, scale);
         }
     }

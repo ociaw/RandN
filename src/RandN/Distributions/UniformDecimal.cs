@@ -105,9 +105,9 @@ namespace RandN.Distributions
         {
             // 96 bits of precision - The range generated is approximately [0-7.92].
             const Int32 decimalScale = 28;
-            Int32 lo = (Int32)rng.NextUInt32();
-            Int32 mid = (Int32)rng.NextUInt32();
-            Int32 hi = (Int32)rng.NextUInt32();
+            Int32 lo = unchecked((Int32)rng.NextUInt32());
+            Int32 mid = unchecked((Int32)rng.NextUInt32());
+            Int32 hi = unchecked((Int32)rng.NextUInt32());
             var value = new Decimal(lo, mid, hi, isNegative: false, decimalScale);
             return value * _scale + _low;
         }
