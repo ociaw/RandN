@@ -48,6 +48,9 @@ namespace RandN.Rngs
         /// The number of double rounds to perform. Half the total number of rounds,
         /// ex. ChaCha20 has 10 double rounds and ChaCha8 has 4 double rounds.
         /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown if <paramref name="doubleRounds"/> is equal to 0.
+        /// </exception>
         public static ChaCha Create(Seed seed, UInt32 doubleRounds)
         {
             if (doubleRounds == 0)
@@ -168,6 +171,9 @@ namespace RandN.Rngs
             /// </summary>
             /// <param name="key">ChaCha's key. Must have a length of 8.</param>
             /// <param name="stream">ChaCha's 64-bit stream id.</param>
+            /// <exception cref="ArgumentException">
+            /// Thrown when the length of <paramref name="key"/> is not equal to 8.
+            /// </exception>
             public Seed(ReadOnlySpan<UInt32> key, UInt64 stream)
             {
                 if (key.Length != KEY_LENGTH)
@@ -195,6 +201,9 @@ namespace RandN.Rngs
         {
             /// <param name="block">ChaCha's 64-bit block counter.</param>
             /// <param name="word">The individual word in the current block. Must be less than or equal to 16.</param>
+            /// <exception cref="ArgumentException">
+            /// Thrown when the length of <paramref name="block"/> is not less than or equal to 16.
+            /// </exception>
             public Counter(UInt64 block, UInt32 word)
             {
                 if (word > 16)

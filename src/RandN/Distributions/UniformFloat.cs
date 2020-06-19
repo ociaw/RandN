@@ -31,6 +31,9 @@ namespace RandN.Distributions
         /// Creates a <see cref="UniformSingle" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(Single, Single)" />.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+        /// </exception>
         public static UniformSingle Create(Single low, Single high)
         {
             if (low >= high)
@@ -63,6 +66,9 @@ namespace RandN.Distributions
         /// Creates a <see cref="UniformSingle" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(Single, Single)" />.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+        /// </exception>
         public static UniformSingle CreateInclusive(Single low, Single high)
         {
             if (low > high)
@@ -134,6 +140,9 @@ namespace RandN.Distributions
         /// Creates a <see cref="UniformDouble" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(Double, Double)" />.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+        /// </exception>
         public static UniformDouble Create(Double low, Double high)
         {
             if (low >= high)
@@ -166,6 +175,9 @@ namespace RandN.Distributions
         /// Creates a <see cref="UniformDouble" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(Double, Double)" />.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+        /// </exception>
         public static UniformDouble CreateInclusive(Double low, Double high)
         {
             if (low > high)

@@ -32,6 +32,7 @@ namespace RandN.Distributions
         /// Creates a new Bernoulli distribution with a probability of p.
         /// </summary>
         /// <param name="p">The probability of success. 0 &lt;= p &lt;= 1</param>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="p"/> is greater than 1 or less than 0.</exception>
         public static Bernoulli FromP(Double p)
         {
             if (p < 0.0)
@@ -47,6 +48,7 @@ namespace RandN.Distributions
         /// <summary>
         /// Creates a new Bernoulli distribution, with a probability of <paramref name="numerator"/> / <paramref name="denominator"/>.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="numerator"/> is greater than <paramref name="denominator"/>.</exception>
         public static Bernoulli FromRatio(UInt32 numerator, UInt32 denominator)
         {
             if (numerator > denominator)

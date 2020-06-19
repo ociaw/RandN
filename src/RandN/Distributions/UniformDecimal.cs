@@ -22,6 +22,9 @@ namespace RandN.Distributions
         /// Creates a <see cref="UniformDecimal" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(Decimal, Decimal)" />.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+        /// </exception>
         public static UniformDecimal Create(Decimal low, Decimal high)
         {
             if (low >= high)
@@ -63,6 +66,9 @@ namespace RandN.Distributions
         /// Creates a <see cref="UniformDecimal" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(Decimal, Decimal)" />.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+        /// </exception>
         public static UniformDecimal CreateInclusive(Decimal low, Decimal high)
         {
             if (low > high)

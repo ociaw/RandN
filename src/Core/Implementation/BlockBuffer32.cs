@@ -34,6 +34,7 @@ namespace RandN.Implementation
         /// <summary>
         /// Generates and stores the next block and sets <see cref="Index"/> to <paramref name="index"/>.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Throws if <paramref name="index"/> is greater than or equal to <see cref="Index"/>.</exception>
         public void GenerateAndSet(Int32 index)
         {
             if (index >= _results.Length)
@@ -142,6 +143,7 @@ namespace RandN.Implementation
         /// <summary>
         /// Generates and stores the next block and sets <see cref="Index"/> to <paramref name="index"/>.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">Throws if <paramref name="index"/> is greater than or equal to <see cref="Index"/>.</exception>
         public void GenerateAndSet(Int32 index)
         {
             if (index >= _results.Length)

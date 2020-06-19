@@ -15,6 +15,9 @@ namespace RandN.Distributions
         /// Creates a <see cref="UniformTimeSpan" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(TimeSpan, TimeSpan)" />.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+        /// </exception>
         public static UniformTimeSpan Create(TimeSpan low, TimeSpan high)
         {
             if (low >= high)
@@ -27,6 +30,9 @@ namespace RandN.Distributions
         /// Creates a <see cref="UniformTimeSpan" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(TimeSpan, TimeSpan)" />.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+        /// </exception>
         public static UniformTimeSpan CreateInclusive(TimeSpan low, TimeSpan high)
         {
             if (low > high)

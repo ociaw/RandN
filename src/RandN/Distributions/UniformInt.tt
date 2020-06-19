@@ -47,6 +47,9 @@ foreach (var tuple in types)
         /// Creates a <see cref="Uniform<#= type #>" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+        /// </exception>
         public static Uniform<#= type #> Create(<#= type #> low, <#= type #> high)
         {
             if (low >= high)
@@ -59,6 +62,9 @@ foreach (var tuple in types)
         /// Creates a <see cref="Uniform<#= type #>" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(<#= type #>, <#= type #>)" />.
         /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+        /// </exception>
         public static Uniform<#= type #> CreateInclusive(<#= type #> low, <#= type #> high)
         {
             if (low > high)
