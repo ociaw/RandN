@@ -11,7 +11,7 @@
     <Nullable>enable</Nullable>
     <LangVersion>8.0</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Version>0.1.0-beta</Version>
+    <Version>0.1.0</Version>
     <Authors>ociaw</Authors>
     <Company>ociaw</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
