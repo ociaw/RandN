@@ -8,7 +8,6 @@ namespace RandN
     /// </summary>
     public sealed class SmallRng : IRng
     {
-        private static readonly Factory _factory = new Factory();
         private readonly Pcg32 _wrapped;
 
         private SmallRng(Pcg32 wrapped) => _wrapped = wrapped;
@@ -25,7 +24,7 @@ namespace RandN
         /// <summary>
         /// Gets the <see cref="StandardRng"/> factory.
         /// </summary>
-        public static Factory GetFactory() => _factory;
+        public static Factory GetFactory() => new Factory();
 
         /// <inheritdoc />
         public void Fill(Span<Byte> buffer) => _wrapped.Fill(buffer);
@@ -37,10 +36,8 @@ namespace RandN
         public UInt64 NextUInt64() => _wrapped.NextUInt64();
 
         /// <inheritdoc cref="IRngFactory{StandardRng}" />
-        public sealed class Factory : IRngFactory<SmallRng>
+        public readonly struct Factory : IRngFactory<SmallRng>
         {
-            internal Factory() { }
-
             /// <inheritdoc />
             public SmallRng Create() => SmallRng.Create();
         }

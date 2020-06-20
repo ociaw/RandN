@@ -10,8 +10,6 @@ namespace RandN.Rngs
     /// </summary>
     public sealed class Mt1993764 : IRng
     {
-        private static readonly Factory _factory = new Factory();
-
         private const Int32 WordSize = sizeof(UInt64) * 8; // 64 bits (w)
         private const Int32 RecurrenceDegree = 312; // (n)
         private const Int32 MiddleWord = 156; // (m)
@@ -109,7 +107,7 @@ namespace RandN.Rngs
         /// <summary>
         /// Gets the <see cref="Mt1993764" /> factory.
         /// </summary>
-        public static Factory GetFactory() => _factory;
+        public static Factory GetFactory() => new Factory();
 
         /// <inheritdoc />
         public UInt32 NextUInt32() => Filler.NextUInt32ViaUInt64(this);
@@ -155,10 +153,8 @@ namespace RandN.Rngs
         /// <summary>
         /// Produces Mersenne Twister RNGs and seeds.
         /// </summary>
-        public sealed class Factory : IReproducibleRngFactory<Mt1993764, UInt64>, IReproducibleRngFactory<Mt1993764, UInt64[]>
+        public readonly struct Factory : IReproducibleRngFactory<Mt1993764, UInt64>, IReproducibleRngFactory<Mt1993764, UInt64[]>
         {
-            internal Factory() { }
-
             /// <inheritdoc />
             public Mt1993764 Create(UInt64 seed) => Mt1993764.Create(seed);
 

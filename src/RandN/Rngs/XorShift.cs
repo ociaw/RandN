@@ -12,8 +12,6 @@ namespace RandN.Rngs
     /// </summary>
     public sealed class XorShift : IRng
     {
-        private static readonly Factory _factory = new Factory();
-
         private UInt32 _x;
         private UInt32 _y;
         private UInt32 _z;
@@ -49,7 +47,7 @@ namespace RandN.Rngs
         /// <summary>
         /// Gets the XorShift factory.
         /// </summary>
-        public static Factory GetFactory() => _factory;
+        public static Factory GetFactory() => new Factory();
 
         /// <inheritdoc />
         public UInt32 NextUInt32()
@@ -69,10 +67,8 @@ namespace RandN.Rngs
         public void Fill(Span<Byte> buffer) => Filler.FillBytesViaNext(this, buffer);
 
         /// <inheritdoc cref="IRngFactory{CryptoServiceProvider}" />
-        public sealed class Factory : IReproducibleRngFactory<XorShift, (UInt32 x, UInt32 y, UInt32 z, UInt32 w)>
+        public readonly struct Factory : IReproducibleRngFactory<XorShift, (UInt32 x, UInt32 y, UInt32 z, UInt32 w)>
         {
-            internal Factory() { }
-
             /// <inheritdoc />
             public XorShift Create((UInt32 x, UInt32 y, UInt32 z, UInt32 w) seed) => XorShift.Create(seed);
 

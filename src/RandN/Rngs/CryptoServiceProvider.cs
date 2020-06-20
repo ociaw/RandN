@@ -10,7 +10,6 @@ namespace RandN.Rngs
     /// </summary>
     public sealed class CryptoServiceProvider : IRng, ICryptoRng, IDisposable
     {
-        private static readonly Factory _factory = new Factory();
         private readonly BlockBuffer32<BlockCore> _buffer;
         private readonly RNGCryptoServiceProvider _rng;
 
@@ -28,7 +27,7 @@ namespace RandN.Rngs
         /// <summary>
         /// Returns a singleton instance of <see cref="CryptoServiceProvider.Factory"/>.
         /// </summary>
-        public static Factory GetFactory() => _factory;
+        public static Factory GetFactory() => new Factory();
 
         /// <inheritdoc />
         public UInt32 NextUInt32() => _buffer.NextUInt32();
@@ -60,10 +59,8 @@ namespace RandN.Rngs
         public void Dispose() => _rng.Dispose();
 
         /// <inheritdoc cref="IRngFactory{CryptoServiceProvider}" />
-        public sealed class Factory : IRngFactory<CryptoServiceProvider>
+        public readonly struct Factory : IRngFactory<CryptoServiceProvider>
         {
-            internal Factory() { }
-
             /// <inheritdoc />
             public CryptoServiceProvider Create() => CryptoServiceProvider.Create();
         }

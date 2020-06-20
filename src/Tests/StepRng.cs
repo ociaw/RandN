@@ -22,7 +22,7 @@ namespace RandN
             return value;
         }
 
-        public sealed class Factory : IReproducibleRngFactory<StepRng, UInt64>
+        public readonly struct Factory : IReproducibleRngFactory<StepRng, UInt64>
         {
             private readonly UInt64 _increment;
 

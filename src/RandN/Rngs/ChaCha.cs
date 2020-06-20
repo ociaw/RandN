@@ -10,9 +10,6 @@ namespace RandN.Rngs
     {
         private const Int32 BLOCK_LENGTH = 16;
         private const Int32 KEY_LENGTH = 8;
-        private static readonly Factory8 _factory8 = new Factory8();
-        private static readonly Factory12 _factory12 = new Factory12();
-        private static readonly Factory20 _factory20 = new Factory20();
 
         private readonly BlockBuffer32<ChaChaCore, UInt64> _blockBuffer;
         private readonly UInt32[] _buffer;
@@ -65,17 +62,17 @@ namespace RandN.Rngs
         /// <summary>
         /// Gets the ChaCha8 factory.
         /// </summary>
-        public static Factory8 GetChaCha8Factory() => _factory8;
+        public static Factory8 GetChaCha8Factory() => new Factory8();
 
         /// <summary>
         /// Gets the ChaCha12 factory.
         /// </summary>
-        public static Factory12 GetChaCha12Factory() => _factory12;
+        public static Factory12 GetChaCha12Factory() => new Factory12();
 
         /// <summary>
         /// Gets the ChaCha20 factory.
         /// </summary>
-        public static Factory20 GetChaCha20Factory() => _factory20;
+        public static Factory20 GetChaCha20Factory() => new Factory20();
 
         /// <inheritdoc />
         public UInt32 NextUInt32() => _blockBuffer.NextUInt32();
@@ -89,11 +86,9 @@ namespace RandN.Rngs
         /// <summary>
         /// Produces ChaCha8 RNGs and seeds.
         /// </summary>
-        public sealed class Factory8 : IReproducibleRngFactory<ChaCha, Seed>
+        public readonly struct Factory8 : IReproducibleRngFactory<ChaCha, Seed>
         {
             private const UInt32 DOUBLE_ROUNDS = 4;
-
-            internal Factory8() { }
 
             /// <inheritdoc />
             public ChaCha Create(Seed seed) => ChaCha.Create(seed, DOUBLE_ROUNDS);
@@ -112,11 +107,9 @@ namespace RandN.Rngs
         /// <summary>
         /// Produces ChaCha12 RNGs and seeds.
         /// </summary>
-        public sealed class Factory12 : IReproducibleRngFactory<ChaCha, Seed>
+        public readonly struct Factory12 : IReproducibleRngFactory<ChaCha, Seed>
         {
             private const UInt32 DOUBLE_ROUNDS = 6;
-
-            internal Factory12() { }
 
             /// <inheritdoc />
             public ChaCha Create(Seed seed) => ChaCha.Create(seed, DOUBLE_ROUNDS);
@@ -135,11 +128,9 @@ namespace RandN.Rngs
         /// <summary>
         /// Produces ChaCha20 RNGs and seeds.
         /// </summary>
-        public sealed class Factory20 : IReproducibleRngFactory<ChaCha, Seed>
+        public readonly struct Factory20 : IReproducibleRngFactory<ChaCha, Seed>
         {
             private const UInt32 DOUBLE_ROUNDS = 10;
-
-            internal Factory20() { }
 
             /// <inheritdoc />
             public ChaCha Create(Seed seed) => ChaCha.Create(seed, DOUBLE_ROUNDS);

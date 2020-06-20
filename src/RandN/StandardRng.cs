@@ -8,7 +8,6 @@ namespace RandN
     /// </summary>
     public sealed class StandardRng : IRng, ICryptoRng
     {
-        private static readonly Factory _factory = new Factory();
         private readonly ChaCha _wrapped;
 
         private StandardRng(ChaCha wrapped) => _wrapped = wrapped;
@@ -25,7 +24,7 @@ namespace RandN
         /// <summary>
         /// Gets the <see cref="StandardRng"/> factory.
         /// </summary>
-        public static Factory GetFactory() => _factory;
+        public static Factory GetFactory() => new StandardRng();
 
         /// <inheritdoc />
         public void Fill(Span<Byte> buffer) => _wrapped.Fill(buffer);
@@ -37,10 +36,8 @@ namespace RandN
         public UInt64 NextUInt64() => _wrapped.NextUInt64();
 
         /// <inheritdoc cref="IRngFactory{StandardRng}" />
-        public sealed class Factory : IRngFactory<StandardRng>
+        public readonly struct Factory : IRngFactory<StandardRng>
         {
-            internal Factory() { }
-
             /// <inheritdoc />
             public StandardRng Create() => StandardRng.Create();
         }

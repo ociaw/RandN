@@ -32,8 +32,6 @@ namespace RandN.Rngs
     /// </remarks>
     public sealed class Pcg32 : IRng
     {
-        private static readonly Factory _factory = new Factory();
-
         private const UInt64 MULTIPLIER = 6364136223846793005;
 
         private UInt64 _state;
@@ -62,7 +60,7 @@ namespace RandN.Rngs
         /// <summary>
         /// Gets the <see cref="XorShift" /> factory.
         /// </summary>
-        public static Factory GetFactory() => _factory;
+        public static Factory GetFactory() => new Factory();
 
         /// <inheritdoc />
         public UInt32 NextUInt32()
@@ -93,10 +91,8 @@ namespace RandN.Rngs
         /// <summary>
         /// Produces Pcg32 RNGs and seeds.
         /// </summary>
-        public sealed class Factory : IReproducibleRngFactory<Pcg32, Seed>
+        public readonly struct Factory : IReproducibleRngFactory<Pcg32, Seed>
         {
-            internal Factory() { }
-
             /// <inheritdoc />
             public Pcg32 Create(Seed seed) => Pcg32.Create(seed.State, seed.Stream);
 
