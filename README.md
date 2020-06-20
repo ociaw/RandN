@@ -18,6 +18,10 @@ RandN provides a clear and obvious API that is difficult to use incorrectly, unl
 `System.Random`. This is accomplished by clearly separating two concepts; generating randomness
 with an `IRng`, and turning that data into something useful with an `IDistribution`.
 
+## Docs
+
+The full documentation is available [here](https://ociaw.com/randn).
+
 # Usage
 
 Install the RandN package from [Nuget](https://www.nuget.org/packages/RandN/) for most use cases.
