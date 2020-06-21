@@ -1,4 +1,4 @@
-Title: RandN - Better random number generation for .NET
+Title: Better random number generation for .NET
 ---
 
 RandN provides an alternative random number generation API to .NET's `Random`, which has
