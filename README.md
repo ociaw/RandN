@@ -32,19 +32,19 @@ RNG), instead depend on [RandN.Core](https://www.nuget.org/packages/RandN.Core/)
 
 ### Creating an RNG
 
-```
+``` csharp
 using RandN;
 
 // Creates a cryptographically secure RNG
-var cryptoRng = StandardRng.Create();
+var rng = StandardRng.Create();
 
 // Creates a non-cryptographically secure RNG that's fast and uses less memory
-var rng = SmallRng.Create();
+var insecureRng = SmallRng.Create();
 ```
 
 A reproducible RNG can also be created by using an algorithm directly:
 
-```
+``` csharp
 using RandN.Rngs;
 
 // Use ThreadLocalRng to seed the RNG - this uses a cryptographically secure
@@ -63,7 +63,7 @@ var rng = factory.Create(seed);
 
 Once you have an RNG, you can either use it directly,
 
-```
+``` csharp
 var num = rng.NextUInt32();
 var bigNum = rng.NextUInt64();
 var buffer = new Byte[1000];
@@ -72,17 +72,17 @@ rng.Fill(buffer);
 
 or you can use it to sample a distribution:
 
-```
-var distribution = Uniform.NewInclusive(42, 54); // [42 - 54]
-var answer = distribution.Sample(rng);
+``` csharp
+UniformInt32 distribution = Uniform.NewInclusive(42, 54); // [42 - 54]
+int answer = distribution.Sample(rng);
 
-var weightedCoin = Bernoulli.FromRatio(8, 10); // 80% chance of true
-var probablyHeads = weightedCoin.Sample(rng);
+Bernoulli weightedCoin = Bernoulli.FromRatio(8, 10); // 80% chance of true
+bool probablyHeads = weightedCoin.Sample(rng);
 ```
 
 Shuffling a list is also easy:
 
-```
+``` csharp
 var list = new List<Int32>() { 1, 2, 3, 4, 5, 6 };
 rng.ShuffleInPlace(list);
 ```
@@ -90,7 +90,7 @@ rng.ShuffleInPlace(list);
 Any type implementing `IRng` can be wrapped with `RandomShim`, which can be used as a drop-in
 replacement for `Random`.
 
-```
+``` csharp
 using RandN.Compat;
 Random random = RandomShim.Create(rng);
 random.Next(2);
