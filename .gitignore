@@ -7,3 +7,7 @@ obj/
 *.vsp
 *.vspx
 packages/
+
+# Docs
+config.wyam.*
+docs/output/**

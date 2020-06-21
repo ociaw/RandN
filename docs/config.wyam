@@ -1,0 +1,8 @@
+#recipe Docs
+
+Settings[Keys.Host] = "randn.ociaw.com";
+Settings[DocsKeys.Title] = "RandN Docs";
+Settings[DocsKeys.SourceFiles] = null;
+Settings[DocsKeys.ProjectFiles] = @"../../src/**/{!.git,!bin,!obj,!packages,!Tests,!Benchmarks,}/**/*.csproj";
+Settings[DocsKeys.IncludeGlobalNamespace] = false;
+Settings[DocsKeys.Title] = "RandN Docs";
