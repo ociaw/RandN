@@ -13,3 +13,4 @@ packages/
 # Docs
 config.wyam.*
 docs/output/**
+docs/theme/**

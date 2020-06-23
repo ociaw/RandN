@@ -1,3 +1,5 @@
+#n Wyam.Highlight
+
 #recipe Docs
 using Microsoft.CodeAnalysis;
 
@@ -7,6 +9,24 @@ Settings[DocsKeys.SourceFiles] = null;
 Settings[DocsKeys.ProjectFiles] = @"../../src/**/{!.git,!bin,!obj,!packages,!Tests,!Benchmarks,}/**/*.csproj";
 Settings[DocsKeys.IncludeGlobalNamespace] = false;
 Settings[DocsKeys.Logo] = "assets/img/randn-logo-wide.svg";
+
+Pipelines["RenderBlogPosts"].InsertBefore
+(
+    nameof(Wyam.Web.Pipelines.RenderBlogPosts.WriteFiles),
+    new Highlight()
+);
+
+Pipelines["RenderPages"].InsertBefore
+(
+    nameof(Wyam.Web.Pipelines.RenderPages.WriteFiles),
+    new Highlight()
+);
+
+Pipelines["RenderPages"].InsertBefore
+(
+    nameof(Wyam.Web.Pipelines.RenderPages.WriteFiles),
+    new Highlight()
+);
 
 /*
    This works around a bug in Wyam where nested classes with the same name overwrite each other.
