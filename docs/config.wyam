@@ -1,4 +1,5 @@
 #n Wyam.Highlight
+#n Wyam.Minification
 
 #recipe Docs
 using Microsoft.CodeAnalysis;
@@ -10,22 +11,59 @@ Settings[DocsKeys.ProjectFiles] = @"../../src/**/{!.git,!bin,!obj,!packages,!Tes
 Settings[DocsKeys.IncludeGlobalNamespace] = false;
 Settings[DocsKeys.Logo] = "assets/img/randn-logo-wide.svg";
 
+// Minify indexing pages
+Pipelines["BlogIndexes"].InsertBefore("WriteFiles", new MinifyHtml());
+Pipelines["BlogCategories"].InsertBefore("WriteFiles", new MinifyHtml());
+Pipelines["BlogTags"].InsertBefore("WriteFiles", new MinifyHtml());
+Pipelines["BlogAuthors"].InsertBefore("WriteFiles", new MinifyHtml());
+Pipelines["BlogArchives"].InsertBefore("WriteFiles", new MinifyHtml());
+Pipelines["BlogYearlyArchives"].InsertBefore("WriteFiles", new MinifyHtml());
+
+((If)Pipelines["ApiIndex"][0])[0].InsertBeforeLast<WriteFiles>(new MinifyHtml());
+
+// Add syntax highlighting to code blocks and minify generated html
 Pipelines["RenderBlogPosts"].InsertBefore
 (
     nameof(Wyam.Web.Pipelines.RenderBlogPosts.WriteFiles),
-    new Highlight()
+    new Highlight(),
+    new MinifyHtml()
 );
 
 Pipelines["RenderPages"].InsertBefore
 (
     nameof(Wyam.Web.Pipelines.RenderPages.WriteFiles),
-    new Highlight()
+    new Highlight(),
+    new MinifyHtml()
 );
 
-Pipelines["RenderPages"].InsertBefore
+((If)Pipelines["RenderApi"][0])[0].InsertBeforeLast<WriteFiles>
 (
-    nameof(Wyam.Web.Pipelines.RenderPages.WriteFiles),
-    new Highlight()
+    new Highlight(),
+    new MinifyHtml()
+);
+
+// Minify generated CSS files
+Pipelines["Sass"].InsertBeforeLast<WriteFiles>(new MinifyCss());
+Pipelines["Less"].InsertBeforeLast<WriteFiles>(new MinifyCss());
+
+// Minify static resources
+Pipelines.InsertAfter
+(
+    "Resources",
+    "MinifyResources",
+
+    ReadFiles("**/*.css"),
+    MinifyCss(),
+    WriteFiles(".css"),
+
+    ReadFiles("**/*.js"),
+    MinifyJs(),
+    WriteFiles(".js"),
+
+    ReadFiles("**/*.svg"),
+    MinifyXml(),
+    MinifyCss(),
+    WriteFiles(".svg")
 );
 
 /*
