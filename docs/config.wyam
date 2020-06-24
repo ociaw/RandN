@@ -1,7 +1,10 @@
 #n Wyam.Highlight
 #n Wyam.Minification
+#n -s ./packages/ -e Ociaw.Wyam.SlimSamson
 
 #recipe Docs
+#theme Ociaw.Wyam.SlimSamson
+
 using Microsoft.CodeAnalysis;
 
 Settings[Keys.Host] = "randn.ociaw.com";
@@ -10,6 +13,8 @@ Settings[DocsKeys.SourceFiles] = null;
 Settings[DocsKeys.ProjectFiles] = @"../../src/**/{!.git,!bin,!obj,!packages,!Tests,!Benchmarks,}/**/*.csproj";
 Settings[DocsKeys.IncludeGlobalNamespace] = false;
 Settings[DocsKeys.Logo] = "assets/img/randn-logo-wide.svg";
+Settings[DocsKeys.BaseEditUrl] = "https://github.com/ociaw/RandN/edit/master/src/";
+Settings[Wyam.Web.WebKeys.EditFilePath] = "";
 
 // Minify indexing pages
 Pipelines["BlogIndexes"].InsertBefore("WriteFiles", new MinifyHtml());
