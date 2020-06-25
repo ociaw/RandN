@@ -21,7 +21,7 @@ tasks:
       pattern="^v[0-9].*$"
       if ! [[ ${1} =~ ${pattern} ]] && ! [[ $1 = "master" ]]
       then
-          echo "Exiting due to master or versioned branch"
+          echo "Exiting due to non-master or non-versioned branch: $bookmark"
           complete-build
       fi
       cd ~
