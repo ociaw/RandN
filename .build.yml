@@ -5,7 +5,7 @@ packages:
   - rsync
   - wget
 sources:
-  - hg+ssh://hg@hg.sr.ht/~ociaw/RandN#docsite
+  - hg+ssh://hg@hg.sr.ht/~ociaw/RandN
 secrets:
   - 46cc09d6-0cd1-4bf1-8561-d383aeacd02c
   - 5064e082-44e8-482c-821f-ef9864647c0d
@@ -16,6 +16,15 @@ environment:
   DOTNET_ROOT: /opt/dotnet
 tasks:
   - setup: |
+      cd ./RandN
+      bookmark=$(hg log --template "{bookmarks}" -r ".")
+      pattern="^v[0-9].*$"
+      if ! [[ ${1} =~ ${pattern} ]] && ! [[ $1 = "master" ]]
+      then
+          echo "Exiting due to master or versioned branch"
+          complete-build
+      fi
+      cd ~
       wget -O- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.asc.gpg
       sudo mv microsoft.asc.gpg /etc/apt/trusted.gpg.d/
       wget https://packages.microsoft.com/config/debian/10/prod.list
