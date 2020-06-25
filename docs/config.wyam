@@ -54,11 +54,17 @@ Pipelines["Less"].InsertBeforeLast<WriteFiles>(new MinifyCss());
 Pipelines.InsertAfter
 (
     "Resources",
-    "MinifyResources",
+    "MinifyCss",
 
     ReadFiles("**/*.css"),
     MinifyCss(),
-    WriteFiles(".css"),
+    WriteFiles(".css")
+);
+
+Pipelines.InsertAfter
+(
+    "MinifyCss",
+    "MinifyJs",
 
     ReadFiles("**/*.js"),
     MinifyJs(),
@@ -67,7 +73,7 @@ Pipelines.InsertAfter
 
 Pipelines.InsertAfter
 (
-    "MinifyResources",
+    "MinifyJs",
     "MinifySvgs",
 
     ReadFiles("**/*.svg"),
