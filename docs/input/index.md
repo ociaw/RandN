@@ -8,6 +8,13 @@ numerous problems, including low performance, poor statistical quality, and limi
 [Rand](https://github.com/rust-random/rand). Think of RandN like [NodaTime](https://nodatime.org/),
 but for random numbers.
 
+<div class="button-link github">
+    <a href="https://github.com/ociaw/RandN">GitHub</a>
+</div>
+<div class="button-link nuget">
+    <a href="https://www.nuget.org/packages/RandN/">nuget</a>
+</div>
+
 ## Why not just use Random?
 
 While Random can work for simple use cases, it has inherit design problems that have not been

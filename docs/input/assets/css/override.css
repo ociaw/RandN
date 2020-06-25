@@ -1,0 +1,95 @@
+/* Button Links */
+.button-link
+{
+  display: inline-block;
+  margin: .2rem 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2rem;
+  text-decoration: none;
+  color: white;
+  background-color: #06A;
+  border-color: transparent;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline-width: 0;
+  outline-style: solid;
+  outline-color: transparent;
+}
+.button-link a, .button-link a:visited, .button-link button
+{
+  display: inline-block;
+  width: 100%;
+  padding: calc(.25rem - 1px) calc(.5rem - 1px);
+  border: 1px solid;
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration: none;
+  color: inherit;
+  background-color: transparent;
+  border-color: inherit;
+  cursor: inherit;
+  outline-offset: -2px;
+  outline-width: 1px;
+  outline-style: inherit;
+  outline-color: inherit;
+}
+
+.button-link + .button-link
+{
+  margin-left: .4rem;
+}
+
+.button-link[disabled]
+{
+  color: rgba(127, 127, 127, .25);
+  background-color: transparent;
+  border-color: currentColor;
+  cursor: default;
+}
+
+.button-link:not([disabled]):hover
+{
+  outline-color: #AAA;
+}
+
+.button-link:not([disabled]) > *:focus
+{
+  outline-color: currentColor;
+}
+
+.button-link.progressing:not([disabled])
+{
+  background-color: #075707;
+}
+
+.button-link.regressing:not([disabled])
+{
+  background-color: #6c1b1b;
+}
+
+.github
+{
+  background-color: #24292e;
+}
+
+.github a
+{
+  padding-left: 1.75em;
+  background-image: url('/assets/img/github.svg');
+  background-repeat: no-repeat;
+}
+
+.nuget
+{
+  background-color: #004880;
+}
+
+.nuget a
+{
+  padding-left: 1.75em;
+  background-image: url('/assets/img/nuget.svg');
+  background-repeat: no-repeat;
+}
