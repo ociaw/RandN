@@ -74,7 +74,7 @@ Pipelines.InsertAfter
     MinifyXml(),
     MinifyCss(),
     WriteFiles(".svg")
-)
+);
 
 /*
    This works around a bug in Wyam where nested classes with the same name overwrite each other.
