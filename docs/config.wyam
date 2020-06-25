@@ -62,13 +62,19 @@ Pipelines.InsertAfter
 
     ReadFiles("**/*.js"),
     MinifyJs(),
-    WriteFiles(".js"),
+    WriteFiles(".js")
+);
+
+Pipelines.InsertAfter
+(
+    "MinifyResources",
+    "MinifySvgs",
 
     ReadFiles("**/*.svg"),
     MinifyXml(),
     MinifyCss(),
     WriteFiles(".svg")
-);
+)
 
 /*
    This works around a bug in Wyam where nested classes with the same name overwrite each other.

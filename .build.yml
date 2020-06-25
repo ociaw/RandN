@@ -19,7 +19,7 @@ tasks:
       cd ./RandN
       bookmark=$(hg log --template "{bookmarks}" -r ".")
       pattern="^v[0-9].*$"
-      if ! [[ ${1} =~ ${pattern} ]] && ! [[ $1 = "master" ]]
+      if [[ ! ${bookmark} =~ ${pattern} ]] && [[ ! $bookmark = "master" ]]
       then
           echo "Exiting due to non-master or non-versioned branch: $bookmark"
           complete-build
