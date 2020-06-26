@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis;
 
 Settings[Keys.Host] = "randn.ociaw.com";
 Settings[DocsKeys.Title] = "RandN";
-Settings[DocsKeys.SourceFiles] = @"../../src/**/{!.git,!bin,!obj,!packages,!Tests,!Benchmarks,}/**/*.cs";
+Settings[DocsKeys.SourceFiles] = @"../../src/**/{Core, RandN,}/**/*.cs";
 Settings[DocsKeys.IncludeGlobalNamespace] = false;
 Settings[DocsKeys.Logo] = "assets/img/randn-logo-wide.svg";
 Settings[DocsKeys.BaseEditUrl] = "https://github.com/ociaw/RandN/edit/master/src/";
