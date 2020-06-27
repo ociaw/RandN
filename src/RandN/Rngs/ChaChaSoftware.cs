@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using RandN.Implementation;
 
 /* References:
@@ -12,7 +13,7 @@ namespace RandN.Rngs
     /// <summary>
     /// The core ChaCha algorithm.
     /// </summary>
-    internal sealed class ChaChaCore : ISeekableBlockRngCore<UInt32, UInt64>
+    internal sealed class ChaChaSoftware : ISeekableBlockRngCore<UInt32, UInt64>
     {
         private const Int32 CONSTANT_LENGTH = 4;
         private const Int32 KEY_LENGTH = 8;
@@ -35,7 +36,7 @@ namespace RandN.Rngs
         private readonly UInt32[] _state;
         private readonly UInt32 DoubleRounds;
 
-        private ChaChaCore(UInt32[] state, UInt32 doubleRounds)
+        private ChaChaSoftware(UInt32[] state, UInt32 doubleRounds)
         {
             _state = state;
             DoubleRounds = doubleRounds;
@@ -71,7 +72,7 @@ namespace RandN.Rngs
         public Int32 BlockLength => WORD_COUNT;
 
         /// <summary>
-        /// Creates a new instance of <see cref="ChaChaCore"/>.
+        /// Creates a new instance of <see cref="ChaChaSoftware"/>.
         /// </summary>
         /// <param name="key">ChaCha20's key. Must have a length of 8.</param>
         /// <param name="counter">ChaCha's 64-bit block counter.</param>
@@ -80,7 +81,7 @@ namespace RandN.Rngs
         /// The number of double rounds to perform. Half the total number of rounds,
         /// ex. ChaCha20 has 10 double rounds and ChaCha8 has 4 double rounds.
         /// </param>
-        public static ChaChaCore Create(ReadOnlySpan<UInt32> key, UInt64 counter, UInt64 stream, UInt32 doubleRoundCount)
+        public static ChaChaSoftware Create(ReadOnlySpan<UInt32> key, UInt64 counter, UInt64 stream, UInt32 doubleRoundCount)
         {
             Debug.Assert(key.Length == KEY_LENGTH);
             Debug.Assert(doubleRoundCount != 0);
@@ -98,7 +99,7 @@ namespace RandN.Rngs
             stateSpan[0] = stream.IsolateLow();
             stateSpan[1] = stream.IsolateHigh();
 
-            return new ChaChaCore(state, doubleRoundCount);
+            return new ChaChaSoftware(state, doubleRoundCount);
         }
 
         /// <inheritdoc />
@@ -140,11 +141,11 @@ namespace RandN.Rngs
         /// </summary>
         private static void InnerBlock(Span<UInt32> state)
         {
-            // Columns
             QuarterRound(ref state[0], ref state[4], ref state[8], ref state[12]);
             QuarterRound(ref state[1], ref state[5], ref state[9], ref state[13]);
             QuarterRound(ref state[2], ref state[6], ref state[10], ref state[14]);
             QuarterRound(ref state[3], ref state[7], ref state[11], ref state[15]);
+
             // Diagonals
             QuarterRound(ref state[0], ref state[5], ref state[10], ref state[15]);
             QuarterRound(ref state[1], ref state[6], ref state[11], ref state[12]);
@@ -155,6 +156,7 @@ namespace RandN.Rngs
         /// <summary>
         /// Performs ChaCha's QuarterRound on the parameters.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void QuarterRound(ref UInt32 a, ref UInt32 b, ref UInt32 c, ref UInt32 d)
         {
             unchecked

@@ -8,16 +8,19 @@ namespace RandN.Rngs
     /// </summary>
     public sealed class ChaCha : IRng, ISeekableRng<ChaCha.Counter>, ICryptoRng
     {
-        private const Int32 BLOCK_LENGTH = 16;
         private const Int32 KEY_LENGTH = 8;
 
-        private readonly BlockBuffer32<ChaChaCore, UInt64> _blockBuffer;
-        private readonly UInt32[] _buffer;
+#if X86_INTRINSICS
+        private readonly BlockBuffer32<ChaChaIntrinsics, UInt64> _blockBuffer;
 
-        private ChaCha(BlockBuffer32<ChaChaCore, UInt64> blockBuffer)
+        private ChaCha(BlockBuffer32<ChaChaIntrinsics, UInt64> blockBuffer)
+#else
+        private readonly BlockBuffer32<ChaChaSoftware, UInt64> _blockBuffer;
+
+        private ChaCha(BlockBuffer32<ChaChaSoftware, UInt64> blockBuffer)
+#endif
         {
             _blockBuffer = blockBuffer;
-            _buffer = new UInt32[BLOCK_LENGTH];
         }
 
         /// <inheritdoc />
@@ -54,8 +57,13 @@ namespace RandN.Rngs
                 throw new ArgumentOutOfRangeException(nameof(doubleRounds));
 
             var key = seed.Key.Length != 0 ? seed.Key.Span : stackalloc UInt32[KEY_LENGTH];
-            var core = ChaChaCore.Create(key, UInt64.MaxValue, seed.Stream, doubleRounds);
-            var blockBuffer = new BlockBuffer32<ChaChaCore, UInt64>(core);
+#if X86_INTRINSICS
+            var core = ChaChaIntrinsics.Create(key, UInt64.MaxValue, seed.Stream, doubleRounds);
+            var blockBuffer = new BlockBuffer32<ChaChaIntrinsics, UInt64>(core);
+#else
+            var core = ChaChaSoftware.Create(key, UInt64.MaxValue, seed.Stream, doubleRounds);
+            var blockBuffer = new BlockBuffer32<ChaChaSoftware, UInt64>(core);
+#endif
             return new ChaCha(blockBuffer);
         }
 
