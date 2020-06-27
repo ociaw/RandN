@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 
 namespace RandN.Implementation
 {
@@ -10,21 +11,25 @@ namespace RandN.Implementation
         /// <summary>
         /// Rotates <paramref name="original"/> <paramref name="amount"/> to the left.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt32 RotateLeft(this UInt32 original, Int32 amount) => (original << amount) | (original >> (32 - amount));
 
         /// <summary>
         /// Rotates <paramref name="original"/> <paramref name="amount"/> to the right.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt32 RotateRight(this UInt32 original, Int32 amount) => (original >> amount) | (original << (32 - amount));
 
         /// <summary>
         /// Isolates and returns the 32 high bits of <paramref name="original"/>.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt32 IsolateHigh(this UInt64 original) => (UInt32)(original >> 32);
 
         /// <summary>
         /// Isolates and returns the 32 low bits of <paramref name="original"/>.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt32 IsolateLow(this UInt64 original) => unchecked((UInt32)original);
 
         /// <summary>
@@ -32,6 +37,7 @@ namespace RandN.Implementation
         /// </summary>
         /// <param name="high">The 32 high bits.</param>
         /// <param name="low">The 32 low bits.</param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt64 CombineWithLow(this UInt32 high, UInt32 low) => ((UInt64)high << 32) | low;
     }
 }

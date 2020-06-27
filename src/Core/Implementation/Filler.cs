@@ -1,5 +1,6 @@
 using System;
 using System.Buffers.Binary;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace RandN.Implementation
@@ -17,6 +18,7 @@ namespace RandN.Implementation
         /// <summary>
         /// Implement NextUInt64 via NextUInt32, using Little Endian order.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt64 NextUInt64ViaUInt32<TRng>(TRng rng)
             where TRng : IRng
         {
@@ -29,11 +31,13 @@ namespace RandN.Implementation
         /// <summary>
         /// Implement NextUInt32 via NextUInt64.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt32 NextUInt32ViaUInt64<TRng>(TRng rng) where TRng : IRng => unchecked((UInt32)rng.NextUInt64());
 
         /// <summary>
         /// Implement FillBytes via NextUInt64 and NextUInt32, little-endian order.
-        /// </summary>  
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void FillBytesViaNext<TRng>(TRng rng, Span<Byte> destination)
             where TRng : IRng
         {
@@ -64,6 +68,7 @@ namespace RandN.Implementation
         /// Fills <paramref name="dest"/> with UInt32 chunks from <paramref name="src"/>.
         /// </summary>
         /// <returns>A tuple with the number of UInt32 chunks consumed from <paramref name="src"/> and the number of bytes filled into <paramref name="dest"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (Int32 consumedUInt32, Int32 filledBytes) FillViaUInt32Chunks(ReadOnlySpan<UInt32> src, Span<Byte> dest)
         {
             const Int32 size = sizeof(UInt32);
@@ -92,6 +97,7 @@ namespace RandN.Implementation
         /// Fills <paramref name="dest"/> with UInt64 chunks from <paramref name="src"/>.
         /// </summary>
         /// <returns>A tuple with the number of UInt64 chunks consumed from <paramref name="src"/> and the number of bytes filled into <paramref name="dest"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (Int32 consumedUInt64, Int32 filledBytes) FillViaUInt64(ReadOnlySpan<UInt64> src, Span<Byte> dest)
         {
             const Int32 size = sizeof(UInt64);
