@@ -19,8 +19,11 @@ namespace RandN.Compat
             var buffer = new Byte[35];
             shim.GetNonZeroBytes(buffer);
             Assert.DoesNotContain((Byte)0, buffer);
+
+#if !NET472
             shim.GetNonZeroBytes(buffer.AsSpan());
             Assert.DoesNotContain((Byte)0, buffer);
+#endif
         }
 
         /// <summary>
@@ -38,9 +41,11 @@ namespace RandN.Compat
             for (Int32 i = 0; i < ints.Length; i++)
                 Assert.Equal((UInt64)i, ints[i]);
 
+#if !NET472
             shim.GetBytes(buffer.AsSpan());
             for (Int32 i = 0; i < ints.Length; i++)
                 Assert.Equal((UInt64)(i + ints.Length), ints[i]);
+#endif
 
             var maxRng = new StepRng(UInt64.MaxValue) { Increment = 0 };
             var maxShim = RandomNumberGeneratorShim.Create(maxRng);

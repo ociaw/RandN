@@ -1,3 +1,8 @@
+
+
+
+
+
 using System;
 using Xunit;
 using RandN.Rngs;
@@ -7,6 +12,7 @@ namespace RandN.Distributions
 {
     public class UnitIntervalTests
     {
+
         [Fact]
         public void SingleRanges()
         {
@@ -69,6 +75,7 @@ namespace RandN.Distributions
 
             Assert.True(Statistics.WithinConfidence(popMean: 0.5, popStdDev: 0.5, mean, iterations));
         }
+
         [Fact]
         public void DoubleRanges()
         {
@@ -131,5 +138,6 @@ namespace RandN.Distributions
 
             Assert.True(Statistics.WithinConfidence(popMean: 0.5, popStdDev: 0.5, mean, iterations));
         }
+
     }
 }

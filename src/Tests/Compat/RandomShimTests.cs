@@ -22,9 +22,11 @@ namespace RandN.Compat
             for (Int32 i = 0; i < ints.Length; i++)
                 Assert.Equal((UInt64)i, ints[i]);
 
+#if !NET472
             random.NextBytes(buffer.AsSpan());
             for (Int32 i = 0; i < ints.Length; i++)
                 Assert.Equal((UInt64)(i + ints.Length), ints[i]);
+#endif
 
             var maxRng = new StepRng(UInt64.MaxValue) { Increment = 0 };
             var maxShim = RandomNumberGeneratorShim.Create(maxRng);
