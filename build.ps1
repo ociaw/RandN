@@ -29,7 +29,6 @@ https://github.com/Turnerj/Quickenshtein/blob/662f80f2820ba53e6c795efd6d8be1d527
 Along with buildconfig.json
 #>
 
-
 [CmdletBinding(PositionalBinding=$false)]
 param(
     [bool] $RunTests = $true,
@@ -42,6 +41,9 @@ mkdir -Force $packageOutputFolder | Out-Null
 
 $solution = "src/RandN.sln"
 $testProject = "src/Tests/Tests.csproj"
+
+[string[]]$configurations = "Debug","Release"
+[string[]]$frameworks = "netcoreapp3.1"
 
 if (-not $BuildVersion)
 {
@@ -65,13 +67,41 @@ Write-Host "  .NET Version:" (dotnet --version)
 Write-Host "  Artifact Path: $packageOutputFolder"
 
 Write-Host "Building solution..." -ForegroundColor "Magenta"
-dotnet build -c Release $solution /p:Version=$BuildVersion
+dotnet build --configuration Release $solution /p:Version=$BuildVersion
 if ($LastExitCode -ne 0)
 {
     Write-Host "Build failed, aborting!" -Foreground "Red"
     Exit 1
 }
 Write-Host "Solution built!" -ForegroundColor "Green"
+
+function Run-Test
+{
+    Param([string] $Configuration, [string] $Framework)
+
+    dotnet test $testProject `
+        --configuration $Configuration `
+        --nologo `
+        --no-build `
+        --no-restore `
+        --framework $Framework
+    if ($LastExitCode -ne 0)
+    {
+        Write-Host "Tests failed: $Configuration, $Framework; aborting build!" -Foreground "Red"
+        Exit 1
+    }
+}
+
+function Run-Tests
+{
+    foreach ($configuration in $configurations)
+    {
+        foreach ($framework in $frameworks)
+        {
+            Run-Test -Configuration $configuration -Framework $framework
+        }
+    }
+}
 
 if ($RunTests)
 {
@@ -80,66 +110,55 @@ if ($RunTests)
     $env:COMPlus_EnableAVX2 = 1
     $env:COMPlus_EnableSSE2 = 1
     Write-Host "Test Environment: Normal" -ForegroundColor "Cyan"
-    dotnet test $testProject --framework netcoreapp3.1
-    if ($LastExitCode -ne 0)
-    {
-        Write-Host "Tests failed, aborting build!" -Foreground "Red"
-        Exit 1
-    }
+    Run-Tests
 
     $env:COMPlus_EnableAVX2 = 0
     $env:COMPlus_EnableSSE2 = 1
     Write-Host "Test Environment: AVX2 Disabled" -ForegroundColor "Cyan"
-    dotnet test $testProject --framework netcoreapp3.1
-    if ($LastExitCode -ne 0)
-    {
-        Write-Host "Tests failed, aborting build!" -Foreground "Red"
-        Exit 1
-    }
+    Run-Tests
 
     $env:COMPlus_EnableAVX2 = 0
     $env:COMPlus_EnableSSE2 = 0
     Write-Host "Test Environment: SSE2 Disabled" -ForegroundColor "Cyan"
-    dotnet test $testProject --framework netcoreapp3.1
-    if ($LastExitCode -ne 0)
-    {
-        Write-Host "Tests failed, aborting build!" -Foreground "Red"
-        Exit 1
-    }
+    Run-Tests
 
     Write-Host "Tests passed!" -ForegroundColor "Green"
 }
 
-if ($CreatePackages)
+if (-not $CreatePackages)
 {
-    $dirty = $(hg id --template "{dirty}") -eq "+"
-    if ($dirty)
-    {
-        Write-Host "Working directory is dirty, aborting packaging!" -Foreground "Red"
-        Exit 1
-    }
-
-    Write-Host "Clearing existing $packageOutputFolder... " -NoNewline
-    Get-ChildItem $packageOutputFolder | Remove-Item
-    Write-Host "Packages cleared!" -ForegroundColor "Green"
-
-    Write-Host "Packing..." -ForegroundColor "Magenta"
-    PackProject src/RandN.csproj
-    PackProject src/Core.csproj
-    Write-Host "Packing complete!" -ForegroundColor "Green"
+    Exit 0
 }
 
-function PackProject
+$dirty = $(hg id --template "{dirty}") -eq "+"
+if ($dirty)
 {
+    Write-Host "Working directory is dirty, aborting packaging!" -Foreground "Red"
+    # Exit 1
+}
+
+function Pack-Project
+{
+    Param([string] $Path)
+
     $branch = $(hg id --bookmark -r .)
     $commit = $(hg id --debug --id -r .)
-    Param([string] $path)
-    dotnet pack $path `
+
+    dotnet pack $Path `
         --no-build `
-        --no-logo `
+        --nologo `
         --configuration Release `
         /p:Version=$BuildVersion `
         /p:Repository/Branch=$branch `
         /p:Repository/Commit=$commit `
         /p:PackageOutputPath=$packageOutputFolder
 }
+
+Write-Host "Clearing existing $packageOutputFolder... " -NoNewline
+Get-ChildItem $packageOutputFolder | Remove-Item
+Write-Host "Packages cleared!" -ForegroundColor "Green"
+
+Write-Host "Packing..." -ForegroundColor "Magenta"
+Pack-Project src/RandN/RandN.csproj
+Pack-Project src/Core/Core.csproj
+Write-Host "Packing complete!" -ForegroundColor "Green"
