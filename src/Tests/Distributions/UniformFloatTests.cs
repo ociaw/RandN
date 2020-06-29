@@ -150,17 +150,17 @@ namespace RandN.Distributions
                 for (var i = 0; i < 100; i++)
                 {
                     var exclusive = uniform.Sample(rng);
-                    Assert.True(low <= exclusive && exclusive < high);
+                    Assert.True(low <= exclusive && exclusive < high, $"Exclusive sampling of RNG failed; low: {low}, high: {high}, actual: {exclusive}");
                     var inclusive = uniform.Sample(rng);
-                    Assert.True(low <= inclusive && inclusive <= high);
+                    Assert.True(low <= inclusive && inclusive <= high, $"Inclusive sampling of RNG failed; low: {low}, high: {high}, actual: {inclusive}");
                 }
 
                 Assert.Equal(low, Uniform.NewInclusive(low, low).Sample(rng));
 
                 Assert.Equal(low, uniform.Sample(zeroRng));
                 Assert.Equal(low, inclusiveUniform.Sample(zeroRng));
-                Assert.True(uniform.Sample(maxRng) < high);
-                Assert.True(inclusiveUniform.Sample(maxRng) <= high);
+                Assert.True(uniform.Sample(maxRng) < high, $"Exclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {uniform.Sample(maxRng)}");
+                Assert.True(inclusiveUniform.Sample(maxRng) <= high,  $"Inclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {inclusiveUniform.Sample(maxRng)}");
 
                 // Don't run this test for really tiny differences between high and low
                 // since for those rounding might result in selecting high for a very
@@ -203,17 +203,17 @@ namespace RandN.Distributions
                 for (var i = 0; i < 100; i++)
                 {
                     var exclusive = uniform.Sample(rng);
-                    Assert.True(low <= exclusive && exclusive < high);
+                    Assert.True(low <= exclusive && exclusive < high, $"Exclusive sampling of RNG failed; low: {low}, high: {high}, actual: {exclusive}");
                     var inclusive = uniform.Sample(rng);
-                    Assert.True(low <= inclusive && inclusive <= high);
+                    Assert.True(low <= inclusive && inclusive <= high, $"Inclusive sampling of RNG failed; low: {low}, high: {high}, actual: {inclusive}");
                 }
 
                 Assert.Equal(low, Uniform.NewInclusive(low, low).Sample(rng));
 
                 Assert.Equal(low, uniform.Sample(zeroRng));
                 Assert.Equal(low, inclusiveUniform.Sample(zeroRng));
-                Assert.True(uniform.Sample(maxRng) < high);
-                Assert.True(inclusiveUniform.Sample(maxRng) <= high);
+                Assert.True(uniform.Sample(maxRng) < high, $"Exclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {uniform.Sample(maxRng)}");
+                Assert.True(inclusiveUniform.Sample(maxRng) <= high,  $"Inclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {inclusiveUniform.Sample(maxRng):G19}");
 
                 // Don't run this test for really tiny differences between high and low
                 // since for those rounding might result in selecting high for a very

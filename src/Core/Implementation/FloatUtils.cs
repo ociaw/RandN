@@ -109,6 +109,42 @@ namespace RandN.Implementation
         }
 
         /// <summary>
+        /// Reduces the precision of the given number if it's extended precision.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Single ForceStandardPrecision(this Single num)
+        {
+            // .NET Core always uses SSE2 for floating point, so floating point numbers are always
+            // standard precision.
+#if NETCOREAPP
+            return num;
+#else
+            // Stores the single as a way to force conversion to standard precision
+            Span<Single> temp = stackalloc Single[1];
+            temp[0] = num;
+            return temp[0];
+#endif
+        }
+
+        /// <summary>
+        /// Reduces the precision of the given number if it's extended precision.
+        /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Double ForceStandardPrecision(this Double num)
+        {
+            // .NET Core always uses SSE2 for floating point, so floating point numbers are always
+            // standard precision.
+#if NETCOREAPP
+            return num;
+#else
+            // Stores the double as a way to force conversion to standard precision
+            Span<Double> temp = stackalloc Double[1];
+            temp[0] = num;
+            return temp[0];
+#endif
+        }
+
+        /// <summary>
         /// Decrements the mantissa of a decimal by one, wrapping by increasing the scale if necessary.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="original"/> is equal to zero.</exception>

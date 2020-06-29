@@ -48,17 +48,19 @@ namespace RandN.Distributions
                 throw new ArgumentOutOfRangeException(nameof(high), high, "Must be a number.");
 
             Single maxRand = (UInt32.MaxValue >> BITS_TO_DISCARD).IntoFloatWithExponent(0) - 1;
-            Single scale = high - low;
+            Single scale = (high - low).ForceStandardPrecision();
             while (true)
             {
-                var mask = (scale * maxRand + low) >= high;
-                if (!mask)
+                var maxPossible = (scale * maxRand + low).ForceStandardPrecision();
+                var aboveMax = maxPossible >= high;
+                if (!aboveMax)
                     break;
 
-                scale = (scale.ToBits() - 1).ToFloat();
+                scale = (scale.ToBits() - 1).ToFloat().ForceStandardPrecision();
             }
 
             Debug.Assert(0.0 <= scale);
+            Debug.Assert(!Single.IsPositiveInfinity(scale));
             return new UniformSingle(low, scale);
         }
 
@@ -83,17 +85,19 @@ namespace RandN.Distributions
                 throw new ArgumentOutOfRangeException(nameof(high), high, "Must be a number.");
 
             Single maxRand = (UInt32.MaxValue >> BITS_TO_DISCARD).IntoFloatWithExponent(0) - 1;
-            Single scale = (high - low) / maxRand;
+            Single scale = ((high - low) / maxRand).ForceStandardPrecision();
             while (true)
             {
-                var mask = (scale * maxRand + low) > high;
-                if (!mask)
+                var maxPossible = (scale * maxRand + low);
+                var aboveMax = maxPossible > high;
+                if (!aboveMax)
                     break;
 
-                scale = (scale.ToBits() - 1).ToFloat();
+                scale = (scale.ToBits() - 1).ToFloat().ForceStandardPrecision();
             }
 
             Debug.Assert(0.0 <= scale);
+            Debug.Assert(!Single.IsPositiveInfinity(scale));
             return new UniformSingle(low, scale);
         }
 
@@ -157,17 +161,19 @@ namespace RandN.Distributions
                 throw new ArgumentOutOfRangeException(nameof(high), high, "Must be a number.");
 
             Double maxRand = (UInt64.MaxValue >> BITS_TO_DISCARD).IntoFloatWithExponent(0) - 1;
-            Double scale = high - low;
+            Double scale = (high - low).ForceStandardPrecision();
             while (true)
             {
-                var mask = (scale * maxRand + low) >= high;
-                if (!mask)
+                var maxPossible = (scale * maxRand + low).ForceStandardPrecision();
+                var aboveMax = maxPossible >= high;
+                if (!aboveMax)
                     break;
 
-                scale = (scale.ToBits() - 1).ToFloat();
+                scale = (scale.ToBits() - 1).ToFloat().ForceStandardPrecision();
             }
 
             Debug.Assert(0.0 <= scale);
+            Debug.Assert(!Double.IsPositiveInfinity(scale));
             return new UniformDouble(low, scale);
         }
 
@@ -192,17 +198,19 @@ namespace RandN.Distributions
                 throw new ArgumentOutOfRangeException(nameof(high), high, "Must be a number.");
 
             Double maxRand = (UInt64.MaxValue >> BITS_TO_DISCARD).IntoFloatWithExponent(0) - 1;
-            Double scale = (high - low) / maxRand;
+            Double scale = ((high - low) / maxRand).ForceStandardPrecision();
             while (true)
             {
-                var mask = (scale * maxRand + low) > high;
-                if (!mask)
+                var maxPossible = (scale * maxRand + low);
+                var aboveMax = maxPossible > high;
+                if (!aboveMax)
                     break;
 
-                scale = (scale.ToBits() - 1).ToFloat();
+                scale = (scale.ToBits() - 1).ToFloat().ForceStandardPrecision();
             }
 
             Debug.Assert(0.0 <= scale);
+            Debug.Assert(!Double.IsPositiveInfinity(scale));
             return new UniformDouble(low, scale);
         }
 

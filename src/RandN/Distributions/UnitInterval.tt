@@ -115,7 +115,7 @@ namespace RandN.Distributions
 
                 var random = rng.Next<#= unsigned #>();
                 var value = random >> (floatSize - precision);
-                return scale * (value);
+                return (scale * value).ForceStandardPrecision();
             }
 
             /// <inheritdoc />

@@ -102,7 +102,7 @@ namespace RandN.Distributions
 
                 var random = rng.NextUInt32();
                 var value = random >> (floatSize - precision);
-                return scale * (value);
+                return (scale * value).ForceStandardPrecision();
             }
 
             /// <inheritdoc />
@@ -226,7 +226,7 @@ namespace RandN.Distributions
 
                 var random = rng.NextUInt64();
                 var value = random >> (floatSize - precision);
-                return scale * (value);
+                return (scale * value).ForceStandardPrecision();
             }
 
             /// <inheritdoc />
