@@ -140,7 +140,7 @@ namespace RandN.Rngs
         {
             if (Avx2.IsSupported)
                 _avx2.Generate(results);
-            else if (Sse.IsSupported)
+            else if (Sse2.IsSupported)
                 _sse2.Generate(results);
             else
                 _software.Generate(results);
@@ -151,7 +151,7 @@ namespace RandN.Rngs
         {
             if (Avx2.IsSupported)
                 _avx2.Regenerate(results);
-            else if (Sse.IsSupported)
+            else if (Sse2.IsSupported)
                 _sse2.Regenerate(results);
             else
                 _software.Regenerate(results);
