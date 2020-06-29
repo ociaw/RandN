@@ -1,5 +1,4 @@
 using System;
-using System.Runtime.Intrinsics.X86;
 
 namespace RandN
 {
@@ -60,7 +59,7 @@ namespace RandN
         {
             UInt64 oneCount = 0;
             for (UInt32 i = 0; i < wordCount; i++)
-                oneCount += Popcnt.PopCount(rng.NextUInt32());
+                oneCount += (UInt32)System.Numerics.BitOperations.PopCount(rng.NextUInt32());
 
             UInt64 bitCount = wordCount * 32;
             return WithinConfidenceBernoulli(oneCount, bitCount / 2, bitCount, zScore);

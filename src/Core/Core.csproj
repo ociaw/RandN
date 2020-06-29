@@ -19,7 +19,7 @@
     <PackageProjectUrl>https://github.com/ociaw/RandN</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ociaw/RandN.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>rng random</PackageTags>
+    <PackageTags>rng random randn</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 

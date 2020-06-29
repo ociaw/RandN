@@ -11,3 +11,5 @@ packages/
 # Docs
 config.wyam.*
 docs/output/**
+
+build-artifacts/**

@@ -11,9 +11,9 @@
     <LangVersion>8.0</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>ociaw</Authors>
-    <Description>RandN is an alternative library for random number generation.</Description>
+    <Description>RandN is an alternative library for random number generation, designed to replace the standard Random type.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>rng random</PackageTags>
+    <PackageTags>rng random randn</PackageTags>
     <PackageProjectUrl>https://github.com/ociaw/RandN</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ociaw/RandN.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
