@@ -31,9 +31,10 @@ Along with buildconfig.json
 
 [CmdletBinding(PositionalBinding=$false)]
 param(
+    [Parameter(Mandatory)]
+    [string] $BuildVersion,
     [bool] $RunTests = $true,
-    [bool] $CreatePackages,
-    [string] $BuildVersion
+    [bool] $CreatePackages = $false
 )
 
 $packageOutputFolder = "$PSScriptRoot\build-artifacts"
