@@ -21,12 +21,12 @@ namespace RandN
         public static ThreadLocalRng Instance { get; } = new ThreadLocalRng();
 
         /// <inheritdoc />
-        public void Fill(Span<Byte> buffer) => _threadLocal.Value.Fill(buffer);
+        public void Fill(Span<Byte> buffer) => _threadLocal.Value!.Fill(buffer);
 
         /// <inheritdoc />
-        public UInt32 NextUInt32() => _threadLocal.Value.NextUInt32();
+        public UInt32 NextUInt32() => _threadLocal.Value!.NextUInt32();
 
         /// <inheritdoc />
-        public UInt64 NextUInt64() => _threadLocal.Value.NextUInt64();
+        public UInt64 NextUInt64() => _threadLocal.Value!.NextUInt64();
     }
 }
