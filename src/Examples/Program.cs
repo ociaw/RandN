@@ -23,7 +23,7 @@ namespace RandN.Examples
         /// </summary>
         public static (Double pi, Double error) EstimatePi<TRng>(TRng rng) where TRng : IRng
         {
-            const UInt64 iterations = 400_000_000;
+            const UInt64 iterations = 32_000_000;
             var dist = UnitInterval.ClosedDouble.Instance;
             UInt64 insideQuadrant = 0;
             for (var i = 0ul; i < iterations; i++)
@@ -36,7 +36,7 @@ namespace RandN.Examples
             }
 
             Double error = 1 / Math.Sqrt(iterations);
-            return ((Double)insideQuadrant / iterations * 4, error);
+            return ((Double)insideQuadrant / iterations * 4.0, error);
         }
     }
 }

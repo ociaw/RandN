@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>RandN</AssemblyName>
     <RootNamespace>RandN</RootNamespace>
@@ -11,9 +11,9 @@
     <LangVersion>8.0</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>ociaw</Authors>
-    <Description>RandN is an alternative library for random number generation.</Description>
+    <Description>RandN is an alternative library for random number generation, designed to replace the standard Random type.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>rng random</PackageTags>
+    <PackageTags>rng random randn</PackageTags>
     <PackageProjectUrl>https://github.com/ociaw/RandN</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ociaw/RandN.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -22,6 +22,14 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'!='netstandard2.0' And '$(TargetFramework)'!='netstandard2.1'">
+    <DefineConstants>X86_INTRINSICS</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">

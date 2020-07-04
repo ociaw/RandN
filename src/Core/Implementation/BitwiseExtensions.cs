@@ -1,5 +1,9 @@
 using System;
 using System.Runtime.CompilerServices;
+#if X86_INTRINSICS
+using System.Numerics;
+using System.Runtime.Intrinsics.X86;
+#endif
 
 namespace RandN.Implementation
 {
@@ -12,13 +16,27 @@ namespace RandN.Implementation
         /// Rotates <paramref name="original"/> <paramref name="amount"/> to the left.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UInt32 RotateLeft(this UInt32 original, Int32 amount) => (original << amount) | (original >> (32 - amount));
+        public static UInt32 RotateLeft(this UInt32 original, Int32 amount)
+        {
+#if X86_INTRINSICS
+            return BitOperations.RotateLeft(original, amount);
+#else
+            return (original << amount) | (original >> (32 - amount));
+#endif
+        }
 
         /// <summary>
         /// Rotates <paramref name="original"/> <paramref name="amount"/> to the right.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UInt32 RotateRight(this UInt32 original, Int32 amount) => (original >> amount) | (original << (32 - amount));
+        public static UInt32 RotateRight(this UInt32 original, Int32 amount)
+        {
+#if X86_INTRINSICS
+            return BitOperations.RotateLeft(original, amount);
+#else
+            return (original >> amount) | (original << (32 - amount));
+#endif
+        }
 
         /// <summary>
         /// Isolates and returns the 32 high bits of <paramref name="original"/>.

@@ -2,7 +2,7 @@
   "profiles": {
     "Benchmarks": {
       "commandName": "Project",
-      "commandLineArgs": "--filter *"
+      "commandLineArgs": "--filter *ChaCha8*"
     }
   }
 }
