@@ -44,7 +44,7 @@ $solution = "src/RandN.sln"
 $testProject = "src/Tests/Tests.csproj"
 
 [string[]]$configurations = "Debug","Release"
-[string[]]$frameworks = "netcoreapp3.1"
+[string[]]$frameworks = "netcoreapp3.1","net472"
 
 if (-not $BuildVersion)
 {
@@ -68,11 +68,19 @@ Write-Host "  .NET Version:" (dotnet --version)
 Write-Host "  Artifact Path: $packageOutputFolder"
 
 Write-Host "Building solution..." -ForegroundColor "Magenta"
-dotnet build --configuration Release $solution /p:Version=$BuildVersion
-if ($LastExitCode -ne 0)
+foreach ($configuration in $configurations)
 {
-    Write-Host "Build failed, aborting!" -Foreground "Red"
-    Exit 1
+    Write-Host "Building $configuration..." -ForegroundColor "Cyan"
+    dotnet build $solution `
+        --configuration $configuration `
+        --verbosity quiet `
+        /p:Version=$BuildVersion
+
+    if ($LastExitCode -ne 0)
+    {
+        Write-Host "Build failed, aborting!" -Foreground "Red"
+        Exit 1
+    }
 }
 Write-Host "Solution built!" -ForegroundColor "Green"
 
@@ -81,7 +89,7 @@ function Run-Test
     Param([string] $Configuration, [string] $Framework)
 
     dotnet test $testProject `
-        --configuration $Configuration `
+        --configuration $configuration `
         --nologo `
         --no-build `
         --no-restore `
@@ -112,16 +120,22 @@ if ($RunTests)
     $env:COMPlus_EnableSSE2 = 1
     Write-Host "Test Environment: Normal" -ForegroundColor "Cyan"
     Run-Tests
+    Write-Host "-------------------------------"
+    Write-Host
 
     $env:COMPlus_EnableAVX2 = 0
     $env:COMPlus_EnableSSE2 = 1
     Write-Host "Test Environment: AVX2 Disabled" -ForegroundColor "Cyan"
     Run-Tests
+    Write-Host "-------------------------------"
+    Write-Host
 
     $env:COMPlus_EnableAVX2 = 0
     $env:COMPlus_EnableSSE2 = 0
     Write-Host "Test Environment: SSE2 Disabled" -ForegroundColor "Cyan"
     Run-Tests
+    Write-Host "-------------------------------"
+    Write-Host
 
     Write-Host "Tests passed!" -ForegroundColor "Green"
 }
@@ -135,7 +149,7 @@ $dirty = $(hg id --template "{dirty}") -eq "+"
 if ($dirty)
 {
     Write-Host "Working directory is dirty, aborting packaging!" -Foreground "Red"
-    # Exit 1
+    Exit 1
 }
 
 function Pack-Project
