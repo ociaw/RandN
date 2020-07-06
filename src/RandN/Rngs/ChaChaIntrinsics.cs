@@ -1,6 +1,7 @@
 #if X86_INTRINSICS
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.Intrinsics.X86;
 using RandN.Implementation;
@@ -53,6 +54,7 @@ namespace RandN.Rngs
         /// </summary>
         public UInt64 BlockCounter
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 if (Avx2.IsSupported)
@@ -62,6 +64,7 @@ namespace RandN.Rngs
                 else
                     return _software.BlockCounter;
             }
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set
             {
                 if (Avx2.IsSupported)
@@ -99,18 +102,7 @@ namespace RandN.Rngs
         }
 
         /// <inheritdoc />
-        public Int32 BlockLength
-        {
-            get
-            {
-                if (Avx2.IsSupported)
-                    return _avx2.BlockLength;
-                else if (Sse2.IsSupported)
-                    return _sse2.BlockLength;
-                else
-                    return _software.BlockLength;
-            }
-        }
+        public Int32 BlockLength => ChaCha.BufferLength;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChaChaIntrinsics"/>.
@@ -136,6 +128,7 @@ namespace RandN.Rngs
         }
 
         /// <inheritdoc />
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Generate(Span<UInt32> results)
         {
             if (Avx2.IsSupported)
@@ -147,6 +140,7 @@ namespace RandN.Rngs
         }
 
         /// <inheritdoc />
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Regenerate(Span<UInt32> results)
         {
             if (Avx2.IsSupported)

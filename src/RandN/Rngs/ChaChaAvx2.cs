@@ -4,18 +4,11 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
-using RandN.Implementation;
 
 namespace RandN.Rngs
 {
-    internal sealed class ChaChaAvx2 : ISeekableBlockRngCore<UInt32, UInt64>
+    internal sealed class ChaChaAvx2
     {
-        private const Int32 CONSTANT_LENGTH = 4;
-        private const Int32 KEY_LENGTH = 8;
-        private const Int32 COUNTER_LENGTH = 2;
-        private const Int32 STREAM_LENGTH = 2;
-        private const Int32 WORD_COUNT = CONSTANT_LENGTH + KEY_LENGTH + COUNTER_LENGTH + STREAM_LENGTH;
-
         private static readonly Vector256<UInt32> _constant;
 
         static ChaChaAvx2()
@@ -38,15 +31,8 @@ namespace RandN.Rngs
 
         private readonly UInt32 DoubleRounds;
 
-        private readonly UInt32[] _secondBlock = new UInt32[WORD_COUNT];
-        private UInt64 _blockCounter;
-        private UInt64 _stream;
-        private Boolean _regenRequired;
-
         private ChaChaAvx2(Vector256<UInt32> key1, Vector256<UInt32> key2, UInt32 doubleRounds)
         {
-            _blockCounter = 0;
-            _regenRequired = true;
             _key1 = key1;
             _key2 = key2;
             DoubleRounds = doubleRounds;
@@ -55,31 +41,12 @@ namespace RandN.Rngs
         /// <summary>
         /// ChaCha's 64-bit block counter.
         /// </summary>
-        public UInt64 BlockCounter
-        {
-            get => _blockCounter;
-            set
-            {
-                _regenRequired = true;
-                _blockCounter = value;
-            }
-        }
+        public UInt64 BlockCounter { get; set; }
 
         /// <summary>
         /// ChaCha's 64-bit stream id.
         /// </summary>
-        public UInt64 Stream
-        {
-            get => _stream;
-            set
-            {
-                _regenRequired = true;
-                _stream = value;
-            }
-        }
-
-        /// <inheritdoc />
-        public Int32 BlockLength => WORD_COUNT;
+        public UInt64 Stream { get; set; }
 
         /// <summary>
         /// Creates a new instance of <see cref="ChaChaSoftware"/>.
@@ -93,7 +60,7 @@ namespace RandN.Rngs
         /// </param>
         public static ChaChaAvx2 Create(ReadOnlySpan<UInt32> key, UInt64 counter, UInt64 stream, UInt32 doubleRoundCount)
         {
-            Debug.Assert(key.Length == KEY_LENGTH);
+            Debug.Assert(key.Length == ChaCha.KeyLength);
             Debug.Assert(doubleRoundCount != 0);
 
             var key1 = Vector256.Create(key[0], key[1], key[2], key[3], key[0], key[1], key[2], key[3]);
@@ -106,50 +73,36 @@ namespace RandN.Rngs
         public void Generate(Span<UInt32> results)
         {
             // We wrap once we run out of data.
-            _blockCounter = unchecked(_blockCounter + 1);
-            FullBlock(results);
+            BlockCounter = unchecked(BlockCounter + 1);
+            QuadBlock(results);
         }
 
         /// <inheritdoc />
-        public void Regenerate(Span<UInt32> results) => FullBlock(results);
+        public void Regenerate(Span<UInt32> results) => QuadBlock(results);
 
-        private void FullBlock(Span<UInt32> destination)
+        private void QuadBlock(Span<UInt32> results)
         {
-            if (destination.Length < WORD_COUNT)
-                throw new ArgumentException($"Destination must have length of {WORD_COUNT}.", nameof(destination));
+            Debug.Assert(results.Length == ChaCha.BufferLength);
 
-            if ((_blockCounter & 1) == 1)
+            unchecked
             {
-                // We generate two blocks at once, so we only generate every other block.
-                if (_regenRequired)
-                {
-                    _regenRequired = false;
-                    Span<UInt32> buf = stackalloc UInt32[WORD_COUNT * 2];
-                    DoubleBlock(buf);
-                    buf.Slice(WORD_COUNT).CopyTo(_secondBlock);
-                }
-                _secondBlock.CopyTo(destination);
-                return;
+                var startCounter = BlockCounter << 2;
+                DoubleBlock(results, startCounter);
+                DoubleBlock(results.Slice(ChaCha.WordCount * 2), startCounter + 2ul);
             }
-
-            _regenRequired = false;
-            Span<UInt32> buffer = stackalloc UInt32[WORD_COUNT * 2];
-            DoubleBlock(buffer);
-            buffer.Slice(0, WORD_COUNT).CopyTo(destination);
-            buffer.Slice(WORD_COUNT).CopyTo(_secondBlock);
         }
 
         /// <summary>
         /// Generates two full ChaCha blocks into <paramref name="destination"/>.
         /// </summary>
-        /// <param name="destination">The destination buffer. Must be at least <see cref="BlockLength" /> long.</param>
-        private void DoubleBlock(Span<UInt32> destination)
+        /// <param name="destination">The destination buffer. Must be at least 2 * <see cref="ChaCha.WordCount" /> long.</param>
+        /// <param name="counter">The counter used in the nonce.</param>
+        private void DoubleBlock(Span<UInt32> destination, UInt64 counter)
         {
             Debug.Assert(DoubleRounds != 0);
-            Debug.Assert(destination.Length == 32);
+            Debug.Assert(destination.Length >= ChaCha.WordCount * 2);
 
-            UInt64 maskedCounter = _blockCounter & ~1ul;
-            var input = Vector256.Create(maskedCounter, Stream, maskedCounter + 1, Stream).AsUInt32();
+            var input = Vector256.Create(counter, Stream, counter + 1, Stream).AsUInt32();
 
             var b0 = _constant;
             var b1 = _key1;

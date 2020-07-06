@@ -15,12 +15,6 @@ namespace RandN.Rngs
     /// </summary>
     internal sealed class ChaChaSoftware : ISeekableBlockRngCore<UInt32, UInt64>
     {
-        private const Int32 CONSTANT_LENGTH = 4;
-        private const Int32 KEY_LENGTH = 8;
-        private const Int32 COUNTER_LENGTH = 2;
-        private const Int32 STREAM_LENGTH = 2;
-        private const Int32 WORD_COUNT = CONSTANT_LENGTH + KEY_LENGTH + COUNTER_LENGTH + STREAM_LENGTH;
-
         private static readonly UInt32[] _constant = new UInt32[]
         {
             // "expa"
@@ -45,15 +39,7 @@ namespace RandN.Rngs
         /// <summary>
         /// ChaCha's 64-bit block counter.
         /// </summary>
-        public UInt64 BlockCounter
-        {
-            get => _state[13].CombineWithLow(_state[12]);
-            set
-            {
-                _state[12] = value.IsolateLow();
-                _state[13] = value.IsolateHigh();
-            }
-        }
+        public UInt64 BlockCounter { get; set; }
 
         /// <summary>
         /// ChaCha's 64-bit stream id.
@@ -68,8 +54,7 @@ namespace RandN.Rngs
             }
         }
 
-        /// <inheritdoc />
-        public Int32 BlockLength => WORD_COUNT;
+        public Int32 BlockLength => ChaCha.BufferLength;
 
         /// <summary>
         /// Creates a new instance of <see cref="ChaChaSoftware"/>.
@@ -83,23 +68,17 @@ namespace RandN.Rngs
         /// </param>
         public static ChaChaSoftware Create(ReadOnlySpan<UInt32> key, UInt64 counter, UInt64 stream, UInt32 doubleRoundCount)
         {
-            Debug.Assert(key.Length == KEY_LENGTH);
+            Debug.Assert(key.Length == ChaCha.KeyLength);
             Debug.Assert(doubleRoundCount != 0);
 
-            var state = new UInt32[WORD_COUNT];
+            var state = new UInt32[ChaCha.WordCount];
             var stateSpan = state.AsSpan();
 
             _constant.CopyTo(stateSpan);
-            stateSpan = stateSpan.Slice(CONSTANT_LENGTH);
+            stateSpan = stateSpan.Slice(ChaCha.ConstantLength);
             key.CopyTo(stateSpan);
-            stateSpan = stateSpan.Slice(KEY_LENGTH);
-            stateSpan[0] = counter.IsolateLow();
-            stateSpan[1] = counter.IsolateHigh();
-            stateSpan = stateSpan.Slice(COUNTER_LENGTH);
-            stateSpan[0] = stream.IsolateLow();
-            stateSpan[1] = stream.IsolateHigh();
 
-            return new ChaChaSoftware(state, doubleRoundCount);
+            return new ChaChaSoftware(state, doubleRoundCount) { BlockCounter = counter, Stream = stream };
         }
 
         /// <inheritdoc />
@@ -107,31 +86,50 @@ namespace RandN.Rngs
         {
             // We wrap once we run out of data.
             BlockCounter = unchecked(BlockCounter + 1);
-            FullBlock(results);
+            QuadBlock(results);
         }
 
         /// <inheritdoc />
-        public void Regenerate(Span<UInt32> results) => FullBlock(results);
+        public void Regenerate(Span<UInt32> results) => QuadBlock(results);
+
+        private void QuadBlock(Span<UInt32> results)
+        {
+            Debug.Assert(results.Length == ChaCha.BufferLength);
+
+            unchecked
+            {
+                var startCounter = BlockCounter << 2;
+                FullBlock(results, startCounter);
+                FullBlock(results.Slice(ChaCha.WordCount), startCounter + 1ul);
+                FullBlock(results.Slice(ChaCha.WordCount * 2), startCounter + 2ul);
+                FullBlock(results.Slice(ChaCha.WordCount * 3), startCounter + 3ul);
+            }
+        }
 
         /// <summary>
         /// Generates a full ChaCha block into <paramref name="destination"/>.
         /// </summary>
-        /// <param name="destination">The destination buffer. Must be at least <see cref="BlockLength" /> long./></param>
-        private void FullBlock(Span<UInt32> destination)
+        /// <param name="destination">The destination buffer. Must be at least <see cref="ChaCha.WordCount" /> long.</param>
+        /// <param name="counter">The counter used in the nonce.</param>
+        private void FullBlock(Span<UInt32> destination, UInt64 counter)
         {
-            if (destination.Length < WORD_COUNT)
-                throw new ArgumentException($"Destination must have length of {WORD_COUNT}.", nameof(destination));
-
             Debug.Assert(DoubleRounds != 0);
+            Debug.Assert(destination.Length >= ChaCha.WordCount);
+
+            _state[12] = counter.IsolateLow();
+            _state[13] = counter.IsolateHigh();
 
             _state.CopyTo(destination);
+
+            destination[12] = counter.IsolateLow();
+            destination[13] = counter.IsolateHigh();
 
             for (var i = 0; i < DoubleRounds; i++)
                 InnerBlock(destination);
 
             unchecked
             {
-                for (var i = 0; i < WORD_COUNT; i++)
+                for (var i = 0; i < ChaCha.WordCount; i++)
                     destination[i] += _state[i];
             }
         }

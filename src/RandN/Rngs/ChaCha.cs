@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using RandN.Implementation;
 
 namespace RandN.Rngs
@@ -8,7 +9,12 @@ namespace RandN.Rngs
     /// </summary>
     public sealed class ChaCha : IRng, ISeekableRng<ChaCha.Counter>, ICryptoRng
     {
-        private const Int32 KEY_LENGTH = 8;
+        internal const Int32 ConstantLength = 4;
+        internal const Int32 KeyLength = 8;
+        internal const Int32 CounterLength = 2;
+        internal const Int32 StreamLength = 2;
+        internal const Int32 WordCount = ConstantLength + KeyLength + CounterLength + StreamLength;
+        internal const Int32 BufferLength = WordCount * 4;
 
 #if X86_INTRINSICS
         private readonly BlockBuffer32<ChaChaIntrinsics, UInt64> _blockBuffer;
@@ -26,11 +32,19 @@ namespace RandN.Rngs
         /// <inheritdoc />
         public Counter Position
         {
-            get => new Counter(_blockBuffer.BlockCounter, (UInt32)_blockBuffer.Index);
+            // The block buffer actually buffers 4 full blocks, but we still want to let the user
+            // address each individual block normally. To accomplish this, we move the lower two
+            // bits of the counter to the word index, so that it becomes 6 bits.
+            get
+            {
+                var block = (_blockBuffer.BlockCounter << 2) + (UInt64)(_blockBuffer.Index >> 4);
+                var word = (UInt32)(_blockBuffer.Index & 0b1111);
+                return new Counter(block, word);
+            }
             set
             {
-                _blockBuffer.BlockCounter = value.Block;
-                _blockBuffer.Index = (Int32)value.Word;
+                _blockBuffer.BlockCounter = value.Block >> 2;
+                _blockBuffer.Index = (Int32)(value.Word + ((value.Block & 0b11) << 4));
             }
         }
 
@@ -56,7 +70,7 @@ namespace RandN.Rngs
             if (doubleRounds == 0)
                 throw new ArgumentOutOfRangeException(nameof(doubleRounds));
 
-            var key = seed.Key.Length != 0 ? seed.Key.Span : stackalloc UInt32[KEY_LENGTH];
+            var key = seed.Key.Length != 0 ? seed.Key.Span : stackalloc UInt32[KeyLength];
 #if X86_INTRINSICS
             var core = ChaChaIntrinsics.Create(key, UInt64.MaxValue, seed.Stream, doubleRounds);
             var blockBuffer = new BlockBuffer32<ChaChaIntrinsics, UInt64>(core);
@@ -83,12 +97,15 @@ namespace RandN.Rngs
         public static Factory20 GetChaCha20Factory() => new Factory20();
 
         /// <inheritdoc />
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public UInt32 NextUInt32() => _blockBuffer.NextUInt32();
 
         /// <inheritdoc />
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public UInt64 NextUInt64() => _blockBuffer.NextUInt64();
 
         /// <inheritdoc />
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Fill(Span<Byte> buffer) => _blockBuffer.Fill(buffer);
 
         /// <summary>
@@ -104,7 +121,7 @@ namespace RandN.Rngs
             /// <inheritdoc />
             public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
             {
-                Span<UInt32> key = stackalloc UInt32[KEY_LENGTH];
+                Span<UInt32> key = stackalloc UInt32[KeyLength];
                 seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
                 UInt64 stream = 0;
 
@@ -125,7 +142,7 @@ namespace RandN.Rngs
             /// <inheritdoc />
             public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
             {
-                Span<UInt32> key = stackalloc UInt32[KEY_LENGTH];
+                Span<UInt32> key = stackalloc UInt32[KeyLength];
                 seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
                 UInt64 stream = 0;
 
@@ -146,7 +163,7 @@ namespace RandN.Rngs
             /// <inheritdoc />
             public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
             {
-                Span<UInt32> key = stackalloc UInt32[KEY_LENGTH];
+                Span<UInt32> key = stackalloc UInt32[KeyLength];
                 seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
                 UInt64 stream = 0;
 
@@ -175,7 +192,7 @@ namespace RandN.Rngs
             /// </exception>
             public Seed(ReadOnlySpan<UInt32> key, UInt64 stream)
             {
-                if (key.Length != KEY_LENGTH)
+                if (key.Length != KeyLength)
                     throw new ArgumentException("Key must have length of 8.", nameof(key));
 
                 Key = key.ToArray();
