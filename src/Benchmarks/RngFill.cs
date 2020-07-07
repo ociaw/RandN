@@ -19,6 +19,9 @@ namespace RandN.Benchmarks
         private readonly CryptoServiceProvider _cryptoServiceProvider;
         private readonly Random _random;
 
+#if NET472
+        private readonly Byte[] _buffer = new Byte[BUFFER_LENGTH];
+#endif
         public RngFill()
         {
             _chaCha8 = ChaCha.GetChaCha8Factory().Create(new ChaCha.Seed());
@@ -93,9 +96,14 @@ namespace RandN.Benchmarks
         [Benchmark]
         public void SystemRandom()
         {
+#if NET472
+            for (Int32 i = 0; i < ITERATIONS; i++)
+                _random.NextBytes(_buffer);
+#else
             Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
             for (Int32 i = 0; i < ITERATIONS; i++)
                 _random.NextBytes(buffer);
+#endif
         }
     }
 }
