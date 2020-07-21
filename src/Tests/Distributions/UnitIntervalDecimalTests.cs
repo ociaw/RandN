@@ -90,5 +90,14 @@ namespace RandN.Distributions
 
             Assert.True(Statistics.WithinConfidence(popMean: 0.5, popStdDev: 0.5, (Double)mean, iterations));
         }
+
+        [Fact]
+        public void NonNullable()
+        {
+            Assert.Throws<ArgumentNullException>(() => UnitInterval.ClosedOpenDecimal.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => UnitInterval.OpenClosedDecimal.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => UnitInterval.ClosedDecimal.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => UnitInterval.OpenDecimal.Instance.Sample<StepRng>(null));
+        }
     }
 }

@@ -8,6 +8,7 @@ obj/
 *.psess
 *.vsp
 *.vspx
+FodyWeavers.xsd
 packages/
 
 # Docs

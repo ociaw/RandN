@@ -43,14 +43,14 @@ namespace RandN.Distributions
         }
 
         /// <inheritdoc />
-        public TimeSpan Sample<TRng>(TRng rng) where TRng : IRng
+        public TimeSpan Sample<TRng>(TRng rng) where TRng : notnull, IRng
         {
             var ticks = _backing.Sample(rng);
             return TimeSpan.FromTicks(ticks);
         }
 
         /// <inheritdoc />
-        public Boolean TrySample<TRng>(TRng rng, out TimeSpan result) where TRng : IRng
+        public Boolean TrySample<TRng>(TRng rng, out TimeSpan result) where TRng : notnull, IRng
         {
             if (_backing.TrySample(rng, out var ticks))
             {

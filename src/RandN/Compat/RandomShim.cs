@@ -7,7 +7,7 @@ namespace RandN.Compat
     /// A shim able to wrap any <see cref="IRng"/> as a <see cref="Random"/>.
     /// </summary>
     public sealed class RandomShim<TRng> : Random
-        where TRng : IRng
+        where TRng : notnull, IRng
     {
         private readonly TRng _rng;
         private static readonly UniformDouble _doubleDist = Uniform.New(0.0, 1.0);
@@ -49,6 +49,6 @@ namespace RandN.Compat
         /// <summary>
         /// Constructs a new <see cref="Random"/> wrapper over <paramref name="rng"/> .
         /// </summary>
-        public static RandomShim<TRng> Create<TRng>(TRng rng) where TRng : IRng => new RandomShim<TRng>(rng);
+        public static RandomShim<TRng> Create<TRng>(TRng rng) where TRng : notnull, IRng => new RandomShim<TRng>(rng);
     }
 }

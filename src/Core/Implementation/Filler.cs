@@ -20,7 +20,7 @@ namespace RandN.Implementation
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt64 NextUInt64ViaUInt32<TRng>(TRng rng)
-            where TRng : IRng
+            where TRng : notnull, IRng
         {
             // Use Little Endian; we explicitly generate one value before the next.
             var x = (UInt64)rng.NextUInt32();
@@ -32,14 +32,14 @@ namespace RandN.Implementation
         /// Implement NextUInt32 via NextUInt64.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UInt32 NextUInt32ViaUInt64<TRng>(TRng rng) where TRng : IRng => unchecked((UInt32)rng.NextUInt64());
+        public static UInt32 NextUInt32ViaUInt64<TRng>(TRng rng) where TRng : notnull, IRng => unchecked((UInt32)rng.NextUInt64());
 
         /// <summary>
         /// Implement FillBytes via NextUInt64 and NextUInt32, little-endian order.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void FillBytesViaNext<TRng>(TRng rng, Span<Byte> destination)
-            where TRng : IRng
+            where TRng : notnull, IRng
         {
             while (destination.Length > 8)
             {

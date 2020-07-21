@@ -77,6 +77,15 @@ namespace RandN.Distributions
         }
 
         [Fact]
+        public void SingleNonNullable()
+        {
+            Assert.Throws<ArgumentNullException>(() => UnitInterval.ClosedOpenSingle.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => UnitInterval.OpenClosedSingle.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => UnitInterval.ClosedSingle.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => UnitInterval.OpenSingle.Instance.Sample<StepRng>(null));
+        }
+
+        [Fact]
         public void DoubleRanges()
         {
             var zeroRng = new StepRng(0) { Increment = 0 };
@@ -137,6 +146,15 @@ namespace RandN.Distributions
             }
 
             Assert.True(Statistics.WithinConfidence(popMean: 0.5, popStdDev: 0.5, mean, iterations));
+        }
+
+        [Fact]
+        public void DoubleNonNullable()
+        {
+            Assert.Throws<ArgumentNullException>(() => UnitInterval.ClosedOpenDouble.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => UnitInterval.OpenClosedDouble.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => UnitInterval.ClosedDouble.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => UnitInterval.OpenDouble.Instance.Sample<StepRng>(null));
         }
 
     }

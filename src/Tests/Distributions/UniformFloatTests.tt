@@ -204,6 +204,12 @@ namespace RandN.Distributions
             Average(1e-35<#= floatSuffix #>, 1e-30<#= floatSuffix #>, 6);
         }
 
+        [Fact]
+        public void NonNullable<#= type #>()
+        {
+            var dist = Uniform<#= type #>.Create(1, 2);
+            Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
+        }
 <#
 }
 #>

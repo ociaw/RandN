@@ -4,7 +4,7 @@ namespace RandN
     /// A factory that produces reproducible Random Number Generators.
     /// </summary>
     public interface IReproducibleRngFactory<TRng, TSeed>
-        where TRng : IRng
+        where TRng : notnull, IRng
     {
         /// <summary>
         /// Creates a new <typeparamref name="TRng" /> using the specified seed.
@@ -20,6 +20,6 @@ namespace RandN
         /// <typeparam name="TSeedingRng">The type of the <see cref="IRng"/> used to create the seed.</typeparam>
         /// <param name="seedingRng">The <typeparamref name="TSeedingRng"/> used to create the seed.</param>
         /// <returns>A new <typeparamref name="TSeed"/> suitable for use in the <see cref="Create(TSeed)"/> method.</returns>
-        TSeed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng;
+        TSeed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng;
     }
 }

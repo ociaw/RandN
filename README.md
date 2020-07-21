@@ -95,7 +95,3 @@ using RandN.Compat;
 Random random = RandomShim.Create(rng);
 random.Next(2);
 ```
-
-# Compatibility
-* RandN is written with the assumption that C# 8 Nullable Reference types are enabled and therefore
-does not null check arguments. Null checks may be added through Fody in the future.

@@ -31,7 +31,7 @@ namespace RandN.Distributions
             public static ClosedOpenSingle Instance { get; } = new ClosedOpenSingle();
 
             /// <inheritdoc />
-            public Single Sample<TRng>(TRng rng) where TRng : IRng
+            public Single Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // 24 or 53 bits of precision
                 const Int32 floatSize = sizeof(Single) * 8;
@@ -44,7 +44,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out Single result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out Single result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;
@@ -62,7 +62,7 @@ namespace RandN.Distributions
             public static OpenClosedSingle Instance { get; } = new OpenClosedSingle();
 
             /// <inheritdoc />
-            public Single Sample<TRng>(TRng rng) where TRng : IRng
+            public Single Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // 24 or 53 bits of precision
                 const Int32 floatSize = sizeof(Single) * 8;
@@ -75,7 +75,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out Single result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out Single result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;
@@ -93,7 +93,7 @@ namespace RandN.Distributions
             public static ClosedSingle Instance { get; } = new ClosedSingle();
 
             /// <inheritdoc />
-            public Single Sample<TRng>(TRng rng) where TRng : IRng
+            public Single Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // 24 or 53 bits of precision
                 const Int32 floatSize = sizeof(Single) * 8;
@@ -106,7 +106,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out Single result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out Single result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;
@@ -124,7 +124,7 @@ namespace RandN.Distributions
             public static OpenSingle Instance { get; } = new OpenSingle();
 
             /// <inheritdoc />
-            public Single Sample<TRng>(TRng rng) where TRng : IRng
+            public Single Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // 23 or 52 bits of precision
                 const Int32 floatSize = sizeof(Single) * 8;
@@ -136,7 +136,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out Single result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out Single result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;
@@ -155,7 +155,7 @@ namespace RandN.Distributions
             public static ClosedOpenDouble Instance { get; } = new ClosedOpenDouble();
 
             /// <inheritdoc />
-            public Double Sample<TRng>(TRng rng) where TRng : IRng
+            public Double Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // 24 or 53 bits of precision
                 const Int32 floatSize = sizeof(Double) * 8;
@@ -168,7 +168,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out Double result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out Double result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;
@@ -186,7 +186,7 @@ namespace RandN.Distributions
             public static OpenClosedDouble Instance { get; } = new OpenClosedDouble();
 
             /// <inheritdoc />
-            public Double Sample<TRng>(TRng rng) where TRng : IRng
+            public Double Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // 24 or 53 bits of precision
                 const Int32 floatSize = sizeof(Double) * 8;
@@ -199,7 +199,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out Double result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out Double result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;
@@ -217,7 +217,7 @@ namespace RandN.Distributions
             public static ClosedDouble Instance { get; } = new ClosedDouble();
 
             /// <inheritdoc />
-            public Double Sample<TRng>(TRng rng) where TRng : IRng
+            public Double Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // 24 or 53 bits of precision
                 const Int32 floatSize = sizeof(Double) * 8;
@@ -230,7 +230,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out Double result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out Double result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;
@@ -248,7 +248,7 @@ namespace RandN.Distributions
             public static OpenDouble Instance { get; } = new OpenDouble();
 
             /// <inheritdoc />
-            public Double Sample<TRng>(TRng rng) where TRng : IRng
+            public Double Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // 23 or 52 bits of precision
                 const Int32 floatSize = sizeof(Double) * 8;
@@ -260,7 +260,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out Double result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out Double result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;

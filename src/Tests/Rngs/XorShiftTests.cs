@@ -68,5 +68,11 @@ namespace RandN.Rngs
             Assert.NotEqual(0ul, num1);
             Assert.NotEqual(num1, num2);
         }
+
+        [Fact]
+        public void NonNullable()
+        {
+            Assert.Throws<ArgumentNullException>(() => XorShift.GetFactory().CreateSeed<StepRng>(null));
+        }
     }
 }

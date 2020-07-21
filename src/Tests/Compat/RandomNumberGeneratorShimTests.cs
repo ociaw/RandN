@@ -56,5 +56,15 @@ namespace RandN.Compat
             Assert.All(buffer.Skip(200).Take(500), b => Assert.Equal(Byte.MaxValue, b));
             Assert.All(buffer.Skip(700), b => Assert.Equal(0, b));
         }
+
+        [Fact]
+        public void NonNullable()
+        {
+            Assert.Throws<ArgumentNullException>(() => RandomNumberGeneratorShim.Create<StepRng>(null));
+
+            var rng = RandomNumberGeneratorShim.Create(new StepRng(0));
+            Assert.Throws<ArgumentNullException>(() => rng.GetBytes(null));
+            Assert.Throws<ArgumentNullException>(() => rng.GetNonZeroBytes(null));
+        }
     }
 }

@@ -119,7 +119,7 @@ namespace RandN.Rngs
             public ChaCha Create(Seed seed) => ChaCha.Create(seed, DOUBLE_ROUNDS);
 
             /// <inheritdoc />
-            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
+            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
             {
                 Span<UInt32> key = stackalloc UInt32[KeyLength];
                 seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
@@ -140,7 +140,7 @@ namespace RandN.Rngs
             public ChaCha Create(Seed seed) => ChaCha.Create(seed, DOUBLE_ROUNDS);
 
             /// <inheritdoc />
-            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
+            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
             {
                 Span<UInt32> key = stackalloc UInt32[KeyLength];
                 seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
@@ -161,7 +161,7 @@ namespace RandN.Rngs
             public ChaCha Create(Seed seed) => ChaCha.Create(seed, DOUBLE_ROUNDS);
 
             /// <inheritdoc />
-            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
+            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
             {
                 Span<UInt32> key = stackalloc UInt32[KeyLength];
                 seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));

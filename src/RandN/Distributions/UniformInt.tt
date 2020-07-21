@@ -78,7 +78,7 @@ foreach (var tuple in types)
         }
 
         /// <inheritdoc />
-        public <#= type #> Sample<TRng>(TRng rng) where TRng : IRng
+        public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
         {
             var unsigned = rng.Next<#= ularge #>();
             if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -95,7 +95,7 @@ foreach (var tuple in types)
         }
 
         /// <inheritdoc />
-        public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
+        public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
         {
             var unsigned = rng.Next<#= ularge #>();
             if (_range == 0) // 0 is a special case where we sample the entire range.

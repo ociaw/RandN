@@ -1026,5 +1026,11 @@ namespace RandN.Rngs
                 Assert.Equal(expected, actual);
             }
         }
+
+        [Fact]
+        public void NonNullable()
+        {
+            Assert.Throws<ArgumentNullException>(() => Mt1993764.GetFactory().CreateSeed<StepRng>(null));
+        }
     }
 }

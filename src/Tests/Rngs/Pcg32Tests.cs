@@ -30,5 +30,11 @@ namespace RandN.Rngs
             Assert.Equal(0xbfa4784bu, rng.NextUInt32());
             Assert.Equal(0xcbed606eu, rng.NextUInt32());
         }
+
+        [Fact]
+        public void NonNullable()
+        {
+            Assert.Throws<System.ArgumentNullException>(() => Pcg32.GetFactory().CreateSeed<StepRng>(null));
+        }
     }
 }

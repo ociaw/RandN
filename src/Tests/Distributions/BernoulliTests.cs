@@ -67,5 +67,12 @@ namespace RandN.Distributions
 
             Assert.True(Statistics.WithinConfidenceBernoulli(sum, P, SAMPLE_COUNT));
         }
+
+        [Fact]
+        public void NonNullable()
+        {
+            var dist = Bernoulli.FromRatio(1, 2);
+            Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
+        }
     }
 }

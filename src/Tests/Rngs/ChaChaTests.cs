@@ -123,5 +123,13 @@ namespace RandN.Rngs
             foreach (var expected in expected2)
                 Assert.Equal(expected, rng1.NextUInt32());
         }
+
+        [Fact]
+        public void NonNullable()
+        {
+            Assert.Throws<ArgumentNullException>(() => ChaCha.GetChaCha8Factory().CreateSeed<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => ChaCha.GetChaCha12Factory().CreateSeed<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => ChaCha.GetChaCha20Factory().CreateSeed<StepRng>(null));
+        }
     }
 }

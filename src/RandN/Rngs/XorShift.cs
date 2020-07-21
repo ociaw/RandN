@@ -73,7 +73,7 @@ namespace RandN.Rngs
             public XorShift Create((UInt32 x, UInt32 y, UInt32 z, UInt32 w) seed) => XorShift.Create(seed);
 
             /// <inheritdoc />
-            public (UInt32 x, UInt32 y, UInt32 z, UInt32 w) CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
+            public (UInt32 x, UInt32 y, UInt32 z, UInt32 w) CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
             {
                 return (
                     seedingRng.NextUInt32(),

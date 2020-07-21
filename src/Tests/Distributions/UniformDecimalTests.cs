@@ -126,5 +126,11 @@ namespace RandN.Distributions
             Average(1e-28m, 1e-24m, 6);
         }
 
+        [Fact]
+        public void NonNullable()
+        {
+            var dist = UniformDecimal.Create(1, 2);
+            Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
+        }
     }
 }

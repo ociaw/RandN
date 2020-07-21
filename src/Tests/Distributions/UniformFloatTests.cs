@@ -160,7 +160,7 @@ namespace RandN.Distributions
                 Assert.Equal(low, uniform.Sample(zeroRng));
                 Assert.Equal(low, inclusiveUniform.Sample(zeroRng));
                 Assert.True(uniform.Sample(maxRng) < high, $"Exclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {uniform.Sample(maxRng)}");
-                Assert.True(inclusiveUniform.Sample(maxRng) <= high,  $"Inclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {inclusiveUniform.Sample(maxRng)}");
+                Assert.True(inclusiveUniform.Sample(maxRng) <= high,  $"Inclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {inclusiveUniform.Sample(maxRng):G19}");
 
                 // Don't run this test for really tiny differences between high and low
                 // since for those rounding might result in selecting high for a very
@@ -278,6 +278,12 @@ namespace RandN.Distributions
             Average(1e-35f, 1e-30f, 6);
         }
 
+        [Fact]
+        public void NonNullableSingle()
+        {
+            var dist = UniformSingle.Create(1, 2);
+            Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
+        }
 
         [Fact]
         public void AverageDoubles()
@@ -323,6 +329,12 @@ namespace RandN.Distributions
             Average(1e-35d, 1e-30d, 6);
         }
 
+        [Fact]
+        public void NonNullableDouble()
+        {
+            var dist = UniformDouble.Create(1, 2);
+            Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
+        }
 
     }
 }

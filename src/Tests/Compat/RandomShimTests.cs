@@ -62,5 +62,14 @@ namespace RandN.Compat
                 Assert.True(0 <= value && value < 1);
             }
         }
+
+        [Fact]
+        public void NonNullable()
+        {
+            Assert.Throws<ArgumentNullException>(() => RandomShim.Create<StepRng>(null));
+
+            var rng = RandomShim.Create(new StepRng(0));
+            Assert.Throws<ArgumentNullException>(() => rng.NextBytes(null));
+        }
     }
 }
