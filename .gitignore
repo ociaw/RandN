@@ -9,6 +9,8 @@ obj/
 FodyWeavers.xsd
 packages/
 
+*.code-workspace
+
 # Docs
 config.wyam.*
 docs/output/**
