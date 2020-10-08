@@ -5,7 +5,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="TimeSpan" />.
     /// </summary>
-    public readonly struct UniformTimeSpan : IDistribution<TimeSpan>
+    public readonly struct UniformTimeSpan : IPortableDistribution<TimeSpan>
     {
         private readonly UniformInt64 _backing;
 

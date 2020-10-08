@@ -36,7 +36,7 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the closed-open interval [0, 1).
         /// </summary>
-        public readonly struct ClosedOpen<#= type #> : IDistribution<<#= type #>>
+        public readonly struct ClosedOpen<#= type #> : IPortableDistribution<<#= type #>>
         {
             /// <summary>
             /// Gets the instance of <see cref="ClosedOpen<#= type #>" />.
@@ -67,7 +67,7 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the open-closed interval (0, 1].
         /// </summary>
-        public readonly struct OpenClosed<#= type #> : IDistribution<<#= type #>>
+        public readonly struct OpenClosed<#= type #> : IPortableDistribution<<#= type #>>
         {
             /// <summary>
             /// Gets the instance of <see cref="OpenClosed<#= type #>" />.
@@ -98,7 +98,7 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the closed interval [0, 1].
         /// </summary>
-        public readonly struct Closed<#= type #> : IDistribution<<#= type #>>
+        public readonly struct Closed<#= type #> : IPortableDistribution<<#= type #>>
         {
             /// <summary>
             /// Gets the instance of <see cref="Closed<#= type #>" />.
@@ -129,7 +129,7 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the open interval (0, 1).
         /// </summary>
-        public readonly struct Open<#= type #> : IDistribution<<#= type #>>
+        public readonly struct Open<#= type #> : IPortableDistribution<<#= type #>>
         {
             /// <summary>
             /// Gets the instance of <see cref="Open<#= type #>" />.

@@ -12,7 +12,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="SByte" />.
     /// </summary>
-    public readonly struct UniformSByte : IDistribution<SByte>
+    public readonly struct UniformSByte : IPortableDistribution<SByte>
     {
         private readonly SByte _low;
         private readonly UInt32 _range;
@@ -102,7 +102,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="Int16" />.
     /// </summary>
-    public readonly struct UniformInt16 : IDistribution<Int16>
+    public readonly struct UniformInt16 : IPortableDistribution<Int16>
     {
         private readonly Int16 _low;
         private readonly UInt32 _range;
@@ -192,7 +192,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="Int32" />.
     /// </summary>
-    public readonly struct UniformInt32 : IDistribution<Int32>
+    public readonly struct UniformInt32 : IPortableDistribution<Int32>
     {
         private readonly Int32 _low;
         private readonly UInt32 _range;
@@ -282,7 +282,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="Int64" />.
     /// </summary>
-    public readonly struct UniformInt64 : IDistribution<Int64>
+    public readonly struct UniformInt64 : IPortableDistribution<Int64>
     {
         private readonly Int64 _low;
         private readonly UInt64 _range;
@@ -372,7 +372,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="Byte" />.
     /// </summary>
-    public readonly struct UniformByte : IDistribution<Byte>
+    public readonly struct UniformByte : IPortableDistribution<Byte>
     {
         private readonly Byte _low;
         private readonly UInt32 _range;
@@ -462,7 +462,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="UInt16" />.
     /// </summary>
-    public readonly struct UniformUInt16 : IDistribution<UInt16>
+    public readonly struct UniformUInt16 : IPortableDistribution<UInt16>
     {
         private readonly UInt16 _low;
         private readonly UInt32 _range;
@@ -552,7 +552,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="UInt32" />.
     /// </summary>
-    public readonly struct UniformUInt32 : IDistribution<UInt32>
+    public readonly struct UniformUInt32 : IPortableDistribution<UInt32>
     {
         private readonly UInt32 _low;
         private readonly UInt32 _range;
@@ -642,7 +642,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="UInt64" />.
     /// </summary>
-    public readonly struct UniformUInt64 : IDistribution<UInt64>
+    public readonly struct UniformUInt64 : IPortableDistribution<UInt64>
     {
         private readonly UInt64 _low;
         private readonly UInt64 _range;

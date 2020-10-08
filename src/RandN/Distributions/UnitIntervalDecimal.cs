@@ -7,7 +7,7 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the closed-open interval [0, 1).
         /// </summary>
-        public readonly struct ClosedOpenDecimal : IDistribution<Decimal>
+        public readonly struct ClosedOpenDecimal : IPortableDistribution<Decimal>
         {
             /// <summary>
             /// Gets the instance of <see cref="ClosedOpenDecimal" />.
@@ -33,7 +33,7 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the open-closed interval (0, 1].
         /// </summary>
-        public readonly struct OpenClosedDecimal : IDistribution<Decimal>
+        public readonly struct OpenClosedDecimal : IPortableDistribution<Decimal>
         {
             /// <summary>
             /// Gets the instance of <see cref="OpenClosedDecimal" />.
@@ -59,7 +59,7 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the closed interval [0, 1].
         /// </summary>
-        public readonly struct ClosedDecimal : IDistribution<Decimal>
+        public readonly struct ClosedDecimal : IPortableDistribution<Decimal>
         {
             /// <summary>
             /// Gets the instance of <see cref="ClosedDecimal" />.
@@ -85,7 +85,7 @@ namespace RandN.Distributions
         /// <summary>
         /// A distribution over the open interval (0, 1).
         /// </summary>
-        public readonly struct OpenDecimal : IDistribution<Decimal>
+        public readonly struct OpenDecimal : IPortableDistribution<Decimal>
         {
             /// <summary>
             /// Gets the instance of <see cref="ClosedDecimal" />.

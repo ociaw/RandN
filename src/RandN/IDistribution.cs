@@ -6,8 +6,7 @@ namespace RandN
     /// Produces values random of <typeparamref name="TResult"/>.
     /// </summary>
     /// <remarks>
-    /// Implementations are immutable and therefore thread safe. Results are also reproducible
-    /// within the same assembly version.
+    /// Implementations are immutable and therefore thread safe.
     /// </remarks>
     /// <typeparam name="TResult">The type that is produced by this distribution.</typeparam>
     public interface IDistribution<TResult>

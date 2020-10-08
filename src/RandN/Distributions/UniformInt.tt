@@ -30,7 +30,7 @@ foreach (var tuple in types)
     /// <summary>
     /// A uniform distribution of type <see cref="<#= type #>" />.
     /// </summary>
-    public readonly struct Uniform<#= type #> : IDistribution<<#= type #>>
+    public readonly struct Uniform<#= type #> : IPortableDistribution<<#= type #>>
     {
         private readonly <#= type #> _low;
         private readonly <#= ularge #> _range;

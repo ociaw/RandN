@@ -7,7 +7,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution of type <see cref="Decimal" />.
     /// </summary>
-    public readonly struct UniformDecimal : IDistribution<Decimal>
+    public readonly struct UniformDecimal : IPortableDistribution<Decimal>
     {
         private readonly Decimal _low;
         private readonly Decimal _scale;
