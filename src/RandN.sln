@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples", "Examples\Examples.csproj", "{3283C76D-66D3-4C4D-9278-52CD19F2E4DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Examples", "Examples\Examples.csproj", "{3283C76D-66D3-4C4D-9278-52CD19F2E4DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mocks", "Mocks\Mocks.csproj", "{84A91CF8-C428-4A7F-BC30-E85B3E7A3220}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{3283C76D-66D3-4C4D-9278-52CD19F2E4DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3283C76D-66D3-4C4D-9278-52CD19F2E4DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3283C76D-66D3-4C4D-9278-52CD19F2E4DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84A91CF8-C428-4A7F-BC30-E85B3E7A3220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84A91CF8-C428-4A7F-BC30-E85B3E7A3220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84A91CF8-C428-4A7F-BC30-E85B3E7A3220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84A91CF8-C428-4A7F-BC30-E85B3E7A3220}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
