@@ -16,35 +16,22 @@ using RandN.Implementation;
 /*** This file is auto generated - any changes made here will be lost. ***/
 namespace RandN.Distributions
 {
+    internal static class UniformFloat
+    {
 <# foreach (var param in parameters)
 {
     String type = param.type.Name;
     String unsigned = param.unsigned.Name;
 #>
-    /// <summary>
-    /// A uniform distribution of type <see cref="<#= type #>" />.
-    /// </summary>
-    public readonly struct Uniform<#= type #> : IDistribution<<#= type #>>
-    {
-        private const Int32 BITS_TO_DISCARD = <#= param.bitsToDiscard #>;
-
-        private readonly <#= type #> _low;
-        private readonly <#= type #> _scale;
-
-        private Uniform<#= type #>(<#= type #> low, <#= type #> scale)
-        {
-            _low = low;
-            _scale = scale;
-        }
-
         /// <summary>
-        /// Creates a <see cref="Uniform<#= type #>" /> with an exclusive upper bound. Should not
+        /// Creates a <see cref="UniformFloat{<#= type #>}" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/> or when
+        /// <paramref name="low"/> or <paramref name="high"/> are non-finite or NaN.
         /// </exception>
-        public static Uniform<#= type #> Create(<#= type #> low, <#= type #> high)
+        public static UniformFloat<<#= type #>> Create(<#= type #> low, <#= type #> high)
         {
             if (low >= high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
@@ -57,7 +44,9 @@ namespace RandN.Distributions
             if (<#= type #>.IsNaN(high))
                 throw new ArgumentOutOfRangeException(nameof(high), high, "Must be a number.");
 
-            <#= type #> maxRand = (<#= unsigned #>.MaxValue >> BITS_TO_DISCARD).IntoFloatWithExponent(0) - 1;
+            const Int32 bitsToDiscard = <#= param.bitsToDiscard #>;
+
+            <#= type #> maxRand = (<#= unsigned #>.MaxValue >> bitsToDiscard).IntoFloatWithExponent(0) - 1;
             <#= type #> scale = (high - low).ForceStandardPrecision();
             while (true)
             {
@@ -71,17 +60,17 @@ namespace RandN.Distributions
 
             Debug.Assert(0.0 <= scale);
             Debug.Assert(!<#= type #>.IsPositiveInfinity(scale));
-            return new Uniform<#= type #>(low, scale);
+            return new UniformFloat<<#= type #>>(low, scale);
         }
 
         /// <summary>
-        /// Creates a <see cref="Uniform<#= type #>" /> with an exclusive lower bound. Should not
+        /// Creates a <see cref="UniformFloat{<#= type #>}" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
         /// </exception>
-        public static Uniform<#= type #> CreateInclusive(<#= type #> low, <#= type #> high)
+        public static UniformFloat<<#= type #>> CreateInclusive(<#= type #> low, <#= type #> high)
         {
             if (low > high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
@@ -94,7 +83,9 @@ namespace RandN.Distributions
             if (<#= type #>.IsNaN(high))
                 throw new ArgumentOutOfRangeException(nameof(high), high, "Must be a number.");
 
-            <#= type #> maxRand = (<#= unsigned #>.MaxValue >> BITS_TO_DISCARD).IntoFloatWithExponent(0) - 1;
+            const Int32 bitsToDiscard = <#= param.bitsToDiscard #>;
+
+            <#= type #> maxRand = (<#= unsigned #>.MaxValue >> bitsToDiscard).IntoFloatWithExponent(0) - 1;
             <#= type #> scale = ((high - low) / maxRand).ForceStandardPrecision();
             while (true)
             {
@@ -108,32 +99,74 @@ namespace RandN.Distributions
 
             Debug.Assert(0.0 <= scale);
             Debug.Assert(!<#= type #>.IsPositiveInfinity(scale));
-            return new Uniform<#= type #>(low, scale);
+            return new UniformFloat<<#= type #>>(low, scale);
         }
+<#
+}
+#>
+    }
 
-        /// <inheritdoc />
-        public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
+    /// <summary>
+    /// Implements a Uniform <see cref="IDistribution{TResult}"/> for <see cref="Single" /> and <see cref="Double" />.
+    /// Use of any other type results in a runtime exception.
+    /// </summary>
+    public readonly struct UniformFloat<T> : IDistribution<T>
+        // We're extremely restrictive here to discourage people from trying to use non-supported type for T
+        where T : struct, IComparable, IComparable<T>, IConvertible, IEquatable<T>, IFormattable
+    {
+        private readonly T _low;
+        private readonly T _scale;
+
+        internal UniformFloat(T low, T scale)
         {
-            // Generate a value in the range [1, 2)
-            var sample = rng.Next<#= unsigned #>();
-            <#= type #> value12 = (sample >> BITS_TO_DISCARD).IntoFloatWithExponent(0);
-
-            // Get a value in the range [0, 1) in order to avoid
-            // overflowing into infinity when multiplying with scale
-            <#= type #> value01 = value12 - 1;
-
-            return value01 * _scale + _low;
+            _low = low;
+            _scale = scale;
         }
 
         /// <inheritdoc />
-        public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
+        public Boolean TrySample<TRng>(TRng rng, out T result) where TRng : notnull, IRng
         {
             result = Sample(rng);
             return true;
         }
-    }
 
+        /// <inheritdoc />
+        public T Sample<TRng>(TRng rng) where TRng : notnull, IRng
+        {
+<# foreach (var param in parameters)
+{
+    String type = param.type.Name;
+#>
+            if (typeof(T) == typeof(<#= type #>))
+                return (T)(Object)Sample<#= type #>(rng);
 <#
 }
 #>
+            throw new NotSupportedException($"Type {typeof(T)} is not supported.");
+        }
+
+<# foreach (var param in parameters)
+{
+    String type = param.type.Name;
+    String unsigned = param.unsigned.Name;
+#>
+        private <#= type #> Sample<#= type #><TRng>(TRng rng) where TRng : notnull, IRng
+        {
+            const Int32 BitsToDiscard = <#= param.bitsToDiscard #>;
+            // Generate a value in the range [1, 2)
+            var sample = rng.Next<#= unsigned #>();
+            <#= type #> value12 = (sample >> BitsToDiscard).IntoFloatWithExponent(0);
+
+            // Get a value in the range [0, 1) in order to avoid
+            // overflowing into infinity when multiplying with scale
+            <#= type #> value01 = value12 - 1;
+            <#= type #> scale = (<#= type #>)(Object)_scale;
+            <#= type #> low = (<#= type #>)(Object)_low;
+
+            return value01 * scale + low;
+        }
+<#
+}
+#>
+    }
 }

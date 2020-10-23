@@ -281,7 +281,7 @@ namespace RandN.Distributions
         [Fact]
         public void NonNullableSingle()
         {
-            var dist = UniformSingle.Create(1, 2);
+            var dist = Uniform.New(1.0f, 2.0f);
             Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
         }
 
@@ -332,7 +332,7 @@ namespace RandN.Distributions
         [Fact]
         public void NonNullableDouble()
         {
-            var dist = UniformDouble.Create(1, 2);
+            var dist = Uniform.New(1.0d, 2.0d);
             Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
         }
 

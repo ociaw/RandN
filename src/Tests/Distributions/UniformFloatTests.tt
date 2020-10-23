@@ -207,7 +207,7 @@ namespace RandN.Distributions
         [Fact]
         public void NonNullable<#= type #>()
         {
-            var dist = Uniform<#= type #>.Create(1, 2);
+            var dist = Uniform.New(1.0<#= floatSuffix #>, 2.0<#= floatSuffix #>);
             Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
         }
 <#
