@@ -11,6 +11,8 @@ obj/
 FodyWeavers.xsd
 packages/
 
+BenchmarkDotNet.Artifacts/
+
 *.code-workspace
 
 # Docs
