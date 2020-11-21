@@ -24,7 +24,7 @@ namespace RandN.Compat
         public override Int32 Next(Int32 maxValue) => Next(0, maxValue);
 
         /// <inheritdoc />
-        public override Int32 Next(Int32 minValue, Int32 maxValue) => UniformInt32.Create(minValue, maxValue).Sample(_rng);
+        public override Int32 Next(Int32 minValue, Int32 maxValue) => UniformInt.Create(minValue, maxValue).Sample(_rng);
 
         /// <inheritdoc />
         public override void NextBytes(Byte[] buffer) => _rng.Fill(buffer);

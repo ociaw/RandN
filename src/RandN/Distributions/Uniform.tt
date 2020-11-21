@@ -4,6 +4,11 @@
 <#
 var types = new Type[]
 {
+    typeof(TimeSpan),
+    typeof(Decimal),
+};
+var genericTypes = new Type[]
+{
     typeof(SByte),
     typeof(Int16),
     typeof(Int32),
@@ -12,8 +17,6 @@ var types = new Type[]
     typeof(UInt16),
     typeof(UInt32),
     typeof(UInt64),
-    typeof(TimeSpan),
-    typeof(Decimal),
 };
 #>
 using System;
@@ -51,6 +54,33 @@ foreach (var type in types)
         /// </exception>
         public static Uniform<#= typeName #> NewInclusive(<#= typeName #> low, <#= typeName #> high) => Uniform<#= typeName #>.CreateInclusive(low, high);
 
+<#
+}
+#>
+<#
+foreach (var type in genericTypes)
+{
+    String typeName = type.Name;
+#>
+        /// <summary>
+        /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
+        /// </summary>
+        /// <param name="low">The inclusive lower bound.</param>
+        /// <param name="high">The exclusive upper bound.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+        /// </exception>
+        public static UniformInt<<#= typeName #>> New(<#= typeName #> low, <#= typeName #> high) => UniformInt.Create(low, high);
+
+        /// <summary>
+        /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
+        /// </summary>
+        /// <param name="low">The inclusive lower bound.</param>
+        /// <param name="high">The inclusive upper bound.</param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+        /// </exception>
+        public static UniformInt<<#= typeName #>> NewInclusive(<#= typeName #> low, <#= typeName #> high) => UniformInt.CreateInclusive(low, high);
 <#
 }
 #>

@@ -178,7 +178,7 @@ namespace RandN.Distributions
     /// Use of any other type results in a runtime exception.
     /// </summary>
     public readonly struct UniformFloat<T> : IDistribution<T>
-        // We're extremely restrictive here to discourage people from trying to use non-supported type for T
+        // We're extremely restrictive here to discourage people from trying to use unsupported types for T
         where T : struct, IComparable, IComparable<T>, IConvertible, IEquatable<T>, IFormattable
     {
         private readonly T _low;

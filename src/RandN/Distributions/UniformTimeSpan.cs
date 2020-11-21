@@ -7,9 +7,9 @@ namespace RandN.Distributions
     /// </summary>
     public readonly struct UniformTimeSpan : IPortableDistribution<TimeSpan>
     {
-        private readonly UniformInt64 _backing;
+        private readonly UniformInt<Int64> _backing;
 
-        private UniformTimeSpan(UniformInt64 backing) => _backing = backing;
+        private UniformTimeSpan(UniformInt<Int64> backing) => _backing = backing;
 
         /// <summary>
         /// Creates a <see cref="UniformTimeSpan" /> with an exclusive upper bound. Should not
@@ -38,7 +38,7 @@ namespace RandN.Distributions
             if (low > high)
                 throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
-            UniformInt64 backing = UniformInt64.CreateInclusive(low.Ticks, high.Ticks);
+            UniformInt<Int64> backing = UniformInt.CreateInclusive(low.Ticks, high.Ticks);
             return new UniformTimeSpan(backing);
         }
 

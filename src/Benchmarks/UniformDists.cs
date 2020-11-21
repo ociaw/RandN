@@ -13,14 +13,14 @@ namespace RandN.Benchmarks
 
         private readonly StepRng _rng;
 
-        private readonly UniformSByte _uniformSByte;
-        private readonly UniformInt16 _uniformInt16;
-        private readonly UniformInt32 _uniformInt32;
-        private readonly UniformInt64 _uniformInt64;
-        private readonly UniformByte _uniformByte;
-        private readonly UniformUInt16 _uniformUInt16;
-        private readonly UniformUInt32 _uniformUInt32;
-        private readonly UniformUInt64 _uniformUInt64;
+        private readonly UniformInt<SByte> _uniformSByte;
+        private readonly UniformInt<Int16> _uniformInt16;
+        private readonly UniformInt<Int32> _uniformInt32;
+        private readonly UniformInt<Int64> _uniformInt64;
+        private readonly UniformInt<Byte> _uniformByte;
+        private readonly UniformInt<UInt16> _uniformUInt16;
+        private readonly UniformInt<UInt32> _uniformUInt32;
+        private readonly UniformInt<UInt64> _uniformUInt64;
 
         private readonly UniformFloat<Single> _uniformSingle;
         private readonly UniformFloat<Double> _uniformDouble;
