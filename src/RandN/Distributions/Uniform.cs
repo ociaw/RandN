@@ -10,7 +10,7 @@ namespace RandN.Distributions
     /// <summary>
     /// A uniform distribution where each possible value has an equal probability of occuring.
     /// </summary>
-    public static class Uniform
+    public static partial class Uniform
     {
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
         /// </exception>
-        public static UniformTimeSpan New(TimeSpan low, TimeSpan high) => UniformTimeSpan.Create(low, high);
+        public static Uniform.TimeSpan New(System.TimeSpan low, System.TimeSpan high) => Uniform.TimeSpan.Create(low, high);
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
@@ -31,7 +31,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
         /// </exception>
-        public static UniformTimeSpan NewInclusive(TimeSpan low, TimeSpan high) => UniformTimeSpan.CreateInclusive(low, high);
+        public static Uniform.TimeSpan NewInclusive(System.TimeSpan low, System.TimeSpan high) => Uniform.TimeSpan.CreateInclusive(low, high);
 
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
         /// </exception>
-        public static UniformDecimal New(Decimal low, Decimal high) => UniformDecimal.Create(low, high);
+        public static Uniform.Decimal New(System.Decimal low, System.Decimal high) => Uniform.Decimal.Create(low, high);
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
@@ -52,7 +52,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
         /// </exception>
-        public static UniformDecimal NewInclusive(Decimal low, Decimal high) => UniformDecimal.CreateInclusive(low, high);
+        public static Uniform.Decimal NewInclusive(System.Decimal low, System.Decimal high) => Uniform.Decimal.CreateInclusive(low, high);
 
 
 

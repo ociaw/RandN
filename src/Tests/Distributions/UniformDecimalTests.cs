@@ -129,7 +129,7 @@ namespace RandN.Distributions
         [Fact]
         public void NonNullable()
         {
-            var dist = UniformDecimal.Create(1, 2);
+            var dist = Uniform.Decimal.Create(1, 2);
             Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
         }
     }
