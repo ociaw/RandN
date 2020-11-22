@@ -33,11 +33,14 @@ value within that range. For example, the outcome of rolling a 6 sided die is re
 uniform distribution over the interval [1, 6].
 
 ``` csharp
-var d6 = Uniform.NewInclusive(1, 6);
-var d20 = Uniform.NewInclusive(1, 20);
+Uniform.Int32 d6 = Uniform.NewInclusive(1, 6);
+Uniform.Int32 d20 = Uniform.NewInclusive(1, 20);
 
-// Some may argue that there's no such thing as a perfect grade, but this gets you pretty close.
-var grade = Uniform.New(0.0, 100.0);
+// Some may argue that there's no such thing as a perfect grade, but this may get you pretty close.
+Uniform.Int32 grade = Uniform.New(0.0, 100.0);
+
+// TimeSpans are also supported - try not to burn your popcorn.
+Uniform.TimeSpan times = Uniform.NewInclusive(TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(3));
 ```
 
 [*Continuous Uniform Distribution* on Wikipedia](https://en.wikipedia.org/wiki/Uniform_distribution_(continuous))

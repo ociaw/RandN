@@ -24,7 +24,7 @@ The full documentation is available [here](https://ociaw.com/randn).
 
 # Usage
 
-Install the RandN package from [Nuget](https://www.nuget.org/packages/RandN/) for most use cases.
+Install the RandN package from [NuGet](https://www.nuget.org/packages/RandN/) for most use cases.
 If you just want to implement an random number generator (ex. you're publishing a package with a new
 RNG), instead depend on [RandN.Core](https://www.nuget.org/packages/RandN.Core/).
 
@@ -73,7 +73,7 @@ rng.Fill(buffer);
 or you can use it to sample a distribution:
 
 ``` csharp
-UniformInt32 distribution = Uniform.NewInclusive(42, 54); // [42 - 54]
+Uniform.Int32 distribution = Uniform.NewInclusive(42, 54); // [42 - 54]
 int answer = distribution.Sample(rng);
 
 Bernoulli weightedCoin = Bernoulli.FromRatio(8, 10); // 80% chance of true
@@ -93,5 +93,5 @@ replacement for `Random`.
 ``` csharp
 using RandN.Compat;
 Random random = RandomShim.Create(rng);
-random.Next(2);
+random.Next(2); // returns 0 or 1
 ```
