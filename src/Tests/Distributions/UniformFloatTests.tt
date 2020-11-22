@@ -131,7 +131,7 @@ namespace RandN.Distributions
                 Assert.Equal(low, uniform.Sample(zeroRng));
                 Assert.Equal(low, inclusiveUniform.Sample(zeroRng));
                 Assert.True(uniform.Sample(maxRng) < high, $"Exclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {uniform.Sample(maxRng)}");
-                Assert.True(inclusiveUniform.Sample(maxRng) <= high,  $"Inclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {inclusiveUniform.Sample(maxRng):G19}");
+                Assert.True(inclusiveUniform.Sample(maxRng) <= high, $"Inclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {inclusiveUniform.Sample(maxRng):G19}");
 
                 // Don't run this test for really tiny differences between high and low
                 // since for those rounding might result in selecting high for a very

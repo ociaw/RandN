@@ -10,7 +10,7 @@ namespace RandN.Distributions
 {
     public static partial class Uniform
     {
-        
+
         /// <summary>
         /// A uniform distribution of type <see cref="System.SByte" />.
         /// </summary>

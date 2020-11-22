@@ -22,7 +22,7 @@ namespace RandN.Distributions
 {
     public static partial class Uniform
     {
-        <#
+<#
 foreach (var tuple in types)
 {
     String shortName = tuple.type.Name;

@@ -223,7 +223,6 @@ namespace RandN.Distributions
         public static Uniform.UInt64 NewInclusive(System.UInt64 low, System.UInt64 high) => Uniform.UInt64.CreateInclusive(low, high);
 
 
-
         /// <summary>
         /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
         /// </summary>
@@ -232,7 +231,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
         /// </exception>
-        public static UniformFloat<Single> New(Single low, Single high) => UniformFloat.Create(low, high);
+        public static Uniform.Single New(System.Single low, System.Single high) => Uniform.Single.Create(low, high);
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
@@ -242,7 +241,8 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
         /// </exception>
-        public static UniformFloat<Single> NewInclusive(Single low, Single high) => UniformFloat.CreateInclusive(low, high);
+        public static Uniform.Single NewInclusive(System.Single low, System.Single high) => Uniform.Single.CreateInclusive(low, high);
+
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
@@ -252,7 +252,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
         /// </exception>
-        public static UniformFloat<Double> New(Double low, Double high) => UniformFloat.Create(low, high);
+        public static Uniform.Double New(System.Double low, System.Double high) => Uniform.Double.Create(low, high);
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
@@ -262,6 +262,8 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
         /// </exception>
-        public static UniformFloat<Double> NewInclusive(Double low, Double high) => UniformFloat.CreateInclusive(low, high);
+        public static Uniform.Double NewInclusive(System.Double low, System.Double high) => Uniform.Double.CreateInclusive(low, high);
+
+
     }
 }

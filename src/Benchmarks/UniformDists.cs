@@ -22,8 +22,8 @@ namespace RandN.Benchmarks
         private readonly Uniform.UInt32 _uniformUInt32;
         private readonly Uniform.UInt64 _uniformUInt64;
 
-        private readonly UniformFloat<Single> _uniformSingle;
-        private readonly UniformFloat<Double> _uniformDouble;
+        private readonly Uniform.Single _uniformSingle;
+        private readonly Uniform.Double _uniformDouble;
 
         private readonly Uniform.TimeSpan _uniformTimeSpan;
 

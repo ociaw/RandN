@@ -10,7 +10,7 @@ namespace RandN.Compat
         where TRng : notnull, IRng
     {
         private readonly TRng _rng;
-        private static readonly UniformFloat<Double> _doubleDist = Uniform.New(0.0, 1.0);
+        private static readonly Uniform.Double _doubleDist = Uniform.New(0.0, 1.0);
 
         /// <summary>
         /// Constructs a new <see cref="Random"/> wrapper over <paramref name="rng"/> .
