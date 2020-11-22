@@ -21,7 +21,7 @@ tasks:
       pattern="^v[0-9].*$"
       if [[ ! ${bookmark} =~ ${pattern} ]] && [[ ! $bookmark = "master" ]]
       then
-          echo "Exiting due to non-master or non-versioned branch: $bookmark"
+          echo "Exiting due to non-master or non-versioned bookmark: $bookmark"
           complete-build
       fi
       cd ~
@@ -36,6 +36,11 @@ tasks:
       export PATH="$PATH:/home/build/.dotnet/tools"
       cd RandN/docs
       bookmark=$(hg log --template "{bookmarks}" -r ".")
+      if [[ $bookmark = "master" ]]
+      then
+          echo "Bookmark '$bookmark' does not need a different link root:"
+          bookmark=''
+      fi
       wyam build --setting "LinkRoot=$bookmark"
   - deploy: |
       cd RandN/docs
