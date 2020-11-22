@@ -112,10 +112,10 @@ namespace RandN.Distributions
             public System.Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // 96 bits of precision - The range generated is approximately [0-7.92].
-                const Int32 decimalScale = 28;
-                Int32 lo = unchecked((Int32)rng.NextUInt32());
-                Int32 mid = unchecked((Int32)rng.NextUInt32());
-                Int32 hi = unchecked((Int32)rng.NextUInt32());
+                const System.Int32 decimalScale = 28;
+                System.Int32 lo = unchecked((System.Int32)rng.NextUInt32());
+                System.Int32 mid = unchecked((System.Int32)rng.NextUInt32());
+                System.Int32 hi = unchecked((System.Int32)rng.NextUInt32());
                 var value = new System.Decimal(lo, mid, hi, isNegative: false, decimalScale);
                 return value * _scale + _low;
             }

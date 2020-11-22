@@ -6,9 +6,6 @@ var types = new Type[]
 {
     typeof(TimeSpan),
     typeof(Decimal),
-};
-var genericTypes = new Type[]
-{
     typeof(SByte),
     typeof(Int16),
     typeof(Int32),
@@ -17,6 +14,9 @@ var genericTypes = new Type[]
     typeof(UInt16),
     typeof(UInt32),
     typeof(UInt64),
+};
+var genericTypes = new Type[]
+{
 };
 #>
 using System;

@@ -20,154 +20,105 @@ using System;
 /*** This file is auto generated - any changes made here will be lost. ***/
 namespace RandN.Distributions
 {
-        /// <summary>
-        /// Contains methods to create instances of <see cref="UniformInt{T}" />.
-        /// </summary>
-    internal static class UniformInt
+    public static partial class Uniform
     {
-<# foreach (var param in types)
+        <#
+foreach (var tuple in types)
 {
-    String type = param.type.Name;
-    String unsigned = param.unsigned.Name;
-    String ularge = param.ularge.Name;
+    String shortName = tuple.type.Name;
+    String type = tuple.type.FullName;
+    String unsigned = tuple.unsigned.FullName;
+    String nextName = tuple.ularge.Name;
+    String ularge = tuple.ularge.FullName;
 #>
         /// <summary>
-        /// Creates a <see cref="UniformInt{<#= type #>}" /> with an exclusive upper bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
+        /// A uniform distribution of type <see cref="<#= type #>" />.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<<#= type #>> Create(<#= type #> low, <#= type #> high)
+        public readonly struct <#= shortName #> : IPortableDistribution<<#= type #>>
         {
-            if (low >= high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+            private readonly <#= type #> _low;
+            private readonly <#= ularge #> _range;
+            private readonly <#= unsigned #> _zone;
 
-            return CreateInclusive(low, (<#= type #>)(high - 1));
-        }
-        
-
-        /// <summary>
-        /// Creates a <see cref="UniformInt{<#= type #>}" /> with an exclusive lower bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.NewInclusive(<#= type #>, <#= type #>)" />.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<<#= type #>> CreateInclusive(<#= type #> low, <#= type #> high)
-        {
-            if (low > high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-
-            var unsignedMax = <#= ularge #>.MaxValue;
-            var range = unchecked((<#= ularge #>)(high - low + 1));
-            var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
-
-            return new UniformInt<<#= type #>>(low, range, (<#= unsigned #>)intsToReject);
-        }
-<#
-}
-#>
-    }
-
-    /// <summary>
-    /// Implements a Uniform <see cref="IDistribution{TResult}"/> for integral types such as <see cref="Int32" /> and <see cref="UInt64" />.
-    /// Use of any other type results in a runtime exception.
-    /// </summary>
-    public readonly struct UniformInt<T> : IPortableDistribution<T>
-        // We're extremely restrictive here to discourage people from trying to use unsupported types for T
-        where T : struct, IComparable, IComparable<T>, IConvertible, IEquatable<T>, IFormattable
-    {
-        private readonly T _low;
-        private readonly UInt64 _range;
-        private readonly UInt64 _zone;
-        
-        internal UniformInt(T low, UInt64 range, UInt64 zone)
-        {
-            _low = low;
-            _range = range;
-            _zone = zone;
-        }
-
-        /// <inheritdoc />
-        public T Sample<TRng>(TRng rng) where TRng : notnull, IRng
-        {
-<# foreach (var param in types)
-{
-    String type = param.type.Name;
-#>
-            if (typeof(T) == typeof(<#= type #>))
-                return (T)(Object)Sample<#= type #>(rng);
-<#
-}
-#>
-            throw new NotSupportedException($"Type {typeof(T)} is not supported.");
-        }
-
-        /// <inheritdoc />
-        public Boolean TrySample<TRng>(TRng rng, out T result) where TRng : notnull, IRng
-        {
-<# foreach (var param in types)
-{
-    String type = param.type.Name;
-#>
-            if (typeof(T) == typeof(<#= type #>))
+            private <#= shortName #>(<#= type #> low, <#= ularge #> range, <#= unsigned #> zone)
             {
-                Boolean success = TrySample<#= type #>(rng, out var temp);
-                result = (T)(Object)temp;
-                return success;
-            }
-<#
-}
-#>
-            throw new NotSupportedException($"Type {typeof(T)} is not supported.");
-        }
-        
-<# foreach (var param in types)
-{
-    String type = param.type.Name;
-    String unsigned = param.unsigned.Name;
-    String ularge = param.ularge.Name;
-#>
-        private <#= type #> Sample<#= type #><TRng>(TRng rng) where TRng : notnull, IRng
-        {
-            var low = (<#= type #>)(Object)_low;
-            var range = (<#= ularge #>)_range;
-            var unsigned = rng.Next<#= ularge #>();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-                return (<#= type #>)unsigned;
-
-            var zone = <#= ularge #>.MaxValue - _zone;
-
-            while (unsigned > zone)
-            {
-                unsigned = rng.Next<#= ularge #>();
+                _low = low;
+                _range = range;
+                _zone = zone;
             }
 
-            return unchecked((<#= type #>)((<#= type #>)(unsigned % range) + low));
-        }
-
-        private Boolean TrySample<#= type #><TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
-        {
-            var low = (<#= type #>)(Object)_low;
-            var range = (<#= ularge #>)_range;
-            var unsigned = rng.Next<#= ularge #>();
-            if (range == 0) // 0 is a special case where we sample the entire range.
+            /// <summary>
+            /// Creates a <see cref="<#= shortName #>" /> with an exclusive upper bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+            /// </exception>
+            public static <#= shortName #> Create(<#= type #> low, <#= type #> high)
             {
-                result = (<#= type #>)unsigned;
-                return true;
+                if (low >= high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+
+                return CreateInclusive(low, (<#= type #>)(high - 1));
             }
 
-            var zone = <#= ularge #>.MaxValue - _zone;
-
-            if (unsigned <= zone)
+            /// <summary>
+            /// Creates a <see cref="<#= shortName #>" /> with an exclusive lower bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.NewInclusive(<#= type #>, <#= type #>)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+            /// </exception>
+            public static <#= shortName #> CreateInclusive(<#= type #> low, <#= type #> high)
             {
-                result = unchecked((<#= type #>)((<#= type #>)(unsigned % range) + low));
-                return true;
+                if (low > high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+
+                var unsignedMax = <#= ularge #>.MaxValue;
+                var range = unchecked((<#= ularge #>)(high - low + 1));
+                var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+
+                return new <#= shortName #>(low, range, (<#= unsigned #>)intsToReject);
             }
 
-            result = default;
-            return false;
+            /// <inheritdoc />
+            public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            {
+                var unsigned = rng.Next<#= nextName #>();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                    return (<#= type #>)unsigned;
+
+                var zone = <#= ularge #>.MaxValue - _zone;
+
+                while (unsigned > zone)
+                {
+                    unsigned = rng.Next<#= nextName #>();
+                }
+
+                return unchecked((<#= type #>)((<#= type #>)(unsigned % _range) + _low));
+            }
+
+            /// <inheritdoc />
+            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
+            {
+                var unsigned = rng.Next<#= nextName #>();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                {
+                    result = (<#= type #>)unsigned;
+                    return true;
+                }
+
+                var zone = <#= ularge #>.MaxValue - _zone;
+
+                if (unsigned <= zone)
+                {
+                    result = unchecked((<#= type #>)((<#= type #>)(unsigned % _range) + _low));
+                    return true;
+                }
+
+                result = default;
+                return false;
+            }
         }
 <#
 }

@@ -55,7 +55,6 @@ namespace RandN.Distributions
         public static Uniform.Decimal NewInclusive(System.Decimal low, System.Decimal high) => Uniform.Decimal.CreateInclusive(low, high);
 
 
-
         /// <summary>
         /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
         /// </summary>
@@ -64,7 +63,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<SByte> New(SByte low, SByte high) => UniformInt.Create(low, high);
+        public static Uniform.SByte New(System.SByte low, System.SByte high) => Uniform.SByte.Create(low, high);
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
@@ -74,7 +73,8 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<SByte> NewInclusive(SByte low, SByte high) => UniformInt.CreateInclusive(low, high);
+        public static Uniform.SByte NewInclusive(System.SByte low, System.SByte high) => Uniform.SByte.CreateInclusive(low, high);
+
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
@@ -84,7 +84,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<Int16> New(Int16 low, Int16 high) => UniformInt.Create(low, high);
+        public static Uniform.Int16 New(System.Int16 low, System.Int16 high) => Uniform.Int16.Create(low, high);
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
@@ -94,7 +94,8 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<Int16> NewInclusive(Int16 low, Int16 high) => UniformInt.CreateInclusive(low, high);
+        public static Uniform.Int16 NewInclusive(System.Int16 low, System.Int16 high) => Uniform.Int16.CreateInclusive(low, high);
+
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
@@ -104,7 +105,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<Int32> New(Int32 low, Int32 high) => UniformInt.Create(low, high);
+        public static Uniform.Int32 New(System.Int32 low, System.Int32 high) => Uniform.Int32.Create(low, high);
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
@@ -114,7 +115,8 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<Int32> NewInclusive(Int32 low, Int32 high) => UniformInt.CreateInclusive(low, high);
+        public static Uniform.Int32 NewInclusive(System.Int32 low, System.Int32 high) => Uniform.Int32.CreateInclusive(low, high);
+
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
@@ -124,7 +126,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<Int64> New(Int64 low, Int64 high) => UniformInt.Create(low, high);
+        public static Uniform.Int64 New(System.Int64 low, System.Int64 high) => Uniform.Int64.Create(low, high);
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
@@ -134,7 +136,8 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<Int64> NewInclusive(Int64 low, Int64 high) => UniformInt.CreateInclusive(low, high);
+        public static Uniform.Int64 NewInclusive(System.Int64 low, System.Int64 high) => Uniform.Int64.CreateInclusive(low, high);
+
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
@@ -144,7 +147,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<Byte> New(Byte low, Byte high) => UniformInt.Create(low, high);
+        public static Uniform.Byte New(System.Byte low, System.Byte high) => Uniform.Byte.Create(low, high);
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
@@ -154,7 +157,8 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<Byte> NewInclusive(Byte low, Byte high) => UniformInt.CreateInclusive(low, high);
+        public static Uniform.Byte NewInclusive(System.Byte low, System.Byte high) => Uniform.Byte.CreateInclusive(low, high);
+
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
@@ -164,7 +168,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<UInt16> New(UInt16 low, UInt16 high) => UniformInt.Create(low, high);
+        public static Uniform.UInt16 New(System.UInt16 low, System.UInt16 high) => Uniform.UInt16.Create(low, high);
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
@@ -174,7 +178,8 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<UInt16> NewInclusive(UInt16 low, UInt16 high) => UniformInt.CreateInclusive(low, high);
+        public static Uniform.UInt16 NewInclusive(System.UInt16 low, System.UInt16 high) => Uniform.UInt16.CreateInclusive(low, high);
+
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
@@ -184,7 +189,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<UInt32> New(UInt32 low, UInt32 high) => UniformInt.Create(low, high);
+        public static Uniform.UInt32 New(System.UInt32 low, System.UInt32 high) => Uniform.UInt32.Create(low, high);
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
@@ -194,7 +199,8 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<UInt32> NewInclusive(UInt32 low, UInt32 high) => UniformInt.CreateInclusive(low, high);
+        public static Uniform.UInt32 NewInclusive(System.UInt32 low, System.UInt32 high) => Uniform.UInt32.CreateInclusive(low, high);
+
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
@@ -204,7 +210,7 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<UInt64> New(UInt64 low, UInt64 high) => UniformInt.Create(low, high);
+        public static Uniform.UInt64 New(System.UInt64 low, System.UInt64 high) => Uniform.UInt64.Create(low, high);
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
@@ -214,7 +220,9 @@ namespace RandN.Distributions
         /// <exception cref="ArgumentOutOfRangeException">
         /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
         /// </exception>
-        public static UniformInt<UInt64> NewInclusive(UInt64 low, UInt64 high) => UniformInt.CreateInclusive(low, high);
+        public static Uniform.UInt64 NewInclusive(System.UInt64 low, System.UInt64 high) => Uniform.UInt64.CreateInclusive(low, high);
+
+
 
         /// <summary>
         /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.

@@ -8,734 +8,727 @@ using System;
 /*** This file is auto generated - any changes made here will be lost. ***/
 namespace RandN.Distributions
 {
-        /// <summary>
-        /// Contains methods to create instances of <see cref="UniformInt{T}" />.
-        /// </summary>
-    internal static class UniformInt
+    public static partial class Uniform
     {
-
-        /// <summary>
-        /// Creates a <see cref="UniformInt{SByte}" /> with an exclusive upper bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.New(SByte, SByte)" />.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<SByte> Create(SByte low, SByte high)
-        {
-            if (low >= high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
-
-            return CreateInclusive(low, (SByte)(high - 1));
-        }
         
-
         /// <summary>
-        /// Creates a <see cref="UniformInt{SByte}" /> with an exclusive lower bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.NewInclusive(SByte, SByte)" />.
+        /// A uniform distribution of type <see cref="System.SByte" />.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<SByte> CreateInclusive(SByte low, SByte high)
+        public readonly struct SByte : IPortableDistribution<System.SByte>
         {
-            if (low > high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+            private readonly System.SByte _low;
+            private readonly System.UInt32 _range;
+            private readonly System.Byte _zone;
 
-            var unsignedMax = UInt32.MaxValue;
-            var range = unchecked((UInt32)(high - low + 1));
-            var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+            private SByte(System.SByte low, System.UInt32 range, System.Byte zone)
+            {
+                _low = low;
+                _range = range;
+                _zone = zone;
+            }
 
-            return new UniformInt<SByte>(low, range, (Byte)intsToReject);
-        }
+            /// <summary>
+            /// Creates a <see cref="SByte" /> with an exclusive upper bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.New(System.SByte, System.SByte)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+            /// </exception>
+            public static SByte Create(System.SByte low, System.SByte high)
+            {
+                if (low >= high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
 
-        /// <summary>
-        /// Creates a <see cref="UniformInt{Int16}" /> with an exclusive upper bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.New(Int16, Int16)" />.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<Int16> Create(Int16 low, Int16 high)
-        {
-            if (low >= high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+                return CreateInclusive(low, (System.SByte)(high - 1));
+            }
 
-            return CreateInclusive(low, (Int16)(high - 1));
-        }
-        
+            /// <summary>
+            /// Creates a <see cref="SByte" /> with an exclusive lower bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.NewInclusive(System.SByte, System.SByte)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+            /// </exception>
+            public static SByte CreateInclusive(System.SByte low, System.SByte high)
+            {
+                if (low > high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
-        /// <summary>
-        /// Creates a <see cref="UniformInt{Int16}" /> with an exclusive lower bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.NewInclusive(Int16, Int16)" />.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<Int16> CreateInclusive(Int16 low, Int16 high)
-        {
-            if (low > high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+                var unsignedMax = System.UInt32.MaxValue;
+                var range = unchecked((System.UInt32)(high - low + 1));
+                var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
-            var unsignedMax = UInt32.MaxValue;
-            var range = unchecked((UInt32)(high - low + 1));
-            var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+                return new SByte(low, range, (System.Byte)intsToReject);
+            }
 
-            return new UniformInt<Int16>(low, range, (UInt16)intsToReject);
-        }
+            /// <inheritdoc />
+            public System.SByte Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            {
+                var unsigned = rng.NextUInt32();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                    return (System.SByte)unsigned;
 
-        /// <summary>
-        /// Creates a <see cref="UniformInt{Int32}" /> with an exclusive upper bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.New(Int32, Int32)" />.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<Int32> Create(Int32 low, Int32 high)
-        {
-            if (low >= high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+                var zone = System.UInt32.MaxValue - _zone;
 
-            return CreateInclusive(low, (Int32)(high - 1));
-        }
-        
+                while (unsigned > zone)
+                {
+                    unsigned = rng.NextUInt32();
+                }
 
-        /// <summary>
-        /// Creates a <see cref="UniformInt{Int32}" /> with an exclusive lower bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.NewInclusive(Int32, Int32)" />.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<Int32> CreateInclusive(Int32 low, Int32 high)
-        {
-            if (low > high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+                return unchecked((System.SByte)((System.SByte)(unsigned % _range) + _low));
+            }
 
-            var unsignedMax = UInt32.MaxValue;
-            var range = unchecked((UInt32)(high - low + 1));
-            var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+            /// <inheritdoc />
+            public Boolean TrySample<TRng>(TRng rng, out System.SByte result) where TRng : notnull, IRng
+            {
+                var unsigned = rng.NextUInt32();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                {
+                    result = (System.SByte)unsigned;
+                    return true;
+                }
 
-            return new UniformInt<Int32>(low, range, (UInt32)intsToReject);
-        }
+                var zone = System.UInt32.MaxValue - _zone;
 
-        /// <summary>
-        /// Creates a <see cref="UniformInt{Int64}" /> with an exclusive upper bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.New(Int64, Int64)" />.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<Int64> Create(Int64 low, Int64 high)
-        {
-            if (low >= high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+                if (unsigned <= zone)
+                {
+                    result = unchecked((System.SByte)((System.SByte)(unsigned % _range) + _low));
+                    return true;
+                }
 
-            return CreateInclusive(low, (Int64)(high - 1));
-        }
-        
-
-        /// <summary>
-        /// Creates a <see cref="UniformInt{Int64}" /> with an exclusive lower bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.NewInclusive(Int64, Int64)" />.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<Int64> CreateInclusive(Int64 low, Int64 high)
-        {
-            if (low > high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-
-            var unsignedMax = UInt64.MaxValue;
-            var range = unchecked((UInt64)(high - low + 1));
-            var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
-
-            return new UniformInt<Int64>(low, range, (UInt64)intsToReject);
+                result = default;
+                return false;
+            }
         }
 
         /// <summary>
-        /// Creates a <see cref="UniformInt{Byte}" /> with an exclusive upper bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.New(Byte, Byte)" />.
+        /// A uniform distribution of type <see cref="System.Int16" />.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<Byte> Create(Byte low, Byte high)
+        public readonly struct Int16 : IPortableDistribution<System.Int16>
         {
-            if (low >= high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+            private readonly System.Int16 _low;
+            private readonly System.UInt32 _range;
+            private readonly System.UInt16 _zone;
 
-            return CreateInclusive(low, (Byte)(high - 1));
-        }
-        
+            private Int16(System.Int16 low, System.UInt32 range, System.UInt16 zone)
+            {
+                _low = low;
+                _range = range;
+                _zone = zone;
+            }
 
-        /// <summary>
-        /// Creates a <see cref="UniformInt{Byte}" /> with an exclusive lower bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.NewInclusive(Byte, Byte)" />.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<Byte> CreateInclusive(Byte low, Byte high)
-        {
-            if (low > high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+            /// <summary>
+            /// Creates a <see cref="Int16" /> with an exclusive upper bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.New(System.Int16, System.Int16)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+            /// </exception>
+            public static Int16 Create(System.Int16 low, System.Int16 high)
+            {
+                if (low >= high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
 
-            var unsignedMax = UInt32.MaxValue;
-            var range = unchecked((UInt32)(high - low + 1));
-            var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+                return CreateInclusive(low, (System.Int16)(high - 1));
+            }
 
-            return new UniformInt<Byte>(low, range, (Byte)intsToReject);
-        }
+            /// <summary>
+            /// Creates a <see cref="Int16" /> with an exclusive lower bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.NewInclusive(System.Int16, System.Int16)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+            /// </exception>
+            public static Int16 CreateInclusive(System.Int16 low, System.Int16 high)
+            {
+                if (low > high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
-        /// <summary>
-        /// Creates a <see cref="UniformInt{UInt16}" /> with an exclusive upper bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.New(UInt16, UInt16)" />.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<UInt16> Create(UInt16 low, UInt16 high)
-        {
-            if (low >= high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+                var unsignedMax = System.UInt32.MaxValue;
+                var range = unchecked((System.UInt32)(high - low + 1));
+                var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
-            return CreateInclusive(low, (UInt16)(high - 1));
-        }
-        
+                return new Int16(low, range, (System.UInt16)intsToReject);
+            }
 
-        /// <summary>
-        /// Creates a <see cref="UniformInt{UInt16}" /> with an exclusive lower bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.NewInclusive(UInt16, UInt16)" />.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<UInt16> CreateInclusive(UInt16 low, UInt16 high)
-        {
-            if (low > high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+            /// <inheritdoc />
+            public System.Int16 Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            {
+                var unsigned = rng.NextUInt32();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                    return (System.Int16)unsigned;
 
-            var unsignedMax = UInt32.MaxValue;
-            var range = unchecked((UInt32)(high - low + 1));
-            var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+                var zone = System.UInt32.MaxValue - _zone;
 
-            return new UniformInt<UInt16>(low, range, (UInt16)intsToReject);
-        }
+                while (unsigned > zone)
+                {
+                    unsigned = rng.NextUInt32();
+                }
 
-        /// <summary>
-        /// Creates a <see cref="UniformInt{UInt32}" /> with an exclusive upper bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.New(UInt32, UInt32)" />.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<UInt32> Create(UInt32 low, UInt32 high)
-        {
-            if (low >= high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+                return unchecked((System.Int16)((System.Int16)(unsigned % _range) + _low));
+            }
 
-            return CreateInclusive(low, (UInt32)(high - 1));
-        }
-        
+            /// <inheritdoc />
+            public Boolean TrySample<TRng>(TRng rng, out System.Int16 result) where TRng : notnull, IRng
+            {
+                var unsigned = rng.NextUInt32();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                {
+                    result = (System.Int16)unsigned;
+                    return true;
+                }
 
-        /// <summary>
-        /// Creates a <see cref="UniformInt{UInt32}" /> with an exclusive lower bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.NewInclusive(UInt32, UInt32)" />.
-        /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<UInt32> CreateInclusive(UInt32 low, UInt32 high)
-        {
-            if (low > high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+                var zone = System.UInt32.MaxValue - _zone;
 
-            var unsignedMax = UInt32.MaxValue;
-            var range = unchecked((UInt32)(high - low + 1));
-            var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+                if (unsigned <= zone)
+                {
+                    result = unchecked((System.Int16)((System.Int16)(unsigned % _range) + _low));
+                    return true;
+                }
 
-            return new UniformInt<UInt32>(low, range, (UInt32)intsToReject);
+                result = default;
+                return false;
+            }
         }
 
         /// <summary>
-        /// Creates a <see cref="UniformInt{UInt64}" /> with an exclusive upper bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.New(UInt64, UInt64)" />.
+        /// A uniform distribution of type <see cref="System.Int32" />.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<UInt64> Create(UInt64 low, UInt64 high)
+        public readonly struct Int32 : IPortableDistribution<System.Int32>
         {
-            if (low >= high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+            private readonly System.Int32 _low;
+            private readonly System.UInt32 _range;
+            private readonly System.UInt32 _zone;
 
-            return CreateInclusive(low, (UInt64)(high - 1));
+            private Int32(System.Int32 low, System.UInt32 range, System.UInt32 zone)
+            {
+                _low = low;
+                _range = range;
+                _zone = zone;
+            }
+
+            /// <summary>
+            /// Creates a <see cref="Int32" /> with an exclusive upper bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.New(System.Int32, System.Int32)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+            /// </exception>
+            public static Int32 Create(System.Int32 low, System.Int32 high)
+            {
+                if (low >= high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+
+                return CreateInclusive(low, (System.Int32)(high - 1));
+            }
+
+            /// <summary>
+            /// Creates a <see cref="Int32" /> with an exclusive lower bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.NewInclusive(System.Int32, System.Int32)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+            /// </exception>
+            public static Int32 CreateInclusive(System.Int32 low, System.Int32 high)
+            {
+                if (low > high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+
+                var unsignedMax = System.UInt32.MaxValue;
+                var range = unchecked((System.UInt32)(high - low + 1));
+                var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+
+                return new Int32(low, range, (System.UInt32)intsToReject);
+            }
+
+            /// <inheritdoc />
+            public System.Int32 Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            {
+                var unsigned = rng.NextUInt32();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                    return (System.Int32)unsigned;
+
+                var zone = System.UInt32.MaxValue - _zone;
+
+                while (unsigned > zone)
+                {
+                    unsigned = rng.NextUInt32();
+                }
+
+                return unchecked((System.Int32)((System.Int32)(unsigned % _range) + _low));
+            }
+
+            /// <inheritdoc />
+            public Boolean TrySample<TRng>(TRng rng, out System.Int32 result) where TRng : notnull, IRng
+            {
+                var unsigned = rng.NextUInt32();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                {
+                    result = (System.Int32)unsigned;
+                    return true;
+                }
+
+                var zone = System.UInt32.MaxValue - _zone;
+
+                if (unsigned <= zone)
+                {
+                    result = unchecked((System.Int32)((System.Int32)(unsigned % _range) + _low));
+                    return true;
+                }
+
+                result = default;
+                return false;
+            }
         }
-        
 
         /// <summary>
-        /// Creates a <see cref="UniformInt{UInt64}" /> with an exclusive lower bound. Should not
-        /// be used directly; instead, use <see cref="Uniform.NewInclusive(UInt64, UInt64)" />.
+        /// A uniform distribution of type <see cref="System.Int64" />.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
-        /// </exception>
-        public static UniformInt<UInt64> CreateInclusive(UInt64 low, UInt64 high)
+        public readonly struct Int64 : IPortableDistribution<System.Int64>
         {
-            if (low > high)
-                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+            private readonly System.Int64 _low;
+            private readonly System.UInt64 _range;
+            private readonly System.UInt64 _zone;
 
-            var unsignedMax = UInt64.MaxValue;
-            var range = unchecked((UInt64)(high - low + 1));
-            var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+            private Int64(System.Int64 low, System.UInt64 range, System.UInt64 zone)
+            {
+                _low = low;
+                _range = range;
+                _zone = zone;
+            }
 
-            return new UniformInt<UInt64>(low, range, (UInt64)intsToReject);
+            /// <summary>
+            /// Creates a <see cref="Int64" /> with an exclusive upper bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.New(System.Int64, System.Int64)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+            /// </exception>
+            public static Int64 Create(System.Int64 low, System.Int64 high)
+            {
+                if (low >= high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+
+                return CreateInclusive(low, (System.Int64)(high - 1));
+            }
+
+            /// <summary>
+            /// Creates a <see cref="Int64" /> with an exclusive lower bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.NewInclusive(System.Int64, System.Int64)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+            /// </exception>
+            public static Int64 CreateInclusive(System.Int64 low, System.Int64 high)
+            {
+                if (low > high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+
+                var unsignedMax = System.UInt64.MaxValue;
+                var range = unchecked((System.UInt64)(high - low + 1));
+                var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+
+                return new Int64(low, range, (System.UInt64)intsToReject);
+            }
+
+            /// <inheritdoc />
+            public System.Int64 Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            {
+                var unsigned = rng.NextUInt64();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                    return (System.Int64)unsigned;
+
+                var zone = System.UInt64.MaxValue - _zone;
+
+                while (unsigned > zone)
+                {
+                    unsigned = rng.NextUInt64();
+                }
+
+                return unchecked((System.Int64)((System.Int64)(unsigned % _range) + _low));
+            }
+
+            /// <inheritdoc />
+            public Boolean TrySample<TRng>(TRng rng, out System.Int64 result) where TRng : notnull, IRng
+            {
+                var unsigned = rng.NextUInt64();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                {
+                    result = (System.Int64)unsigned;
+                    return true;
+                }
+
+                var zone = System.UInt64.MaxValue - _zone;
+
+                if (unsigned <= zone)
+                {
+                    result = unchecked((System.Int64)((System.Int64)(unsigned % _range) + _low));
+                    return true;
+                }
+
+                result = default;
+                return false;
+            }
         }
 
-    }
-
-    /// <summary>
-    /// Implements a Uniform <see cref="IDistribution{TResult}"/> for integral types such as <see cref="Int32" /> and <see cref="UInt64" />.
-    /// Use of any other type results in a runtime exception.
-    /// </summary>
-    public readonly struct UniformInt<T> : IPortableDistribution<T>
-        // We're extremely restrictive here to discourage people from trying to use unsupported types for T
-        where T : struct, IComparable, IComparable<T>, IConvertible, IEquatable<T>, IFormattable
-    {
-        private readonly T _low;
-        private readonly UInt64 _range;
-        private readonly UInt64 _zone;
-        
-        internal UniformInt(T low, UInt64 range, UInt64 zone)
+        /// <summary>
+        /// A uniform distribution of type <see cref="System.Byte" />.
+        /// </summary>
+        public readonly struct Byte : IPortableDistribution<System.Byte>
         {
-            _low = low;
-            _range = range;
-            _zone = zone;
+            private readonly System.Byte _low;
+            private readonly System.UInt32 _range;
+            private readonly System.Byte _zone;
+
+            private Byte(System.Byte low, System.UInt32 range, System.Byte zone)
+            {
+                _low = low;
+                _range = range;
+                _zone = zone;
+            }
+
+            /// <summary>
+            /// Creates a <see cref="Byte" /> with an exclusive upper bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.New(System.Byte, System.Byte)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+            /// </exception>
+            public static Byte Create(System.Byte low, System.Byte high)
+            {
+                if (low >= high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+
+                return CreateInclusive(low, (System.Byte)(high - 1));
+            }
+
+            /// <summary>
+            /// Creates a <see cref="Byte" /> with an exclusive lower bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.NewInclusive(System.Byte, System.Byte)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+            /// </exception>
+            public static Byte CreateInclusive(System.Byte low, System.Byte high)
+            {
+                if (low > high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+
+                var unsignedMax = System.UInt32.MaxValue;
+                var range = unchecked((System.UInt32)(high - low + 1));
+                var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+
+                return new Byte(low, range, (System.Byte)intsToReject);
+            }
+
+            /// <inheritdoc />
+            public System.Byte Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            {
+                var unsigned = rng.NextUInt32();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                    return (System.Byte)unsigned;
+
+                var zone = System.UInt32.MaxValue - _zone;
+
+                while (unsigned > zone)
+                {
+                    unsigned = rng.NextUInt32();
+                }
+
+                return unchecked((System.Byte)((System.Byte)(unsigned % _range) + _low));
+            }
+
+            /// <inheritdoc />
+            public Boolean TrySample<TRng>(TRng rng, out System.Byte result) where TRng : notnull, IRng
+            {
+                var unsigned = rng.NextUInt32();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                {
+                    result = (System.Byte)unsigned;
+                    return true;
+                }
+
+                var zone = System.UInt32.MaxValue - _zone;
+
+                if (unsigned <= zone)
+                {
+                    result = unchecked((System.Byte)((System.Byte)(unsigned % _range) + _low));
+                    return true;
+                }
+
+                result = default;
+                return false;
+            }
         }
 
-        /// <inheritdoc />
-        public T Sample<TRng>(TRng rng) where TRng : notnull, IRng
+        /// <summary>
+        /// A uniform distribution of type <see cref="System.UInt16" />.
+        /// </summary>
+        public readonly struct UInt16 : IPortableDistribution<System.UInt16>
         {
+            private readonly System.UInt16 _low;
+            private readonly System.UInt32 _range;
+            private readonly System.UInt16 _zone;
 
-            if (typeof(T) == typeof(SByte))
-                return (T)(Object)SampleSByte(rng);
+            private UInt16(System.UInt16 low, System.UInt32 range, System.UInt16 zone)
+            {
+                _low = low;
+                _range = range;
+                _zone = zone;
+            }
 
-            if (typeof(T) == typeof(Int16))
-                return (T)(Object)SampleInt16(rng);
+            /// <summary>
+            /// Creates a <see cref="UInt16" /> with an exclusive upper bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.New(System.UInt16, System.UInt16)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+            /// </exception>
+            public static UInt16 Create(System.UInt16 low, System.UInt16 high)
+            {
+                if (low >= high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
 
-            if (typeof(T) == typeof(Int32))
-                return (T)(Object)SampleInt32(rng);
+                return CreateInclusive(low, (System.UInt16)(high - 1));
+            }
 
-            if (typeof(T) == typeof(Int64))
-                return (T)(Object)SampleInt64(rng);
+            /// <summary>
+            /// Creates a <see cref="UInt16" /> with an exclusive lower bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.NewInclusive(System.UInt16, System.UInt16)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+            /// </exception>
+            public static UInt16 CreateInclusive(System.UInt16 low, System.UInt16 high)
+            {
+                if (low > high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
-            if (typeof(T) == typeof(Byte))
-                return (T)(Object)SampleByte(rng);
+                var unsignedMax = System.UInt32.MaxValue;
+                var range = unchecked((System.UInt32)(high - low + 1));
+                var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
-            if (typeof(T) == typeof(UInt16))
-                return (T)(Object)SampleUInt16(rng);
+                return new UInt16(low, range, (System.UInt16)intsToReject);
+            }
 
-            if (typeof(T) == typeof(UInt32))
-                return (T)(Object)SampleUInt32(rng);
+            /// <inheritdoc />
+            public System.UInt16 Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            {
+                var unsigned = rng.NextUInt32();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                    return (System.UInt16)unsigned;
 
-            if (typeof(T) == typeof(UInt64))
-                return (T)(Object)SampleUInt64(rng);
+                var zone = System.UInt32.MaxValue - _zone;
 
-            throw new NotSupportedException($"Type {typeof(T)} is not supported.");
+                while (unsigned > zone)
+                {
+                    unsigned = rng.NextUInt32();
+                }
+
+                return unchecked((System.UInt16)((System.UInt16)(unsigned % _range) + _low));
+            }
+
+            /// <inheritdoc />
+            public Boolean TrySample<TRng>(TRng rng, out System.UInt16 result) where TRng : notnull, IRng
+            {
+                var unsigned = rng.NextUInt32();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                {
+                    result = (System.UInt16)unsigned;
+                    return true;
+                }
+
+                var zone = System.UInt32.MaxValue - _zone;
+
+                if (unsigned <= zone)
+                {
+                    result = unchecked((System.UInt16)((System.UInt16)(unsigned % _range) + _low));
+                    return true;
+                }
+
+                result = default;
+                return false;
+            }
         }
 
-        /// <inheritdoc />
-        public Boolean TrySample<TRng>(TRng rng, out T result) where TRng : notnull, IRng
+        /// <summary>
+        /// A uniform distribution of type <see cref="System.UInt32" />.
+        /// </summary>
+        public readonly struct UInt32 : IPortableDistribution<System.UInt32>
         {
+            private readonly System.UInt32 _low;
+            private readonly System.UInt32 _range;
+            private readonly System.UInt32 _zone;
 
-            if (typeof(T) == typeof(SByte))
+            private UInt32(System.UInt32 low, System.UInt32 range, System.UInt32 zone)
             {
-                Boolean success = TrySampleSByte(rng, out var temp);
-                result = (T)(Object)temp;
-                return success;
+                _low = low;
+                _range = range;
+                _zone = zone;
             }
 
-            if (typeof(T) == typeof(Int16))
+            /// <summary>
+            /// Creates a <see cref="UInt32" /> with an exclusive upper bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.New(System.UInt32, System.UInt32)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+            /// </exception>
+            public static UInt32 Create(System.UInt32 low, System.UInt32 high)
             {
-                Boolean success = TrySampleInt16(rng, out var temp);
-                result = (T)(Object)temp;
-                return success;
+                if (low >= high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+
+                return CreateInclusive(low, (System.UInt32)(high - 1));
             }
 
-            if (typeof(T) == typeof(Int32))
+            /// <summary>
+            /// Creates a <see cref="UInt32" /> with an exclusive lower bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.NewInclusive(System.UInt32, System.UInt32)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+            /// </exception>
+            public static UInt32 CreateInclusive(System.UInt32 low, System.UInt32 high)
             {
-                Boolean success = TrySampleInt32(rng, out var temp);
-                result = (T)(Object)temp;
-                return success;
+                if (low > high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+
+                var unsignedMax = System.UInt32.MaxValue;
+                var range = unchecked((System.UInt32)(high - low + 1));
+                var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+
+                return new UInt32(low, range, (System.UInt32)intsToReject);
             }
 
-            if (typeof(T) == typeof(Int64))
+            /// <inheritdoc />
+            public System.UInt32 Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
-                Boolean success = TrySampleInt64(rng, out var temp);
-                result = (T)(Object)temp;
-                return success;
+                var unsigned = rng.NextUInt32();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                    return (System.UInt32)unsigned;
+
+                var zone = System.UInt32.MaxValue - _zone;
+
+                while (unsigned > zone)
+                {
+                    unsigned = rng.NextUInt32();
+                }
+
+                return unchecked((System.UInt32)((System.UInt32)(unsigned % _range) + _low));
             }
 
-            if (typeof(T) == typeof(Byte))
+            /// <inheritdoc />
+            public Boolean TrySample<TRng>(TRng rng, out System.UInt32 result) where TRng : notnull, IRng
             {
-                Boolean success = TrySampleByte(rng, out var temp);
-                result = (T)(Object)temp;
-                return success;
+                var unsigned = rng.NextUInt32();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                {
+                    result = (System.UInt32)unsigned;
+                    return true;
+                }
+
+                var zone = System.UInt32.MaxValue - _zone;
+
+                if (unsigned <= zone)
+                {
+                    result = unchecked((System.UInt32)((System.UInt32)(unsigned % _range) + _low));
+                    return true;
+                }
+
+                result = default;
+                return false;
             }
-
-            if (typeof(T) == typeof(UInt16))
-            {
-                Boolean success = TrySampleUInt16(rng, out var temp);
-                result = (T)(Object)temp;
-                return success;
-            }
-
-            if (typeof(T) == typeof(UInt32))
-            {
-                Boolean success = TrySampleUInt32(rng, out var temp);
-                result = (T)(Object)temp;
-                return success;
-            }
-
-            if (typeof(T) == typeof(UInt64))
-            {
-                Boolean success = TrySampleUInt64(rng, out var temp);
-                result = (T)(Object)temp;
-                return success;
-            }
-
-            throw new NotSupportedException($"Type {typeof(T)} is not supported.");
-        }
-        
-
-        private SByte SampleSByte<TRng>(TRng rng) where TRng : notnull, IRng
-        {
-            var low = (SByte)(Object)_low;
-            var range = (UInt32)_range;
-            var unsigned = rng.NextUInt32();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-                return (SByte)unsigned;
-
-            var zone = UInt32.MaxValue - _zone;
-
-            while (unsigned > zone)
-            {
-                unsigned = rng.NextUInt32();
-            }
-
-            return unchecked((SByte)((SByte)(unsigned % range) + low));
-        }
-
-        private Boolean TrySampleSByte<TRng>(TRng rng, out SByte result) where TRng : notnull, IRng
-        {
-            var low = (SByte)(Object)_low;
-            var range = (UInt32)_range;
-            var unsigned = rng.NextUInt32();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-            {
-                result = (SByte)unsigned;
-                return true;
-            }
-
-            var zone = UInt32.MaxValue - _zone;
-
-            if (unsigned <= zone)
-            {
-                result = unchecked((SByte)((SByte)(unsigned % range) + low));
-                return true;
-            }
-
-            result = default;
-            return false;
         }
 
-        private Int16 SampleInt16<TRng>(TRng rng) where TRng : notnull, IRng
+        /// <summary>
+        /// A uniform distribution of type <see cref="System.UInt64" />.
+        /// </summary>
+        public readonly struct UInt64 : IPortableDistribution<System.UInt64>
         {
-            var low = (Int16)(Object)_low;
-            var range = (UInt32)_range;
-            var unsigned = rng.NextUInt32();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-                return (Int16)unsigned;
+            private readonly System.UInt64 _low;
+            private readonly System.UInt64 _range;
+            private readonly System.UInt64 _zone;
 
-            var zone = UInt32.MaxValue - _zone;
-
-            while (unsigned > zone)
+            private UInt64(System.UInt64 low, System.UInt64 range, System.UInt64 zone)
             {
-                unsigned = rng.NextUInt32();
+                _low = low;
+                _range = range;
+                _zone = zone;
             }
 
-            return unchecked((Int16)((Int16)(unsigned % range) + low));
-        }
-
-        private Boolean TrySampleInt16<TRng>(TRng rng, out Int16 result) where TRng : notnull, IRng
-        {
-            var low = (Int16)(Object)_low;
-            var range = (UInt32)_range;
-            var unsigned = rng.NextUInt32();
-            if (range == 0) // 0 is a special case where we sample the entire range.
+            /// <summary>
+            /// Creates a <see cref="UInt64" /> with an exclusive upper bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.New(System.UInt64, System.UInt64)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+            /// </exception>
+            public static UInt64 Create(System.UInt64 low, System.UInt64 high)
             {
-                result = (Int16)unsigned;
-                return true;
+                if (low >= high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+
+                return CreateInclusive(low, (System.UInt64)(high - 1));
             }
 
-            var zone = UInt32.MaxValue - _zone;
-
-            if (unsigned <= zone)
+            /// <summary>
+            /// Creates a <see cref="UInt64" /> with an exclusive lower bound. Should not
+            /// be used directly; instead, use <see cref="Uniform.NewInclusive(System.UInt64, System.UInt64)" />.
+            /// </summary>
+            /// <exception cref="ArgumentOutOfRangeException">
+            /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+            /// </exception>
+            public static UInt64 CreateInclusive(System.UInt64 low, System.UInt64 high)
             {
-                result = unchecked((Int16)((Int16)(unsigned % range) + low));
-                return true;
+                if (low > high)
+                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+
+                var unsignedMax = System.UInt64.MaxValue;
+                var range = unchecked((System.UInt64)(high - low + 1));
+                var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
+
+                return new UInt64(low, range, (System.UInt64)intsToReject);
             }
 
-            result = default;
-            return false;
-        }
-
-        private Int32 SampleInt32<TRng>(TRng rng) where TRng : notnull, IRng
-        {
-            var low = (Int32)(Object)_low;
-            var range = (UInt32)_range;
-            var unsigned = rng.NextUInt32();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-                return (Int32)unsigned;
-
-            var zone = UInt32.MaxValue - _zone;
-
-            while (unsigned > zone)
+            /// <inheritdoc />
+            public System.UInt64 Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
-                unsigned = rng.NextUInt32();
+                var unsigned = rng.NextUInt64();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                    return (System.UInt64)unsigned;
+
+                var zone = System.UInt64.MaxValue - _zone;
+
+                while (unsigned > zone)
+                {
+                    unsigned = rng.NextUInt64();
+                }
+
+                return unchecked((System.UInt64)((System.UInt64)(unsigned % _range) + _low));
             }
 
-            return unchecked((Int32)((Int32)(unsigned % range) + low));
-        }
-
-        private Boolean TrySampleInt32<TRng>(TRng rng, out Int32 result) where TRng : notnull, IRng
-        {
-            var low = (Int32)(Object)_low;
-            var range = (UInt32)_range;
-            var unsigned = rng.NextUInt32();
-            if (range == 0) // 0 is a special case where we sample the entire range.
+            /// <inheritdoc />
+            public Boolean TrySample<TRng>(TRng rng, out System.UInt64 result) where TRng : notnull, IRng
             {
-                result = (Int32)unsigned;
-                return true;
+                var unsigned = rng.NextUInt64();
+                if (_range == 0) // 0 is a special case where we sample the entire range.
+                {
+                    result = (System.UInt64)unsigned;
+                    return true;
+                }
+
+                var zone = System.UInt64.MaxValue - _zone;
+
+                if (unsigned <= zone)
+                {
+                    result = unchecked((System.UInt64)((System.UInt64)(unsigned % _range) + _low));
+                    return true;
+                }
+
+                result = default;
+                return false;
             }
-
-            var zone = UInt32.MaxValue - _zone;
-
-            if (unsigned <= zone)
-            {
-                result = unchecked((Int32)((Int32)(unsigned % range) + low));
-                return true;
-            }
-
-            result = default;
-            return false;
-        }
-
-        private Int64 SampleInt64<TRng>(TRng rng) where TRng : notnull, IRng
-        {
-            var low = (Int64)(Object)_low;
-            var range = (UInt64)_range;
-            var unsigned = rng.NextUInt64();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-                return (Int64)unsigned;
-
-            var zone = UInt64.MaxValue - _zone;
-
-            while (unsigned > zone)
-            {
-                unsigned = rng.NextUInt64();
-            }
-
-            return unchecked((Int64)((Int64)(unsigned % range) + low));
-        }
-
-        private Boolean TrySampleInt64<TRng>(TRng rng, out Int64 result) where TRng : notnull, IRng
-        {
-            var low = (Int64)(Object)_low;
-            var range = (UInt64)_range;
-            var unsigned = rng.NextUInt64();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-            {
-                result = (Int64)unsigned;
-                return true;
-            }
-
-            var zone = UInt64.MaxValue - _zone;
-
-            if (unsigned <= zone)
-            {
-                result = unchecked((Int64)((Int64)(unsigned % range) + low));
-                return true;
-            }
-
-            result = default;
-            return false;
-        }
-
-        private Byte SampleByte<TRng>(TRng rng) where TRng : notnull, IRng
-        {
-            var low = (Byte)(Object)_low;
-            var range = (UInt32)_range;
-            var unsigned = rng.NextUInt32();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-                return (Byte)unsigned;
-
-            var zone = UInt32.MaxValue - _zone;
-
-            while (unsigned > zone)
-            {
-                unsigned = rng.NextUInt32();
-            }
-
-            return unchecked((Byte)((Byte)(unsigned % range) + low));
-        }
-
-        private Boolean TrySampleByte<TRng>(TRng rng, out Byte result) where TRng : notnull, IRng
-        {
-            var low = (Byte)(Object)_low;
-            var range = (UInt32)_range;
-            var unsigned = rng.NextUInt32();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-            {
-                result = (Byte)unsigned;
-                return true;
-            }
-
-            var zone = UInt32.MaxValue - _zone;
-
-            if (unsigned <= zone)
-            {
-                result = unchecked((Byte)((Byte)(unsigned % range) + low));
-                return true;
-            }
-
-            result = default;
-            return false;
-        }
-
-        private UInt16 SampleUInt16<TRng>(TRng rng) where TRng : notnull, IRng
-        {
-            var low = (UInt16)(Object)_low;
-            var range = (UInt32)_range;
-            var unsigned = rng.NextUInt32();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-                return (UInt16)unsigned;
-
-            var zone = UInt32.MaxValue - _zone;
-
-            while (unsigned > zone)
-            {
-                unsigned = rng.NextUInt32();
-            }
-
-            return unchecked((UInt16)((UInt16)(unsigned % range) + low));
-        }
-
-        private Boolean TrySampleUInt16<TRng>(TRng rng, out UInt16 result) where TRng : notnull, IRng
-        {
-            var low = (UInt16)(Object)_low;
-            var range = (UInt32)_range;
-            var unsigned = rng.NextUInt32();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-            {
-                result = (UInt16)unsigned;
-                return true;
-            }
-
-            var zone = UInt32.MaxValue - _zone;
-
-            if (unsigned <= zone)
-            {
-                result = unchecked((UInt16)((UInt16)(unsigned % range) + low));
-                return true;
-            }
-
-            result = default;
-            return false;
-        }
-
-        private UInt32 SampleUInt32<TRng>(TRng rng) where TRng : notnull, IRng
-        {
-            var low = (UInt32)(Object)_low;
-            var range = (UInt32)_range;
-            var unsigned = rng.NextUInt32();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-                return (UInt32)unsigned;
-
-            var zone = UInt32.MaxValue - _zone;
-
-            while (unsigned > zone)
-            {
-                unsigned = rng.NextUInt32();
-            }
-
-            return unchecked((UInt32)((UInt32)(unsigned % range) + low));
-        }
-
-        private Boolean TrySampleUInt32<TRng>(TRng rng, out UInt32 result) where TRng : notnull, IRng
-        {
-            var low = (UInt32)(Object)_low;
-            var range = (UInt32)_range;
-            var unsigned = rng.NextUInt32();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-            {
-                result = (UInt32)unsigned;
-                return true;
-            }
-
-            var zone = UInt32.MaxValue - _zone;
-
-            if (unsigned <= zone)
-            {
-                result = unchecked((UInt32)((UInt32)(unsigned % range) + low));
-                return true;
-            }
-
-            result = default;
-            return false;
-        }
-
-        private UInt64 SampleUInt64<TRng>(TRng rng) where TRng : notnull, IRng
-        {
-            var low = (UInt64)(Object)_low;
-            var range = (UInt64)_range;
-            var unsigned = rng.NextUInt64();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-                return (UInt64)unsigned;
-
-            var zone = UInt64.MaxValue - _zone;
-
-            while (unsigned > zone)
-            {
-                unsigned = rng.NextUInt64();
-            }
-
-            return unchecked((UInt64)((UInt64)(unsigned % range) + low));
-        }
-
-        private Boolean TrySampleUInt64<TRng>(TRng rng, out UInt64 result) where TRng : notnull, IRng
-        {
-            var low = (UInt64)(Object)_low;
-            var range = (UInt64)_range;
-            var unsigned = rng.NextUInt64();
-            if (range == 0) // 0 is a special case where we sample the entire range.
-            {
-                result = (UInt64)unsigned;
-                return true;
-            }
-
-            var zone = UInt64.MaxValue - _zone;
-
-            if (unsigned <= zone)
-            {
-                result = unchecked((UInt64)((UInt64)(unsigned % range) + low));
-                return true;
-            }
-
-            result = default;
-            return false;
         }
 
     }

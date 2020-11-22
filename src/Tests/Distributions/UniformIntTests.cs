@@ -221,7 +221,7 @@ namespace RandN.Distributions
             var dist = Uniform.New(1, 2);
             Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
 
-            var dist2 = UniformTimeSpan.Create(TimeSpan.FromTicks(1), TimeSpan.FromTicks(2));
+            var dist2 = Uniform.TimeSpan.Create(TimeSpan.FromTicks(1), TimeSpan.FromTicks(2));
             Assert.Throws<ArgumentNullException>(() => dist2.Sample<StepRng>(null));
         }
     }
