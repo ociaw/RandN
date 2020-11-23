@@ -10,6 +10,7 @@
     <StartupObject />
     <Nullable>enable</Nullable>
     <LangVersion>9.0</LangVersion>
+    <AnalysisLevel>5</AnalysisLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Version>0.1.0</Version>
     <Authors>ociaw</Authors>

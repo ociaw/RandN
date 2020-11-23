@@ -83,9 +83,9 @@ namespace RandN.Rngs
             {
                 var startCounter = BlockCounter << 2;
                 FullBlock(results, startCounter);
-                FullBlock(results.Slice(ChaCha.WordCount), startCounter + 1ul);
-                FullBlock(results.Slice(ChaCha.WordCount * 2), startCounter + 2ul);
-                FullBlock(results.Slice(ChaCha.WordCount * 3), startCounter + 3ul);
+                FullBlock(results[ChaCha.WordCount..], startCounter + 1ul);
+                FullBlock(results[(ChaCha.WordCount * 2)..], startCounter + 2ul);
+                FullBlock(results[(ChaCha.WordCount * 3)..], startCounter + 3ul);
             }
         }
 

@@ -8,6 +8,7 @@
     <Optimize>true</Optimize>
     <Nullable>enable</Nullable>
     <LangVersion>9.0</LangVersion>
+    <AnalysisLevel>5</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>

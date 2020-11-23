@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net472;netcoreapp3.1;net5.0</TargetFrameworks>
     <LangVersion>9.0</LangVersion>
+    <AnalysisLevel>5</AnalysisLevel>
     <IsPackable>false</IsPackable>
 
     <RootNamespace>RandN</RootNamespace>

@@ -88,7 +88,7 @@ namespace RandN.Rngs
             {
                 var startCounter = BlockCounter << 2;
                 DoubleBlock(results, startCounter);
-                DoubleBlock(results.Slice(ChaCha.WordCount * 2), startCounter + 2ul);
+                DoubleBlock(results[(ChaCha.WordCount * 2)..], startCounter + 2ul);
             }
         }
 

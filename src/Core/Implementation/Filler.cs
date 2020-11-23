@@ -81,9 +81,9 @@ namespace RandN.Implementation
             }
             else
             {
+                Span<Byte> leBytes = stackalloc Byte[size];
                 for (var i = 0; i < chunkSize; i++)
                 {
-                    Span<Byte> leBytes = stackalloc Byte[size];
                     BinaryPrimitives.WriteUInt32LittleEndian(leBytes, src[i]);
                     var byteCount = Math.Min(size, chunkSizeByte - i * size);
                     leBytes.Slice(0, i * byteCount).CopyTo(dest);
@@ -110,9 +110,9 @@ namespace RandN.Implementation
             }
             else
             {
+                Span<Byte> leBytes = stackalloc Byte[size];
                 for (var i = 0; i < chunkSize; i++)
                 {
-                    Span<Byte> leBytes = stackalloc Byte[size];
                     BinaryPrimitives.WriteUInt64LittleEndian(leBytes, src[i]);
                     var byteCount = Math.Min(size, chunkSizeByte - i * size);
                     leBytes.Slice(0, i * byteCount).CopyTo(dest);

@@ -58,7 +58,7 @@ namespace RandN.Distributions
             Average(UnitInterval.OpenSingle.Instance, 903);
         }
 
-        private void Average(IDistribution<Single> dist, UInt64 seed)
+        private static void Average(IDistribution<Single> dist, UInt64 seed)
         {
             const Int32 iterations = 10_000;
             var rng = Pcg32.Create(seed, 11634580027462260723ul);
@@ -130,7 +130,7 @@ namespace RandN.Distributions
             Average(UnitInterval.OpenDouble.Instance, 903);
         }
 
-        private void Average(IDistribution<Double> dist, UInt64 seed)
+        private static void Average(IDistribution<Double> dist, UInt64 seed)
         {
             const Int32 iterations = 10_000;
             var rng = Pcg32.Create(seed, 11634580027462260723ul);

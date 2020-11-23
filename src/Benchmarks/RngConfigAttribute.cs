@@ -4,6 +4,7 @@ using BenchmarkDotNet.Jobs;
 
 namespace RandN.Benchmarks
 {
+    [AttributeUsage(AttributeTargets.Class)]
     internal sealed class RngConfigAttribute : Attribute, IConfigSource
     {
         public RngConfigAttribute(UInt64 bytesPerIteration)

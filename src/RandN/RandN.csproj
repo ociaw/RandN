@@ -9,6 +9,7 @@
     <OutputType>Library</OutputType>
     <Nullable>enable</Nullable>
     <LangVersion>9.0</LangVersion>
+    <AnalysisLevel>5</AnalysisLevel>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>ociaw</Authors>
     <Description>RandN is an alternative library for random number generation, designed to replace the standard Random type.</Description>
