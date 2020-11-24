@@ -24,7 +24,7 @@ namespace RandN.Implementation
         /// <summary>
         /// The length of the block.
         /// </summary>
-        public Int32 Length => _rng.BlockLength;
+        public Int32 BlockLength => _rng.BlockLength;
 
         /// <summary>
         /// The index to the location within the current block.
@@ -37,8 +37,10 @@ namespace RandN.Implementation
         /// <exception cref="ArgumentOutOfRangeException">Throws if <paramref name="index"/> is greater than or equal to <see cref="Index"/>.</exception>
         public void GenerateAndSet(Int32 index)
         {
-            if (index >= _results.Length)
-                throw new ArgumentOutOfRangeException(nameof(index), "Index must be less than block size.");
+            if (index < 0)
+                throw new ArgumentOutOfRangeException(nameof(index), "Index must be positive.");
+            if (index >= BlockLength)
+                throw new ArgumentOutOfRangeException(nameof(index), $"Index must be less than {nameof(BlockLength)}.");
 
             _rng.Generate(_results);
             Index = index;
@@ -136,6 +138,11 @@ namespace RandN.Implementation
         }
 
         /// <summary>
+        /// The length of the generated block.
+        /// </summary>
+        public Int32 BlockLength => _rng.BlockLength;
+
+        /// <summary>
         /// The index to the location within the current block.
         /// </summary>
         public Int32 Index { get; set; }
@@ -143,11 +150,16 @@ namespace RandN.Implementation
         /// <summary>
         /// Generates and stores the next block and sets <see cref="Index"/> to <paramref name="index"/>.
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">Throws if <paramref name="index"/> is greater than or equal to <see cref="Index"/>.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Throws if <paramref name="index"/> is non-positive,
+        /// or is greater than or equal to the block length.
+        /// </exception>
         public void GenerateAndSet(Int32 index)
         {
-            if (index >= _results.Length)
-                throw new ArgumentOutOfRangeException(nameof(index), "Index must be less than block size.");
+            if (index < 0)
+                throw new ArgumentOutOfRangeException(nameof(index), "Index must be positive.");
+            if (index >= BlockLength)
+                throw new ArgumentOutOfRangeException(nameof(index), $"Index must be less than {nameof(BlockLength)}.");
 
             _rng.Generate(_results);
             Index = index;

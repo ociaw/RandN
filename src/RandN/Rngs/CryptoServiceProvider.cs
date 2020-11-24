@@ -40,7 +40,7 @@ namespace RandN.Rngs
         {
             // Only use the block buffer if it's longer than the destination.
             // Otherwise, it's more efficient to fill the destination directly.
-            if (buffer.Length < _buffer.Length)
+            if (buffer.Length < _buffer.BlockLength)
             {
                 _buffer.Fill(buffer);
                 return;
