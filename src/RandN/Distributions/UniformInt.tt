@@ -86,7 +86,7 @@ foreach (var tuple in types)
             {
                 var unsigned = rng.Next<#= nextName #>();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
-                    return (<#= type #>)unsigned;
+                    return unchecked((<#= type #>)unsigned);
 
                 var zone = <#= ularge #>.MaxValue - _zone;
 

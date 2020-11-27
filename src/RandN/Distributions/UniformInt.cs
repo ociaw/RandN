@@ -66,7 +66,7 @@ namespace RandN.Distributions
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
-                    return (System.SByte)unsigned;
+                    return unchecked((System.SByte)unsigned);
 
                 var zone = System.UInt32.MaxValue - _zone;
 
@@ -156,7 +156,7 @@ namespace RandN.Distributions
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
-                    return (System.Int16)unsigned;
+                    return unchecked((System.Int16)unsigned);
 
                 var zone = System.UInt32.MaxValue - _zone;
 
@@ -246,7 +246,7 @@ namespace RandN.Distributions
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
-                    return (System.Int32)unsigned;
+                    return unchecked((System.Int32)unsigned);
 
                 var zone = System.UInt32.MaxValue - _zone;
 
@@ -336,7 +336,7 @@ namespace RandN.Distributions
             {
                 var unsigned = rng.NextUInt64();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
-                    return (System.Int64)unsigned;
+                    return unchecked((System.Int64)unsigned);
 
                 var zone = System.UInt64.MaxValue - _zone;
 
@@ -426,7 +426,7 @@ namespace RandN.Distributions
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
-                    return (System.Byte)unsigned;
+                    return unchecked((System.Byte)unsigned);
 
                 var zone = System.UInt32.MaxValue - _zone;
 
@@ -516,7 +516,7 @@ namespace RandN.Distributions
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
-                    return (System.UInt16)unsigned;
+                    return unchecked((System.UInt16)unsigned);
 
                 var zone = System.UInt32.MaxValue - _zone;
 
@@ -606,7 +606,7 @@ namespace RandN.Distributions
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
-                    return (System.UInt32)unsigned;
+                    return unchecked((System.UInt32)unsigned);
 
                 var zone = System.UInt32.MaxValue - _zone;
 
@@ -696,7 +696,7 @@ namespace RandN.Distributions
             {
                 var unsigned = rng.NextUInt64();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
-                    return (System.UInt64)unsigned;
+                    return unchecked((System.UInt64)unsigned);
 
                 var zone = System.UInt64.MaxValue - _zone;
 
