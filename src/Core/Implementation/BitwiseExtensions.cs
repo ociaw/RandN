@@ -32,7 +32,7 @@ namespace RandN.Implementation
         public static UInt32 RotateRight(this UInt32 original, Int32 amount)
         {
 #if X86_INTRINSICS
-            return BitOperations.RotateLeft(original, amount);
+            return BitOperations.RotateRight(original, amount);
 #else
             return (original >> amount) | (original << (32 - amount));
 #endif
