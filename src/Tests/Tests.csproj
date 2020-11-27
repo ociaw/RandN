@@ -12,6 +12,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Distributions\UniformIntTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UniformIntTests.tt</DependentUpon>
+    </None>
     <None Include="Distributions\UnitIntervalTests.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -46,6 +51,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>UniformFloatTests.cs</LastGenOutput>
     </None>
+    <None Update="Distributions\UniformIntTests.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UniformIntTests.cs</LastGenOutput>
+    </None>
     <None Update="Distributions\UnitIntervalTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>UnitIntervalTests.cs</LastGenOutput>
@@ -61,6 +70,16 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>UniformFloatTests.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Distributions\UniformIntegerTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UniformIntegerTests.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Distributions\UniformIntTests.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UniformIntTests.tt</DependentUpon>
     </Compile>
     <Compile Update="Distributions\UnitIntervalTests.cs">
       <DesignTime>True</DesignTime>

@@ -1,0 +1,150 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System" #>
+<#@ output extension=".cs" #>
+<#
+var parameters = new (Type type, Int64 low, Int64 high)[]
+{
+    (typeof(Byte), 50, 200),
+    (typeof(UInt16), 50, 2000),
+    (typeof(UInt32), 50, 200_000_000),
+    (typeof(UInt64), 50, 200_000_000_000),
+    (typeof(SByte), -50, 100),
+    (typeof(Int16), -1000, 1000),
+    (typeof(Int32), -100_000_000, 100_000_000),
+    (typeof(Int64), -100_000_000_000, 100_000_000_000),
+};
+#>
+using System;
+using Xunit;
+using RandN.Rngs;
+using RandN.Implementation;
+
+/*** This file is auto generated - any changes made here will be lost. ***/
+namespace RandN.Distributions
+{
+    public sealed class UniformIntegerTests
+    {
+<# foreach (var param in parameters)
+{
+    String type = param.type.Name;
+    String fullType = param.type.FullName;
+    String low = param.low.ToString();
+    String high = param.high.ToString();
+#>
+        [Theory]
+        [InlineData(<#= high #>, <#= low #>)]
+        [InlineData(<#= type #>.MaxValue, <#= type #>.MinValue)]
+        public void BadInclusiveRange<#= type #>(<#= type #> high, <#= type #> low)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(high, low));
+        }
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(<#= low #>, <#= low #>)]
+        [InlineData(<#= high #>, <#= low #>)]
+        [InlineData(<#= high #>, <#= high #>)]
+        [InlineData(<#= type #>.MinValue, <#= type #>.MinValue)]
+        [InlineData(<#= type #>.MaxValue, <#= type #>.MinValue)]
+        [InlineData(<#= type #>.MaxValue, <#= type #>.MaxValue)]
+        public void BadExclusiveRange<#= type #>(<#= type #> high, <#= type #> low)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(high, low));
+        }
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(<#= low #>, <#= low #>)]
+        [InlineData(<#= low #>, <#= high #>)]
+        [InlineData(<#= high #>, <#= high #>)]
+        [InlineData(<#= type #>.MinValue, <#= type #>.MinValue)]
+        [InlineData(<#= type #>.MinValue, <#= type #>.MaxValue)]
+        [InlineData(<#= type #>.MaxValue, <#= type #>.MaxValue)]
+        [InlineData(<#= type #>.MinValue, 1)]
+        [InlineData(0, <#= type #>.MaxValue)]
+        public void SampleInclusive<#= type #>(<#= type #> low, <#= type #> high)
+        {
+            var dist = Uniform.NewInclusive(low, high);
+            var rng = Pcg32.Create(252, 11634580027462260723ul);
+
+            for (var i = 0; i < 10000; i++)
+            {
+                var result = rng.Sample(dist);
+                Assert.True(low <= result);
+                Assert.True(result <= high);
+            }
+        }
+
+        [Theory]
+        [InlineData(0, 1)]
+        [InlineData(<#= low #>, <#= high #>)]
+        [InlineData(<#= type #>.MinValue, <#= type #>.MaxValue)]
+        [InlineData(<#= type #>.MinValue, 1)]
+        [InlineData(0, <#= type #>.MaxValue)]
+        public void SampleExclusive<#= type #>(<#= type #> low, <#= type #> high)
+        {
+            var dist = Uniform.New(low, high);
+            var rng = Pcg32.Create(252, 11634580027462260723ul);
+
+            for (var i = 0; i < 10000; i++)
+            {
+                var result = rng.Sample(dist);
+                Assert.True(low <= result);
+                Assert.True(result < high);
+            }
+        }
+
+        [Fact]
+        public void Rejections<#= type #>()
+        {
+            const <#= type #> midpoint = <#= type #>.MaxValue / 2 + <#= type #>.MinValue / 2;
+            const <#= type #> low = <#= type #>.MinValue;
+            const <#= type #> high = midpoint + 1;
+            const UInt64 maxRand = sizeof(<#= type #>) > 4 ? UInt64.MaxValue : UInt32.MaxValue;
+            const UInt64 rangeSize = unchecked((UInt64)high - (UInt64)low + 1);
+            const UInt64 rejectCount = (maxRand - rangeSize + 1) % rangeSize;
+            const UInt64 lastAccepted = maxRand - rejectCount;
+
+            var dist = Uniform.NewInclusive(low, high);
+            var rng = new StepRng(lastAccepted - 1);
+
+            Assert.True(dist.TrySample(rng, out <#= type #> result));
+            Assert.Equal(midpoint, result);
+            Assert.True(dist.TrySample(rng, out result));
+            Assert.Equal(midpoint + 1, result);
+            Assert.False(dist.TrySample(rng, out _));
+            Assert.False(dist.TrySample(rng, out _));
+            Assert.False(dist.TrySample(rng, out _));
+
+            // Now test a blocking sample
+            rng.State = maxRand - Math.Min(20, rejectCount) + 1;
+            Assert.Equal(<#= type #>.MinValue, dist.Sample(rng));
+        }
+
+        [Fact]
+        public void FullRange<#= type #>()
+        {
+            var rng = new StepRng(UInt64.MaxValue - 4);
+            var dist = Uniform.NewInclusive(<#= type #>.MinValue, <#= type #>.MaxValue);
+            _ = dist.Sample(rng); // Sample shouldn't need to retry
+            // Mix up Sample and TrySample for the fun of it
+            Assert.Equal(UInt64.MaxValue - 3, rng.State);
+            Assert.True(dist.TrySample(rng, out _));
+            _ = dist.Sample(rng);
+            Assert.True(dist.TrySample(rng, out _));
+            Assert.Equal(UInt64.MaxValue, rng.State);
+
+            // The full range is a special case, where the distribution doesn't need to add _low,
+            // so it simply casts directly to the result. The upshot of which is that signed and
+            // unsigned distributions will behave differently, so we have to do bitwise comparisons
+            // instead of using type.MaxValue and type.MinValue.
+            Assert.Equal(unchecked((<#= type #>)UInt64.MaxValue), dist.Sample(rng)); // 0
+            Assert.True(dist.TrySample(rng, out <#= type #> result)); // RNG wraps around to 0
+            Assert.Equal((<#= type #>)0, result);
+        }
+<#
+}
+#>
+    }
+}
