@@ -205,6 +205,15 @@ namespace RandN.Distributions
         }
 
         [Fact]
+        public void TrySample<#= type #>()
+        {
+            var rng = Pcg32.Create(789, 11634580027462260723ul);
+            var dist = Uniform.New((<#= type #>)0, (<#= type #>)100);
+            for (Int32 i = 0; i < 10_000; i++)
+                Assert.True(dist.TrySample(rng, out _));
+        }
+
+        [Fact]
         public void NonNullable<#= type #>()
         {
             var dist = Uniform.New(1.0<#= floatSuffix #>, 2.0<#= floatSuffix #>);

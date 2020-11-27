@@ -10,18 +10,18 @@ namespace RandN.Distributions
         public void BadRange()
         {
             // Equal
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(0d, 0d));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(Double.MaxValue, Double.MaxValue));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(Double.MinValue, Double.MinValue));
+            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(0m, 0m));
+            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(Decimal.MaxValue, Decimal.MaxValue));
+            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(Decimal.MinValue, Decimal.MinValue));
             // Reversed
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(10.0d, 10.0d));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(9001.0d, -666.0d));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(Double.MaxValue, Double.MinValue));
+            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(10.0m, 10.0m));
+            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(9001.0m, -666.0m));
+            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(Decimal.MaxValue, Decimal.MinValue));
 
             // Reversed
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(10.0d, 9.0d));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(9001.0d, -666.0d));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(Double.MaxValue, Double.MinValue));
+            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(10.0m, 9.0m));
+            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(9001.0m, -666.0m));
+            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(Decimal.MaxValue, Decimal.MinValue));
         }
 
         [Fact]
@@ -42,7 +42,9 @@ namespace RandN.Distributions
                 (-10, -1),
                 (-5, 0.0m),
                 (-7, -0.0m),
-                (10.0m, Decimal.MaxValue),
+                // The next two need to decrement the scale when building the distribution.
+                (5, Decimal.MaxValue - 5), // This simply produces an initial maximum larger than high.
+                (10.0m, Decimal.MaxValue), // This does the same, but causes an overflow in the process.
                 (-100.0m, Decimal.MaxValue),
                 (-Decimal.MaxValue / 5.0m, Decimal.MaxValue),
                 (-Decimal.MaxValue, Decimal.MaxValue / 5.0m),
@@ -127,6 +129,15 @@ namespace RandN.Distributions
         }
 
         [Fact]
+        public void TrySample()
+        {
+            var rng = Pcg32.Create(789, 11634580027462260723ul);
+            var dist = Uniform.New(0m, 100m);
+            for (Int32 i = 0; i< 10_000; i++)
+                Assert.True(dist.TrySample(rng, out _));
+        }
+
+    [Fact]
         public void NonNullable()
         {
             var dist = Uniform.Decimal.Create(1, 2);

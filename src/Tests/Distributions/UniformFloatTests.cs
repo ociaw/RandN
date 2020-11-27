@@ -279,6 +279,15 @@ namespace RandN.Distributions
         }
 
         [Fact]
+        public void TrySampleSingle()
+        {
+            var rng = Pcg32.Create(789, 11634580027462260723ul);
+            var dist = Uniform.New((Single)0, (Single)100);
+            for (Int32 i = 0; i < 10_000; i++)
+                Assert.True(dist.TrySample(rng, out _));
+        }
+
+        [Fact]
         public void NonNullableSingle()
         {
             var dist = Uniform.New(1.0f, 2.0f);
@@ -327,6 +336,15 @@ namespace RandN.Distributions
             Average(Double.MinValue, 0d, 4);
             Average(38.9d, 64.6d, 5);
             Average(1e-35d, 1e-30d, 6);
+        }
+
+        [Fact]
+        public void TrySampleDouble()
+        {
+            var rng = Pcg32.Create(789, 11634580027462260723ul);
+            var dist = Uniform.New((Double)0, (Double)100);
+            for (Int32 i = 0; i < 10_000; i++)
+                Assert.True(dist.TrySample(rng, out _));
         }
 
         [Fact]
