@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using Xunit;
 
 namespace RandN.Implementation
@@ -56,6 +57,21 @@ namespace RandN.Implementation
             BlockBuffer32<StepBlockRng> blockBuffer = new(rngCore);
             Assert.Throws<ArgumentOutOfRangeException>(() => blockBuffer.GenerateAndSet(-1));
             Assert.Throws<ArgumentOutOfRangeException>(() => blockBuffer.GenerateAndSet(20));
+        }
+
+        [Fact]
+        public void Fill()
+        {
+            var rngCore = new StepBlockRng { BlockCounter = UInt32.MaxValue - 1 };
+            BlockBuffer32<StepBlockRng> blockBuffer = new(rngCore);
+            var dest = new UInt32[17];
+            blockBuffer.Fill(MemoryMarshal.Cast<UInt32, Byte>(dest));
+
+            for (UInt32 i = 0; i < rngCore.BlockLength; i++)
+                Assert.Equal(UInt32.MaxValue, dest[i]);
+            for (UInt32 i = (UInt32)rngCore.BlockLength; i < rngCore.BlockLength * 2; i++)
+                Assert.Equal(0u, dest[i]);
+            Assert.Equal(1u, dest[16]);
         }
     }
 
@@ -133,6 +149,21 @@ namespace RandN.Implementation
             BlockBuffer32<StepBlockRng, UInt32> blockBuffer = new(rngCore);
             Assert.Throws<ArgumentOutOfRangeException>(() => blockBuffer.GenerateAndSet(-1));
             Assert.Throws<ArgumentOutOfRangeException>(() => blockBuffer.GenerateAndSet(20));
+        }
+
+        [Fact]
+        public void Fill()
+        {
+            var rngCore = new StepBlockRng { BlockCounter = UInt32.MaxValue - 1 };
+            BlockBuffer32<StepBlockRng, UInt32> blockBuffer = new(rngCore);
+            var dest = new UInt32[17];
+            blockBuffer.Fill(MemoryMarshal.Cast<UInt32, Byte>(dest));
+
+            for (UInt32 i = 0; i < rngCore.BlockLength; i++)
+                Assert.Equal(UInt32.MaxValue, dest[i]);
+            for (UInt32 i = (UInt32)rngCore.BlockLength; i < rngCore.BlockLength * 2; i++)
+                Assert.Equal(0u, dest[i]);
+            Assert.Equal(1u, dest[16]);
         }
     }
 }
