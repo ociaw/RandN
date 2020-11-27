@@ -75,7 +75,7 @@ foreach (var tuple in types)
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
                 var unsignedMax = <#= ularge #>.MaxValue;
-                var range = unchecked((<#= ularge #>)(high - low + 1));
+                var range = unchecked((<#= ularge #>)(<#= unsigned #>)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
                 return new <#= shortName #>(low, range, (<#= unsigned #>)intsToReject);
@@ -104,7 +104,7 @@ foreach (var tuple in types)
                 var unsigned = rng.Next<#= nextName #>();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
                 {
-                    result = (<#= type #>)unsigned;
+                    result = unchecked((<#= type #>)unsigned);
                     return true;
                 }
 

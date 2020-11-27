@@ -55,7 +55,7 @@ namespace RandN.Distributions
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
                 var unsignedMax = System.UInt32.MaxValue;
-                var range = unchecked((System.UInt32)(high - low + 1));
+                var range = unchecked((System.UInt32)(System.Byte)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
                 return new SByte(low, range, (System.Byte)intsToReject);
@@ -84,7 +84,7 @@ namespace RandN.Distributions
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
                 {
-                    result = (System.SByte)unsigned;
+                    result = unchecked((System.SByte)unsigned);
                     return true;
                 }
 
@@ -145,7 +145,7 @@ namespace RandN.Distributions
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
                 var unsignedMax = System.UInt32.MaxValue;
-                var range = unchecked((System.UInt32)(high - low + 1));
+                var range = unchecked((System.UInt32)(System.UInt16)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
                 return new Int16(low, range, (System.UInt16)intsToReject);
@@ -174,7 +174,7 @@ namespace RandN.Distributions
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
                 {
-                    result = (System.Int16)unsigned;
+                    result = unchecked((System.Int16)unsigned);
                     return true;
                 }
 
@@ -235,7 +235,7 @@ namespace RandN.Distributions
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
                 var unsignedMax = System.UInt32.MaxValue;
-                var range = unchecked((System.UInt32)(high - low + 1));
+                var range = unchecked((System.UInt32)(System.UInt32)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
                 return new Int32(low, range, (System.UInt32)intsToReject);
@@ -264,7 +264,7 @@ namespace RandN.Distributions
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
                 {
-                    result = (System.Int32)unsigned;
+                    result = unchecked((System.Int32)unsigned);
                     return true;
                 }
 
@@ -325,7 +325,7 @@ namespace RandN.Distributions
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
                 var unsignedMax = System.UInt64.MaxValue;
-                var range = unchecked((System.UInt64)(high - low + 1));
+                var range = unchecked((System.UInt64)(System.UInt64)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
                 return new Int64(low, range, (System.UInt64)intsToReject);
@@ -354,7 +354,7 @@ namespace RandN.Distributions
                 var unsigned = rng.NextUInt64();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
                 {
-                    result = (System.Int64)unsigned;
+                    result = unchecked((System.Int64)unsigned);
                     return true;
                 }
 
@@ -415,7 +415,7 @@ namespace RandN.Distributions
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
                 var unsignedMax = System.UInt32.MaxValue;
-                var range = unchecked((System.UInt32)(high - low + 1));
+                var range = unchecked((System.UInt32)(System.Byte)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
                 return new Byte(low, range, (System.Byte)intsToReject);
@@ -444,7 +444,7 @@ namespace RandN.Distributions
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
                 {
-                    result = (System.Byte)unsigned;
+                    result = unchecked((System.Byte)unsigned);
                     return true;
                 }
 
@@ -505,7 +505,7 @@ namespace RandN.Distributions
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
                 var unsignedMax = System.UInt32.MaxValue;
-                var range = unchecked((System.UInt32)(high - low + 1));
+                var range = unchecked((System.UInt32)(System.UInt16)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
                 return new UInt16(low, range, (System.UInt16)intsToReject);
@@ -534,7 +534,7 @@ namespace RandN.Distributions
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
                 {
-                    result = (System.UInt16)unsigned;
+                    result = unchecked((System.UInt16)unsigned);
                     return true;
                 }
 
@@ -595,7 +595,7 @@ namespace RandN.Distributions
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
                 var unsignedMax = System.UInt32.MaxValue;
-                var range = unchecked((System.UInt32)(high - low + 1));
+                var range = unchecked((System.UInt32)(System.UInt32)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
                 return new UInt32(low, range, (System.UInt32)intsToReject);
@@ -624,7 +624,7 @@ namespace RandN.Distributions
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
                 {
-                    result = (System.UInt32)unsigned;
+                    result = unchecked((System.UInt32)unsigned);
                     return true;
                 }
 
@@ -685,7 +685,7 @@ namespace RandN.Distributions
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
                 var unsignedMax = System.UInt64.MaxValue;
-                var range = unchecked((System.UInt64)(high - low + 1));
+                var range = unchecked((System.UInt64)(System.UInt64)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
                 return new UInt64(low, range, (System.UInt64)intsToReject);
@@ -714,7 +714,7 @@ namespace RandN.Distributions
                 var unsigned = rng.NextUInt64();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
                 {
-                    result = (System.UInt64)unsigned;
+                    result = unchecked((System.UInt64)unsigned);
                     return true;
                 }
 
