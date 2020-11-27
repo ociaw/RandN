@@ -35,10 +35,10 @@ namespace RandN.Compat
 #endif
 
         /// <inheritdoc />
-        public override Double NextDouble() => _doubleDist.Sample(_rng);
+        public override Double NextDouble() => Sample();
 
         /// <inheritdoc />
-        protected override Double Sample() => NextDouble();
+        protected override Double Sample() => _doubleDist.Sample(_rng);
     }
 
     /// <summary>

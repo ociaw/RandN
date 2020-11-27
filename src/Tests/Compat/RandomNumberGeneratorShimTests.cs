@@ -58,6 +58,27 @@ namespace RandN.Compat
         }
 
         [Fact]
+        public void BadArgs()
+        {
+            var rng = new StepRng(0);
+            var shim = RandomNumberGeneratorShim.Create(rng);
+            var bytes = new Byte[32];
+            Assert.Throws<ArgumentNullException>(() => shim.GetBytes(null, 0, 10));
+            Assert.Throws<ArgumentOutOfRangeException>(() => shim.GetBytes(bytes, -10, 10));
+            Assert.Throws<ArgumentOutOfRangeException>(() => shim.GetBytes(bytes, 10, -10));
+            Assert.Throws<ArgumentException>(() => shim.GetBytes(bytes, 32, 1));
+        }
+
+        [Fact]
+        public void Disposal()
+        {
+            var rng = new DisposableRng();
+            var shim = RandomNumberGeneratorShim.Create(rng);
+            shim.Dispose();
+            Assert.True(rng.Disposed);
+        }
+
+        [Fact]
         public void NonNullable()
         {
             Assert.Throws<ArgumentNullException>(() => RandomNumberGeneratorShim.Create<StepRng>(null));
@@ -65,6 +86,19 @@ namespace RandN.Compat
             var rng = RandomNumberGeneratorShim.Create(new StepRng(0));
             Assert.Throws<ArgumentNullException>(() => rng.GetBytes(null));
             Assert.Throws<ArgumentNullException>(() => rng.GetNonZeroBytes(null));
+        }
+
+        private sealed class DisposableRng : ICryptoRng, IDisposable
+        {
+            public Boolean Disposed { get; private set; }
+
+            public void Dispose() => Disposed = true;
+
+            public void Fill(Span<Byte> buffer) => buffer.Fill(0);
+
+            public UInt32 NextUInt32() => 0;
+
+            public UInt64 NextUInt64() => 0;
         }
     }
 }
