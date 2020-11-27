@@ -6,6 +6,16 @@ namespace RandN
     public class RngSeederTests
     {
         [Fact]
+        public void CryptoRng()
+        {
+            var rngFactory = new StepRng.Factory(increment: 0);
+            var rngSeeder = RngSeeder.Create(rngFactory);
+            var rng = rngSeeder.Create();
+            Assert.NotNull(rng);
+            rngSeeder.Dispose();
+        }
+
+        [Fact]
         public void SequentialSeedStaticRng()
         {
             var seedSource = new StepRng(0);
