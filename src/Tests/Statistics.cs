@@ -54,7 +54,7 @@ namespace RandN
         /// <summary>
         /// A simple test checking that the number of 1s and 0s is about equal.
         /// </summary>
-        public static Boolean TestMonobitFrequency<TRng>(TRng rng, UInt32 wordCount, Double zScore = ZScore)
+        public static Boolean TestMonobitFrequency32<TRng>(TRng rng, UInt32 wordCount, Double zScore = ZScore)
             where TRng : IRng
         {
             UInt64 oneCount = 0;
@@ -62,6 +62,36 @@ namespace RandN
                 oneCount += PopCount(rng.NextUInt32());
 
             UInt64 bitCount = wordCount * 32;
+            return WithinConfidenceBernoulli(oneCount, bitCount / 2, bitCount, zScore);
+        }
+
+        /// <summary>
+        /// A simple test checking that the number of 1s and 0s is about equal.
+        /// </summary>
+        public static Boolean TestMonobitFrequency64<TRng>(TRng rng, UInt32 wordCount, Double zScore = ZScore)
+            where TRng : IRng
+        {
+            UInt64 oneCount = 0;
+            for (UInt32 i = 0; i < wordCount; i++)
+                oneCount += PopCount(rng.NextUInt64());
+
+            UInt64 bitCount = wordCount * 64;
+            return WithinConfidenceBernoulli(oneCount, bitCount / 2, bitCount, zScore);
+        }
+
+        /// <summary>
+        /// A simple test checking that the number of 1s and 0s is about equal.
+        /// </summary>
+        public static Boolean TestMonobitFrequencyFill<TRng>(TRng rng, UInt32 byteCount, Double zScore = ZScore)
+            where TRng : IRng
+        {
+            var buffer = new Byte[byteCount];
+            rng.Fill(buffer);
+            UInt64 oneCount = 0;
+            for (UInt32 i = 0; i < byteCount; i++)
+                oneCount += PopCount(buffer[i]);
+
+            UInt64 bitCount = byteCount * 8;
             return WithinConfidenceBernoulli(oneCount, bitCount / 2, bitCount, zScore);
         }
 
@@ -77,6 +107,36 @@ namespace RandN
                 num >>= 1;
             }
             return count;
+#endif
+        }
+
+        private static UInt32 PopCount(UInt64 num)
+        {
+#if X86_INTRINSICS
+            return (UInt32)System.Numerics.BitOperations.PopCount(num);
+#else
+            UInt64 count = 0;
+            for (Int32 i = 0; i < 64; i++)
+            {
+                count += num & 1;
+                num >>= 1;
+            }
+            return (UInt32)count;
+#endif
+        }
+
+        private static UInt32 PopCount(Byte num)
+        {
+#if X86_INTRINSICS
+            return (UInt32)System.Numerics.BitOperations.PopCount(num);
+#else
+            UInt64 count = 0;
+            for (Int32 i = 0; i < 8; i++)
+            {
+                count += (UInt32)num & 1;
+                num >>= 1;
+            }
+            return (UInt32)count;
 #endif
         }
     }
