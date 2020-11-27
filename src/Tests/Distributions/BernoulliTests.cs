@@ -74,5 +74,16 @@ namespace RandN.Distributions
             var dist = Bernoulli.FromRatio(1, 2);
             Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
         }
+
+        [Fact]
+        public void UnlikelyFalse()
+        {
+            // This distribution normally has a probably of success of 2^64 - 1 / 2^64,
+            // so this is very unlikely to return false.
+            var dist = Bernoulli.FromInverse(UInt64.MaxValue);
+            // BUt we'll force it to anyway.
+            var rng = new StepRng(UInt64.MaxValue);
+            Assert.False(dist.Sample(rng));
+        }
     }
 }

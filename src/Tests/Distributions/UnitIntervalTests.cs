@@ -58,7 +58,7 @@ namespace RandN.Distributions
             Average(UnitInterval.OpenSingle.Instance, 903);
         }
 
-        private static void Average(IDistribution<Single> dist, UInt64 seed)
+        private void Average(IDistribution<Single> dist, UInt64 seed)
         {
             const Int32 iterations = 10_000;
             var rng = Pcg32.Create(seed, 11634580027462260723ul);
@@ -74,6 +74,18 @@ namespace RandN.Distributions
             }
 
             Assert.True(Statistics.WithinConfidence(popMean: 0.5, popStdDev: 0.5, mean, iterations));
+
+            Double mean2 = 0;
+            for (var i = 0; i < iterations; i++)
+            {
+                Assert.True(dist.TrySample(rng, out var result));
+                var delta = result - mean2;
+                mean2 += delta / (i + 1);
+                Assert.True(0 <= result);
+                Assert.True(result <= 1);
+            }
+
+            Assert.True(Statistics.WithinConfidence(popMean: 0.5, popStdDev: 0.5, mean2, iterations));
         }
 
         [Fact]
@@ -130,7 +142,7 @@ namespace RandN.Distributions
             Average(UnitInterval.OpenDouble.Instance, 903);
         }
 
-        private static void Average(IDistribution<Double> dist, UInt64 seed)
+        private void Average(IDistribution<Double> dist, UInt64 seed)
         {
             const Int32 iterations = 10_000;
             var rng = Pcg32.Create(seed, 11634580027462260723ul);
@@ -146,6 +158,18 @@ namespace RandN.Distributions
             }
 
             Assert.True(Statistics.WithinConfidence(popMean: 0.5, popStdDev: 0.5, mean, iterations));
+
+            Double mean2 = 0;
+            for (var i = 0; i < iterations; i++)
+            {
+                Assert.True(dist.TrySample(rng, out var result));
+                var delta = result - mean2;
+                mean2 += delta / (i + 1);
+                Assert.True(0 <= result);
+                Assert.True(result <= 1);
+            }
+
+            Assert.True(Statistics.WithinConfidence(popMean: 0.5, popStdDev: 0.5, mean2, iterations));
         }
 
         [Fact]

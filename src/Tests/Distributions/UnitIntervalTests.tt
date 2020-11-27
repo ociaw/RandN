@@ -86,6 +86,18 @@ namespace RandN.Distributions
             }
 
             Assert.True(Statistics.WithinConfidence(popMean: 0.5, popStdDev: 0.5, mean, iterations));
+
+            Double mean2 = 0;
+            for (var i = 0; i < iterations; i++)
+            {
+                Assert.True(dist.TrySample(rng, out var result));
+                var delta = result - mean2;
+                mean2 += delta / (i + 1);
+                Assert.True(0 <= result);
+                Assert.True(result <= 1);
+            }
+
+            Assert.True(Statistics.WithinConfidence(popMean: 0.5, popStdDev: 0.5, mean2, iterations));
         }
 
         [Fact]
