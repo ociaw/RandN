@@ -37,7 +37,7 @@ namespace RandN.Rngs
             // bits of the counter to the word index, so that it becomes 6 bits.
             get
             {
-                var block = (_blockBuffer.BlockCounter << 2) + (UInt64)(_blockBuffer.Index >> 4);
+                var block = unchecked((_blockBuffer.BlockCounter << 2) + (UInt64)(_blockBuffer.Index >> 4));
                 var word = (UInt32)(_blockBuffer.Index & 0b1111);
                 return new Counter(block, word);
             }
