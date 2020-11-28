@@ -7,18 +7,63 @@ namespace RandN.Rngs
     public sealed class ChaChaTests
     {
         /// <summary>
-        /// Verifies factory creation methods with test vectors from Rust's rand_chacha crate.
+        /// Verifies 20-round ChaCha factory creation methods with test vectors from Rust's rand_chacha crate.
         /// </summary>
         [Fact]
-        public void Factory()
+        public void Factory20()
         {
             var factory = ChaCha.GetChaCha20Factory();
 
-            var seed1 = new Seed(new UInt32[] { 0, 0, 1, 0, 2, 0, 3, 0 }, 0);
+            var seed1 = new Seed(new UInt32[] { 0, 0, 1, 0, 2, 0, 3, 0 });
             var rng1 = factory.Create(seed1);
             Assert.Equal(137206642u, rng1.NextUInt32());
             var rng2 = factory.Create(rng1);
             Assert.Equal(1325750369u, rng2.NextUInt32());
+        }
+
+        [Fact]
+        public void Factory12()
+        {
+            var factory = ChaCha.GetChaCha12Factory();
+
+            var seed1 = new Seed(new UInt32[] { 0, 0, 1, 0, 2, 0, 3, 0 });
+            var rng1 = factory.Create(seed1);
+            Assert.Equal(1488489079u, rng1.NextUInt32());
+            var rng2 = factory.Create(rng1);
+            Assert.Equal(730709729u, rng2.NextUInt32());
+        }
+
+        [Fact]
+        public void Factory8()
+        {
+            var factory = ChaCha.GetChaCha8Factory();
+
+            var seed1 = new Seed(new UInt32[] { 0, 0, 1, 0, 2, 0, 3, 0 });
+            var rng1 = factory.Create(seed1);
+            Assert.Equal(3680296248u, rng1.NextUInt32());
+            var rng2 = factory.Create(rng1);
+            Assert.Equal(421124532u, rng2.NextUInt32());
+        }
+
+        [Fact]
+        public void PositionVerification()
+        {
+            var factory = ChaCha.GetChaCha8Factory();
+            var rng = factory.Create(default);
+            Assert.Equal(default, rng.Position);
+            Span<Byte> block = stackalloc Byte[64];
+            rng.Fill(block);
+            Assert.Equal(new ChaCha.Counter(1, 0), rng.Position);
+            rng.NextUInt64();
+            Assert.Equal(new ChaCha.Counter(1, 2), rng.Position);
+            rng.Fill(block);
+            Assert.Equal(new ChaCha.Counter(2, 2), rng.Position);
+
+            Span<Byte> block2 = stackalloc Byte[64];
+            rng.Position = new ChaCha.Counter(1, 2);
+            rng.Fill(block2);
+            for (var i = 0; i < block.Length; i++)
+                Assert.Equal(block[i], block2[i]);
         }
 
         /// <summary>
@@ -122,6 +167,14 @@ namespace RandN.Rngs
             };
             foreach (var expected in expected2)
                 Assert.Equal(expected, rng1.NextUInt32());
+        }
+
+        [Fact]
+        public void BadArgs()
+        {
+            Assert.Throws<ArgumentException>(() => new Seed(Array.Empty<UInt32>()));
+            Assert.Throws<ArgumentOutOfRangeException>(() => ChaCha.Create(default, 0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new ChaCha.Counter(0, 17));
         }
 
         [Fact]
