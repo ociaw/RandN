@@ -12,6 +12,7 @@ FodyWeavers.xsd
 packages/
 
 BenchmarkDotNet.Artifacts/
+*.DotSettings.user
 
 *.code-workspace
 
