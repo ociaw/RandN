@@ -37,7 +37,7 @@
     </PackageReference>
   </ItemGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'!='net472'">
+  <PropertyGroup Condition="'$(TargetFramework)'!='net472' And '$(TargetFramework)'!='netcoreapp3.0'">
     <DefineConstants>X86_INTRINSICS</DefineConstants>
   </PropertyGroup>
 
