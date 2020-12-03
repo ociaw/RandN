@@ -13,7 +13,7 @@ namespace RandN.Compat
         /// </summary>
         /// <param name="rng">A cryptographically secure RNG.</param>
         public static RandomNumberGeneratorShim<TRng> Create<TRng>(TRng rng)
-            where TRng : notnull, ICryptoRng
+            where TRng : ICryptoRng
         {
             return new(rng);
         }
@@ -22,8 +22,8 @@ namespace RandN.Compat
     /// <summary>
     /// A shim able to wrap any <see cref="IRng"/> as a <see cref="RandomNumberGenerator"/>.
     /// </summary>
-    public sealed class RandomNumberGeneratorShim<TRng> : RandomNumberGenerator, IDisposable
-        where TRng : notnull, ICryptoRng
+    public sealed class RandomNumberGeneratorShim<TRng> : RandomNumberGenerator
+        where TRng : ICryptoRng
     {
         private readonly TRng _rng;
 

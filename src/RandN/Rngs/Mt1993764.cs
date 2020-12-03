@@ -162,7 +162,7 @@ namespace RandN.Rngs
             public Mt1993764 Create(UInt64[] seed) => Mt1993764.Create(seed);
 
             /// <inheritdoc />
-            public UInt64[] CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
+            public UInt64[] CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
             {
                 UInt64[] seed = new UInt64[RecurrenceDegree];
                 Span<Byte> byteSeed = System.Runtime.InteropServices.MemoryMarshal.AsBytes<UInt64>(seed);

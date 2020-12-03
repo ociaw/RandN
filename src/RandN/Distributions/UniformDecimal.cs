@@ -109,7 +109,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public System.Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            public System.Decimal Sample<TRng>(TRng rng) where TRng : IRng
             {
                 // 96 bits of precision - The range generated is approximately [0-7.92].
                 const System.Int32 decimalScale = 28;
@@ -121,7 +121,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out System.Decimal result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.Decimal result) where TRng : IRng
             {
                 result = Sample(rng);
                 return true;

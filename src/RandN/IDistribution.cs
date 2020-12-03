@@ -17,12 +17,12 @@ namespace RandN
         /// <remarks>
         /// Depending on the distribution, this method could block indefinitely if the quality of the RNG is poor or if you're extraordinarily unlucky.
         /// </remarks>
-        TResult Sample<TRng>(TRng rng) where TRng : notnull, IRng;
+        TResult Sample<TRng>(TRng rng) where TRng : IRng;
 
         /// <summary>
         /// Attempts to sample a value from <paramref name="rng"/> once, returning false if the value returned
         /// is not suitable.
         /// </summary>
-        Boolean TrySample<TRng>(TRng rng, out TResult result) where TRng : notnull, IRng;
+        Boolean TrySample<TRng>(TRng rng, out TResult result) where TRng : IRng;
     }
 }

@@ -97,7 +97,7 @@ namespace RandN.Rngs
             public Pcg32 Create(Seed seed) => Pcg32.Create(seed.State, seed.Stream);
 
             /// <inheritdoc />
-            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng => new(seedingRng.NextUInt64(), seedingRng.NextUInt64());
+            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng => new(seedingRng.NextUInt64(), seedingRng.NextUInt64());
         }
 
         /// <summary>

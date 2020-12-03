@@ -7,7 +7,7 @@ namespace RandN.Rngs
     /// <summary>
     /// A cryptographically secure random number generator using the ChaCha algorithm.
     /// </summary>
-    public sealed class ChaCha : IRng, ISeekableRng<ChaCha.Counter>, ICryptoRng
+    public sealed class ChaCha : ISeekableRng<ChaCha.Counter>, ICryptoRng
     {
         internal const Int32 ConstantLength = 4;
         internal const Int32 KeyLength = 8;
@@ -119,7 +119,7 @@ namespace RandN.Rngs
             public ChaCha Create(Seed seed) => ChaCha.Create(seed, DOUBLE_ROUNDS);
 
             /// <inheritdoc />
-            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
+            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
             {
                 Span<UInt32> key = stackalloc UInt32[KeyLength];
                 seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
@@ -140,7 +140,7 @@ namespace RandN.Rngs
             public ChaCha Create(Seed seed) => ChaCha.Create(seed, DOUBLE_ROUNDS);
 
             /// <inheritdoc />
-            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
+            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
             {
                 Span<UInt32> key = stackalloc UInt32[KeyLength];
                 seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
@@ -161,7 +161,7 @@ namespace RandN.Rngs
             public ChaCha Create(Seed seed) => ChaCha.Create(seed, DOUBLE_ROUNDS);
 
             /// <inheritdoc />
-            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
+            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : IRng
             {
                 Span<UInt32> key = stackalloc UInt32[KeyLength];
                 seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));

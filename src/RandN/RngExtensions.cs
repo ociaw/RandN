@@ -16,8 +16,8 @@ namespace RandN
         /// The is equivalent to calling <see cref="IDistribution{TResult}.Sample{TRng}(TRng)"/>.
         /// </remarks>
         public static TResult Sample<TRng, TDistribution, TResult>(this TRng rng, TDistribution distribution)
-            where TRng : notnull, IRng
-            where TDistribution : notnull, IDistribution<TResult>
+            where TRng : IRng
+            where TDistribution : IDistribution<TResult>
         {
             return distribution.Sample(rng);
         }
@@ -29,7 +29,7 @@ namespace RandN
         /// The is equivalent to calling <see cref="IDistribution{TResult}.Sample{TRng}(TRng)"/>.
         /// </remarks>
         public static TResult Sample<TRng, TResult>(this TRng rng, IDistribution<TResult> distribution)
-            where TRng : notnull, IRng
+            where TRng : IRng
         {
             return distribution.Sample(rng);
         }
@@ -40,7 +40,7 @@ namespace RandN
         /// <param name="rng">The RNG used to shuffle the list.</param>
         /// <param name="list">The list to be shuffled.</param>
         public static void ShuffleInPlace<TRng, T>(this TRng rng, IList<T> list)
-            where TRng : notnull, IRng
+            where TRng : IRng
         {
             // Fisher-Yates shuffle
             for (Int32 i = list.Count - 1; i >= 1; i--)
@@ -60,8 +60,8 @@ namespace RandN
         /// <param name="seedingRng">The RNG used to create the seed.</param>
         /// <returns>A new <typeparamref name="TRng"/> instance.</returns>
         public static TRng Create<TRng, TSeed, TSeedingRng>(this IReproducibleRngFactory<TRng, TSeed> factory, TSeedingRng seedingRng)
-            where TRng : notnull, IRng
-            where TSeedingRng : notnull, IRng
+            where TRng : IRng
+            where TSeedingRng : IRng
         {
             var seed = factory.CreateSeed(seedingRng);
             return factory.Create(seed);

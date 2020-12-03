@@ -44,7 +44,7 @@ namespace RandN.Distributions
             public static ClosedOpen<#= type #> Instance { get; } = new();
 
             /// <inheritdoc />
-            public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            public <#= type #> Sample<TRng>(TRng rng) where TRng : IRng
             {
                 // 24 or 53 bits of precision
                 const Int32 floatSize = sizeof(<#= type #>) * 8;
@@ -57,7 +57,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
             {
                 result = Sample(rng);
                 return true;
@@ -75,7 +75,7 @@ namespace RandN.Distributions
             public static OpenClosed<#= type #> Instance { get; } = new();
 
             /// <inheritdoc />
-            public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            public <#= type #> Sample<TRng>(TRng rng) where TRng : IRng
             {
                 // 24 or 53 bits of precision
                 const Int32 floatSize = sizeof(<#= type #>) * 8;
@@ -88,7 +88,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
             {
                 result = Sample(rng);
                 return true;
@@ -119,7 +119,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
             {
                 result = Sample(rng);
                 return true;
@@ -137,7 +137,7 @@ namespace RandN.Distributions
             public static Open<#= type #> Instance { get; } = new();
 
             /// <inheritdoc />
-            public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            public <#= type #> Sample<TRng>(TRng rng) where TRng : IRng
             {
                 // 23 or 52 bits of precision
                 const Int32 floatSize = sizeof(<#= type #>) * 8;
@@ -149,7 +149,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
             {
                 result = Sample(rng);
                 return true;

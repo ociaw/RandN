@@ -4,7 +4,7 @@ namespace RandN
     /// A factory that produces Random Number Generators.
     /// </summary>
     public interface IRngFactory<TRng>
-        where TRng : notnull, IRng
+        where TRng : IRng
     {
         /// <summary>
         /// Creates a new <typeparamref name="TRng" />.

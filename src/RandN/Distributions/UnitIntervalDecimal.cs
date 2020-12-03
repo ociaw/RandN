@@ -15,7 +15,7 @@ namespace RandN.Distributions
             public static ClosedOpenDecimal Instance { get; } = new();
 
             /// <inheritdoc />
-            public Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            public Decimal Sample<TRng>(TRng rng) where TRng : IRng
             {
                 Decimal result;
                 while (!TrySample(rng, out result)) ;
@@ -23,7 +23,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out Decimal result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, out Decimal result) where TRng : IRng
             {
                 result = GenerateCandidateDecimal(rng);
                 return result < 1;
@@ -41,7 +41,7 @@ namespace RandN.Distributions
             public static OpenClosedDecimal Instance { get; } = new();
 
             /// <inheritdoc />
-            public Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            public Decimal Sample<TRng>(TRng rng) where TRng : IRng
             {
                 Decimal result;
                 while (!TrySample(rng, out result)) ;
@@ -49,7 +49,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out Decimal result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, out Decimal result) where TRng : IRng
             {
                 result = GenerateCandidateDecimal(rng);
                 return 0 < result && result <= 1;
@@ -67,7 +67,7 @@ namespace RandN.Distributions
             public static ClosedDecimal Instance { get; } = new();
 
             /// <inheritdoc />
-            public Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            public Decimal Sample<TRng>(TRng rng) where TRng : IRng
             {
                 Decimal result;
                 while (!TrySample(rng, out result)) ;
@@ -75,7 +75,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out Decimal result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, out Decimal result) where TRng : IRng
             {
                 result = GenerateCandidateDecimal(rng);
                 return result <= 1;
@@ -93,7 +93,7 @@ namespace RandN.Distributions
             public static OpenDecimal Instance { get; } = new();
 
             /// <inheritdoc />
-            public Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            public Decimal Sample<TRng>(TRng rng) where TRng : IRng
             {
                 Decimal result;
                 while (!TrySample(rng, out result)) ;
@@ -101,14 +101,14 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out Decimal result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, out Decimal result) where TRng : IRng
             {
                 result = GenerateCandidateDecimal(rng);
                 return 0 < result && result < 1;
             }
         }
 
-        private static Decimal GenerateCandidateDecimal<TRng>(TRng rng) where TRng : notnull, IRng
+        private static Decimal GenerateCandidateDecimal<TRng>(TRng rng) where TRng : IRng
         {
             // 93-94 bits of precision - we discard the upper two bits to reduce the average number
             // of sample attempts. The range generated is approximately [0-1.98], so just under 50%

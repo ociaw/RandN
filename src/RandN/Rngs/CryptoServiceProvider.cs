@@ -8,7 +8,7 @@ namespace RandN.Rngs
     /// <summary>
     /// A cryptographically secure random number generator wrapping <see cref="RNGCryptoServiceProvider"/>.
     /// </summary>
-    public sealed class CryptoServiceProvider : IRng, ICryptoRng, IDisposable
+    public sealed class CryptoServiceProvider : ICryptoRng, IDisposable
     {
         private readonly BlockBuffer32<BlockCore> _buffer;
         private readonly RNGCryptoServiceProvider _rng;
