@@ -3,7 +3,7 @@ namespace RandN
     /// <summary>
     /// A factory that produces Random Number Generators.
     /// </summary>
-    public interface IRngFactory<TRng>
+    public interface IRngFactory<out TRng>
         where TRng : IRng
     {
         /// <summary>
