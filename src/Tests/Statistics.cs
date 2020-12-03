@@ -19,11 +19,6 @@ namespace RandN
 
         public const Double WideZScore = 6.109;
 
-        /// <summary>
-        /// Length of the block used in <see cref="TestBlockFrequency{TRng}(TRng, UInt32)"/>
-        /// </summary>
-        public static Int32 FrequencyBlockLength => 8;
-
         public static Boolean WithinConfidenceBernoulli(UInt64 actual, UInt64 expected, UInt64 sampleCount, Double zScore = ZScore)
         {
             return WithinConfidenceBernoulli(actual, (Double)expected / sampleCount, sampleCount, zScore);

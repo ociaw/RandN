@@ -8,7 +8,7 @@ namespace RandN.Compat
     public sealed class RandomShimTests
     {
         /// <summary>
-        /// Verifies <see cref="RandomShim{TRng}.GetBytes(Byte[])"/> methods.
+        /// Verifies <see cref="RandomShim{TRng}.NextBytes(Byte[])"/> methods.
         /// </summary>
         [Fact]
         public void Bytes()
@@ -39,7 +39,7 @@ namespace RandN.Compat
         }
 
         /// <summary>
-        /// Verifies <see cref="RandomShim{TRng}.Next"/> methods.
+        /// Verifies <see cref="RandomShim{TRng}.Next()"/> methods.
         /// </summary>
         [Fact]
         public void Next()
