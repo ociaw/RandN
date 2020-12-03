@@ -8,7 +8,7 @@ namespace RandN.Implementation
         [Fact]
         public void DecrementSmallestPositiveDecimal()
         {
-            Decimal num = new Decimal(1, 0, 0, false, 28);
+            Decimal num = new(1, 0, 0, false, 28);
             Decimal result = num.DecrementMantissa();
             Assert.Equal(0m, result);
         }
@@ -18,7 +18,7 @@ namespace RandN.Implementation
         {
             for (Byte i = 0; i <= 28; i++)
             {
-                Decimal num = new Decimal(0, 0, 0, false, i);
+                Decimal num = new(0, 0, 0, false, i);
                 Assert.Throws<ArgumentOutOfRangeException>(() => num.DecrementMantissa());
             }
         }
@@ -26,7 +26,7 @@ namespace RandN.Implementation
         [Fact]
         public void DecrementDecimalPastScaleThreshold()
         {
-            Decimal num = new Decimal(1, 0, 0, false, 0);
+            Decimal num = new(1, 0, 0, false, 0);
             Decimal result = num.DecrementMantissa();
             Assert.True(result < num);
             Assert.True(result > 0);
@@ -36,7 +36,7 @@ namespace RandN.Implementation
         [Fact]
         public void DecrementDecimalLowBits()
         {
-            Decimal num = new Decimal(2, 0, 0, false, 0);
+            Decimal num = new(2, 0, 0, false, 0);
             Decimal result = num.DecrementMantissa();
             Assert.True(result < num);
             Assert.Equal(1m, result);
@@ -45,7 +45,7 @@ namespace RandN.Implementation
         [Fact]
         public void DecrementDecimalMidBits()
         {
-            Decimal num = new Decimal(0, 1, 0, false, 0);
+            Decimal num = new(0, 1, 0, false, 0);
             Decimal result = num.DecrementMantissa();
             Assert.True(result < num);
             Assert.Equal(UInt32.MaxValue, result);
@@ -54,7 +54,7 @@ namespace RandN.Implementation
         [Fact]
         public void DecrementDecimalHiBits()
         {
-            Decimal num = new Decimal(0, 0, 1, false, 0);
+            Decimal num = new(0, 0, 1, false, 0);
             Decimal result = num.DecrementMantissa();
             Assert.True(result < num);
             Assert.Equal(UInt64.MaxValue, result);

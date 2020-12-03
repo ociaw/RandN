@@ -84,17 +84,17 @@ namespace RandN.Rngs
         /// <summary>
         /// Gets the ChaCha8 factory.
         /// </summary>
-        public static Factory8 GetChaCha8Factory() => new Factory8();
+        public static Factory8 GetChaCha8Factory() => new();
 
         /// <summary>
         /// Gets the ChaCha12 factory.
         /// </summary>
-        public static Factory12 GetChaCha12Factory() => new Factory12();
+        public static Factory12 GetChaCha12Factory() => new();
 
         /// <summary>
         /// Gets the ChaCha20 factory.
         /// </summary>
-        public static Factory20 GetChaCha20Factory() => new Factory20();
+        public static Factory20 GetChaCha20Factory() => new();
 
         /// <inheritdoc />
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

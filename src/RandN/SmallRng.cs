@@ -24,7 +24,7 @@ namespace RandN
         /// <summary>
         /// Gets the <see cref="StandardRng"/> factory.
         /// </summary>
-        public static Factory GetFactory() => new Factory();
+        public static Factory GetFactory() => new();
 
         /// <inheritdoc />
         public void Fill(Span<Byte> buffer) => _wrapped.Fill(buffer);

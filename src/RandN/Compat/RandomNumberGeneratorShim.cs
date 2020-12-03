@@ -15,7 +15,7 @@ namespace RandN.Compat
         public static RandomNumberGeneratorShim<TRng> Create<TRng>(TRng rng)
             where TRng : notnull, ICryptoRng
         {
-            return new RandomNumberGeneratorShim<TRng>(rng);
+            return new(rng);
         }
     }
 

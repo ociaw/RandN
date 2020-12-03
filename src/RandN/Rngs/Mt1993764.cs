@@ -107,7 +107,7 @@ namespace RandN.Rngs
         /// <summary>
         /// Gets the <see cref="Mt1993764" /> factory.
         /// </summary>
-        public static Factory GetFactory() => new Factory();
+        public static Factory GetFactory() => new();
 
         /// <inheritdoc />
         public UInt32 NextUInt32() => Filler.NextUInt32ViaUInt64(this);

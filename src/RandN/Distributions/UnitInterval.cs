@@ -28,7 +28,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="ClosedOpenSingle" />.
             /// </summary>
-            public static ClosedOpenSingle Instance { get; } = new ClosedOpenSingle();
+            public static ClosedOpenSingle Instance { get; } = new();
 
             /// <inheritdoc />
             public Single Sample<TRng>(TRng rng) where TRng : notnull, IRng
@@ -59,7 +59,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="OpenClosedSingle" />.
             /// </summary>
-            public static OpenClosedSingle Instance { get; } = new OpenClosedSingle();
+            public static OpenClosedSingle Instance { get; } = new();
 
             /// <inheritdoc />
             public Single Sample<TRng>(TRng rng) where TRng : notnull, IRng
@@ -90,7 +90,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="ClosedSingle" />.
             /// </summary>
-            public static ClosedSingle Instance { get; } = new ClosedSingle();
+            public static ClosedSingle Instance { get; } = new();
 
             /// <inheritdoc />
             public Single Sample<TRng>(TRng rng) where TRng : notnull, IRng
@@ -121,7 +121,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="OpenSingle" />.
             /// </summary>
-            public static OpenSingle Instance { get; } = new OpenSingle();
+            public static OpenSingle Instance { get; } = new();
 
             /// <inheritdoc />
             public Single Sample<TRng>(TRng rng) where TRng : notnull, IRng
@@ -152,7 +152,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="ClosedOpenDouble" />.
             /// </summary>
-            public static ClosedOpenDouble Instance { get; } = new ClosedOpenDouble();
+            public static ClosedOpenDouble Instance { get; } = new();
 
             /// <inheritdoc />
             public Double Sample<TRng>(TRng rng) where TRng : notnull, IRng
@@ -183,7 +183,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="OpenClosedDouble" />.
             /// </summary>
-            public static OpenClosedDouble Instance { get; } = new OpenClosedDouble();
+            public static OpenClosedDouble Instance { get; } = new();
 
             /// <inheritdoc />
             public Double Sample<TRng>(TRng rng) where TRng : notnull, IRng
@@ -214,7 +214,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="ClosedDouble" />.
             /// </summary>
-            public static ClosedDouble Instance { get; } = new ClosedDouble();
+            public static ClosedDouble Instance { get; } = new();
 
             /// <inheritdoc />
             public Double Sample<TRng>(TRng rng) where TRng : notnull, IRng
@@ -245,7 +245,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="OpenDouble" />.
             /// </summary>
-            public static OpenDouble Instance { get; } = new OpenDouble();
+            public static OpenDouble Instance { get; } = new();
 
             /// <inheritdoc />
             public Double Sample<TRng>(TRng rng) where TRng : notnull, IRng

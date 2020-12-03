@@ -60,7 +60,7 @@ namespace RandN.Rngs
         /// <summary>
         /// Gets the <see cref="XorShift" /> factory.
         /// </summary>
-        public static Factory GetFactory() => new Factory();
+        public static Factory GetFactory() => new();
 
         /// <inheritdoc />
         public UInt32 NextUInt32()
@@ -97,7 +97,7 @@ namespace RandN.Rngs
             public Pcg32 Create(Seed seed) => Pcg32.Create(seed.State, seed.Stream);
 
             /// <inheritdoc />
-            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng => new Seed(seedingRng.NextUInt64(), seedingRng.NextUInt64());
+            public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng => new(seedingRng.NextUInt64(), seedingRng.NextUInt64());
         }
 
         /// <summary>

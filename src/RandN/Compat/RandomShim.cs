@@ -49,6 +49,6 @@ namespace RandN.Compat
         /// <summary>
         /// Constructs a new <see cref="Random"/> wrapper over <paramref name="rng"/> .
         /// </summary>
-        public static RandomShim<TRng> Create<TRng>(TRng rng) where TRng : notnull, IRng => new RandomShim<TRng>(rng);
+        public static RandomShim<TRng> Create<TRng>(TRng rng) where TRng : notnull, IRng => new(rng);
     }
 }

@@ -47,7 +47,7 @@ namespace RandN.Rngs
         /// <summary>
         /// Gets the XorShift factory.
         /// </summary>
-        public static Factory GetFactory() => new Factory();
+        public static Factory GetFactory() => new();
 
         /// <inheritdoc />
         public UInt32 NextUInt32()

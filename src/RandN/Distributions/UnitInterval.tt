@@ -41,7 +41,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="ClosedOpen<#= type #>" />.
             /// </summary>
-            public static ClosedOpen<#= type #> Instance { get; } = new ClosedOpen<#= type #>();
+            public static ClosedOpen<#= type #> Instance { get; } = new();
 
             /// <inheritdoc />
             public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
@@ -72,7 +72,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="OpenClosed<#= type #>" />.
             /// </summary>
-            public static OpenClosed<#= type #> Instance { get; } = new OpenClosed<#= type #>();
+            public static OpenClosed<#= type #> Instance { get; } = new();
 
             /// <inheritdoc />
             public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
@@ -103,7 +103,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="Closed<#= type #>" />.
             /// </summary>
-            public static Closed<#= type #> Instance { get; } = new Closed<#= type #>();
+            public static Closed<#= type #> Instance { get; } = new();
 
             /// <inheritdoc />
             public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
@@ -134,7 +134,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="Open<#= type #>" />.
             /// </summary>
-            public static Open<#= type #> Instance { get; } = new Open<#= type #>();
+            public static Open<#= type #> Instance { get; } = new();
 
             /// <inheritdoc />
             public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng

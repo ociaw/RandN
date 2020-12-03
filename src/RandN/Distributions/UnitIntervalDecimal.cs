@@ -12,7 +12,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="ClosedOpenDecimal" />.
             /// </summary>
-            public static ClosedOpenDecimal Instance { get; } = new ClosedOpenDecimal();
+            public static ClosedOpenDecimal Instance { get; } = new();
 
             /// <inheritdoc />
             public Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng
@@ -38,7 +38,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="OpenClosedDecimal" />.
             /// </summary>
-            public static OpenClosedDecimal Instance { get; } = new OpenClosedDecimal();
+            public static OpenClosedDecimal Instance { get; } = new();
 
             /// <inheritdoc />
             public Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng
@@ -64,7 +64,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="ClosedDecimal" />.
             /// </summary>
-            public static ClosedDecimal Instance { get; } = new ClosedDecimal();
+            public static ClosedDecimal Instance { get; } = new();
 
             /// <inheritdoc />
             public Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng
@@ -90,7 +90,7 @@ namespace RandN.Distributions
             /// <summary>
             /// Gets the instance of <see cref="ClosedDecimal" />.
             /// </summary>
-            public static OpenDecimal Instance { get; } = new OpenDecimal();
+            public static OpenDecimal Instance { get; } = new();
 
             /// <inheritdoc />
             public Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng

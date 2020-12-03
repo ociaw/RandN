@@ -22,12 +22,12 @@ namespace RandN.Rngs
         /// <summary>
         /// Creates a new instance of <see cref="CryptoServiceProvider"/>.
         /// </summary>
-        public static CryptoServiceProvider Create() => new CryptoServiceProvider(new RNGCryptoServiceProvider());
+        public static CryptoServiceProvider Create() => new(new RNGCryptoServiceProvider());
 
         /// <summary>
         /// Returns a singleton instance of <see cref="CryptoServiceProvider.Factory"/>.
         /// </summary>
-        public static Factory GetFactory() => new Factory();
+        public static Factory GetFactory() => new();
 
         /// <inheritdoc />
         public UInt32 NextUInt32() => _buffer.NextUInt32();

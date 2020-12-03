@@ -9,7 +9,7 @@ namespace RandN
     /// </summary>
     public sealed class ThreadLocalRng : IRng, ICryptoRng
     {
-        private static readonly ThreadLocal<ChaCha> _threadLocal = new ThreadLocal<ChaCha>(() =>
+        private static readonly ThreadLocal<ChaCha> _threadLocal = new(() =>
         {
             using var seeder = CryptoServiceProvider.Create();
             return ChaCha.GetChaCha8Factory().Create(seeder);
@@ -18,7 +18,7 @@ namespace RandN
         /// <summary>
         /// The singleton instance of <see cref="ThreadLocalRng"/>.
         /// </summary>
-        public static ThreadLocalRng Instance { get; } = new ThreadLocalRng();
+        public static ThreadLocalRng Instance { get; } = new();
 
         /// <inheritdoc />
         public void Fill(Span<Byte> buffer) => _threadLocal.Value!.Fill(buffer);
