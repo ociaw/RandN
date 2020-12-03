@@ -7,6 +7,7 @@ using System;
 using Xunit;
 using RandN.Rngs;
 using RandN.Implementation;
+// ReSharper disable RedundantCast
 
 /*** This file is auto generated - any changes made here will be lost. ***/
 namespace RandN.Distributions

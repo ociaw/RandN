@@ -4,6 +4,8 @@
 
 
 using System;
+// ReSharper disable RedundantCast
+// ReSharper disable RedundantOverflowCheckingContext
 
 /*** This file is auto generated - any changes made here will be lost. ***/
 namespace RandN.Distributions

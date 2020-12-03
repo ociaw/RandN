@@ -1,6 +1,8 @@
 using System;
 using BenchmarkDotNet.Attributes;
 using RandN.Distributions;
+// ReSharper disable RedundantCast
+// ReSharper disable RedundantOverflowCheckingContext
 
 namespace RandN.Benchmarks
 {

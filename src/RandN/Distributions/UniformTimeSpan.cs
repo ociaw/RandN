@@ -1,4 +1,5 @@
 using System;
+// ReSharper disable RedundantNameQualifier
 
 namespace RandN.Distributions
 {
@@ -9,7 +10,7 @@ namespace RandN.Distributions
         /// </summary>
         public readonly struct TimeSpan : IPortableDistribution<System.TimeSpan>
         {
-            private readonly Uniform.Int64 _backing;
+            private readonly Int64 _backing;
 
             private TimeSpan(Uniform.Int64 backing) => _backing = backing;
 
