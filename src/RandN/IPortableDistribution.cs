@@ -2,7 +2,7 @@ namespace RandN
 {
     /// <summary>
     /// A marker interface used to indicate that an <see cref="IDistribution{TResult}"/>
-    /// is portable - i.e. reproducible regardless of the machine arcitecture or runtime.
+    /// is portable - i.e. reproducible regardless of the machine architecture or runtime.
     /// Produces portable values random of <typeparamref name="TResult"/>.
     /// </summary>
     /// <remarks>

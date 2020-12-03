@@ -8,7 +8,7 @@ using System;
 namespace RandN.Distributions
 {
     /// <summary>
-    /// A uniform distribution where each possible value has an equal probability of occuring.
+    /// A uniform distribution where each possible value has an equal probability of occurring.
     /// </summary>
     public static partial class Uniform
     {
