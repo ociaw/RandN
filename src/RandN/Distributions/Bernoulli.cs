@@ -20,7 +20,7 @@ namespace RandN.Distributions
         /// <summary>
         /// 2^64
         /// </summary>
-        private const Double SCALE = 2.0 * (1ul << 63);
+        private const Double Scale = 2.0 * (1ul << 63);
 
         private Bernoulli(UInt64 p, Boolean alwaysTrue)
         {
@@ -43,7 +43,7 @@ namespace RandN.Distributions
             if (p == 1.0)
                 return new Bernoulli(0, true);
 
-            return new Bernoulli((UInt64)(p * SCALE), false);
+            return new Bernoulli((UInt64)(p * Scale), false);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace RandN.Distributions
             if (numerator == denominator)
                 return new Bernoulli(0, true);
 
-            var p = (Double)numerator / denominator * SCALE;
+            var p = (Double)numerator / denominator * Scale;
             return new Bernoulli((UInt64)p, false);
         }
 

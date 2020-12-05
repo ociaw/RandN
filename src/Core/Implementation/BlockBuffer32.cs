@@ -60,7 +60,7 @@ namespace RandN.Implementation
         /// <inheritdoc />
         public UInt64 NextUInt64()
         {
-            static UInt64 readUInt64(ReadOnlySpan<UInt32> results) => ((UInt64)results[1] << 32) | results[0];
+            static UInt64 ReadUInt64(ReadOnlySpan<UInt32> results) => ((UInt64)results[1] << 32) | results[0];
 
             Span<UInt32> span = _results;
             Int32 length = _rng.BlockLength;
@@ -68,14 +68,14 @@ namespace RandN.Implementation
             {
                 // Sufficient words left in the block, so read the first 2.
                 Index += 2;
-                return readUInt64(span.Slice(Index - 2));
+                return ReadUInt64(span.Slice(Index - 2));
             }
 
             if (Index >= length)
             {
                 // No more words left in the block, so regenerate it, then read 2 from the beginning.
                 GenerateAndSet(2);
-                return readUInt64(span);
+                return ReadUInt64(span);
             }
 
             // One word left, read it, regenerate the block, then read the first word from that.
@@ -179,7 +179,7 @@ namespace RandN.Implementation
         /// <inheritdoc />
         public UInt64 NextUInt64()
         {
-            static UInt64 readUInt64(ReadOnlySpan<UInt32> results) => ((UInt64)results[1] << 32) | results[0];
+            static UInt64 ReadUInt64(ReadOnlySpan<UInt32> results) => ((UInt64)results[1] << 32) | results[0];
 
             Span<UInt32> span = _results;
             Int32 length = _rng.BlockLength;
@@ -187,14 +187,14 @@ namespace RandN.Implementation
             {
                 // Sufficient words left in the block, so read the first 2.
                 Index += 2;
-                return readUInt64(span.Slice(Index - 2));
+                return ReadUInt64(span.Slice(Index - 2));
             }
 
             if (Index >= length)
             {
                 // No more words left in the block, so regenerate it, then read 2 from the beginning.
                 GenerateAndSet(2);
-                return readUInt64(span);
+                return ReadUInt64(span);
             }
 
             // One word left, read it, regenerate the block, then read the first word from that.

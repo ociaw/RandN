@@ -4,10 +4,10 @@ using RandN.Rngs;
 
 namespace RandN.Benchmarks
 {
-    [RngConfig(ITERATIONS * sizeof(UInt32))]
+    [RngConfig(Iterations * sizeof(UInt32))]
     public class RngUInt32
     {
-        public const Int32 ITERATIONS = 4096;
+        public const Int32 Iterations = 4096;
 
         private readonly ChaCha _chaCha8;
         private readonly ChaCha _chaCha12;
@@ -34,7 +34,7 @@ namespace RandN.Benchmarks
         public UInt32 ChaCha8()
         {
             UInt32 sum = 0;
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            for (Int32 i = 0; i < Iterations; i++)
                 sum = unchecked(sum + _chaCha8.NextUInt32());
             return sum;
         }
@@ -43,7 +43,7 @@ namespace RandN.Benchmarks
         public UInt32 ChaCha12()
         {
             UInt32 sum = 0;
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            for (Int32 i = 0; i < Iterations; i++)
                 sum = unchecked(sum + _chaCha12.NextUInt32());
             return sum;
         }
@@ -52,7 +52,7 @@ namespace RandN.Benchmarks
         public UInt32 ChaCha20()
         {
             UInt32 sum = 0;
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            for (Int32 i = 0; i < Iterations; i++)
                 sum = unchecked(sum + _chaCha20.NextUInt32());
             return sum;
         }
@@ -61,7 +61,7 @@ namespace RandN.Benchmarks
         public UInt32 Mt1993764()
         {
             UInt32 sum = 0;
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            for (Int32 i = 0; i < Iterations; i++)
                 sum = unchecked(sum + _mt1993764.NextUInt32());
             return sum;
         }
@@ -70,7 +70,7 @@ namespace RandN.Benchmarks
         public UInt32 Pcg32()
         {
             UInt32 sum = 0;
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            for (Int32 i = 0; i < Iterations; i++)
                 sum = unchecked(sum + _pcg32.NextUInt32());
             return sum;
         }
@@ -79,7 +79,7 @@ namespace RandN.Benchmarks
         public UInt32 XorShift()
         {
             UInt32 sum = 0;
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            for (Int32 i = 0; i < Iterations; i++)
                 sum = unchecked(sum + _xorShift.NextUInt32());
             return sum;
         }
@@ -88,7 +88,7 @@ namespace RandN.Benchmarks
         public UInt32 CryptoServiceProvider()
         {
             UInt32 sum = 0;
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            for (Int32 i = 0; i < Iterations; i++)
                 sum = unchecked(sum + _cryptoServiceProvider.NextUInt32());
             return sum;
         }
@@ -101,7 +101,7 @@ namespace RandN.Benchmarks
         {
             // Not actually equivalent to NextUInt32, since it doesn't cover the full 32-bit range.
             UInt32 sum = 0;
-            for (Int32 i = 0; i < ITERATIONS - 1; i++)
+            for (Int32 i = 0; i < Iterations - 1; i++)
                 sum = unchecked(sum + (UInt32)_random.Next(Int32.MinValue, Int32.MaxValue));
             return sum;
         }

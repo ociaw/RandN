@@ -90,9 +90,9 @@ namespace RandN.Distributions
 
             static void Average(Decimal low, Decimal high, UInt64 seed)
             {
-                const Decimal Sqr3 = 1.7320508075688772935274463415m;
+                const Decimal sqr3 = 1.7320508075688772935274463415m;
                 var populationMean = high / 2 + low / 2;
-                var popStdDev = 1.0m / Sqr3 * (high / 2 - low / 2);
+                var popStdDev = 1.0m / sqr3 * (high / 2 - low / 2);
 
                 var exclusiveDist = Uniform.New(low, high);
                 var inclusiveDist = Uniform.NewInclusive(low, high);

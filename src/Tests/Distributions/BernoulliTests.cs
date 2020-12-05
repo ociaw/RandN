@@ -44,18 +44,18 @@ namespace RandN.Distributions
         [Fact]
         public void Average()
         {
-            const UInt32 NUMERATOR = 3;
-            const UInt32 DENOMINATOR = 10;
-            const Double P = (Double)NUMERATOR / DENOMINATOR;
-            const UInt64 SAMPLE_COUNT = 100_000;
+            const UInt32 numerator = 3;
+            const UInt32 denominator = 10;
+            const Double p = (Double)numerator / denominator;
+            const UInt64 sampleCount = 100_000;
 
             var rng1 = Mt1993764.Create(5489);
             var rng2 = Mt1993764.Create(5489);
-            var ratioDist = Bernoulli.FromRatio(NUMERATOR, DENOMINATOR);
-            var pDist = Bernoulli.FromP(P);
+            var ratioDist = Bernoulli.FromRatio(numerator, denominator);
+            var pDist = Bernoulli.FromP(p);
 
             UInt64 sum = 0;
-            for (UInt64 i = 0; i < SAMPLE_COUNT; i++)
+            for (UInt64 i = 0; i < sampleCount; i++)
             {
                 Assert.True(ratioDist.TrySample(rng1, out Boolean result1));
                 Assert.True(pDist.TrySample(rng2, out Boolean result2));
@@ -65,7 +65,7 @@ namespace RandN.Distributions
                     sum++;
             }
 
-            Assert.True(Statistics.WithinConfidenceBernoulli(sum, P, SAMPLE_COUNT));
+            Assert.True(Statistics.WithinConfidenceBernoulli(sum, p, sampleCount));
         }
 
         [Fact]

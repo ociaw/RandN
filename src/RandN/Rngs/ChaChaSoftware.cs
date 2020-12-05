@@ -15,7 +15,7 @@ namespace RandN.Rngs
     /// </summary>
     internal sealed class ChaChaSoftware : ISeekableBlockRngCore<UInt32, UInt64>
     {
-        private static readonly UInt32[] _constant = new[]
+        private static readonly UInt32[] Constant = new[]
         {
             // "expa"
             0x61707865u,
@@ -28,12 +28,12 @@ namespace RandN.Rngs
         };
 
         private readonly UInt32[] _state;
-        private readonly UInt32 DoubleRounds;
+        private readonly UInt32 _doubleRounds;
 
         private ChaChaSoftware(UInt32[] state, UInt32 doubleRounds)
         {
             _state = state;
-            DoubleRounds = doubleRounds;
+            _doubleRounds = doubleRounds;
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace RandN.Rngs
             var state = new UInt32[ChaCha.WordCount];
             var stateSpan = state.AsSpan();
 
-            _constant.CopyTo(stateSpan);
+            Constant.CopyTo(stateSpan);
             stateSpan = stateSpan.Slice(ChaCha.ConstantLength);
             key.CopyTo(stateSpan);
 
@@ -113,7 +113,7 @@ namespace RandN.Rngs
         /// <param name="counter">The counter used in the nonce.</param>
         private void FullBlock(Span<UInt32> destination, UInt64 counter)
         {
-            Debug.Assert(DoubleRounds != 0);
+            Debug.Assert(_doubleRounds != 0);
             Debug.Assert(destination.Length >= ChaCha.WordCount);
 
             _state[12] = counter.IsolateLow();
@@ -124,7 +124,7 @@ namespace RandN.Rngs
             destination[12] = counter.IsolateLow();
             destination[13] = counter.IsolateHigh();
 
-            for (var i = 0; i < DoubleRounds; i++)
+            for (var i = 0; i < _doubleRounds; i++)
                 InnerBlock(destination);
 
             unchecked

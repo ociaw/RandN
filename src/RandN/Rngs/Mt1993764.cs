@@ -66,18 +66,18 @@ namespace RandN.Rngs
         /// </summary>
         public static Mt1993764 Create(UInt64[] seed)
         {
-            const UInt64 INITIAL_SEED = 19650218ul;
-            const UInt64 F1 = 3935559000370003845ul;
-            const UInt64 F2 = 2862933555777941757ul;
+            const UInt64 initialSeed = 19650218ul;
+            const UInt64 f1 = 3935559000370003845ul;
+            const UInt64 f2 = 2862933555777941757ul;
 
-            var rng = Create(INITIAL_SEED);
+            var rng = Create(initialSeed);
             var state = rng._state;
             Int32 stateIndex = 1;
             Int32 seedIndex = 0;
             Int32 iterationCount = Math.Max(RecurrenceDegree, seed.Length);
             for (Int32 i = 0; i < iterationCount; i++)
             {
-                state[stateIndex] = unchecked((state[stateIndex] ^ ((state[stateIndex - 1] ^ (state[stateIndex - 1] >> 62)) * F1)) + seed[seedIndex] + (UInt64)seedIndex);
+                state[stateIndex] = unchecked((state[stateIndex] ^ ((state[stateIndex - 1] ^ (state[stateIndex - 1] >> 62)) * f1)) + seed[seedIndex] + (UInt64)seedIndex);
                 stateIndex += 1;
                 seedIndex += 1;
                 if (stateIndex >= state.Length)
@@ -91,7 +91,7 @@ namespace RandN.Rngs
 
             for (Int32 k = state.Length - 1; k > 0; k--)
             {
-                state[stateIndex] = unchecked((state[stateIndex] ^ ((state[stateIndex - 1] ^ (state[stateIndex - 1] >> 62)) * F2)) - (UInt64)stateIndex);
+                state[stateIndex] = unchecked((state[stateIndex] ^ ((state[stateIndex - 1] ^ (state[stateIndex - 1] >> 62)) * f2)) - (UInt64)stateIndex);
                 stateIndex += 1;
                 if (stateIndex >= state.Length)
                 {

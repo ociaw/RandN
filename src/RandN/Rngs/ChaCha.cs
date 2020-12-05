@@ -113,10 +113,10 @@ namespace RandN.Rngs
         /// </summary>
         public readonly struct Factory8 : IReproducibleRngFactory<ChaCha, Seed>
         {
-            private const UInt32 DOUBLE_ROUNDS = 4;
+            private const UInt32 DoubleRounds = 4;
 
             /// <inheritdoc />
-            public ChaCha Create(Seed seed) => ChaCha.Create(seed, DOUBLE_ROUNDS);
+            public ChaCha Create(Seed seed) => ChaCha.Create(seed, DoubleRounds);
 
             /// <inheritdoc />
             public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
@@ -134,10 +134,10 @@ namespace RandN.Rngs
         /// </summary>
         public readonly struct Factory12 : IReproducibleRngFactory<ChaCha, Seed>
         {
-            private const UInt32 DOUBLE_ROUNDS = 6;
+            private const UInt32 DoubleRounds = 6;
 
             /// <inheritdoc />
-            public ChaCha Create(Seed seed) => ChaCha.Create(seed, DOUBLE_ROUNDS);
+            public ChaCha Create(Seed seed) => ChaCha.Create(seed, DoubleRounds);
 
             /// <inheritdoc />
             public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
@@ -155,10 +155,10 @@ namespace RandN.Rngs
         /// </summary>
         public readonly struct Factory20 : IReproducibleRngFactory<ChaCha, Seed>
         {
-            private const UInt32 DOUBLE_ROUNDS = 10;
+            private const UInt32 DoubleRounds = 10;
 
             /// <inheritdoc />
-            public ChaCha Create(Seed seed) => ChaCha.Create(seed, DOUBLE_ROUNDS);
+            public ChaCha Create(Seed seed) => ChaCha.Create(seed, DoubleRounds);
 
             /// <inheritdoc />
             public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng

@@ -4,11 +4,11 @@ using RandN.Rngs;
 
 namespace RandN.Benchmarks
 {
-    [RngConfig(ITERATIONS * BUFFER_LENGTH)]
+    [RngConfig(Iterations * BufferLength)]
     public class RngFill
     {
-        public const Int32 ITERATIONS = 1024;
-        public const Int32 BUFFER_LENGTH = 1024;
+        public const Int32 Iterations = 1024;
+        public const Int32 BufferLength = 1024;
 
         private readonly ChaCha _chaCha8;
         private readonly ChaCha _chaCha12;
@@ -20,7 +20,7 @@ namespace RandN.Benchmarks
         private readonly Random _random;
 
 #if NET472
-        private readonly Byte[] _buffer = new Byte[BUFFER_LENGTH];
+        private readonly Byte[] _buffer = new Byte[BufferLength];
 #endif
         public RngFill()
         {
@@ -37,56 +37,56 @@ namespace RandN.Benchmarks
         [Benchmark]
         public void ChaCha8()
         {
-            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            Span<Byte> buffer = stackalloc Byte[BufferLength];
+            for (Int32 i = 0; i < Iterations; i++)
                 _chaCha8.Fill(buffer);
         }
 
         [Benchmark]
         public void ChaCha12()
         {
-            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            Span<Byte> buffer = stackalloc Byte[BufferLength];
+            for (Int32 i = 0; i < Iterations; i++)
                 _chaCha12.Fill(buffer);
         }
 
         [Benchmark]
         public void ChaCha20()
         {
-            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            Span<Byte> buffer = stackalloc Byte[BufferLength];
+            for (Int32 i = 0; i < Iterations; i++)
                 _chaCha20.Fill(buffer);
         }
 
         [Benchmark]
         public void Mt1993764()
         {
-            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            Span<Byte> buffer = stackalloc Byte[BufferLength];
+            for (Int32 i = 0; i < Iterations; i++)
                 _mt1993764.Fill(buffer);
         }
 
         [Benchmark]
         public void Pcg32()
         {
-            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            Span<Byte> buffer = stackalloc Byte[BufferLength];
+            for (Int32 i = 0; i < Iterations; i++)
                 _pcg32.Fill(buffer);
         }
 
         [Benchmark]
         public void XorShift()
         {
-            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            Span<Byte> buffer = stackalloc Byte[BufferLength];
+            for (Int32 i = 0; i < Iterations; i++)
                 _xorShift.Fill(buffer);
         }
 
         [Benchmark]
         public void CryptoServiceProvider()
         {
-            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            Span<Byte> buffer = stackalloc Byte[BufferLength];
+            for (Int32 i = 0; i < Iterations; i++)
                 _cryptoServiceProvider.Fill(buffer);
         }
 
@@ -97,11 +97,11 @@ namespace RandN.Benchmarks
         public void SystemRandom()
         {
 #if NET472
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            for (Int32 i = 0; i < Iterations; i++)
                 _random.NextBytes(_buffer);
 #else
-            Span<Byte> buffer = stackalloc Byte[BUFFER_LENGTH];
-            for (Int32 i = 0; i < ITERATIONS; i++)
+            Span<Byte> buffer = stackalloc Byte[BufferLength];
+            for (Int32 i = 0; i < Iterations; i++)
                 _random.NextBytes(buffer);
 #endif
         }

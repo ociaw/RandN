@@ -32,7 +32,7 @@ namespace RandN.Rngs
     /// </remarks>
     public sealed class Pcg32 : IRng
     {
-        private const UInt64 MULTIPLIER = 6364136223846793005;
+        private const UInt64 Multiplier = 6364136223846793005;
 
         private UInt64 _state;
         private readonly UInt64 _increment;
@@ -70,14 +70,14 @@ namespace RandN.Rngs
 
             // Output function XSH RR: xorshift high (bits), followed by a random rotate
             // Constants are for 64-bit state, 32-bit output
-            const Int32 ROTATE = 59; // 64 - 5
-            const Int32 XSHIFT = 18; // (5 + 32) / 2
-            const Int32 SPARE = 27; // 64 - 32 - 5
+            const Int32 rotate = 59; // 64 - 5
+            const Int32 xShift = 18; // (5 + 32) / 2
+            const Int32 spare = 27; // 64 - 32 - 5
 
-            var rotation = unchecked((Int32)(state >> ROTATE));
-            var xShift = unchecked((UInt32)(((state >> XSHIFT) ^ state) >> SPARE));
+            var rotation = unchecked((Int32)(state >> rotate));
+            var xs = unchecked((UInt32)(((state >> xShift) ^ state) >> spare));
             // Rotate Right
-            return (xShift >> rotation) | (xShift << (32 - rotation));
+            return (xs >> rotation) | (xs << (32 - rotation));
         }
 
         /// <inheritdoc />
@@ -86,7 +86,7 @@ namespace RandN.Rngs
         /// <inheritdoc />
         public void Fill(Span<Byte> buffer) => Filler.FillBytesViaNext(this, buffer);
 
-        private void Step() => _state = unchecked(_state * MULTIPLIER + _increment);
+        private void Step() => _state = unchecked(_state * Multiplier + _increment);
 
         /// <summary>
         /// Produces Pcg32 RNGs and seeds.
