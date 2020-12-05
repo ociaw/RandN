@@ -6,7 +6,7 @@ namespace RandN
     /// <summary>
     /// A cryptographically secure RNG with good performance.
     /// </summary>
-    public sealed class StandardRng : ICryptoRng
+    public sealed class StandardRng : IRng, ICryptoRng
     {
         private readonly ChaCha _wrapped;
 

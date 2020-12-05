@@ -6,7 +6,7 @@ namespace RandN.Implementation
     /// Assists in implementing block based RNGs.
     /// </summary>
     public sealed class BlockBuffer32<TBlockRng> : IRng
-        where TBlockRng : IBlockRngCore<UInt32>
+        where TBlockRng : notnull, IBlockRngCore<UInt32>
     {
         private readonly TBlockRng _rng;
         private readonly UInt32[] _results;

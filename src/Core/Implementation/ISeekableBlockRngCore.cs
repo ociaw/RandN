@@ -6,7 +6,7 @@ namespace RandN.Implementation
     /// Represents a block RNG that can be seeked.
     /// </summary>
     public interface ISeekableBlockRngCore<TItem, TBlockCounter> : IBlockRngCore<TItem>
-        where TBlockCounter : IEquatable<TBlockCounter>
+        where TBlockCounter : notnull, IEquatable<TBlockCounter>
     {
         /// <summary>
         /// The current position of the RNG core.

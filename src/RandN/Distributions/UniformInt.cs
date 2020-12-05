@@ -64,7 +64,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public System.SByte Sample<TRng>(TRng rng) where TRng : IRng
+            public System.SByte Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -81,7 +81,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out System.SByte result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.SByte result) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -154,7 +154,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public System.Int16 Sample<TRng>(TRng rng) where TRng : IRng
+            public System.Int16 Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -171,7 +171,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out System.Int16 result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.Int16 result) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -244,7 +244,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public System.Int32 Sample<TRng>(TRng rng) where TRng : IRng
+            public System.Int32 Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -261,7 +261,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out System.Int32 result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.Int32 result) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -334,7 +334,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public System.Int64 Sample<TRng>(TRng rng) where TRng : IRng
+            public System.Int64 Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt64();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -351,7 +351,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out System.Int64 result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.Int64 result) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt64();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -424,7 +424,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public System.Byte Sample<TRng>(TRng rng) where TRng : IRng
+            public System.Byte Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -441,7 +441,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out System.Byte result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.Byte result) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -514,7 +514,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public System.UInt16 Sample<TRng>(TRng rng) where TRng : IRng
+            public System.UInt16 Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -531,7 +531,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out System.UInt16 result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.UInt16 result) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -604,7 +604,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public System.UInt32 Sample<TRng>(TRng rng) where TRng : IRng
+            public System.UInt32 Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -621,7 +621,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out System.UInt32 result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.UInt32 result) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt32();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -694,7 +694,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public System.UInt64 Sample<TRng>(TRng rng) where TRng : IRng
+            public System.UInt64 Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt64();
                 if (_range == 0) // 0 is a special case where we sample the entire range.
@@ -711,7 +711,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out System.UInt64 result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.UInt64 result) where TRng : notnull, IRng
             {
                 var unsigned = rng.NextUInt64();
                 if (_range == 0) // 0 is a special case where we sample the entire range.

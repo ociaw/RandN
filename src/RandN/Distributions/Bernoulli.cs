@@ -66,10 +66,10 @@ namespace RandN.Distributions
         public static Bernoulli FromInverse(UInt64 numerator) => new(numerator, false);
 
         /// <inheritdoc />
-        public Boolean Sample<TRng>(TRng rng) where TRng : IRng => _alwaysTrue || rng.NextUInt64() < _p;
+        public Boolean Sample<TRng>(TRng rng) where TRng : notnull, IRng => _alwaysTrue || rng.NextUInt64() < _p;
 
         /// <inheritdoc />
-        public Boolean TrySample<TRng>(TRng rng, out Boolean result) where TRng : IRng
+        public Boolean TrySample<TRng>(TRng rng, out Boolean result) where TRng : notnull, IRng
         {
             result = Sample(rng);
             return true;

@@ -104,7 +104,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public System.Single Sample<TRng>(TRng rng) where TRng : IRng
+            public System.Single Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // Generate a value in the range [1, 2)
                 var sample = rng.NextUInt32();
@@ -118,7 +118,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out System.Single result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.Single result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;
@@ -216,7 +216,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public System.Double Sample<TRng>(TRng rng) where TRng : IRng
+            public System.Double Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // Generate a value in the range [1, 2)
                 var sample = rng.NextUInt64();
@@ -230,7 +230,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out System.Double result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.Double result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;

@@ -116,7 +116,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public <#= type #> Sample<TRng>(TRng rng) where TRng : IRng
+            public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // Generate a value in the range [1, 2)
                 var sample = rng.Next<#= rngNext #>();
@@ -130,7 +130,7 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : IRng
+            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;

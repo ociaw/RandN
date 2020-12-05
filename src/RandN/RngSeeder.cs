@@ -7,8 +7,8 @@ namespace RandN
     /// Creates instances of an <see cref="IRng"/> using automatically generated seeds.
     /// </summary>
     public sealed class RngSeeder<TRng, TSeedingRng, TSeed> : IRngFactory<TRng>, IDisposable
-        where TRng : IRng
-        where TSeedingRng : IRng
+        where TRng : notnull, IRng
+        where TSeedingRng : notnull, IRng
     {
         private readonly TSeedingRng _seedSource;
 
@@ -49,7 +49,7 @@ namespace RandN
         /// Creates an auto seeding RNG factory with the given RNG factory and <see cref="CryptoServiceProvider"/> as a seed source.
         /// </summary>
         public static RngSeeder<TRng, CryptoServiceProvider, TSeed> Create<TRng, TSeed>(IReproducibleRngFactory<TRng, TSeed> rngFactory)
-            where TRng : IRng
+            where TRng : notnull, IRng
         {
             if (rngFactory == null)
                 throw new ArgumentNullException(nameof(rngFactory));
@@ -62,8 +62,8 @@ namespace RandN
         /// Creates an auto seeding RNG factory with the given RNG Factory and seed source.
         /// </summary>
         public static RngSeeder<TRng, TSeedingRng, TSeed> Create<TRng, TSeedingRng, TSeed>(IReproducibleRngFactory<TRng, TSeed> rngFactory, TSeedingRng seedSource)
-            where TRng : IRng
-            where TSeedingRng : IRng
+            where TRng : notnull, IRng
+            where TSeedingRng : notnull, IRng
         {
             if (rngFactory == null)
                 throw new ArgumentNullException(nameof(rngFactory));
