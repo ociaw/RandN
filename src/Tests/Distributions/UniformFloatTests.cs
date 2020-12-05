@@ -126,7 +126,7 @@ namespace RandN.Distributions
             var maxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = 0 };
 
 
-            var vectorsSingle = new (Single, Single)[]
+            var vectorsSingle = new []
             {
                 (0.0f, 100.0f),
                 (-1e35f, -1e25f),
@@ -179,7 +179,7 @@ namespace RandN.Distributions
             var minSingleInclusive = Uniform.NewInclusive(-Single.MaxValue, -Single.MaxValue);
             Assert.Equal(-Single.MaxValue, minSingleInclusive.Sample(rng));
 
-            var vectorsDouble = new (Double, Double)[]
+            var vectorsDouble = new []
             {
                 (0.0d, 100.0d),
                 (-1e35d, -1e25d),

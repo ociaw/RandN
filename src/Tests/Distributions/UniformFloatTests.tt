@@ -97,7 +97,7 @@ namespace RandN.Distributions
     String uintSuffix = param.uintSuffix;
     String bitsDiscarded = param.bitsDiscarded.ToString();
 #>
-            var vectors<#= type #> = new (<#= type #>, <#= type #>)[]
+            var vectors<#= type #> = new []
             {
                 (0.0<#= floatSuffix #>, 100.0<#= floatSuffix #>),
                 (-1e35<#= floatSuffix #>, -1e25<#= floatSuffix #>),

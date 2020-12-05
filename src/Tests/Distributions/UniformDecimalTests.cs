@@ -31,7 +31,7 @@ namespace RandN.Distributions
             var zeroRng = new StepRng(0) { Increment = 0 };
             var maxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = 0 };
 
-            var vectors = new (Decimal, Decimal)[]
+            var vectors = new[]
             {
                 (0, 1),
                 (-1, 0),

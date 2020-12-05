@@ -12,7 +12,7 @@ namespace RandN.Rngs
         public void ReferenceUInt64()
         {
             var factory = Mt1993764.GetFactory();
-            var seed = new UInt64[] { 0x12345ul, 0x23456ul, 0x34567ul, 0x45678ul };
+            var seed = new[] { 0x12345ul, 0x23456ul, 0x34567ul, 0x45678ul };
             var rng = factory.Create(seed);
 
             // Test data from http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/mt19937-64.out.txt

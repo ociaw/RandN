@@ -15,7 +15,7 @@ namespace RandN.Rngs
     /// </summary>
     internal sealed class ChaChaSoftware : ISeekableBlockRngCore<UInt32, UInt64>
     {
-        private static readonly UInt32[] _constant = new UInt32[]
+        private static readonly UInt32[] _constant = new[]
         {
             // "expa"
             0x61707865u,
