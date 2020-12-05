@@ -4,6 +4,7 @@ using Xunit;
 
 namespace RandN.Implementation
 {
+    // ReSharper disable once InconsistentNaming
     public sealed class BlockBuffer32_1Tests
     {
         [Fact]
@@ -75,6 +76,7 @@ namespace RandN.Implementation
         }
     }
 
+    // ReSharper disable once InconsistentNaming
     public sealed class BlockBuffer32_2Tests
     {
         [Fact]

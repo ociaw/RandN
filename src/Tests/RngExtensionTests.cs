@@ -15,7 +15,7 @@ namespace RandN
             rng.ShuffleInPlace(list);
             Assert.Equal(new[] { 2, 3, 4, 5, 6, 7, 1 }, list);
 
-            Assert.Throws<ArgumentNullException>(() => rng.ShuffleInPlace((List<Int32>)null));
+            Assert.Throws<ArgumentNullException>(() => rng.ShuffleInPlace<StepRng, Int32>(null!));
         }
 
         [Fact]

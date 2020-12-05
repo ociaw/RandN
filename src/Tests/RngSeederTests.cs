@@ -38,10 +38,10 @@ namespace RandN
             var seedSource = new StepRng(0);
             var rngFactory = new StepRng.Factory(increment: 0);
 
-            Assert.Throws<ArgumentNullException>(() => RngSeeder.Create<StepRng, StepRng, UInt64>(rngFactory, null));
-            Assert.Throws<ArgumentNullException>(() => RngSeeder.Create<StepRng, StepRng, UInt64>(null, seedSource));
-            Assert.Throws<ArgumentNullException>(() => RngSeeder.Create<StepRng, StepRng, UInt64>(null, null));
-            Assert.Throws<ArgumentNullException>(() => RngSeeder.Create<StepRng, StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => RngSeeder.Create<StepRng, StepRng, UInt64>(rngFactory, null!));
+            Assert.Throws<ArgumentNullException>(() => RngSeeder.Create<StepRng, StepRng, UInt64>(null!, seedSource));
+            Assert.Throws<ArgumentNullException>(() => RngSeeder.Create<StepRng, StepRng, UInt64>(null!, null!));
+            Assert.Throws<ArgumentNullException>(() => RngSeeder.Create<StepRng, StepRng>(null!));
         }
     }
 }

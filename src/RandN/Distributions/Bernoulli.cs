@@ -39,6 +39,7 @@ namespace RandN.Distributions
                 throw new ArgumentOutOfRangeException(nameof(p), p, $"{nameof(p)} must be greater than or equal to 0.");
             if (p > 1.0)
                 throw new ArgumentOutOfRangeException(nameof(p), p, $"{nameof(p)} must be less than or equal to 1.");
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
             if (p == 1.0)
                 return new Bernoulli(0, true);
 

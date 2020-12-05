@@ -63,7 +63,7 @@ namespace RandN.Compat
             var rng = new StepRng(0);
             var shim = RandomNumberGeneratorShim.Create(rng);
             var bytes = new Byte[32];
-            Assert.Throws<ArgumentNullException>(() => shim.GetBytes(null, 0, 10));
+            Assert.Throws<ArgumentNullException>(() => shim.GetBytes(null!, 0, 10));
             Assert.Throws<ArgumentOutOfRangeException>(() => shim.GetBytes(bytes, -10, 10));
             Assert.Throws<ArgumentOutOfRangeException>(() => shim.GetBytes(bytes, 10, -10));
             Assert.Throws<ArgumentException>(() => shim.GetBytes(bytes, 32, 1));
@@ -81,11 +81,11 @@ namespace RandN.Compat
         [Fact]
         public void NonNullable()
         {
-            Assert.Throws<ArgumentNullException>(() => RandomNumberGeneratorShim.Create<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => RandomNumberGeneratorShim.Create<StepRng>(null!));
 
             var rng = RandomNumberGeneratorShim.Create(new StepRng(0));
-            Assert.Throws<ArgumentNullException>(() => rng.GetBytes(null));
-            Assert.Throws<ArgumentNullException>(() => rng.GetNonZeroBytes(null));
+            Assert.Throws<ArgumentNullException>(() => rng.GetBytes(null!));
+            Assert.Throws<ArgumentNullException>(() => rng.GetNonZeroBytes(null!));
         }
 
         private sealed class DisposableRng : ICryptoRng, IDisposable

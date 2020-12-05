@@ -28,13 +28,13 @@ namespace RandN.Rngs
             // a shared dictionary, and then assert that the dictionary contains as many items as
             // threads were spawned. If it doesn't, that means that at least two of the RNGs equal
             // each other by reference (since they don't override Equals or GetHashCode).
-            var dictionary = new ConcurrentDictionary<ChaCha, int>();
+            var dictionary = new ConcurrentDictionary<ChaCha, Int32>();
             void GetInternalRng()
             {
                 var wrapper = ThreadLocalRng.Instance;
                 wrapper.NextUInt32(); // Make sure the RNG is instantiated
                 var threadLocalField = typeof(ThreadLocalRng).GetField("_threadLocal", BindingFlags.NonPublic | BindingFlags.Static);
-                var threadLocal = (ThreadLocal<ChaCha>)threadLocalField.GetValue(wrapper);
+                var threadLocal = (ThreadLocal<ChaCha>)threadLocalField!.GetValue(wrapper);
                 var internalRng = threadLocal.Value;
                 dictionary.TryAdd(internalRng, 0);
             }

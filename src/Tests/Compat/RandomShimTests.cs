@@ -66,10 +66,10 @@ namespace RandN.Compat
         [Fact]
         public void NonNullable()
         {
-            Assert.Throws<ArgumentNullException>(() => RandomShim.Create<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => RandomShim.Create<StepRng>(null!));
 
             var rng = RandomShim.Create(new StepRng(0));
-            Assert.Throws<ArgumentNullException>(() => rng.NextBytes(null));
+            Assert.Throws<ArgumentNullException>(() => rng.NextBytes(null!));
         }
     }
 }
