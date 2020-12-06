@@ -29,14 +29,22 @@ namespace RandN.Rngs
             // threads were spawned. If it doesn't, that means that at least two of the RNGs equal
             // each other by reference (since they don't override Equals or GetHashCode).
             var dictionary = new ConcurrentDictionary<ChaCha, Int32>();
+            var exceptions = new ConcurrentBag<Exception>();
             void GetInternalRng()
             {
-                var wrapper = ThreadLocalRng.Instance;
-                wrapper.NextUInt32(); // Make sure the RNG is instantiated
-                var threadLocalField = typeof(ThreadLocalRng).GetField("_threadLocal", BindingFlags.NonPublic | BindingFlags.Static);
-                var threadLocal = (ThreadLocal<ChaCha>)threadLocalField!.GetValue(wrapper);
-                var internalRng = threadLocal.Value;
-                dictionary.TryAdd(internalRng, 0);
+                try
+                {
+                    var wrapper = ThreadLocalRng.Instance;
+                    wrapper.NextUInt32(); // Make sure the RNG is instantiated
+                    var threadLocalField = typeof(ThreadLocalRng).GetField("ThreadLocal", BindingFlags.NonPublic | BindingFlags.Static);
+                    var threadLocal = (ThreadLocal<ChaCha>)threadLocalField!.GetValue(wrapper);
+                    var internalRng = threadLocal.Value;
+                    dictionary.TryAdd(internalRng, 0);
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Add(ex);
+                }
             }
 
             var threads = new Thread[threadCount];
@@ -49,6 +57,7 @@ namespace RandN.Rngs
             foreach (var thread in threads)
                 thread.Join();
 
+            Assert.Empty(exceptions);
             Assert.Equal(threadCount, dictionary.Count);
         }
 
