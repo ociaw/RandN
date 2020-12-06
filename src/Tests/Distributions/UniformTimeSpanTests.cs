@@ -83,8 +83,8 @@ namespace RandN.Distributions
             const Int64 midpoint = Int64.MaxValue / 2 + Int64.MinValue / 2;
             const Int64 lowInt = Int64.MinValue;
             const Int64 highInt = midpoint + 1;
-            const UInt64 maxRand = sizeof(Int64) > 4 ? UInt64.MaxValue : UInt32.MaxValue;
-            const UInt64 rangeSize = unchecked((UInt64)highInt - (UInt64)lowInt + 1);
+            const UInt64 maxRand = UInt64.MaxValue;
+            const UInt64 rangeSize = unchecked(highInt - (UInt64)lowInt + 1);
             const UInt64 rejectCount = (maxRand - rangeSize + 1) % rangeSize;
             const UInt64 lastAccepted = maxRand - rejectCount;
 

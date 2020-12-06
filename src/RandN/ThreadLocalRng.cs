@@ -7,7 +7,7 @@ namespace RandN
     /// <summary>
     /// A cryptographically secure thread local generator. All members in this type are thread-safe.
     /// </summary>
-    public sealed class ThreadLocalRng : IRng, ICryptoRng
+    public sealed class ThreadLocalRng : ICryptoRng
     {
         private static readonly ThreadLocal<ChaCha> ThreadLocal = new(() =>
         {

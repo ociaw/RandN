@@ -18,7 +18,9 @@ namespace RandN.Distributions
             public Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 Decimal result;
-                while (!TrySample(rng, out result)) ;
+                while (!TrySample(rng, out result))
+                { }
+
                 return result;
             }
 
@@ -44,7 +46,9 @@ namespace RandN.Distributions
             public Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 Decimal result;
-                while (!TrySample(rng, out result)) ;
+                while (!TrySample(rng, out result))
+                { }
+
                 return result;
             }
 
@@ -70,7 +74,9 @@ namespace RandN.Distributions
             public Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 Decimal result;
-                while (!TrySample(rng, out result)) ;
+                while (!TrySample(rng, out result))
+                { }
+
                 return result;
             }
 
@@ -96,7 +102,9 @@ namespace RandN.Distributions
             public Decimal Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 Decimal result;
-                while (!TrySample(rng, out result)) ;
+                while (!TrySample(rng, out result))
+                { }
+
                 return result;
             }
 

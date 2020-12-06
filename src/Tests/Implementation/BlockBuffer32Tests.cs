@@ -129,9 +129,7 @@ namespace RandN.Implementation
         public void SetCounter()
         {
             var rngCore = new StepBlockRng { BlockCounter = UInt32.MaxValue - 1 };
-            BlockBuffer32<StepBlockRng, UInt32> blockBuffer = new(rngCore);
-            blockBuffer.BlockCounter = 9u;
-            blockBuffer.Index = 0;
+            BlockBuffer32<StepBlockRng, UInt32> blockBuffer = new(rngCore) { BlockCounter = 9u, Index = 0 };
             blockBuffer.BlockCounter = 9u;
             for (Int32 i = 0; i < 8; i++)
             {

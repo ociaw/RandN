@@ -30,8 +30,7 @@ namespace RandN
 
             public StepRng Create(UInt64 seed)
             {
-                var rng = new StepRng(seed);
-                rng.Increment = _increment;
+                var rng = new StepRng(seed) { Increment = _increment };
                 return rng;
             }
 

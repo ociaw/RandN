@@ -9,7 +9,7 @@ namespace RandN.Examples
     {
         static void Main()
         {
-            var seed = new ChaCha.Seed(new UInt32[8] { 1, 2, 3, 4, 5, 6, 7, 8 });
+            var seed = new ChaCha.Seed(new UInt32[] { 1, 2, 3, 4, 5, 6, 7, 8 });
             var rng = ChaCha.Create(seed);
 
             var stopwatch = Stopwatch.StartNew();

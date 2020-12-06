@@ -22,7 +22,7 @@ namespace RandN.Compat
     /// <summary>
     /// A shim able to wrap any <see cref="IRng"/> as a <see cref="RandomNumberGenerator"/>.
     /// </summary>
-    public sealed class RandomNumberGeneratorShim<TRng> : RandomNumberGenerator, IDisposable
+    public sealed class RandomNumberGeneratorShim<TRng> : RandomNumberGenerator
         where TRng : notnull, ICryptoRng
     {
         private readonly TRng _rng;
