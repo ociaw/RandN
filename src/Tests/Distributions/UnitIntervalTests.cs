@@ -4,6 +4,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using Xunit;
 using RandN.Rngs;
 
@@ -49,16 +50,17 @@ namespace RandN.Distributions
             Assert.True(0 < high && high < 1);
         }
 
-        [Fact]
-        public void SingleAverage()
+        public static IEnumerable<Object[]> SingleParams(Int32 seedStart)
         {
-            Average(UnitInterval.OpenClosedSingle.Instance, 900);
-            Average(UnitInterval.ClosedOpenSingle.Instance, 901);
-            Average(UnitInterval.ClosedSingle.Instance, 902);
-            Average(UnitInterval.OpenSingle.Instance, 903);
+            yield return new Object [] { UnitInterval.OpenClosedSingle.Instance, seedStart };
+            yield return new Object[] { UnitInterval.ClosedOpenSingle.Instance, seedStart + 1 };
+            yield return new Object[] { UnitInterval.ClosedSingle.Instance, seedStart + 2};
+            yield return new Object[] { UnitInterval.OpenSingle.Instance, seedStart + 3};
         }
 
-        private void Average(IDistribution<Single> dist, UInt64 seed)
+        [Theory]
+        [MemberData(nameof(SingleParams), 900)]
+        public void SingleAverage(IDistribution<Single> dist, UInt64 seed)
         {
             const Int32 iterations = 10_000;
             var rng = Pcg32.Create(seed, 11634580027462260723ul);
@@ -133,16 +135,17 @@ namespace RandN.Distributions
             Assert.True(0 < high && high < 1);
         }
 
-        [Fact]
-        public void DoubleAverage()
+        public static IEnumerable<Object[]> DoubleParams(Int32 seedStart)
         {
-            Average(UnitInterval.OpenClosedDouble.Instance, 900);
-            Average(UnitInterval.ClosedOpenDouble.Instance, 901);
-            Average(UnitInterval.ClosedDouble.Instance, 902);
-            Average(UnitInterval.OpenDouble.Instance, 903);
+            yield return new Object [] { UnitInterval.OpenClosedDouble.Instance, seedStart };
+            yield return new Object[] { UnitInterval.ClosedOpenDouble.Instance, seedStart + 1 };
+            yield return new Object[] { UnitInterval.ClosedDouble.Instance, seedStart + 2};
+            yield return new Object[] { UnitInterval.OpenDouble.Instance, seedStart + 3};
         }
 
-        private void Average(IDistribution<Double> dist, UInt64 seed)
+        [Theory]
+        [MemberData(nameof(DoubleParams), 900)]
+        public void DoubleAverage(IDistribution<Double> dist, UInt64 seed)
         {
             const Int32 iterations = 10_000;
             var rng = Pcg32.Create(seed, 11634580027462260723ul);

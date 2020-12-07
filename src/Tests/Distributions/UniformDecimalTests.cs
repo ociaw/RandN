@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 using RandN.Rngs;
 
@@ -24,58 +25,56 @@ namespace RandN.Distributions
             Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(Decimal.MaxValue, Decimal.MinValue));
         }
 
-        [Fact]
-        public void FloatTest()
+        public static IEnumerable<Object[]> RangeParams() => new[]
+        {
+            new Object[] { 0, 1 },
+            new Object[] { -1, 0 },
+            new Object[] { 0.0m, 100.0m },
+            new Object[] { -1e28m, -1e25m },
+            new Object[] { 1e-28m, 1e-25m },
+            new Object[] { 0ul, 3ul },
+            new Object[] { -10, -1 },
+            new Object[] { -5, 0.0m },
+            new Object[] { -7, -0.0m },
+            // The next two need to decrement the scale when building the distribution.
+            new Object[] { 5, Decimal.MaxValue - 5 }, // This simply produces an initial maximum larger than high.
+            new Object[] { 10.0m, Decimal.MaxValue }, // This does the same, but causes an overflow in the process.
+            new Object[] { -100.0m, Decimal.MaxValue },
+            new Object[] { -Decimal.MaxValue / 5.0m, Decimal.MaxValue },
+            new Object[] { -Decimal.MaxValue, Decimal.MaxValue / 5.0m },
+            new Object[] { -Decimal.MaxValue * 0.8m, Decimal.MaxValue * 0.7m },
+            new Object[] { -Decimal.MaxValue, Decimal.MaxValue },
+            new Object[] { 0m, new Decimal(-1, -1, -1, false, 28) },
+        };
+
+        [Theory]
+        [MemberData(nameof(RangeParams))]
+        public void FloatTest(Decimal low, Decimal high)
         {
             var rng = Pcg32.Create(252, 11634580027462260723ul);
             var zeroRng = new StepRng(0) { Increment = 0 };
             var maxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = 0 };
 
-            var vectors = new[]
+            var exclusiveUniform = Uniform.New(low, high);
+            var inclusiveUniform = Uniform.NewInclusive(low, high);
+            for (var i = 0; i < 100; i++)
             {
-                (0, 1),
-                (-1, 0),
-                (0.0m, 100.0m),
-                (-1e28m, -1e25m),
-                (1e-28m, 1e-25m),
-                (0ul, 3ul),
-                (-10, -1),
-                (-5, 0.0m),
-                (-7, -0.0m),
-                // The next two need to decrement the scale when building the distribution.
-                (5, Decimal.MaxValue - 5), // This simply produces an initial maximum larger than high.
-                (10.0m, Decimal.MaxValue), // This does the same, but causes an overflow in the process.
-                (-100.0m, Decimal.MaxValue),
-                (-Decimal.MaxValue / 5.0m, Decimal.MaxValue),
-                (-Decimal.MaxValue, Decimal.MaxValue / 5.0m),
-                (-Decimal.MaxValue * 0.8m, Decimal.MaxValue * 0.7m),
-                (-Decimal.MaxValue, Decimal.MaxValue),
-                (0m, new Decimal(-1, -1, -1, false, 28)),
-            };
-
-            foreach ((var low, var high) in vectors)
-            {
-                var uniform = Uniform.New(low, high);
-                var inclusiveUniform = Uniform.NewInclusive(low, high);
-                for (var i = 0; i < 100; i++)
-                {
-                    var exclusive = uniform.Sample(rng);
-                    Assert.True(low <= exclusive && exclusive < high);
-                    var inclusive = uniform.Sample(rng);
-                    Assert.True(low <= inclusive && inclusive <= high);
-                }
-
-                Assert.Equal(low, Uniform.NewInclusive(low, low).Sample(rng));
-
-                Assert.Equal(low, uniform.Sample(zeroRng));
-                Assert.Equal(low, inclusiveUniform.Sample(zeroRng));
-                Assert.True(uniform.Sample(maxRng) < high);
-                Assert.True(inclusiveUniform.Sample(maxRng) <= high);
-
-                var loweringMaxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = unchecked((UInt64)(-1L << 12)) };
-                Assert.True(uniform.Sample(loweringMaxRng) < high);
-                Assert.True(uniform.Sample(loweringMaxRng) < high);
+                var exclusive = exclusiveUniform.Sample(rng);
+                Assert.True(low <= exclusive && exclusive < high);
+                var inclusive = exclusiveUniform.Sample(rng);
+                Assert.True(low <= inclusive && inclusive <= high);
             }
+
+            Assert.Equal(low, Uniform.NewInclusive(low, low).Sample(rng));
+
+            Assert.Equal(low, exclusiveUniform.Sample(zeroRng));
+            Assert.Equal(low, inclusiveUniform.Sample(zeroRng));
+            Assert.True(exclusiveUniform.Sample(maxRng) < high);
+            Assert.True(inclusiveUniform.Sample(maxRng) <= high);
+
+            var loweringMaxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = unchecked((UInt64)(-1L << 12)) };
+            Assert.True(exclusiveUniform.Sample(loweringMaxRng) < high);
+            Assert.True(exclusiveUniform.Sample(loweringMaxRng) < high);
 
             var maxDoubleInclusive = Uniform.NewInclusive(Decimal.MaxValue, Decimal.MaxValue);
             Assert.Equal(Decimal.MaxValue, maxDoubleInclusive.Sample(rng));
@@ -83,49 +82,51 @@ namespace RandN.Distributions
             Assert.Equal(-Decimal.MaxValue, minDoubleInclusive.Sample(rng));
         }
 
-        [Fact]
-        public void AverageDecimals()
+        public static IEnumerable<Object[]> AverageParams() => new[]
+        {
+            new Object[] {0m, 1000m, 0},
+            new Object[] {0m, 1m, 1},
+            new Object[] {-50.0m, 50.0m, 2},
+            new Object[] {0m, Decimal.MaxValue, 3},
+            new Object[] {Decimal.MinValue, 0m, 4},
+            new Object[] {38.9m, 64.6m, 5},
+            new Object[] {1e-28m, 1e-24m, 6},
+        };
+
+
+        [Theory]
+        [MemberData(nameof(AverageParams))]
+        public void AverageDecimals(Decimal low, Decimal high, UInt64 seed)
         {
             const Int32 iterations = 10_000;
+            const Decimal sqr3 = 1.7320508075688772935274463415m;
 
-            static void Average(Decimal low, Decimal high, UInt64 seed)
+            var populationMean = high / 2 + low / 2;
+            var popStdDev = 1.0m / sqr3 * (high / 2 - low / 2);
+
+            var exclusiveDist = Uniform.New(low, high);
+            var inclusiveDist = Uniform.NewInclusive(low, high);
+            var rng = Pcg32.Create(789 + seed, 11634580027462260723ul);
+
+            Decimal exclusiveMean = 0;
+            Decimal inclusiveMean = 0;
+            for (var i = 0; i < iterations; i++)
             {
-                const Decimal sqr3 = 1.7320508075688772935274463415m;
-                var populationMean = high / 2 + low / 2;
-                var popStdDev = 1.0m / sqr3 * (high / 2 - low / 2);
+                var exclusive = rng.Sample(exclusiveDist);
+                var exclusiveDelta = exclusive - exclusiveMean;
+                exclusiveMean += exclusiveDelta / (i + 1);
+                Assert.True(low <= exclusive);
+                Assert.True(exclusive < high);
 
-                var exclusiveDist = Uniform.New(low, high);
-                var inclusiveDist = Uniform.NewInclusive(low, high);
-                var rng = Pcg32.Create(789 + seed, 11634580027462260723ul);
-
-                Decimal exclusiveMean = 0;
-                Decimal inclusiveMean = 0;
-                for (var i = 0; i < iterations; i++)
-                {
-                    var exclusive = rng.Sample(exclusiveDist);
-                    var exclusiveDelta = exclusive - exclusiveMean;
-                    exclusiveMean += exclusiveDelta / (i + 1);
-                    Assert.True(low <= exclusive);
-                    Assert.True(exclusive < high);
-
-                    var inclusive = rng.Sample(inclusiveDist);
-                    var inclusiveDelta = inclusive - inclusiveMean;
-                    inclusiveMean += inclusiveDelta / (i + 1);
-                    Assert.True(low <= inclusive);
-                    Assert.True(inclusive < high);
-                }
-
-                Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
-                Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
+                var inclusive = rng.Sample(inclusiveDist);
+                var inclusiveDelta = inclusive - inclusiveMean;
+                inclusiveMean += inclusiveDelta / (i + 1);
+                Assert.True(low <= inclusive);
+                Assert.True(inclusive < high);
             }
 
-            Average(0m, 1000m, 0);
-            Average(0m, 1m, 1);
-            Average(-50.0m, 50.0m, 2);
-            Average(0m, Decimal.MaxValue, 3);
-            Average(Decimal.MinValue, 0m, 4);
-            Average(38.9m, 64.6m, 5);
-            Average(1e-28m, 1e-24m, 6);
+            Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
+            Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
         }
 
         [Fact]
@@ -137,7 +138,7 @@ namespace RandN.Distributions
                 Assert.True(dist.TrySample(rng, out _));
         }
 
-    [Fact]
+        [Fact]
         public void NonNullable()
         {
             var dist = Uniform.Decimal.Create(1, 2);

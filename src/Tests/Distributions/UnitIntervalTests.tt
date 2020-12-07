@@ -10,6 +10,7 @@ var parameters = new (Type type, String floatSuffix, String uintSuffix, Int32 bi
 };
 #>
 using System;
+using System.Collections.Generic;
 using Xunit;
 using RandN.Rngs;
 
@@ -61,16 +62,17 @@ namespace RandN.Distributions
             Assert.True(0 < high && high < 1);
         }
 
-        [Fact]
-        public void <#= type #>Average()
+        public static IEnumerable<Object[]> <#= type #>Params(Int32 seedStart)
         {
-            Average(UnitInterval.OpenClosed<#= type #>.Instance, 900);
-            Average(UnitInterval.ClosedOpen<#= type #>.Instance, 901);
-            Average(UnitInterval.Closed<#= type #>.Instance, 902);
-            Average(UnitInterval.Open<#= type #>.Instance, 903);
+            yield return new Object [] { UnitInterval.OpenClosed<#= type #>.Instance, seedStart };
+            yield return new Object[] { UnitInterval.ClosedOpen<#= type #>.Instance, seedStart + 1 };
+            yield return new Object[] { UnitInterval.Closed<#= type #>.Instance, seedStart + 2};
+            yield return new Object[] { UnitInterval.Open<#= type #>.Instance, seedStart + 3};
         }
 
-        private void Average(IDistribution<<#= type #>> dist, UInt64 seed)
+        [Theory]
+        [MemberData(nameof(<#= type #>Params), 900)]
+        public void <#= type #>Average(IDistribution<<#= type #>> dist, UInt64 seed)
         {
             const Int32 iterations = 10_000;
             var rng = Pcg32.Create(seed, 11634580027462260723ul);
