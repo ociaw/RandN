@@ -10,7 +10,6 @@ namespace RandN.Compat
         where TRng : notnull, IRng
     {
         private readonly TRng _rng;
-        private static readonly Uniform.Double _doubleDist = Uniform.New(0.0, 1.0);
 
         /// <summary>
         /// Constructs a new <see cref="Random"/> wrapper over <paramref name="rng"/> .
@@ -38,7 +37,7 @@ namespace RandN.Compat
         public override Double NextDouble() => Sample();
 
         /// <inheritdoc />
-        protected override Double Sample() => _doubleDist.Sample(_rng);
+        protected override Double Sample() => UnitInterval.ClosedOpenDouble.Instance.Sample(_rng);
     }
 
     /// <summary>
