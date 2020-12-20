@@ -17,10 +17,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>UniformIntTests.tt</DependentUpon>
     </None>
-    <None Include="Distributions\UnitIntervalTests.cs">
+    <None Include="Distributions\UnitInterval\FloatTests.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>UnitIntervalTests.tt</DependentUpon>
+      <DependentUpon>FloatTests.tt</DependentUpon>
     </None>
   </ItemGroup>
 
@@ -55,9 +55,9 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>UniformIntTests.cs</LastGenOutput>
     </None>
-    <None Update="Distributions\UnitIntervalTests.tt">
+    <None Update="Distributions\UnitInterval\FloatTests.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>UnitIntervalTests.cs</LastGenOutput>
+      <LastGenOutput>FloatTests.cs</LastGenOutput>
     </None>
   </ItemGroup>
 
@@ -81,11 +81,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>UniformIntTests.tt</DependentUpon>
     </Compile>
-    <Compile Update="Distributions\UnitIntervalTests.cs">
+    <Compile Update="Distributions\UnitInterval\FloatTests.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>UnitIntervalTests.tt</DependentUpon>
+      <DependentUpon>FloatTests.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Distributions\UnitInterval\" />
   </ItemGroup>
 
 </Project>

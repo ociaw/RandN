@@ -43,10 +43,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>UniformFloat.tt</DependentUpon>
     </None>
-    <None Include="Distributions\UnitInterval.cs">
+    <None Include="Distributions\UnitInterval\Float.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>UnitInterval.tt</DependentUpon>
+      <DependentUpon>Float.tt</DependentUpon>
     </None>
   </ItemGroup>
 
@@ -76,7 +76,12 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Distributions\UnitInterval.cs">
+    <Compile Update="Distributions\UnitInterval\Float.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Float.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Distributions\UnitInterval\UnitInterval.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>UnitInterval.tt</DependentUpon>
@@ -96,9 +101,9 @@
       <LastGenOutput>UniformInt.cs</LastGenOutput>
       <Generator>TextTemplatingFileGenerator</Generator>
     </None>
-    <None Update="Distributions\UnitInterval.tt">
+    <None Update="Distributions\UnitInterval\Float.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>UnitInterval.cs</LastGenOutput>
+      <LastGenOutput>Float.cs</LastGenOutput>
     </None>
   </ItemGroup>
 

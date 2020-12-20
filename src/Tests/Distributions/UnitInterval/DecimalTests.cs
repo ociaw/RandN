@@ -2,9 +2,9 @@ using System;
 using Xunit;
 using RandN.Rngs;
 
-namespace RandN.Distributions
+namespace RandN.Distributions.UnitInterval
 {
-    public class UnitIntervalDecimalTests
+    public class DecimalTests
     {
         [Fact]
         public void DecimalRanges()
@@ -16,7 +16,7 @@ namespace RandN.Distributions
             var invalidRng = new SequenceRng(new UInt32[] { 0x1000_0000, 0x3E25_0261, 0x204F_CE5Fu << 2 }); // Generates the value just over 1.0
             Decimal zero, openZero, openOne, one;
 
-            var closedOpen = UnitInterval.ClosedOpenDecimal.Instance;
+            var closedOpen = ClosedOpen.Decimal.Instance;
             zero = closedOpen.Sample(zeroRng);
             openZero = closedOpen.Sample(openZeroRng);
             openOne = closedOpen.Sample(openOneRng);
@@ -28,7 +28,7 @@ namespace RandN.Distributions
             Assert.True(openZero < openOne);
             Assert.True(openOne < 1);
 
-            var openClosed = UnitInterval.OpenClosedDecimal.Instance;
+            var openClosed = OpenClosed.Decimal.Instance;
             Assert.False(openClosed.TrySample(zeroRng, out _));
             openZero = openClosed.Sample(openZeroRng);
             openOne = openClosed.Sample(openOneRng);
@@ -40,7 +40,7 @@ namespace RandN.Distributions
             Assert.True(openOne < 1);
             Assert.Equal(1, one);
 
-            var closed = UnitInterval.ClosedDecimal.Instance;
+            var closed = Closed.Decimal.Instance;
             zero = closed.Sample(zeroRng);
             openZero = closed.Sample(openZeroRng);
             openOne = closed.Sample(openOneRng);
@@ -53,7 +53,7 @@ namespace RandN.Distributions
             Assert.True(openOne < 1);
             Assert.Equal(1, one);
 
-            var open = UnitInterval.OpenDecimal.Instance;
+            var open = Open.Decimal.Instance;
             Assert.False(open.TrySample(zeroRng, out _));
             openZero = open.Sample(openZeroRng);
             openOne = open.Sample(openOneRng);
@@ -67,10 +67,10 @@ namespace RandN.Distributions
         [Fact]
         public void DecimalAverage()
         {
-            Average(UnitInterval.OpenClosedDecimal.Instance, 904);
-            Average(UnitInterval.ClosedOpenDecimal.Instance, 905);
-            Average(UnitInterval.ClosedDecimal.Instance, 906);
-            Average(UnitInterval.OpenDecimal.Instance, 907);
+            Average(OpenClosed.Decimal.Instance, 904);
+            Average(ClosedOpen.Decimal.Instance, 905);
+            Average(Closed.Decimal.Instance, 906);
+            Average(Open.Decimal.Instance, 907);
         }
 
         private static void Average(IDistribution<Decimal> dist, UInt64 seed)
@@ -94,10 +94,10 @@ namespace RandN.Distributions
         [Fact]
         public void NonNullable()
         {
-            Assert.Throws<ArgumentNullException>(() => UnitInterval.ClosedOpenDecimal.Instance.Sample<StepRng>(null));
-            Assert.Throws<ArgumentNullException>(() => UnitInterval.OpenClosedDecimal.Instance.Sample<StepRng>(null));
-            Assert.Throws<ArgumentNullException>(() => UnitInterval.ClosedDecimal.Instance.Sample<StepRng>(null));
-            Assert.Throws<ArgumentNullException>(() => UnitInterval.OpenDecimal.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => ClosedOpen.Decimal.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => OpenClosed.Decimal.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => Closed.Decimal.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => Open.Decimal.Instance.Sample<StepRng>(null));
         }
     }
 }

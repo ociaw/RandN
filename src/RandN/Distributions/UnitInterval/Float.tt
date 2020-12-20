@@ -18,13 +18,8 @@ using RandN.Implementation;
 // are based off of those used in the rust rand crate:
 // https://github.com/rust-random/rand/blob/2c2fbd6463bb3dba492d0387f05f953bdc297d2f/src/distributions/float.rs
 
-namespace RandN.Distributions
+namespace RandN.Distributions.UnitInterval
 {
-    /// <summary>
-    /// A collection of distributions over the interval 0-1.
-    /// </summary>
-    public static partial class UnitInterval
-    {
 <# foreach (var param in parameters)
 {
     String type = param.type.Name;
@@ -33,23 +28,25 @@ namespace RandN.Distributions
     String unsignedSuffix = param.unsignedSuffix;
     String fractionBits = param.fractionBits.ToString();
 #>
+    public static partial class ClosedOpen
+    {
         /// <summary>
-        /// A distribution over the closed-open interval [0, 1).
+        /// A <see cref="System.<#= type #>"/> distribution over the closed-open interval [0<#= floatSuffix #>, 1<#= floatSuffix #>).
         /// </summary>
-        public readonly struct ClosedOpen<#= type #> : IPortableDistribution<<#= type #>>
+        public readonly struct <#= type #> : IPortableDistribution<System.<#= type #>>
         {
             /// <summary>
-            /// Gets the instance of <see cref="ClosedOpen<#= type #>" />.
+            /// Gets the instance of <see cref="<#= type #>" />.
             /// </summary>
-            public static ClosedOpen<#= type #> Instance { get; } = new();
+            public static <#= type #> Instance { get; } = new();
 
             /// <inheritdoc />
-            public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            public System.<#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // 24 or 53 bits of precision
-                const Int32 floatSize = sizeof(<#= type #>) * 8;
+                const Int32 floatSize = sizeof(System.<#= type #>) * 8;
                 const Int32 precision = <#= fractionBits #> + 1;
-                const <#= type #> scale = 1.0<#= floatSuffix #> / (1<#= unsignedSuffix #> << precision);
+                const System.<#= type #> scale = 1.0<#= floatSuffix #> / (1<#= unsignedSuffix #> << precision);
 
                 var random = rng.Next<#= unsigned #>();
                 var value = random >> (floatSize - precision);
@@ -57,30 +54,33 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.<#= type #> result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;
             }
         }
+    }
 
+    public static partial class OpenClosed
+    {
         /// <summary>
-        /// A distribution over the open-closed interval (0, 1].
+        /// A <see cref="System.<#= type #>"/> distribution over the open-closed interval (0<#= floatSuffix #>, 1<#= floatSuffix #>].
         /// </summary>
-        public readonly struct OpenClosed<#= type #> : IPortableDistribution<<#= type #>>
+        public readonly struct <#= type #> : IPortableDistribution<System.<#= type #>>
         {
             /// <summary>
-            /// Gets the instance of <see cref="OpenClosed<#= type #>" />.
+            /// Gets the instance of <see cref="<#= type #>" />.
             /// </summary>
-            public static OpenClosed<#= type #> Instance { get; } = new();
+            public static <#= type #> Instance { get; } = new();
 
             /// <inheritdoc />
-            public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            public System.<#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // 24 or 53 bits of precision
-                const Int32 floatSize = sizeof(<#= type #>) * 8;
+                const Int32 floatSize = sizeof(System.<#= type #>) * 8;
                 const Int32 precision = <#= fractionBits #> + 1;
-                const <#= type #> scale = 1.0<#= floatSuffix #> / (1<#= unsignedSuffix #> << precision);
+                const System.<#= type #> scale = 1.0<#= floatSuffix #> / (1<#= unsignedSuffix #> << precision);
 
                 var random = rng.Next<#= unsigned #>();
                 var value = random >> (floatSize - precision);
@@ -88,30 +88,33 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.<#= type #> result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;
             }
         }
+    }
 
+    public static partial class Closed
+    {
         /// <summary>
-        /// A distribution over the closed interval [0, 1].
+        /// A <see cref="System.<#= type #>"/> distribution over the closed interval [0<#= floatSuffix #>, 1<#= floatSuffix #>].
         /// </summary>
-        public readonly struct Closed<#= type #> : IPortableDistribution<<#= type #>>
+        public readonly struct <#= type #> : IPortableDistribution<System.<#= type #>>
         {
             /// <summary>
-            /// Gets the instance of <see cref="Closed<#= type #>" />.
+            /// Gets the instance of <see cref="<#= type #>" />.
             /// </summary>
-            public static Closed<#= type #> Instance { get; } = new();
+            public static <#= type #> Instance { get; } = new();
 
             /// <inheritdoc />
-            public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            public System.<#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // 24 or 53 bits of precision
-                const Int32 floatSize = sizeof(<#= type #>) * 8;
+                const Int32 floatSize = sizeof(System.<#= type #>) * 8;
                 const Int32 precision = <#= fractionBits #> + 1;
-                const <#= type #> scale = (1.0<#= floatSuffix #> + FloatUtils.MachineEpsilon<#= type #>) / (1<#= unsignedSuffix #> << precision);
+                const System.<#= type #> scale = (1.0<#= floatSuffix #> + FloatUtils.MachineEpsilon<#= type #>) / (1<#= unsignedSuffix #> << precision);
 
                 var random = rng.Next<#= unsigned #>();
                 var value = random >> (floatSize - precision);
@@ -119,28 +122,31 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.<#= type #> result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;
             }
         }
+    }
 
+    public static partial class Open
+    {
         /// <summary>
-        /// A distribution over the open interval (0, 1).
+        /// A <see cref="System.<#= type #>"/> distribution over the open interval (0<#= floatSuffix #>, 1<#= floatSuffix #>).
         /// </summary>
-        public readonly struct Open<#= type #> : IPortableDistribution<<#= type #>>
+        public readonly struct <#= type #> : IPortableDistribution<System.<#= type #>>
         {
             /// <summary>
-            /// Gets the instance of <see cref="Open<#= type #>" />.
+            /// Gets the instance of <see cref="<#= type #>" />.
             /// </summary>
-            public static Open<#= type #> Instance { get; } = new();
+            public static <#= type #> Instance { get; } = new();
 
             /// <inheritdoc />
-            public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
+            public System.<#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
             {
                 // 23 or 52 bits of precision
-                const Int32 floatSize = sizeof(<#= type #>) * 8;
+                const Int32 floatSize = sizeof(System.<#= type #>) * 8;
                 const Int32 precision = <#= fractionBits #>;
 
                 var random = rng.Next<#= unsigned #>();
@@ -149,15 +155,14 @@ namespace RandN.Distributions
             }
 
             /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, out System.<#= type #> result) where TRng : notnull, IRng
             {
                 result = Sample(rng);
                 return true;
             }
         }
-
+    }
 <#
 }
 #>
-    }
 }

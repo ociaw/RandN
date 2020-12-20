@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using RandN.Distributions;
+using RandN.Distributions.UnitInterval;
 using RandN.Rngs;
 
 namespace RandN.Examples
@@ -24,7 +24,7 @@ namespace RandN.Examples
         public static (Double pi, Double error) EstimatePi<TRng>(TRng rng) where TRng : IRng
         {
             const UInt64 iterations = 32_000_000;
-            var dist = UnitInterval.ClosedDouble.Instance;
+            var dist = Closed.Double.Instance;
             UInt64 insideQuadrant = 0;
             for (var i = 0ul; i < iterations; i++)
             {

@@ -15,9 +15,9 @@ using Xunit;
 using RandN.Rngs;
 
 /*** This file is auto generated - any changes made here will be lost. Modify UnitIntervalTests.tt instead. ***/
-namespace RandN.Distributions
+namespace RandN.Distributions.UnitInterval
 {
-    public class UnitIntervalTests
+    public sealed class FloatTests
     {
 <# foreach (var param in parameters)
 {
@@ -33,28 +33,28 @@ namespace RandN.Distributions
             var maxRng = new StepRng(UInt64.MaxValue) { Increment = 0 };
             Double low, high;
 
-            var closedOpen = UnitInterval.ClosedOpen<#= type #>.Instance;
+            var closedOpen = ClosedOpen.<#= type #>.Instance;
             low = closedOpen.Sample(zeroRng);
             high = closedOpen.Sample(maxRng);
 
             Assert.Equal(0, low);
             Assert.True(0 < high && high < 1);
 
-            var openClosed = UnitInterval.OpenClosed<#= type #>.Instance;
+            var openClosed = OpenClosed.<#= type #>.Instance;
             low = openClosed.Sample(zeroRng);
             high = openClosed.Sample(maxRng);
 
             Assert.True(0 < low && low < 1);
             Assert.Equal(1, high);
 
-            var closed = UnitInterval.Closed<#= type #>.Instance;
+            var closed = Closed.<#= type #>.Instance;
             low = closed.Sample(zeroRng);
             high = closed.Sample(maxRng);
 
             Assert.Equal(0, low);
             Assert.Equal(1, high);
 
-            var open = UnitInterval.Open<#= type #>.Instance;
+            var open = Open.<#= type #>.Instance;
             low = open.Sample(zeroRng);
             high = open.Sample(maxRng);
 
@@ -64,10 +64,10 @@ namespace RandN.Distributions
 
         public static IEnumerable<Object[]> <#= type #>Params(Int32 seedStart)
         {
-            yield return new Object [] { UnitInterval.OpenClosed<#= type #>.Instance, seedStart };
-            yield return new Object[] { UnitInterval.ClosedOpen<#= type #>.Instance, seedStart + 1 };
-            yield return new Object[] { UnitInterval.Closed<#= type #>.Instance, seedStart + 2};
-            yield return new Object[] { UnitInterval.Open<#= type #>.Instance, seedStart + 3};
+            yield return new Object [] { OpenClosed.<#= type #>.Instance, seedStart };
+            yield return new Object[] { ClosedOpen.<#= type #>.Instance, seedStart + 1 };
+            yield return new Object[] { Closed.<#= type #>.Instance, seedStart + 2};
+            yield return new Object[] { Open.<#= type #>.Instance, seedStart + 3};
         }
 
         [Theory]
@@ -105,10 +105,10 @@ namespace RandN.Distributions
         [Fact]
         public void <#= type #>NonNullable()
         {
-            Assert.Throws<ArgumentNullException>(() => UnitInterval.ClosedOpen<#= type #>.Instance.Sample<StepRng>(null));
-            Assert.Throws<ArgumentNullException>(() => UnitInterval.OpenClosed<#= type #>.Instance.Sample<StepRng>(null));
-            Assert.Throws<ArgumentNullException>(() => UnitInterval.Closed<#= type #>.Instance.Sample<StepRng>(null));
-            Assert.Throws<ArgumentNullException>(() => UnitInterval.Open<#= type #>.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => ClosedOpen.<#= type #>.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => OpenClosed.<#= type #>.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => Closed.<#= type #>.Instance.Sample<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => Open.<#= type #>.Instance.Sample<StepRng>(null));
         }
 <#
 }

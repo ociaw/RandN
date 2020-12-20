@@ -1,5 +1,6 @@
 using System;
 using RandN.Distributions;
+using RandN.Distributions.UnitInterval;
 
 namespace RandN.Compat
 {
@@ -37,7 +38,7 @@ namespace RandN.Compat
         public override Double NextDouble() => Sample();
 
         /// <inheritdoc />
-        protected override Double Sample() => UnitInterval.ClosedOpenDouble.Instance.Sample(_rng);
+        protected override Double Sample() => ClosedOpen.Double.Instance.Sample(_rng);
     }
 
     /// <summary>
