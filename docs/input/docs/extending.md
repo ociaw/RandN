@@ -119,7 +119,7 @@ any result to the target range. For example here's the implementation for a unif
 over the interval [0, 1). This time `TrySample` simply calls `Sample`, which doesn't block:
 
 ``` csharp
-public readonly struct ClosedOpenSingle : IDistribution<Single>
+public readonly struct ClosedOpen : IDistribution<Single>
 {
     public Boolean TrySample<TRng>(TRng rng, out Single result) where TRng : IRng
     {

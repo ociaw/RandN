@@ -28,6 +28,9 @@ ChaCha.Seed seed = factory.CreateSeed(seeder);
 
 // Create the RNG from the seed
 ChaCha rng = factory.Create(seed);
+
+// If you don't care about storing the seed, an RNG can be created directly
+rng = factory.Create();
 ```
 
 # Getting random numbers
@@ -44,7 +47,7 @@ rng.Fill(buffer);
 or you can use it to sample a distribution:
 
 ``` csharp
-UniformInt32 distribution = Uniform.NewInclusive(42, 54); // [42 - 54]
+Uniform.Int32 distribution = Uniform.NewInclusive(42, 54); // [42 - 54]
 int answer = distribution.Sample(rng);
 
 Bernoulli weightedCoin = Bernoulli.FromRatio(8, 10); // 80% chance of true

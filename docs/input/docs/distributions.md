@@ -53,8 +53,9 @@ the interval from 0 to 1. Four distinct distributions are provided, closed-open,
 closed-closed, and open-open.
 
 ``` csharp
-var closedOpen = UnitInterval.ClosedOpenDouble.Instance;
-var open = UnitInterval.OpenDouble.Instance;
+using RandN.Distributions.UnitInterval;
+var closedOpen = ClosedOpen.Double.Instance;
+var open = Open.Double.Instance;
 ```
 
 [*Unit Interval* on Wikipedia](https://en.wikipedia.org/wiki/Unit_interval)
