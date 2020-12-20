@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 
 namespace RandN.Implementation
@@ -35,6 +36,7 @@ namespace RandN.Implementation
         /// </summary>
         /// <param name="original">The bits used for the mantissa of the <see cref="Single"/>.</param>
         /// <param name="exponent">The exponent of the <see cref="Single"/>.</param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Single IntoFloatWithExponent(this UInt32 original, Int32 exponent)
         {
@@ -50,6 +52,7 @@ namespace RandN.Implementation
         /// </summary>
         /// <param name="original">The bits used for the mantissa of the <see cref="Double"/>.</param>
         /// <param name="exponent">The exponent of the <see cref="Double"/>.</param>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Double IntoFloatWithExponent(this UInt64 original, Int32 exponent)
         {
@@ -63,6 +66,7 @@ namespace RandN.Implementation
         /// <summary>
         /// Reinterprets the bits of <paramref name="num"/> as a <see cref="UInt32"/>.
         /// </summary>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt32 ToBits(this Single num)
         {
@@ -75,6 +79,7 @@ namespace RandN.Implementation
         /// <summary>
         /// Reinterprets the bits of <paramref name="num"/> as a <see cref="UInt64"/>.
         /// </summary>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt64 ToBits(this Double num)
         {
@@ -87,6 +92,7 @@ namespace RandN.Implementation
         /// <summary>
         /// Reinterprets <paramref name="bits"/> as a <see cref="Single"/>.
         /// </summary>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Single ToFloat(this UInt32 bits)
         {
@@ -99,6 +105,7 @@ namespace RandN.Implementation
         /// <summary>
         /// Reinterprets <paramref name="bits"/> as a <see cref="Double"/>.
         /// </summary>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Double ToFloat(this UInt64 bits)
         {
@@ -111,6 +118,7 @@ namespace RandN.Implementation
         /// <summary>
         /// Reduces the precision of the given number if it's extended precision.
         /// </summary>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Single ForceStandardPrecision(this Single num)
         {
@@ -129,6 +137,7 @@ namespace RandN.Implementation
         /// <summary>
         /// Reduces the precision of the given number if it's extended precision.
         /// </summary>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Double ForceStandardPrecision(this Double num)
         {
@@ -148,6 +157,7 @@ namespace RandN.Implementation
         /// Decrements the mantissa of a decimal by one, wrapping by increasing the scale if necessary.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="original"/> is equal to zero.</exception>
+        [Pure]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Decimal DecrementMantissa(this Decimal original)
         {

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Contracts;
 
 namespace RandN.Implementation
 {
@@ -11,7 +12,7 @@ namespace RandN.Implementation
         /// <summary>
         /// The current position of the RNG core.
         /// </summary>
-        public TBlockCounter BlockCounter { get; set; }
+        public TBlockCounter BlockCounter { [Pure] get; set; }
 
         /// <summary>
         /// Regenerates the previous block and fills <paramref name="results"/> without advancing the counter.

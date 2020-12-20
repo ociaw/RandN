@@ -1,3 +1,5 @@
+using System.Diagnostics.Contracts;
+
 namespace RandN
 {
     /// <summary>
@@ -8,6 +10,7 @@ namespace RandN
         /// <summary>
         /// The current position of the RNG.
         /// </summary>
+        [Pure]
         TCounter Position { get; set; }
     }
 }

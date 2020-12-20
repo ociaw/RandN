@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Contracts;
 
 namespace RandN.Implementation
 {
@@ -10,6 +11,7 @@ namespace RandN.Implementation
         /// <summary>
         /// The length of the generated block.
         /// </summary>
+        [Pure]
         public Int32 BlockLength { get; }
 
         /// <summary>
