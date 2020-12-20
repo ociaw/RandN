@@ -10,31 +10,6 @@ namespace RandN
     public static class RngExtensions
     {
         /// <summary>
-        /// Samples the distribution from <paramref name="rng"/>.
-        /// </summary>
-        /// <remarks>
-        /// The is equivalent to calling <see cref="IDistribution{TResult}.Sample{TRng}(TRng)"/>.
-        /// </remarks>
-        public static TResult Sample<TRng, TDistribution, TResult>(this TRng rng, TDistribution distribution)
-            where TRng : notnull, IRng
-            where TDistribution : notnull, IDistribution<TResult>
-        {
-            return distribution.Sample(rng);
-        }
-
-        /// <summary>
-        /// Samples the distribution from <paramref name="rng"/>.
-        /// </summary>
-        /// <remarks>
-        /// The is equivalent to calling <see cref="IDistribution{TResult}.Sample{TRng}(TRng)"/>.
-        /// </remarks>
-        public static TResult Sample<TRng, TResult>(this TRng rng, IDistribution<TResult> distribution)
-            where TRng : notnull, IRng
-        {
-            return distribution.Sample(rng);
-        }
-
-        /// <summary>
         /// Shuffles a list using the in-place Fisher-Yates shuffling algorithm.
         /// </summary>
         /// <param name="rng">The RNG used to shuffle the list.</param>

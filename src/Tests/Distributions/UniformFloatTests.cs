@@ -211,13 +211,13 @@ namespace RandN.Distributions
             Double inclusiveMean = 0;
             for (var i = 0; i < iterations; i++)
             {
-                var exclusive = rng.Sample(exclusiveDist);
+                var exclusive = exclusiveDist.Sample(rng);
                 var exclusiveDelta = exclusive - exclusiveMean;
                 exclusiveMean += exclusiveDelta / (i + 1);
                 Assert.True(low <= exclusive);
                 Assert.True(exclusive < high);
 
-                var inclusive = rng.Sample(inclusiveDist);
+                var inclusive = inclusiveDist.Sample(rng);
                 var inclusiveDelta = inclusive - inclusiveMean;
                 inclusiveMean += inclusiveDelta / (i + 1);
                 Assert.True(low <= inclusive);
@@ -321,13 +321,13 @@ namespace RandN.Distributions
             Double inclusiveMean = 0;
             for (var i = 0; i < iterations; i++)
             {
-                var exclusive = rng.Sample(exclusiveDist);
+                var exclusive = exclusiveDist.Sample(rng);
                 var exclusiveDelta = exclusive - exclusiveMean;
                 exclusiveMean += exclusiveDelta / (i + 1);
                 Assert.True(low <= exclusive);
                 Assert.True(exclusive < high);
 
-                var inclusive = rng.Sample(inclusiveDist);
+                var inclusive = inclusiveDist.Sample(rng);
                 var inclusiveDelta = inclusive - inclusiveMean;
                 inclusiveMean += inclusiveDelta / (i + 1);
                 Assert.True(low <= inclusive);

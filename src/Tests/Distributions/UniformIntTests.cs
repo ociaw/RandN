@@ -48,7 +48,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result <= high);
             }
@@ -67,7 +67,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result < high);
             }
@@ -159,7 +159,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result <= high);
             }
@@ -178,7 +178,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result < high);
             }
@@ -270,7 +270,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result <= high);
             }
@@ -289,7 +289,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result < high);
             }
@@ -381,7 +381,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result <= high);
             }
@@ -400,7 +400,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result < high);
             }
@@ -492,7 +492,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result <= high);
             }
@@ -511,7 +511,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result < high);
             }
@@ -603,7 +603,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result <= high);
             }
@@ -622,7 +622,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result < high);
             }
@@ -714,7 +714,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result <= high);
             }
@@ -733,7 +733,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result < high);
             }
@@ -825,7 +825,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result <= high);
             }
@@ -844,7 +844,7 @@ namespace RandN.Distributions
 
             for (var i = 0; i < 10000; i++)
             {
-                var result = rng.Sample(dist);
+                var result = dist.Sample(rng);
                 Assert.True(low <= result);
                 Assert.True(result < high);
             }
