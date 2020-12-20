@@ -80,8 +80,8 @@ namespace RandN.Rngs
                 ThreadLocalRng.Instance.NextUInt32();
             stopwatch.Stop();
 
-            // We want each thread to do about 1 second of work.
-            TimeSpan targetTime = TimeSpan.FromMilliseconds(1000);
+            // We want each thread to do about .25 seconds of work.
+            TimeSpan targetTime = TimeSpan.FromMilliseconds(250);
             Double multiplier = targetTime.TotalMilliseconds / stopwatch.Elapsed.TotalMilliseconds;
             Int32 iterations = (Int32)(benchmarkIterations * multiplier);
 
