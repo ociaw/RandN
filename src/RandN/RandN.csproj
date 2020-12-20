@@ -18,7 +18,7 @@
     <PackageProjectUrl>https://github.com/ociaw/RandN</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ociaw/RandN.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -56,7 +56,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="NullGuard.Fody" Version="3.0.0" />
-    <PackageReference Include="RandN.Core" Version="0.1.0" />
+    <PackageReference Include="RandN.Core" Version="0.2.0" />
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
