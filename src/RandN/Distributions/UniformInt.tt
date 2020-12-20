@@ -76,7 +76,7 @@ foreach (var tuple in types)
                 if (low > high)
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
-                var unsignedMax = <#= ularge #>.MaxValue;
+                const <#= ularge #> unsignedMax = <#= ularge #>.MaxValue;
                 var range = unchecked((<#= ularge #>)(<#= unsigned #>)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 

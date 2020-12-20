@@ -93,11 +93,11 @@ namespace RandN.Rngs
             {
                 state[stateIndex] = unchecked((state[stateIndex] ^ ((state[stateIndex - 1] ^ (state[stateIndex - 1] >> 62)) * f2)) - (UInt64)stateIndex);
                 stateIndex += 1;
-                if (stateIndex >= state.Length)
-                {
-                    state[0] = state[state.Length - 1];
-                    stateIndex = 1;
-                }
+                if (stateIndex < state.Length)
+                    continue;
+
+                state[0] = state[state.Length - 1];
+                stateIndex = 1;
             }
 
             state[0] = 1ul << 63;

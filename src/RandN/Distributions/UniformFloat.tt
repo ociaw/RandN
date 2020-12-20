@@ -102,7 +102,7 @@ namespace RandN.Distributions
                 <#= type #> scale = ((high - low) / maxRand).ForceStandardPrecision();
                 while (true)
                 {
-                    var maxPossible = (scale * maxRand + low);
+                    var maxPossible = scale * maxRand + low;
                     var aboveMax = maxPossible > high;
                     if (!aboveMax)
                         break;

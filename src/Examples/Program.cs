@@ -7,13 +7,13 @@ namespace RandN.Examples
 {
     public sealed class Program
     {
-        static void Main()
+        private static void Main()
         {
             var seed = new ChaCha.Seed(new UInt32[] { 1, 2, 3, 4, 5, 6, 7, 8 });
             var rng = ChaCha.Create(seed);
 
             var stopwatch = Stopwatch.StartNew();
-            var (pi, error) = EstimatePi(rng);
+            (Double pi, Double error) = EstimatePi(rng);
             stopwatch.Stop();
             Console.WriteLine($"Pi: {pi}, error: {error}, time (sec): {stopwatch.Elapsed.TotalSeconds}");
         }

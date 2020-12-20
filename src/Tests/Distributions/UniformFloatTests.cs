@@ -180,12 +180,12 @@ namespace RandN.Distributions
             // Don't run this test for really tiny differences between high and low
             // since for those rounding might result in selecting high for a very
             // long time.
-            if (high - low > 0.0001)
-            {
-                var loweringMaxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = unchecked((UInt64)(-1L << 9)) };
-                Assert.True(uniform.Sample(loweringMaxRng) < high);
-                Assert.True(uniform.Sample(loweringMaxRng) < high);
-            }
+            if (high - low <= 0.0001)
+                return;
+
+            var loweringMaxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = unchecked((UInt64)(-1L << 9)) };
+            Assert.True(uniform.Sample(loweringMaxRng) < high);
+            Assert.True(uniform.Sample(loweringMaxRng) < high);
         }
 
         [Theory]
@@ -290,12 +290,12 @@ namespace RandN.Distributions
             // Don't run this test for really tiny differences between high and low
             // since for those rounding might result in selecting high for a very
             // long time.
-            if (high - low > 0.0001)
-            {
-                var loweringMaxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = unchecked((UInt64)(-1L << 12)) };
-                Assert.True(uniform.Sample(loweringMaxRng) < high);
-                Assert.True(uniform.Sample(loweringMaxRng) < high);
-            }
+            if (high - low <= 0.0001)
+                return;
+
+            var loweringMaxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = unchecked((UInt64)(-1L << 12)) };
+            Assert.True(uniform.Sample(loweringMaxRng) < high);
+            Assert.True(uniform.Sample(loweringMaxRng) < high);
         }
 
         [Theory]

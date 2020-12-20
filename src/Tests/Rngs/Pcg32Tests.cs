@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 
 namespace RandN.Rngs
@@ -7,9 +8,9 @@ namespace RandN.Rngs
         [Fact]
         public void Construction()
         {
-            var seedState = 578437695752307201ul;
+            const UInt64 seedState = 578437695752307201ul;
             // This seed is from rust_rand, so we right shift them for compatibility.
-            var stream = 1157159078456920585ul >> 1;
+            const UInt64 stream = 1157159078456920585ul >> 1;
             var seed1 = new Pcg32.Seed(seedState, stream);
             var rng1 = Pcg32.GetFactory().Create(seed1);
             Assert.Equal(1204678643940597513ul, rng1.NextUInt64());
@@ -34,7 +35,7 @@ namespace RandN.Rngs
         [Fact]
         public void NonNullable()
         {
-            Assert.Throws<System.ArgumentNullException>(() => Pcg32.GetFactory().CreateSeed<StepRng>(null));
+            Assert.Throws<ArgumentNullException>(() => Pcg32.GetFactory().CreateSeed<StepRng>(null));
         }
     }
 }

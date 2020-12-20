@@ -123,7 +123,7 @@ namespace RandN.Rngs
             {
                 Span<UInt32> key = stackalloc UInt32[KeyLength];
                 seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
-                UInt64 stream = 0;
+                const UInt64 stream = 0;
 
                 return new Seed(key, stream);
             }
@@ -144,7 +144,7 @@ namespace RandN.Rngs
             {
                 Span<UInt32> key = stackalloc UInt32[KeyLength];
                 seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
-                UInt64 stream = 0;
+                const UInt64 stream = 0;
 
                 return new Seed(key, stream);
             }
@@ -165,7 +165,7 @@ namespace RandN.Rngs
             {
                 Span<UInt32> key = stackalloc UInt32[KeyLength];
                 seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
-                UInt64 stream = 0;
+                const UInt64 stream = 0;
 
                 return new Seed(key, stream);
             }

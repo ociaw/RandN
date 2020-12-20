@@ -33,18 +33,13 @@ namespace RandN.Distributions
         /// </summary>
         /// <param name="p">The probability of success. 0 &lt;= p &lt;= 1</param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="p"/> is greater than 1 or less than 0.</exception>
-        public static Bernoulli FromP(Double p)
+        public static Bernoulli FromP(Double p) => p switch
         {
-            if (p < 0.0)
-                throw new ArgumentOutOfRangeException(nameof(p), p, $"{nameof(p)} must be greater than or equal to 0.");
-            if (p > 1.0)
-                throw new ArgumentOutOfRangeException(nameof(p), p, $"{nameof(p)} must be less than or equal to 1.");
-            // ReSharper disable once CompareOfFloatsByEqualityOperator
-            if (p == 1.0)
-                return new Bernoulli(0, true);
-
-            return new Bernoulli((UInt64)(p * Scale), false);
-        }
+            < 0.0 => throw new ArgumentOutOfRangeException(nameof(p), p, $"{nameof(p)} must be greater than or equal to 0."),
+            > 1.0 => throw new ArgumentOutOfRangeException(nameof(p), p, $"{nameof(p)} must be less than or equal to 1."),
+            1.0 => new Bernoulli(0, alwaysTrue: true),
+            _ => new Bernoulli((UInt64) (p * Scale), alwaysTrue: false)
+        };
 
         /// <summary>
         /// Creates a new Bernoulli distribution, with a probability of <paramref name="numerator"/> / <paramref name="denominator"/>.

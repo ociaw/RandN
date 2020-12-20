@@ -4,7 +4,7 @@ using Xunit;
 
 namespace RandN.Rngs
 {
-    public sealed class ChaChaInstrinsicsTests
+    public sealed class ChaChaIntrinsicsTests
     {
         [Fact]
         public void Regenerate20()

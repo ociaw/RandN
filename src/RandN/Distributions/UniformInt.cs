@@ -56,7 +56,7 @@ namespace RandN.Distributions
                 if (low > high)
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
-                var unsignedMax = System.UInt32.MaxValue;
+                const System.UInt32 unsignedMax = System.UInt32.MaxValue;
                 var range = unchecked((System.UInt32)(System.Byte)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
@@ -146,7 +146,7 @@ namespace RandN.Distributions
                 if (low > high)
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
-                var unsignedMax = System.UInt32.MaxValue;
+                const System.UInt32 unsignedMax = System.UInt32.MaxValue;
                 var range = unchecked((System.UInt32)(System.UInt16)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
@@ -236,7 +236,7 @@ namespace RandN.Distributions
                 if (low > high)
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
-                var unsignedMax = System.UInt32.MaxValue;
+                const System.UInt32 unsignedMax = System.UInt32.MaxValue;
                 var range = unchecked((System.UInt32)(System.UInt32)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
@@ -326,7 +326,7 @@ namespace RandN.Distributions
                 if (low > high)
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
-                var unsignedMax = System.UInt64.MaxValue;
+                const System.UInt64 unsignedMax = System.UInt64.MaxValue;
                 var range = unchecked((System.UInt64)(System.UInt64)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
@@ -416,7 +416,7 @@ namespace RandN.Distributions
                 if (low > high)
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
-                var unsignedMax = System.UInt32.MaxValue;
+                const System.UInt32 unsignedMax = System.UInt32.MaxValue;
                 var range = unchecked((System.UInt32)(System.Byte)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
@@ -506,7 +506,7 @@ namespace RandN.Distributions
                 if (low > high)
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
-                var unsignedMax = System.UInt32.MaxValue;
+                const System.UInt32 unsignedMax = System.UInt32.MaxValue;
                 var range = unchecked((System.UInt32)(System.UInt16)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
@@ -596,7 +596,7 @@ namespace RandN.Distributions
                 if (low > high)
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
-                var unsignedMax = System.UInt32.MaxValue;
+                const System.UInt32 unsignedMax = System.UInt32.MaxValue;
                 var range = unchecked((System.UInt32)(System.UInt32)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 
@@ -686,7 +686,7 @@ namespace RandN.Distributions
                 if (low > high)
                     throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
 
-                var unsignedMax = System.UInt64.MaxValue;
+                const System.UInt64 unsignedMax = System.UInt64.MaxValue;
                 var range = unchecked((System.UInt64)(System.UInt64)(high - low + 1));
                 var intsToReject = range == 0 ? 0 : (unsignedMax - range + 1) % range;
 

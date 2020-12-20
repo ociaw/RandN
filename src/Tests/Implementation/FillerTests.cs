@@ -96,7 +96,7 @@ namespace RandN.Implementation
                 0x7777_7777, 0x8888_8888, 0x9999_9999,
             };
             var dest = new UInt32[12];
-            var (consumed, filled) = Filler.FillViaUInt32Chunks(source, MemoryMarshal.Cast<UInt32, Byte>(dest));
+            (Int32 consumed, Int32 filled) = Filler.FillViaUInt32Chunks(source, MemoryMarshal.Cast<UInt32, Byte>(dest));
             Assert.Equal(9, consumed);
             Assert.Equal(36, filled);
 
@@ -118,7 +118,7 @@ namespace RandN.Implementation
                 0x7777_7777, 0x8888_8888, 0x9999_9999,
             };
             var dest = new UInt32[7];
-            var (consumed, filled) = Filler.FillViaUInt32Chunks(source, MemoryMarshal.Cast<UInt32, Byte>(dest));
+            (Int32 consumed, Int32 filled) = Filler.FillViaUInt32Chunks(source, MemoryMarshal.Cast<UInt32, Byte>(dest));
             Assert.Equal(7, consumed);
             Assert.Equal(28, filled);
 
@@ -136,7 +136,7 @@ namespace RandN.Implementation
                 0x7777_7777, 0x8888_8888, 0x9999_9999,
             };
             var dest = new UInt16[13];
-            var (consumed, filled) = Filler.FillViaUInt32Chunks(source, MemoryMarshal.Cast<UInt16, Byte>(dest));
+            (Int32 consumed, Int32 filled) = Filler.FillViaUInt32Chunks(source, MemoryMarshal.Cast<UInt16, Byte>(dest));
             Assert.Equal(7, consumed);
             Assert.Equal(26, filled);
 
@@ -157,7 +157,7 @@ namespace RandN.Implementation
                 0x7777_7777_7777_7777, 0x8888_8888_8888_8888, 0x9999_9999_9999_9999,
             };
             var dest = new UInt64[12];
-            var (consumed, filled) = Filler.FillViaUInt64(source, MemoryMarshal.Cast<UInt64, Byte>(dest));
+            (Int32 consumed, Int32 filled) = Filler.FillViaUInt64(source, MemoryMarshal.Cast<UInt64, Byte>(dest));
             Assert.Equal(9, consumed);
             Assert.Equal(72, filled);
 
@@ -179,7 +179,7 @@ namespace RandN.Implementation
                 0x7777_7777_7777_7777, 0x8888_8888_8888_8888, 0x9999_9999_9999_9999,
             };
             var dest = new UInt64[7];
-            var (consumed, filled) = Filler.FillViaUInt64(source, MemoryMarshal.Cast<UInt64, Byte>(dest));
+            (Int32 consumed, Int32 filled) = Filler.FillViaUInt64(source, MemoryMarshal.Cast<UInt64, Byte>(dest));
             Assert.Equal(7, consumed);
             Assert.Equal(56, filled);
 
@@ -197,7 +197,7 @@ namespace RandN.Implementation
                 0x7777_7777_7777_7777, 0x8888_8888_8888_8888, 0x9999_9999_9999_9999,
             };
             var dest = new UInt32[13];
-            var (consumed, filled) = Filler.FillViaUInt64(source, MemoryMarshal.Cast<UInt32, Byte>(dest));
+            (Int32 consumed, Int32 filled) = Filler.FillViaUInt64(source, MemoryMarshal.Cast<UInt32, Byte>(dest));
             Assert.Equal(7, consumed);
             Assert.Equal(52, filled);
 

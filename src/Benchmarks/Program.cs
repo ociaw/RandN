@@ -3,9 +3,9 @@ using BenchmarkDotNet.Running;
 
 namespace RandN.Benchmarks
 {
-    class Program
+    internal class Program
     {
-        static void Main(String[] args)
+        private static void Main(String[] args)
         {
             BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
         }

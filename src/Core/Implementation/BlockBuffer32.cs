@@ -93,7 +93,7 @@ namespace RandN.Implementation
                 if (Index >= _rng.BlockLength)
                     GenerateAndSet(0);
 
-                var (consumedUInt32, filledBytes) = Filler.FillViaUInt32Chunks(_results.AsSpan(Index), dest);
+                (Int32 consumedUInt32, Int32 filledBytes) = Filler.FillViaUInt32Chunks(_results.AsSpan(Index), dest);
                 Index += consumedUInt32;
                 dest = dest.Slice(filledBytes);
             }
@@ -212,7 +212,7 @@ namespace RandN.Implementation
                 if (Index >= _rng.BlockLength)
                     GenerateAndSet(0);
 
-                var (consumedUInt32, filledBytes) = Filler.FillViaUInt32Chunks(_results.AsSpan(Index), dest);
+                (Int32 consumedUInt32, Int32 filledBytes) = Filler.FillViaUInt32Chunks(_results.AsSpan(Index), dest);
                 Index += consumedUInt32;
                 dest = dest.Slice(filledBytes);
             }

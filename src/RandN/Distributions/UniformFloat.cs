@@ -90,7 +90,7 @@ namespace RandN.Distributions
                 System.Single scale = ((high - low) / maxRand).ForceStandardPrecision();
                 while (true)
                 {
-                    var maxPossible = (scale * maxRand + low);
+                    var maxPossible = scale * maxRand + low;
                     var aboveMax = maxPossible > high;
                     if (!aboveMax)
                         break;
@@ -202,7 +202,7 @@ namespace RandN.Distributions
                 System.Double scale = ((high - low) / maxRand).ForceStandardPrecision();
                 while (true)
                 {
-                    var maxPossible = (scale * maxRand + low);
+                    var maxPossible = scale * maxRand + low;
                     var aboveMax = maxPossible > high;
                     if (!aboveMax)
                         break;
