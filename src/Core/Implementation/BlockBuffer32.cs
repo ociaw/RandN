@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace RandN.Implementation
 {
@@ -8,7 +9,8 @@ namespace RandN.Implementation
     public sealed class BlockBuffer32<TBlockRng> : IRng
         where TBlockRng : notnull, IBlockRngCore<UInt32>
     {
-        private readonly TBlockRng _rng;
+        [SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "This could be a struct, so this must be mutable to persist changes.")]
+        private TBlockRng _rng;
         private readonly UInt32[] _results;
 
         /// <summary>
@@ -104,10 +106,11 @@ namespace RandN.Implementation
     /// Assists in implementing seekable block based RNGs.
     /// </summary>
     public sealed class BlockBuffer32<TBlockRng, TBlockCounter> : IRng
-        where TBlockRng : ISeekableBlockRngCore<UInt32, TBlockCounter>
+        where TBlockRng : notnull, ISeekableBlockRngCore<UInt32, TBlockCounter>
         where TBlockCounter : IEquatable<TBlockCounter>
     {
-        private readonly TBlockRng _rng;
+        [SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "This could be a struct, so this must be mutable to persist changes.")]
+        private TBlockRng _rng;
         private readonly UInt32[] _results;
 
         /// <summary>
