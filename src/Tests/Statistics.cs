@@ -7,16 +7,13 @@ namespace RandN
         /// <summary>
         /// A 99% confidence interval, used for tests with reproducible RNGs.
         /// </summary>
-        public const Double ConfidenceInterval = .99;
-
         public const Double ZScore = 2.576;
 
         /// <summary>
         /// We use this for when we use non-reproducible random numbers, because we *really* do not want false negatives.
         /// About one in one billion tests will fail incorrectly.
+        /// Represents a 99.9999999% confidence interval.
         /// </summary>
-        public const Double WideConfidenceInterval = 0.999999999;
-
         public const Double WideZScore = 6.109;
 
         public static Boolean WithinConfidenceBernoulli(UInt64 actual, UInt64 expected, UInt64 sampleCount, Double zScore = ZScore)
