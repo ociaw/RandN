@@ -33,7 +33,7 @@ namespace RandN.Distributions.UnitInterval
         /// <summary>
         /// A <see cref="System.<#= type #>"/> distribution over the closed-open interval [0<#= floatSuffix #>, 1<#= floatSuffix #>).
         /// </summary>
-        public readonly struct <#= type #> : IPortableDistribution<System.<#= type #>>
+        public readonly struct <#= type #> : IDistribution<System.<#= type #>>
         {
             /// <summary>
             /// Gets the instance of <see cref="<#= type #>" />.
@@ -67,7 +67,7 @@ namespace RandN.Distributions.UnitInterval
         /// <summary>
         /// A <see cref="System.<#= type #>"/> distribution over the open-closed interval (0<#= floatSuffix #>, 1<#= floatSuffix #>].
         /// </summary>
-        public readonly struct <#= type #> : IPortableDistribution<System.<#= type #>>
+        public readonly struct <#= type #> : IDistribution<System.<#= type #>>
         {
             /// <summary>
             /// Gets the instance of <see cref="<#= type #>" />.
@@ -101,7 +101,7 @@ namespace RandN.Distributions.UnitInterval
         /// <summary>
         /// A <see cref="System.<#= type #>"/> distribution over the closed interval [0<#= floatSuffix #>, 1<#= floatSuffix #>].
         /// </summary>
-        public readonly struct <#= type #> : IPortableDistribution<System.<#= type #>>
+        public readonly struct <#= type #> : IDistribution<System.<#= type #>>
         {
             /// <summary>
             /// Gets the instance of <see cref="<#= type #>" />.
@@ -135,7 +135,7 @@ namespace RandN.Distributions.UnitInterval
         /// <summary>
         /// A <see cref="System.<#= type #>"/> distribution over the open interval (0<#= floatSuffix #>, 1<#= floatSuffix #>).
         /// </summary>
-        public readonly struct <#= type #> : IPortableDistribution<System.<#= type #>>
+        public readonly struct <#= type #> : IDistribution<System.<#= type #>>
         {
             /// <summary>
             /// Gets the instance of <see cref="<#= type #>" />.

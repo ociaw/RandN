@@ -20,7 +20,7 @@ namespace RandN.Distributions.UnitInterval
         /// <summary>
         /// A <see cref="System.Single"/> distribution over the closed-open interval [0f, 1f).
         /// </summary>
-        public readonly struct Single : IPortableDistribution<System.Single>
+        public readonly struct Single : IDistribution<System.Single>
         {
             /// <summary>
             /// Gets the instance of <see cref="Single" />.
@@ -54,7 +54,7 @@ namespace RandN.Distributions.UnitInterval
         /// <summary>
         /// A <see cref="System.Single"/> distribution over the open-closed interval (0f, 1f].
         /// </summary>
-        public readonly struct Single : IPortableDistribution<System.Single>
+        public readonly struct Single : IDistribution<System.Single>
         {
             /// <summary>
             /// Gets the instance of <see cref="Single" />.
@@ -88,7 +88,7 @@ namespace RandN.Distributions.UnitInterval
         /// <summary>
         /// A <see cref="System.Single"/> distribution over the closed interval [0f, 1f].
         /// </summary>
-        public readonly struct Single : IPortableDistribution<System.Single>
+        public readonly struct Single : IDistribution<System.Single>
         {
             /// <summary>
             /// Gets the instance of <see cref="Single" />.
@@ -122,7 +122,7 @@ namespace RandN.Distributions.UnitInterval
         /// <summary>
         /// A <see cref="System.Single"/> distribution over the open interval (0f, 1f).
         /// </summary>
-        public readonly struct Single : IPortableDistribution<System.Single>
+        public readonly struct Single : IDistribution<System.Single>
         {
             /// <summary>
             /// Gets the instance of <see cref="Single" />.
@@ -155,7 +155,7 @@ namespace RandN.Distributions.UnitInterval
         /// <summary>
         /// A <see cref="System.Double"/> distribution over the closed-open interval [0d, 1d).
         /// </summary>
-        public readonly struct Double : IPortableDistribution<System.Double>
+        public readonly struct Double : IDistribution<System.Double>
         {
             /// <summary>
             /// Gets the instance of <see cref="Double" />.
@@ -189,7 +189,7 @@ namespace RandN.Distributions.UnitInterval
         /// <summary>
         /// A <see cref="System.Double"/> distribution over the open-closed interval (0d, 1d].
         /// </summary>
-        public readonly struct Double : IPortableDistribution<System.Double>
+        public readonly struct Double : IDistribution<System.Double>
         {
             /// <summary>
             /// Gets the instance of <see cref="Double" />.
@@ -223,7 +223,7 @@ namespace RandN.Distributions.UnitInterval
         /// <summary>
         /// A <see cref="System.Double"/> distribution over the closed interval [0d, 1d].
         /// </summary>
-        public readonly struct Double : IPortableDistribution<System.Double>
+        public readonly struct Double : IDistribution<System.Double>
         {
             /// <summary>
             /// Gets the instance of <see cref="Double" />.
@@ -257,7 +257,7 @@ namespace RandN.Distributions.UnitInterval
         /// <summary>
         /// A <see cref="System.Double"/> distribution over the open interval (0d, 1d).
         /// </summary>
-        public readonly struct Double : IPortableDistribution<System.Double>
+        public readonly struct Double : IDistribution<System.Double>
         {
             /// <summary>
             /// Gets the instance of <see cref="Double" />.
