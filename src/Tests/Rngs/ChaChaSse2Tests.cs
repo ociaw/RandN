@@ -6,7 +6,7 @@ namespace RandN.Rngs
 {
     public sealed class ChaChaSse2Tests
     {
-        [Fact]
+        [Sse2RequiredFact]
         public void Regenerate20()
         {
             var rng = ChaChaSse2.Create(new UInt32[] { 0, 0, 1, 0, 2, 0, 3, 0 }, 0, 0, 10);
@@ -16,7 +16,7 @@ namespace RandN.Rngs
             Assert.Equal(0ul, rng.Stream);
         }
 
-        [Fact]
+        [Sse2RequiredFact]
         public void Generate20()
         {
             var rng = ChaChaSse2.Create(new UInt32[] { 0, 0, 1, 0, 2, 0, 3, 0 }, UInt64.MaxValue, 0, 10);
@@ -26,7 +26,7 @@ namespace RandN.Rngs
             Assert.Equal(0ul, rng.Stream);
         }
 
-        [Fact]
+        [Sse2RequiredFact]
         public void Regenerate12()
         {
             var rng = ChaChaSse2.Create(new UInt32[] { 0, 0, 1, 0, 2, 0, 3, 0 }, 0, 0, 6);
@@ -36,7 +36,7 @@ namespace RandN.Rngs
             Assert.Equal(0ul, rng.Stream);
         }
 
-        [Fact]
+        [Sse2RequiredFact]
         public void Generate12()
         {
             var rng = ChaChaSse2.Create(new UInt32[] { 0, 0, 1, 0, 2, 0, 3, 0 }, UInt64.MaxValue, 0, 6);
@@ -46,7 +46,7 @@ namespace RandN.Rngs
             Assert.Equal(0ul, rng.Stream);
         }
 
-        [Fact]
+        [Sse2RequiredFact]
         public void Regenerate8()
         {
             var rng = ChaChaSse2.Create(new UInt32[] { 0, 0, 1, 0, 2, 0, 3, 0 }, 0, 0, 4);
@@ -56,7 +56,7 @@ namespace RandN.Rngs
             Assert.Equal(0ul, rng.Stream);
         }
 
-        [Fact]
+        [Sse2RequiredFact]
         public void Generate8()
         {
             var rng = ChaChaSse2.Create(new UInt32[] { 0, 0, 1, 0, 2, 0, 3, 0 }, UInt64.MaxValue, 0, 4);
@@ -66,7 +66,7 @@ namespace RandN.Rngs
             Assert.Equal(0ul, rng.Stream);
         }
 
-        [Fact]
+        [Sse2RequiredFact]
         public void StreamModification()
         {
             var rng = ChaChaSse2.Create(new UInt32[] { 0, 0, 1, 0, 2, 0, 3, 0 }, 0, 0, 4);
