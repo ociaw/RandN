@@ -20,7 +20,7 @@ with an `IRng`, and turning that data into something useful with an `IDistributi
 
 ## Docs
 
-The full documentation is available [here](https://ociaw.com/randn).
+The full documentation is available [here](https://randn.dev/).
 
 # Usage
 
