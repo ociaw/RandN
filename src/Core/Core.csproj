@@ -17,11 +17,33 @@
     <Company>ociaw</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>RandN.Core defines the core interfaces of RandN, thus is intended only to be used by those implementing a random number generator. Others should instead use the RandN package itself. RandN.Core also provides RNG implementation helpers.</Description>
-    <PackageProjectUrl>https://github.com/ociaw/RandN</PackageProjectUrl>
+    <PackageProjectUrl>https://randn.dev/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/ociaw/RandN.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>rng random randn</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReleaseNotes>
+      Version 0.2.0
+
+      New APIs:
+      The marker-interface IPortableDistribution has been created to mark distributions that provide portable and repeatable results across all platforms. Currently, the Bernoulli, the uniform Decimal, the uniform TimeSpan, and all the uniform integer distributions are portable.
+      Added BlockBuffer32&lt;TBlockRng, TBlockCounter&gt;.BlockLength for consistency with BlockBuffer32.BlockLength.
+
+      Updated APIs:
+      Uniform distributions now live have been grouped into nested classes under the Uniform static class. For example, UniformInt32 has become Uniform.Int32.
+      Unit interval distributions now live in the Rand.Distributions.UnitInterval namespace and have been grouped into nested classes. For example, UnitInterval.OpenDouble has become UnitInterval.Open.Double.
+      Method arguments now have null-checks injected by NullGuard.Fody instead of relying on the honor system.
+      The TRng type parameter of IRngFactory and IReproducibleRngFactory&lt;TRng, TSeed&gt; is now covariant (IRngFactory&lt;out TRng&gt;).
+      BlockBuffer32&lt;TBlockRng&gt;.Length has been renamed to BlockLength.
+
+      Removed APIs:
+      Removed the Sample extension methods - these were questionably useful, and could be up to four times slower than their non-extension counterpart, IDistribution.Sample.
+
+      Bug fixes:
+      Distributions returning floating point numbers would sometimes sample a number outside the desired range on .NET Framework x86, which can use 80-bit floating point calculations, instead of 64-bit. Results are now forced to 64-bit precision before returning.
+      BitwiseExtensions.RotateRight now rotates bits right instead of left on .NET Core 3.1+.
+      All places where overflow is expected is now marked with unchecked.
+    </PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
