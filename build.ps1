@@ -156,7 +156,7 @@ function Pack-Project
 {
     Param([string] $Path)
 
-    $branch = $(hg id --bookmark -r .)
+    $branch = $(hg id --branch -r .)
     $commit = $(hg id --debug --id -r .)
 
     dotnet pack $Path `

@@ -18,8 +18,8 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>RandN.Core defines the core interfaces of RandN, thus is intended only to be used by those implementing a random number generator. Others should instead use the RandN package itself. RandN.Core also provides RNG implementation helpers.</Description>
     <PackageProjectUrl>https://randn.dev/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ociaw/RandN.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://hg.sr.ht/~ociaw/RandN</RepositoryUrl>
+    <RepositoryType>hg</RepositoryType>
     <PackageTags>rng random randn</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>

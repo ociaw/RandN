@@ -16,8 +16,8 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>rng random randn</PackageTags>
     <PackageProjectUrl>https://randn.dev/</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ociaw/RandN.git</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://hg.sr.ht/~ociaw/RandN</RepositoryUrl>
+    <RepositoryType>hg</RepositoryType>
     <Version>0.2.0</Version>
     <PackageReleaseNotes>
       Version 0.2.0
