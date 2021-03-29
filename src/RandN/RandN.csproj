@@ -77,7 +77,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NullGuard.Fody" Version="3.0.0" />
+    <PackageReference Include="NullGuard.Fody" Version="3.0.0" PrivateAssets="All" />
     <PackageReference Include="RandN.Core" Version="0.2.0" />
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
@@ -129,6 +129,7 @@
     </None>
   </ItemGroup>
 
+  <!-- This seems to have something to do with T4 Templates. -->
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
   </ItemGroup>
