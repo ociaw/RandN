@@ -164,8 +164,8 @@ function Pack-Project
         --nologo `
         --configuration Release `
         /p:Version=$BuildVersion `
-        /p:Repository/Branch=$branch `
-        /p:Repository/Commit=$commit `
+        /p:RepositoryBranch=$branch `
+        /p:RepositoryCommit=$commit `
         /p:PackageOutputPath=$packageOutputFolder
 }
 
