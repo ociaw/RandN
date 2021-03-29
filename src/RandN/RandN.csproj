@@ -1,24 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Library</OutputType>
     <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1;net5.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>RandN</AssemblyName>
     <RootNamespace>RandN</RootNamespace>
-    <ApplicationIcon />
-    <OutputType>Library</OutputType>
     <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>9.0</LangVersion>
     <AnalysisLevel>5</AnalysisLevel>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.2.0</Version>
     <Authors>ociaw</Authors>
+    <Company>ociaw</Company>
     <Description>RandN is an alternative library for random number generation, designed to replace the standard Random type.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>rng random randn</PackageTags>
     <PackageProjectUrl>https://randn.dev/</PackageProjectUrl>
     <RepositoryUrl>https://hg.sr.ht/~ociaw/RandN</RepositoryUrl>
     <RepositoryType>hg</RepositoryType>
-    <Version>0.2.0</Version>
+    <PackageTags>rng random randn</PackageTags>
     <PackageReleaseNotes>
       Version 0.2.0
 
@@ -47,30 +47,9 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(TargetFramework)'!='netstandard2.0' And '$(TargetFramework)'!='netstandard2.1'">
     <DefineConstants>X86_INTRINSICS</DefineConstants>
   </PropertyGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Distributions\UniformFloat.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>UniformFloat.tt</DependentUpon>
-    </None>
-    <None Include="Distributions\UnitInterval\Float.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Float.tt</DependentUpon>
-    </None>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Fody" Version="6.2.0">
@@ -80,6 +59,29 @@
     <PackageReference Include="NullGuard.Fody" Version="3.0.0" PrivateAssets="All" />
     <PackageReference Include="RandN.Core" Version="0.2.0" />
     <ProjectReference Include="..\Core\Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Distributions\Uniform.tt">
+      <LastGenOutput>Uniform.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Distributions\UniformFloat.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UniformFloat.cs</LastGenOutput>
+    </None>
+    <None Update="Distributions\UniformInt.tt">
+      <LastGenOutput>UniformInt.cs</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
+    <None Update="Distributions\UnitInterval\Float.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Float.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -103,30 +105,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Float.tt</DependentUpon>
     </Compile>
-    <Compile Update="Distributions\UnitInterval\UnitInterval.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>UnitInterval.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Distributions\UniformFloat.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>UniformFloat.cs</LastGenOutput>
-    </None>
-    <None Update="Distributions\Uniform.tt">
-      <LastGenOutput>Uniform.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
-    <None Update="Distributions\UniformInt.tt">
-      <LastGenOutput>UniformInt.cs</LastGenOutput>
-      <Generator>TextTemplatingFileGenerator</Generator>
-    </None>
-    <None Update="Distributions\UnitInterval\Float.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Float.cs</LastGenOutput>
-    </None>
   </ItemGroup>
 
   <!-- This seems to have something to do with T4 Templates. -->

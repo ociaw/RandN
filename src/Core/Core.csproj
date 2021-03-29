@@ -1,27 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Library</OutputType>
     <TargetFrameworks>netstandard2.0;netcoreapp3.1;net5.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>RandN.Core</AssemblyName>
     <RootNamespace>RandN</RootNamespace>
-    <ApplicationIcon />
-    <OutputType>Library</OutputType>
-    <StartupObject />
     <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>9.0</LangVersion>
     <AnalysisLevel>5</AnalysisLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Version>0.2.0</Version>
     <Authors>ociaw</Authors>
     <Company>ociaw</Company>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Description>RandN.Core defines the core interfaces of RandN, thus is intended only to be used by those implementing a random number generator. Others should instead use the RandN package itself. RandN.Core also provides RNG implementation helpers.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://randn.dev/</PackageProjectUrl>
     <RepositoryUrl>https://hg.sr.ht/~ociaw/RandN</RepositoryUrl>
     <RepositoryType>hg</RepositoryType>
     <PackageTags>rng random randn</PackageTags>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>
       Version 0.2.0
 

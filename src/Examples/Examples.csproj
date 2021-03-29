@@ -3,8 +3,13 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <AnalysisLevel>5</AnalysisLevel>
+    <Optimize>true</Optimize>
+    <AssemblyName>Benchmarks</AssemblyName>
     <RootNamespace>RandN.Examples</RootNamespace>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <LangVersion>9.0</LangVersion>
+    <AnalysisLevel>5</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>

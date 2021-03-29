@@ -3,10 +3,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>netcoreapp3.1;net472;net5.0</TargetFrameworks>
+    <Optimize>true</Optimize>
     <AssemblyName>Benchmarks</AssemblyName>
     <RootNamespace>RandN.Benchmarks</RootNamespace>
-    <Optimize>true</Optimize>
     <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <LangVersion>9.0</LangVersion>
     <AnalysisLevel>5</AnalysisLevel>
   </PropertyGroup>
