@@ -31,6 +31,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
+    <PackageReference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel" Version="14.0.0" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\Mocks\Mocks.csproj" />
     <ProjectReference Include="..\RandN\RandN.csproj" />
