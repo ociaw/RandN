@@ -16,6 +16,8 @@ BenchmarkDotNet.Artifacts/
 
 *.code-workspace
 
+.idea/
+
 # Docs
 config.wyam.*
 docs/output/**
