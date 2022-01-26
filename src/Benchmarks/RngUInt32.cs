@@ -15,7 +15,9 @@ namespace RandN.Benchmarks
         private readonly Pcg32 _pcg32;
         private readonly Mt1993764 _mt1993764;
         private readonly XorShift _xorShift;
+#pragma warning disable CS0618
         private readonly CryptoServiceProvider _cryptoServiceProvider;
+#pragma warning restore CS0618
         private readonly Random _random;
 
         public RngUInt32()
@@ -26,7 +28,9 @@ namespace RandN.Benchmarks
             _pcg32 = Rngs.Pcg32.Create(0, 0);
             _mt1993764 = Rngs.Mt1993764.Create(0);
             _xorShift = Rngs.XorShift.Create(1, 1, 1, 1);
+#pragma warning disable CS0618
             _cryptoServiceProvider = Rngs.CryptoServiceProvider.Create();
+#pragma warning restore CS0618
             _random = new Random(42);
         }
 
