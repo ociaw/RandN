@@ -191,7 +191,7 @@ namespace RandN.Implementation
 
 #if NET5_0
             Span<Int32> bits = stackalloc Int32[4];
-            var arst = Decimal.GetBits(original, bits);
+            _ = Decimal.GetBits(original, bits);
 #else
             var bits = Decimal.GetBits(original);
 #endif
