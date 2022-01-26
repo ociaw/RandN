@@ -46,16 +46,16 @@ namespace RandN
     public static class RngSeeder
     {
         /// <summary>
-        /// Creates an auto seeding RNG factory with the given RNG factory and <see cref="CryptoServiceProvider"/> as a seed source.
+        /// Creates an auto seeding RNG factory with the given RNG factory and <see cref="SystemCryptoRng"/> as a seed source.
         /// </summary>
-        public static RngSeeder<TRng, CryptoServiceProvider, TSeed> Create<TRng, TSeed>(IReproducibleRngFactory<TRng, TSeed> rngFactory)
+        public static RngSeeder<TRng, SystemCryptoRng, TSeed> Create<TRng, TSeed>(IReproducibleRngFactory<TRng, TSeed> rngFactory)
             where TRng : notnull, IRng
         {
             if (rngFactory == null)
                 throw new ArgumentNullException(nameof(rngFactory));
 
-            var seedSource = CryptoServiceProvider.GetFactory().Create();
-            return new RngSeeder<TRng, CryptoServiceProvider, TSeed>(rngFactory, seedSource);
+            var seedSource = SystemCryptoRng.GetFactory().Create();
+            return new RngSeeder<TRng, SystemCryptoRng, TSeed>(rngFactory, seedSource);
         }
 
         /// <summary>
