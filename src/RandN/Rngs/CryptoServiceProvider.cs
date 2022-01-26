@@ -8,6 +8,11 @@ namespace RandN.Rngs
     /// <summary>
     /// A cryptographically secure random number generator wrapping <see cref="RNGCryptoServiceProvider"/>.
     /// </summary>
+    /// <remarks>
+    /// Obsolete, and will be removed in a future version of RandN. This is due to <see cref="CryptoServiceProvider"/>
+    /// becoming obsolete. See https://github.com/dotnet/runtime/issues/40169 for more details.
+    /// </remarks>
+    [Obsolete("This type is obsolete. Use SystemCryptoRng instead.")]
     public sealed class CryptoServiceProvider : ICryptoRng, IDisposable
     {
         private readonly BlockBuffer32<BlockCore> _buffer;
