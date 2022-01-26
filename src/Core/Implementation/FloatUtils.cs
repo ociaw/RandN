@@ -189,7 +189,7 @@ namespace RandN.Implementation
                 throw new ArgumentOutOfRangeException(nameof(original), 0, "Cannot decrement mantissa of 0.");
             }
 
-#if NET5_0
+#if GETBITS_SPAN
             Span<Int32> bits = stackalloc Int32[4];
             _ = Decimal.GetBits(original, bits);
 #else

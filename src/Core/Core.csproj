@@ -35,10 +35,15 @@
   <PropertyGroup Condition="'$(TargetFramework)'!='netstandard2.0' And '$(TargetFramework)'!='netstandard2.1'">
     <DefineConstants>X86_INTRINSICS</DefineConstants>
   </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(TargetFramework)'=='net5.0' Or '$(TargetFramework)'=='net6.0'">
+    <DefineConstants>GETBITS_SPAN</DefineConstants>
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
     <DefineConstants>BITWISE_FLOAT_CONVERSION</DefineConstants>
   </PropertyGroup>
+  
 
   <ItemGroup>
     <PackageReference Include="Fody" Version="6.2.0">
