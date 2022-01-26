@@ -15,6 +15,7 @@ namespace RandN.Benchmarks
         private readonly Pcg32 _pcg32;
         private readonly Mt1993764 _mt1993764;
         private readonly XorShift _xorShift;
+        private readonly SystemCryptoRng _systemCryptoRng;
 #pragma warning disable CS0618
         private readonly CryptoServiceProvider _cryptoServiceProvider;
 #pragma warning restore CS0618
@@ -28,6 +29,7 @@ namespace RandN.Benchmarks
             _pcg32 = Rngs.Pcg32.Create(0, 0);
             _mt1993764 = Rngs.Mt1993764.Create(0);
             _xorShift = Rngs.XorShift.Create(1, 1, 1, 1);
+            _systemCryptoRng = Rngs.SystemCryptoRng.Create();
 #pragma warning disable CS0618
             _cryptoServiceProvider = Rngs.CryptoServiceProvider.Create();
 #pragma warning restore CS0618
@@ -85,6 +87,15 @@ namespace RandN.Benchmarks
             UInt32 sum = 0;
             for (Int32 i = 0; i < Iterations; i++)
                 sum = unchecked(sum + _xorShift.NextUInt32());
+            return sum;
+        }
+
+        [Benchmark]
+        public UInt32 SystemCryptoRng()
+        {
+            UInt32 sum = 0;
+            for (Int32 i = 0; i < Iterations; i++)
+                sum = unchecked(sum + _systemCryptoRng.NextUInt32());
             return sum;
         }
 
