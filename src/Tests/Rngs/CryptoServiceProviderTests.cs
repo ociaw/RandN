@@ -10,7 +10,9 @@ namespace RandN.Rngs
         [Fact]
         public void Construction()
         {
+#pragma warning disable CS0618
             var factory = CryptoServiceProvider.GetFactory();
+#pragma warning restore CS0618
             var rng = factory.Create();
             Assert.True(Statistics.TestMonobitFrequency32(rng, 100_000, Statistics.WideZScore));
             Assert.True(Statistics.TestMonobitFrequency64(rng, 100_000, Statistics.WideZScore));
