@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace RandN
 {
@@ -21,8 +22,9 @@ namespace RandN
 
         /// <summary>
         /// Attempts to sample a value from <paramref name="rng"/> once, returning false if the value returned
-        /// is not suitable.
+        /// is not suitable. If <see langkeyword="false" /> is returned, the value of <paramref name="result"/> is
+        /// unspecified.
         /// </summary>
-        Boolean TrySample<TRng>(TRng rng, out TResult result) where TRng : notnull, IRng;
+        Boolean TrySample<TRng>(TRng rng, [MaybeNullWhen(false)] out TResult result) where TRng : notnull, IRng;
     }
 }
