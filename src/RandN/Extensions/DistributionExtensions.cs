@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace RandN.Extensions
 {
@@ -45,7 +46,7 @@ namespace RandN.Extensions
                 return _selector(sample);
             }
 
-            public Boolean TrySample<TRng>(TRng rng, out TResult result) where TRng : notnull, IRng
+            public Boolean TrySample<TRng>(TRng rng, [MaybeNullWhen(false)] out TResult result) where TRng : notnull, IRng
             {
                 if (_distribution.TrySample(rng, out var sample))
                 {
