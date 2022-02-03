@@ -11,7 +11,7 @@ namespace RandN
     {
         private static readonly ThreadLocal<ChaCha> ThreadLocal = new(() =>
         {
-            using var seeder = CryptoServiceProvider.Create();
+            using var seeder = SystemCryptoRng.Create();
             return ChaCha.GetChaCha8Factory().Create(seeder);
         });
 

@@ -70,10 +70,14 @@ namespace RandN.Implementation
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt32 ToBits(this Single num)
         {
+#if BITWISE_FLOAT_CONVERSION
+            return BitConverter.SingleToUInt32Bits(num);
+#else
             unsafe
             {
                 return *(UInt32*)&num;
             }
+#endif
         }
 
         /// <summary>
@@ -83,10 +87,14 @@ namespace RandN.Implementation
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt64 ToBits(this Double num)
         {
+#if BITWISE_FLOAT_CONVERSION
+            return BitConverter.DoubleToUInt64Bits(num);
+#else
             unsafe
             {
                 return *(UInt64*)&num;
             }
+#endif
         }
 
         /// <summary>
@@ -96,10 +104,14 @@ namespace RandN.Implementation
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Single ToFloat(this UInt32 bits)
         {
+#if BITWISE_FLOAT_CONVERSION
+            return BitConverter.UInt32BitsToSingle(bits);
+#else
             unsafe
             {
                 return *(Single*)&bits;
             }
+#endif
         }
 
         /// <summary>
@@ -109,10 +121,14 @@ namespace RandN.Implementation
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Double ToFloat(this UInt64 bits)
         {
+#if BITWISE_FLOAT_CONVERSION
+            return BitConverter.UInt64BitsToDouble(bits);
+#else
             unsafe
             {
                 return *(Double*)&bits;
             }
+#endif
         }
 
         /// <summary>
@@ -173,9 +189,9 @@ namespace RandN.Implementation
                 throw new ArgumentOutOfRangeException(nameof(original), 0, "Cannot decrement mantissa of 0.");
             }
 
-#if NET5_0
+#if GETBITS_SPAN
             Span<Int32> bits = stackalloc Int32[4];
-            var arst = Decimal.GetBits(original, bits);
+            _ = Decimal.GetBits(original, bits);
 #else
             var bits = Decimal.GetBits(original);
 #endif
