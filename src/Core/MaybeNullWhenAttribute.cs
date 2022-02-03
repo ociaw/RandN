@@ -6,7 +6,7 @@ namespace System.Diagnostics.CodeAnalysis
     /// This is a hacky way to allow us to use the MaybeNullWhenAttribute when we target .NET Standard 2.0. 
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
-    public sealed class MaybeNullWhenAttribute : Attribute
+    internal sealed class MaybeNullWhenAttribute : Attribute
     {
         /// <summary>
         /// Creates a new instance of <see cref="MaybeNullWhenAttribute"/>.
