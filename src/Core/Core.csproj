@@ -2,12 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.1;net5.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.1;net5.0;net6.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>RandN.Core</AssemblyName>
     <RootNamespace>RandN</RootNamespace>
     <Nullable>enable</Nullable>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>9.0</LangVersion>
     <AnalysisLevel>5</AnalysisLevel>
     <Version>0.3.0</Version>
@@ -35,6 +34,18 @@
   <PropertyGroup Condition="'$(TargetFramework)'!='netstandard2.0' And '$(TargetFramework)'!='netstandard2.1'">
     <DefineConstants>X86_INTRINSICS</DefineConstants>
   </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(TargetFramework)'=='net5.0' Or '$(TargetFramework)'=='net6.0'">
+    <DefineConstants>GETBITS_SPAN</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net6.0'">
+    <DefineConstants>BITWISE_FLOAT_CONVERSION</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'!='net6.0'">
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  
 
   <ItemGroup>
     <PackageReference Include="Fody" Version="6.2.0">
