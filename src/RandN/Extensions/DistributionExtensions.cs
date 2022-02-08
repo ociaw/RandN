@@ -29,7 +29,7 @@ namespace RandN.Extensions
             Func<TSource, TResult> selector) =>
             new SelectDistribution<TSource, TResult>(distribution, selector);
 
-        private class SelectDistribution<TSource, TResult> : IDistribution<TResult>
+        private sealed class SelectDistribution<TSource, TResult> : IDistribution<TResult>
         {
             private readonly IDistribution<TSource> _distribution;
             private readonly Func<TSource, TResult> _selector;
