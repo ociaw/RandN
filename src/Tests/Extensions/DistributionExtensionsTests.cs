@@ -9,7 +9,7 @@ namespace RandN.Extensions
         [InlineData("", 0)]
         [InlineData("A", 1)]
         [InlineData("ABCDEF", 6)]
-        public void Sample(String inputSample, Int32 expectedOutputSample)
+        public void Select_Sample(String inputSample, Int32 expectedOutputSample)
         {
             var inputDistribution = new MockDistribution<String>(inputSample);
 
@@ -30,7 +30,7 @@ namespace RandN.Extensions
         [InlineData("", true, 0, true)]
         [InlineData("A", true, 1, true)]
         [InlineData("ABCDEF", true, 6, true)]
-        public void TrySample(
+        public void Select_TrySample(
             String inputResult,
             Boolean inputSuccess,
             Int32 expectedOutputResult,
@@ -49,7 +49,7 @@ namespace RandN.Extensions
         }
 
         [Fact]
-        public void SampleUsingQuerySyntax()
+        public void Select_SampleUsingQuerySyntax()
         {
             var inputDistribution = new MockDistribution<String>("ABCDEF");
 
