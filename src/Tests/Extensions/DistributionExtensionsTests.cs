@@ -168,5 +168,28 @@ namespace RandN.Extensions
                 Assert.Null(result);
             }
         }
+
+        [Theory]
+        [InlineData("", 0)]
+        [InlineData("A", 1)]
+        [InlineData("ABCDEF", 6)]
+        public void SelectManyWithResultSelector_SampleUsingQuerySyntax(String inputSample, Int32 expectedOutputSample)
+        {
+            var inputDistribution = new MockDistribution<String>(inputSample);
+
+            var outputDistribution =
+                from x in inputDistribution
+                from y in new MockDistribution<Int32>(x.Length)
+                select new { X = x, Y = y };
+
+            // Use a throwing RNG to check that sampling from the distribution
+            // does not update the state of the RNG directly.
+            var rng = new ThrowingRng();
+
+            var sampleFromOutputDistribution = outputDistribution.Sample(rng);
+
+            Assert.Equal(inputSample, sampleFromOutputDistribution.X);
+            Assert.Equal(expectedOutputSample, sampleFromOutputDistribution.Y);
+        }
     }
 }
