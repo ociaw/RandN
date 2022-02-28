@@ -14,6 +14,10 @@ namespace RandN.Extensions
         /// <typeparam name="TResult">The generic type of the output distribution.</typeparam>
         /// <param name="distribution">The distribution to be transformed.</param>
         /// <param name="selector">The projection to be applied to values from the distribution.</param>
+        /// <remarks>
+        /// When using <code>TrySample</code> on the result, if the <paramref name="distribution"/>
+        /// fails then the <paramref name="selector"/> is not applied.
+        /// </remarks>
         public static IDistribution<TResult> SelectMany<TSource, TResult>(
             this IDistribution<TSource> distribution,
             Func<TSource, IDistribution<TResult>> selector) =>
@@ -39,6 +43,10 @@ namespace RandN.Extensions
         /// <param name="selector">The projection to be applied to values from the
         /// distribution to produce an intermediate distribution.</param>
         /// <param name="resultSelector">The projection to be applied to values from both distributions.</param>
+        /// <remarks>
+        /// When using <code>TrySample</code> on the result, if the <paramref name="distribution"/>
+        /// fails then the <paramref name="selector"/> is not applied.
+        /// </remarks>
         public static IDistribution<TResult> SelectMany<TSource, TIntermediate, TResult>(
             this IDistribution<TSource> distribution,
             Func<TSource, IDistribution<TIntermediate>> selector,
