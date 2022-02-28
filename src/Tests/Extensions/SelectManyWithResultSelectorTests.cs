@@ -9,7 +9,8 @@ namespace RandN.Extensions
         [InlineData("", 0)]
         [InlineData("A", 1)]
         [InlineData("ABCDEF", 6)]
-        public void SelectManyWithResultSelector_Sample(String inputSample, Int32 expectedOutputSample)
+        public void SelectMany_returns_a_distribution_which_applies_the_selector_to_a_sample_from_the_input_and_samples_from_it(
+            String inputSample, Int32 expectedOutputSample)
         {
             var inputDistribution = new MockDistribution<String>(inputSample);
 
@@ -69,7 +70,7 @@ namespace RandN.Extensions
         [InlineData("", 0)]
         [InlineData("A", 1)]
         [InlineData("ABCDEF", 6)]
-        public void SelectManyWithResultSelector_SampleUsingQuerySyntax(String inputSample, Int32 expectedOutputSample)
+        public void SelectMany_can_be_used_with_LINQ_query_syntax(String inputSample, Int32 expectedOutputSample)
         {
             var inputDistribution = new MockDistribution<String>(inputSample);
 
