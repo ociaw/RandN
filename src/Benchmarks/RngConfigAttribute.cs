@@ -12,7 +12,7 @@ namespace RandN.Benchmarks
             BytesPerIteration = bytesPerIteration;
             var standard = new Job("All Enabled");
             var noAvx2 = new Job("AVX2 Disabled").WithEnvironmentVariable("COMPlus_EnableAVX2", "0");
-            var netFramework = Job.Default.WithRuntime(BenchmarkDotNet.Environments.ClrRuntime.Net472).WithId(".NET 4.7.2");
+            var netFramework = Job.Default.WithRuntime(BenchmarkDotNet.Environments.ClrRuntime.Net48).WithId(".NET 4.8");
 
             Config = ManualConfig.Create(DefaultConfig.Instance)
                 .AddColumn(new ThroughputColumn(BytesPerIteration))
