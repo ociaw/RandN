@@ -22,7 +22,7 @@ namespace RandN.Benchmarks
 #pragma warning restore CS0618
         private readonly Random _random;
 
-#if NET472
+#if NET48
         private readonly Byte[] _buffer = new Byte[BufferLength];
 #endif
         public RngFill()
@@ -110,7 +110,7 @@ namespace RandN.Benchmarks
         [Benchmark]
         public void SystemRandom()
         {
-#if NET472
+#if NET48
             for (Int32 i = 0; i < Iterations; i++)
                 _random.NextBytes(_buffer);
 #else
