@@ -1,13 +1,12 @@
 using System;
 using BenchmarkDotNet.Running;
 
-namespace RandN.Benchmarks
+namespace RandN.Benchmarks;
+
+internal class Program
 {
-    internal class Program
+    private static void Main(String[] args)
     {
-        private static void Main(String[] args)
-        {
-            BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
-        }
+        BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args);
     }
 }

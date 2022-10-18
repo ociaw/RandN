@@ -17,13 +17,13 @@ using RandN.Implementation;
 // ReSharper disable RedundantCast
 
 /*** This file is auto generated - any changes made here will be lost. ***/
-namespace RandN.Distributions
+namespace RandN.Distributions;
+
+public class UniformFloatTests
 {
-    public class UniformFloatTests
+    [Fact]
+    public void BadRange()
     {
-        [Fact]
-        public void BadRange()
-        {
 <# foreach (var param in parameters)
 {
     String type = param.type.Name;
@@ -31,195 +31,194 @@ namespace RandN.Distributions
     String uintSuffix = param.uintSuffix;
     String bitsDiscarded = param.bitsDiscarded.ToString();
 #>
-            // Equal
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(0<#= floatSuffix #>, 0<#= floatSuffix #>));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(<#= type #>.MaxValue, <#= type #>.MaxValue));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(<#= type #>.MinValue, <#= type #>.MinValue));
-            // Reversed
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(10.0<#= floatSuffix #>, 10.0<#= floatSuffix #>));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(9001.0<#= floatSuffix #>, -666.0<#= floatSuffix #>));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(<#= type #>.MaxValue, <#= type #>.MinValue));
-            // Infinities
-            Assert.Throws<ArgumentOutOfRangeException>("low", () => Uniform.New(<#= type #>.NegativeInfinity, 0));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(0, <#= type #>.PositiveInfinity));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.PositiveInfinity, 0));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(0, <#= type #>.NegativeInfinity));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.PositiveInfinity, <#= type #>.PositiveInfinity));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.NegativeInfinity, <#= type #>.NegativeInfinity));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.NegativeInfinity, <#= type #>.PositiveInfinity));
-            // NaNs
-            Assert.Throws<ArgumentOutOfRangeException>("low", () => Uniform.New(<#= type #>.NaN, 0));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(0, <#= type #>.NaN));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.NaN, <#= type #>.NaN));
-            // Mixed NaN / Infinity
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.NaN, <#= type #>.PositiveInfinity));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.PositiveInfinity, <#= type #>.NaN));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.NaN, <#= type #>.NegativeInfinity));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.NegativeInfinity, <#= type #>.NaN));
+        // Equal
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(0<#= floatSuffix #>, 0<#= floatSuffix #>));
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(<#= type #>.MaxValue, <#= type #>.MaxValue));
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(<#= type #>.MinValue, <#= type #>.MinValue));
+        // Reversed
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(10.0<#= floatSuffix #>, 10.0<#= floatSuffix #>));
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(9001.0<#= floatSuffix #>, -666.0<#= floatSuffix #>));
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(<#= type #>.MaxValue, <#= type #>.MinValue));
+        // Infinities
+        Assert.Throws<ArgumentOutOfRangeException>("low", () => Uniform.New(<#= type #>.NegativeInfinity, 0));
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(0, <#= type #>.PositiveInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.PositiveInfinity, 0));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(0, <#= type #>.NegativeInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.PositiveInfinity, <#= type #>.PositiveInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.NegativeInfinity, <#= type #>.NegativeInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.NegativeInfinity, <#= type #>.PositiveInfinity));
+        // NaNs
+        Assert.Throws<ArgumentOutOfRangeException>("low", () => Uniform.New(<#= type #>.NaN, 0));
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(0, <#= type #>.NaN));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.NaN, <#= type #>.NaN));
+        // Mixed NaN / Infinity
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.NaN, <#= type #>.PositiveInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.PositiveInfinity, <#= type #>.NaN));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.NaN, <#= type #>.NegativeInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(<#= type #>.NegativeInfinity, <#= type #>.NaN));
 
-            // Reversed
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(10.0<#= floatSuffix #>, 9.0<#= floatSuffix #>));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(9001.0<#= floatSuffix #>, -666.0<#= floatSuffix #>));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(<#= type #>.MaxValue, <#= type #>.MinValue));
-            // Infinities
-            Assert.Throws<ArgumentOutOfRangeException>("low", () => Uniform.NewInclusive(<#= type #>.NegativeInfinity, 0));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(0, <#= type #>.PositiveInfinity));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.PositiveInfinity, 0));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(0, <#= type #>.NegativeInfinity));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.PositiveInfinity, <#= type #>.PositiveInfinity));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.NegativeInfinity, <#= type #>.NegativeInfinity));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.NegativeInfinity, <#= type #>.PositiveInfinity));
-            // NaNs
-            Assert.Throws<ArgumentOutOfRangeException>("low", () => Uniform.NewInclusive(<#= type #>.NaN, 0));
-            Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(0, <#= type #>.NaN));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.NaN, <#= type #>.NaN));
-            // Mixed NaN / Infinity
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.NaN, <#= type #>.PositiveInfinity));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.PositiveInfinity, <#= type #>.NaN));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.NaN, <#= type #>.NegativeInfinity));
-            Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.NegativeInfinity, <#= type #>.NaN));
-<#
-}
-#>
-        }
-
-        [Fact]
-        public void MinMax()
-        {
-            var rng = Pcg32.Create(252, 11634580027462260723ul);
-<# foreach (var param in parameters)
-{
-    String type = param.type.Name;
-    String floatSuffix = param.floatSuffix;
-    String uintSuffix = param.uintSuffix;
-    String bitsDiscarded = param.bitsDiscarded.ToString();
-#>
-            var max<#= type #>Inclusive = Uniform.NewInclusive(<#= type #>.MaxValue, <#= type #>.MaxValue);
-            Assert.Equal(<#= type #>.MaxValue, max<#= type #>Inclusive.Sample(rng));
-            var min<#= type #>Inclusive = Uniform.NewInclusive(-<#= type #>.MaxValue, -<#= type #>.MaxValue);
-            Assert.Equal(-<#= type #>.MaxValue, min<#= type #>Inclusive.Sample(rng));
-<#
-}
-#>
-        }
-<# foreach (var param in parameters)
-{
-    String type = param.type.Name;
-    String floatSuffix = param.floatSuffix;
-    String uintSuffix = param.uintSuffix;
-    String bitsDiscarded = param.bitsDiscarded.ToString();
-#>
-        public static IEnumerable<Object[]> <#= type #>RangeData() => new[]
-        {
-            new Object[] { 0.0<#= floatSuffix #>, 100.0<#= floatSuffix #> },
-            new Object[] { -1e35<#= floatSuffix #>, -1e25<#= floatSuffix #> },
-            new Object[] { 1e-35<#= floatSuffix #>, 1e-25<#= floatSuffix #> },
-            new Object[] { -1e35<#= floatSuffix #>, 1e35<#= floatSuffix #> },
-            new Object[] { 0<#= uintSuffix #>.ToFloat(), 3<#= uintSuffix #>.ToFloat() },
-            new Object[] { -10<#= uintSuffix #>.ToFloat(), -1<#= uintSuffix #>.ToFloat() },
-            new Object[] { -5<#= uintSuffix #>.ToFloat(), 0.0<#= floatSuffix #> },
-            new Object[] { -7<#= uintSuffix #>.ToFloat(), -0.0<#= floatSuffix #> },
-            new Object[] { 10.0<#= floatSuffix #>, <#= type #>.MaxValue },
-            new Object[] { -100.0<#= floatSuffix #>, <#= type #>.MaxValue },
-            new Object[] { -<#= type #>.MaxValue / 5.0<#= floatSuffix #>, <#= type #>.MaxValue },
-            new Object[] { -<#= type #>.MaxValue, <#= type #>.MaxValue / 5.0<#= floatSuffix #> },
-            new Object[] { -<#= type #>.MaxValue * 0.8<#= floatSuffix #>, <#= type #>.MaxValue * 0.7<#= floatSuffix #> },
-            new Object[] { -<#= type #>.MaxValue, <#= type #>.MaxValue },
-        };
-
-        [Theory]
-        [MemberData(nameof(<#= type #>RangeData))]
-        public void <#= type #>Range(<#= type #> low, <#= type #> high)
-        {
-            var rng = Pcg32.Create(252, 11634580027462260723ul);
-            var zeroRng = new StepRng(0) { Increment = 0 };
-            var maxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = 0 };
-
-            var uniform = Uniform.New(low, high);
-            var inclusiveUniform = Uniform.NewInclusive(low, high);
-            for (var i = 0; i < 100; i++)
-            {
-                var exclusive = uniform.Sample(rng);
-                Assert.True(low <= exclusive && exclusive < high, $"Exclusive sampling of RNG failed; low: {low}, high: {high}, actual: {exclusive}");
-                var inclusive = uniform.Sample(rng);
-                Assert.True(low <= inclusive && inclusive <= high, $"Inclusive sampling of RNG failed; low: {low}, high: {high}, actual: {inclusive}");
-            }
-
-            Assert.Equal(low, Uniform.NewInclusive(low, low).Sample(rng));
-
-            Assert.Equal(low, uniform.Sample(zeroRng));
-            Assert.Equal(low, inclusiveUniform.Sample(zeroRng));
-            Assert.True(uniform.Sample(maxRng) < high, $"Exclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {uniform.Sample(maxRng)}");
-            Assert.True(inclusiveUniform.Sample(maxRng) <= high, $"Inclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {inclusiveUniform.Sample(maxRng):G19}");
-
-            // Don't run this test for really tiny differences between high and low
-            // since for those rounding might result in selecting high for a very
-            // long time.
-            if (high - low <= 0.0001)
-                return;
-
-            var loweringMaxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = unchecked((UInt64)(-1L << <#= bitsDiscarded #>)) };
-            Assert.True(uniform.Sample(loweringMaxRng) < high);
-            Assert.True(uniform.Sample(loweringMaxRng) < high);
-        }
-
-        [Theory]
-        [InlineData(0<#= floatSuffix #>, 1000<#= floatSuffix #>, 0)]
-        [InlineData(0<#= floatSuffix #>, 1<#= floatSuffix #>, 1)]
-        [InlineData(-50.0<#= floatSuffix #>, 50.0<#= floatSuffix #>, 2)]
-        [InlineData(0<#= floatSuffix #>, <#= type #>.MaxValue, 3)]
-        [InlineData(<#= type #>.MinValue, 0<#= floatSuffix #>, 4)]
-        [InlineData(38.9<#= floatSuffix #>, 64.6<#= floatSuffix #>, 5)]
-        [InlineData(1e-35<#= floatSuffix #>, 1e-30<#= floatSuffix #>, 6)]
-        public void Average<#= type #>s(<#= type #>  low, <#= type #> high, UInt64 seed)
-        {
-            const Int32 iterations = 10_000;
-
-            var populationMean = high / 2 + low / 2;
-            var popStdDev = 1.0 / Math.Sqrt(3) * (high / 2 - low / 2);
-
-            var exclusiveDist = Uniform.New(low, high);
-            var inclusiveDist = Uniform.NewInclusive(low, high);
-            var rng = Pcg32.Create(789 + seed, 11634580027462260723ul);
-
-            Double exclusiveMean = 0;
-            Double inclusiveMean = 0;
-            for (var i = 0; i < iterations; i++)
-            {
-                var exclusive = exclusiveDist.Sample(rng);
-                var exclusiveDelta = exclusive - exclusiveMean;
-                exclusiveMean += exclusiveDelta / (i + 1);
-                Assert.True(low <= exclusive);
-                Assert.True(exclusive < high);
-
-                var inclusive = inclusiveDist.Sample(rng);
-                var inclusiveDelta = inclusive - inclusiveMean;
-                inclusiveMean += inclusiveDelta / (i + 1);
-                Assert.True(low <= inclusive);
-                Assert.True(inclusive < high);
-            }
-
-            Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
-            Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
-        }
-
-        [Fact]
-        public void TrySample<#= type #>()
-        {
-            var rng = Pcg32.Create(789, 11634580027462260723ul);
-            var dist = Uniform.New((<#= type #>)0, (<#= type #>)100);
-            for (Int32 i = 0; i < 10_000; i++)
-                Assert.True(dist.TrySample(rng, out _));
-        }
-
-        [Fact]
-        public void NonNullable<#= type #>()
-        {
-            var dist = Uniform.New(1.0<#= floatSuffix #>, 2.0<#= floatSuffix #>);
-            Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
-        }
+        // Reversed
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(10.0<#= floatSuffix #>, 9.0<#= floatSuffix #>));
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(9001.0<#= floatSuffix #>, -666.0<#= floatSuffix #>));
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(<#= type #>.MaxValue, <#= type #>.MinValue));
+        // Infinities
+        Assert.Throws<ArgumentOutOfRangeException>("low", () => Uniform.NewInclusive(<#= type #>.NegativeInfinity, 0));
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(0, <#= type #>.PositiveInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.PositiveInfinity, 0));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(0, <#= type #>.NegativeInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.PositiveInfinity, <#= type #>.PositiveInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.NegativeInfinity, <#= type #>.NegativeInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.NegativeInfinity, <#= type #>.PositiveInfinity));
+        // NaNs
+        Assert.Throws<ArgumentOutOfRangeException>("low", () => Uniform.NewInclusive(<#= type #>.NaN, 0));
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(0, <#= type #>.NaN));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.NaN, <#= type #>.NaN));
+        // Mixed NaN / Infinity
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.NaN, <#= type #>.PositiveInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.PositiveInfinity, <#= type #>.NaN));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.NaN, <#= type #>.NegativeInfinity));
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(<#= type #>.NegativeInfinity, <#= type #>.NaN));
 <#
 }
 #>
     }
+
+    [Fact]
+    public void MinMax()
+    {
+        var rng = Pcg32.Create(252, 11634580027462260723ul);
+<# foreach (var param in parameters)
+{
+    String type = param.type.Name;
+    String floatSuffix = param.floatSuffix;
+    String uintSuffix = param.uintSuffix;
+    String bitsDiscarded = param.bitsDiscarded.ToString();
+#>
+        var max<#= type #>Inclusive = Uniform.NewInclusive(<#= type #>.MaxValue, <#= type #>.MaxValue);
+        Assert.Equal(<#= type #>.MaxValue, max<#= type #>Inclusive.Sample(rng));
+        var min<#= type #>Inclusive = Uniform.NewInclusive(-<#= type #>.MaxValue, -<#= type #>.MaxValue);
+        Assert.Equal(-<#= type #>.MaxValue, min<#= type #>Inclusive.Sample(rng));
+<#
+}
+#>
+    }
+<# foreach (var param in parameters)
+{
+    String type = param.type.Name;
+    String floatSuffix = param.floatSuffix;
+    String uintSuffix = param.uintSuffix;
+    String bitsDiscarded = param.bitsDiscarded.ToString();
+#>
+    public static IEnumerable<Object[]> <#= type #>RangeData() => new[]
+    {
+        new Object[] { 0.0<#= floatSuffix #>, 100.0<#= floatSuffix #> },
+        new Object[] { -1e35<#= floatSuffix #>, -1e25<#= floatSuffix #> },
+        new Object[] { 1e-35<#= floatSuffix #>, 1e-25<#= floatSuffix #> },
+        new Object[] { -1e35<#= floatSuffix #>, 1e35<#= floatSuffix #> },
+        new Object[] { 0<#= uintSuffix #>.ToFloat(), 3<#= uintSuffix #>.ToFloat() },
+        new Object[] { -10<#= uintSuffix #>.ToFloat(), -1<#= uintSuffix #>.ToFloat() },
+        new Object[] { -5<#= uintSuffix #>.ToFloat(), 0.0<#= floatSuffix #> },
+        new Object[] { -7<#= uintSuffix #>.ToFloat(), -0.0<#= floatSuffix #> },
+        new Object[] { 10.0<#= floatSuffix #>, <#= type #>.MaxValue },
+        new Object[] { -100.0<#= floatSuffix #>, <#= type #>.MaxValue },
+        new Object[] { -<#= type #>.MaxValue / 5.0<#= floatSuffix #>, <#= type #>.MaxValue },
+        new Object[] { -<#= type #>.MaxValue, <#= type #>.MaxValue / 5.0<#= floatSuffix #> },
+        new Object[] { -<#= type #>.MaxValue * 0.8<#= floatSuffix #>, <#= type #>.MaxValue * 0.7<#= floatSuffix #> },
+        new Object[] { -<#= type #>.MaxValue, <#= type #>.MaxValue },
+    };
+
+    [Theory]
+    [MemberData(nameof(<#= type #>RangeData))]
+    public void <#= type #>Range(<#= type #> low, <#= type #> high)
+    {
+        var rng = Pcg32.Create(252, 11634580027462260723ul);
+        var zeroRng = new StepRng(0) { Increment = 0 };
+        var maxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = 0 };
+
+        var uniform = Uniform.New(low, high);
+        var inclusiveUniform = Uniform.NewInclusive(low, high);
+        for (var i = 0; i < 100; i++)
+        {
+            var exclusive = uniform.Sample(rng);
+            Assert.True(low <= exclusive && exclusive < high, $"Exclusive sampling of RNG failed; low: {low}, high: {high}, actual: {exclusive}");
+            var inclusive = uniform.Sample(rng);
+            Assert.True(low <= inclusive && inclusive <= high, $"Inclusive sampling of RNG failed; low: {low}, high: {high}, actual: {inclusive}");
+        }
+
+        Assert.Equal(low, Uniform.NewInclusive(low, low).Sample(rng));
+
+        Assert.Equal(low, uniform.Sample(zeroRng));
+        Assert.Equal(low, inclusiveUniform.Sample(zeroRng));
+        Assert.True(uniform.Sample(maxRng) < high, $"Exclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {uniform.Sample(maxRng)}");
+        Assert.True(inclusiveUniform.Sample(maxRng) <= high, $"Inclusive sampling of Max RNG failed; low: {low}, high: {high}, actual: {inclusiveUniform.Sample(maxRng):G19}");
+
+        // Don't run this test for really tiny differences between high and low
+        // since for those rounding might result in selecting high for a very
+        // long time.
+        if (high - low <= 0.0001)
+            return;
+
+        var loweringMaxRng = new StepRng(0xFFFF_FFFF_FFFF_FFFF) { Increment = unchecked((UInt64)(-1L << <#= bitsDiscarded #>)) };
+        Assert.True(uniform.Sample(loweringMaxRng) < high);
+        Assert.True(uniform.Sample(loweringMaxRng) < high);
+    }
+
+    [Theory]
+    [InlineData(0<#= floatSuffix #>, 1000<#= floatSuffix #>, 0)]
+    [InlineData(0<#= floatSuffix #>, 1<#= floatSuffix #>, 1)]
+    [InlineData(-50.0<#= floatSuffix #>, 50.0<#= floatSuffix #>, 2)]
+    [InlineData(0<#= floatSuffix #>, <#= type #>.MaxValue, 3)]
+    [InlineData(<#= type #>.MinValue, 0<#= floatSuffix #>, 4)]
+    [InlineData(38.9<#= floatSuffix #>, 64.6<#= floatSuffix #>, 5)]
+    [InlineData(1e-35<#= floatSuffix #>, 1e-30<#= floatSuffix #>, 6)]
+    public void Average<#= type #>s(<#= type #>  low, <#= type #> high, UInt64 seed)
+    {
+        const Int32 iterations = 10_000;
+
+        var populationMean = high / 2 + low / 2;
+        var popStdDev = 1.0 / Math.Sqrt(3) * (high / 2 - low / 2);
+
+        var exclusiveDist = Uniform.New(low, high);
+        var inclusiveDist = Uniform.NewInclusive(low, high);
+        var rng = Pcg32.Create(789 + seed, 11634580027462260723ul);
+
+        Double exclusiveMean = 0;
+        Double inclusiveMean = 0;
+        for (var i = 0; i < iterations; i++)
+        {
+            var exclusive = exclusiveDist.Sample(rng);
+            var exclusiveDelta = exclusive - exclusiveMean;
+            exclusiveMean += exclusiveDelta / (i + 1);
+            Assert.True(low <= exclusive);
+            Assert.True(exclusive < high);
+
+            var inclusive = inclusiveDist.Sample(rng);
+            var inclusiveDelta = inclusive - inclusiveMean;
+            inclusiveMean += inclusiveDelta / (i + 1);
+            Assert.True(low <= inclusive);
+            Assert.True(inclusive < high);
+        }
+
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
+    }
+
+    [Fact]
+    public void TrySample<#= type #>()
+    {
+        var rng = Pcg32.Create(789, 11634580027462260723ul);
+        var dist = Uniform.New((<#= type #>)0, (<#= type #>)100);
+        for (Int32 i = 0; i < 10_000; i++)
+            Assert.True(dist.TrySample(rng, out _));
+    }
+
+    [Fact]
+    public void NonNullable<#= type #>()
+    {
+        var dist = Uniform.New(1.0<#= floatSuffix #>, 2.0<#= floatSuffix #>);
+        Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
+    }
+<#
+}
+#>
 }

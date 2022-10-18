@@ -7,7 +7,7 @@
     <AssemblyName>RandN.Core</AssemblyName>
     <RootNamespace>RandN</RootNamespace>
     <Nullable>enable</Nullable>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <AnalysisLevel>5</AnalysisLevel>
     <Version>0.3.0</Version>
     <Authors>ociaw</Authors>
