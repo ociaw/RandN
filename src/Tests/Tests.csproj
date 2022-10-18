@@ -9,7 +9,7 @@
     <Nullable>disable</Nullable>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <LangVersion>10.0</LangVersion>
-    <AnalysisLevel>5</AnalysisLevel>
+    <AnalysisLevel>6</AnalysisLevel>
     <!-- We intentionally target netcoreapp3.0 since it's the only way to test .NET Standard 2.1 without bringing in mono. -->
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
   </PropertyGroup>
