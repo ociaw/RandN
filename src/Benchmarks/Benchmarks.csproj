@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp3.1;net48;net5.0</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net48;net5.0;net6.0</TargetFrameworks>
     <Optimize>true</Optimize>
     <AssemblyName>Benchmarks</AssemblyName>
     <RootNamespace>RandN.Benchmarks</RootNamespace>
