@@ -9,7 +9,7 @@
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <LangVersion>10.0</LangVersion>
-    <AnalysisLevel>5</AnalysisLevel>
+    <AnalysisLevel>6</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
