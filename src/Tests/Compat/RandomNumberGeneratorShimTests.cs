@@ -20,7 +20,7 @@ namespace RandN.Compat
             shim.GetNonZeroBytes(buffer);
             Assert.DoesNotContain((Byte)0, buffer);
 
-#if !NET472
+#if !NET48
             shim.GetNonZeroBytes(buffer.AsSpan());
             Assert.DoesNotContain((Byte)0, buffer);
 #endif
@@ -41,7 +41,7 @@ namespace RandN.Compat
             for (Int32 i = 0; i < ints.Length; i++)
                 Assert.Equal((UInt64)i, ints[i]);
 
-#if !NET472
+#if !NET48
             shim.GetBytes(buffer.AsSpan());
             for (Int32 i = 0; i < ints.Length; i++)
                 Assert.Equal((UInt64)(i + ints.Length), ints[i]);
