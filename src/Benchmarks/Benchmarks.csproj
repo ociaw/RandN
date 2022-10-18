@@ -8,7 +8,7 @@
     <RootNamespace>RandN.Benchmarks</RootNamespace>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <LangVersion>9.0</LangVersion>
+    <LangVersion>10.0</LangVersion>
     <AnalysisLevel>5</AnalysisLevel>
   </PropertyGroup>
 

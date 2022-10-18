@@ -1,16 +1,15 @@
 using System.Diagnostics.Contracts;
 
-namespace RandN
+namespace RandN;
+
+/// <summary>
+/// An RNG that is seekable - i.e. it can be fast forwarded to any point in the stream.
+/// </summary>
+public interface ISeekableRng<TCounter> : IRng
 {
     /// <summary>
-    /// An RNG that is seekable - i.e. it can be fast forwarded to any point in the stream.
+    /// The current position of the RNG.
     /// </summary>
-    public interface ISeekableRng<TCounter> : IRng
-    {
-        /// <summary>
-        /// The current position of the RNG.
-        /// </summary>
-        [Pure]
-        TCounter Position { get; set; }
-    }
+    [Pure]
+    TCounter Position { get; set; }
 }

@@ -14,10 +14,10 @@ using System.Diagnostics;
 using RandN.Implementation;
 
 /*** This file is auto generated - any changes made here will be lost. ***/
-namespace RandN.Distributions
+namespace RandN.Distributions;
+
+public static partial class Uniform
 {
-    public static partial class Uniform
-    {
 <# foreach (var param in parameters)
 {
     String shortName = param.type.Name;
@@ -25,119 +25,118 @@ namespace RandN.Distributions
     String unsigned = param.unsigned.FullName;
     String rngNext = param.unsigned.Name;
 #>
-        /// <summary>
-        /// A uniform distribution of type <see cref="<#= type #>" />.
-        /// </summary>
-        public readonly struct <#= shortName #> : IDistribution<<#= type #>>
+    /// <summary>
+    /// A uniform distribution of type <see cref="<#= type #>" />.
+    /// </summary>
+    public readonly struct <#= shortName #> : IDistribution<<#= type #>>
+    {
+        private const System.Int32 BitsToDiscard = <#= param.bitsToDiscard #>;
+
+        private readonly <#= type #> _low;
+        private readonly <#= type #> _scale;
+
+        private <#= shortName #>(<#= type #> low, <#= type #> scale)
         {
-            private const System.Int32 BitsToDiscard = <#= param.bitsToDiscard #>;
-
-            private readonly <#= type #> _low;
-            private readonly <#= type #> _scale;
-
-            private <#= shortName #>(<#= type #> low, <#= type #> scale)
-            {
-                _low = low;
-                _scale = scale;
-            }
-
-            /// <summary>
-            /// Creates a <see cref="<#= shortName #>" /> with an exclusive upper bound. Should not
-            /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
-            /// </summary>
-            /// <exception cref="ArgumentOutOfRangeException">
-            /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
-            /// </exception>
-            public static <#= shortName #> Create(<#= type #> low, <#= type #> high)
-            {
-                if (low >= high)
-                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
-                if (<#= type #>.IsInfinity(low))
-                    throw new ArgumentOutOfRangeException(nameof(low), low, "Must be finite.");
-                if (<#= type #>.IsInfinity(high))
-                    throw new ArgumentOutOfRangeException(nameof(high), high, "Must be finite.");
-                if (<#= type #>.IsNaN(low))
-                    throw new ArgumentOutOfRangeException(nameof(low), low, "Must be a number.");
-                if (<#= type #>.IsNaN(high))
-                    throw new ArgumentOutOfRangeException(nameof(high), high, "Must be a number.");
-
-                <#= type #> maxRand = (<#= unsigned #>.MaxValue >> BitsToDiscard).IntoFloatWithExponent(0) - 1;
-                <#= type #> scale = (high - low).ForceStandardPrecision();
-                while (true)
-                {
-                    var maxPossible = (scale * maxRand + low).ForceStandardPrecision();
-                    var aboveMax = maxPossible >= high;
-                    if (!aboveMax)
-                        break;
-
-                    scale = (scale.ToBits() - 1).ToFloat().ForceStandardPrecision();
-                }
-
-                Debug.Assert(0.0 <= scale);
-                Debug.Assert(!<#= type #>.IsPositiveInfinity(scale));
-                return new <#= shortName #>(low, scale);
-            }
-
-            /// <summary>
-            /// Creates a <see cref="<#= shortName #>" /> with an exclusive lower bound. Should not
-            /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
-            /// </summary>
-            /// <exception cref="ArgumentOutOfRangeException">
-            /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
-            /// </exception>
-            public static <#= shortName #> CreateInclusive(<#= type #> low, <#= type #> high)
-            {
-                if (low > high)
-                    throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
-                if (<#= type #>.IsInfinity(low))
-                    throw new ArgumentOutOfRangeException(nameof(low), low, "Must be finite.");
-                if (<#= type #>.IsInfinity(high))
-                    throw new ArgumentOutOfRangeException(nameof(high), high, "Must be finite.");
-                if (<#= type #>.IsNaN(low))
-                    throw new ArgumentOutOfRangeException(nameof(low), low, "Must be a number.");
-                if (<#= type #>.IsNaN(high))
-                    throw new ArgumentOutOfRangeException(nameof(high), high, "Must be a number.");
-
-                <#= type #> maxRand = (<#= unsigned #>.MaxValue >> BitsToDiscard).IntoFloatWithExponent(0) - 1;
-                <#= type #> scale = ((high - low) / maxRand).ForceStandardPrecision();
-                while (true)
-                {
-                    var maxPossible = scale * maxRand + low;
-                    var aboveMax = maxPossible > high;
-                    if (!aboveMax)
-                        break;
-
-                    scale = (scale.ToBits() - 1).ToFloat().ForceStandardPrecision();
-                }
-
-                Debug.Assert(0.0 <= scale);
-                Debug.Assert(!<#= type #>.IsPositiveInfinity(scale));
-                return new <#= shortName #>(low, scale);
-            }
-
-            /// <inheritdoc />
-            public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
-            {
-                // Generate a value in the range [1, 2)
-                var sample = rng.Next<#= rngNext #>();
-                <#= type #> value12 = (sample >> BitsToDiscard).IntoFloatWithExponent(0);
-
-                // Get a value in the range [0, 1) in order to avoid
-                // overflowing into infinity when multiplying with scale
-                <#= type #> value01 = value12 - 1;
-
-                return value01 * _scale + _low;
-            }
-
-            /// <inheritdoc />
-            public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
-            {
-                result = Sample(rng);
-                return true;
-            }
+            _low = low;
+            _scale = scale;
         }
+
+        /// <summary>
+        /// Creates a <see cref="<#= shortName #>" /> with an exclusive upper bound. Should not
+        /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+        /// </exception>
+        public static <#= shortName #> Create(<#= type #> low, <#= type #> high)
+        {
+            if (low >= high)
+                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than {nameof(low)} ({low}).");
+            if (<#= type #>.IsInfinity(low))
+                throw new ArgumentOutOfRangeException(nameof(low), low, "Must be finite.");
+            if (<#= type #>.IsInfinity(high))
+                throw new ArgumentOutOfRangeException(nameof(high), high, "Must be finite.");
+            if (<#= type #>.IsNaN(low))
+                throw new ArgumentOutOfRangeException(nameof(low), low, "Must be a number.");
+            if (<#= type #>.IsNaN(high))
+                throw new ArgumentOutOfRangeException(nameof(high), high, "Must be a number.");
+
+            <#= type #> maxRand = (<#= unsigned #>.MaxValue >> BitsToDiscard).IntoFloatWithExponent(0) - 1;
+            <#= type #> scale = (high - low).ForceStandardPrecision();
+            while (true)
+            {
+                var maxPossible = (scale * maxRand + low).ForceStandardPrecision();
+                var aboveMax = maxPossible >= high;
+                if (!aboveMax)
+                    break;
+
+                scale = (scale.ToBits() - 1).ToFloat().ForceStandardPrecision();
+            }
+
+            Debug.Assert(0.0 <= scale);
+            Debug.Assert(!<#= type #>.IsPositiveInfinity(scale));
+            return new <#= shortName #>(low, scale);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="<#= shortName #>" /> with an exclusive lower bound. Should not
+        /// be used directly; instead, use <see cref="Uniform.New(<#= type #>, <#= type #>)" />.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+        /// </exception>
+        public static <#= shortName #> CreateInclusive(<#= type #> low, <#= type #> high)
+        {
+            if (low > high)
+                throw new ArgumentOutOfRangeException(nameof(high), $"{nameof(high)} ({high}) must be higher than or equal to {nameof(low)} ({low}).");
+            if (<#= type #>.IsInfinity(low))
+                throw new ArgumentOutOfRangeException(nameof(low), low, "Must be finite.");
+            if (<#= type #>.IsInfinity(high))
+                throw new ArgumentOutOfRangeException(nameof(high), high, "Must be finite.");
+            if (<#= type #>.IsNaN(low))
+                throw new ArgumentOutOfRangeException(nameof(low), low, "Must be a number.");
+            if (<#= type #>.IsNaN(high))
+                throw new ArgumentOutOfRangeException(nameof(high), high, "Must be a number.");
+
+            <#= type #> maxRand = (<#= unsigned #>.MaxValue >> BitsToDiscard).IntoFloatWithExponent(0) - 1;
+            <#= type #> scale = ((high - low) / maxRand).ForceStandardPrecision();
+            while (true)
+            {
+                var maxPossible = scale * maxRand + low;
+                var aboveMax = maxPossible > high;
+                if (!aboveMax)
+                    break;
+
+                scale = (scale.ToBits() - 1).ToFloat().ForceStandardPrecision();
+            }
+
+            Debug.Assert(0.0 <= scale);
+            Debug.Assert(!<#= type #>.IsPositiveInfinity(scale));
+            return new <#= shortName #>(low, scale);
+        }
+
+        /// <inheritdoc />
+        public <#= type #> Sample<TRng>(TRng rng) where TRng : notnull, IRng
+        {
+            // Generate a value in the range [1, 2)
+            var sample = rng.Next<#= rngNext #>();
+            <#= type #> value12 = (sample >> BitsToDiscard).IntoFloatWithExponent(0);
+
+            // Get a value in the range [0, 1) in order to avoid
+            // overflowing into infinity when multiplying with scale
+            <#= type #> value01 = value12 - 1;
+
+            return value01 * _scale + _low;
+        }
+
+        /// <inheritdoc />
+        public Boolean TrySample<TRng>(TRng rng, out <#= type #> result) where TRng : notnull, IRng
+        {
+            result = Sample(rng);
+            return true;
+        }
+    }
 <#
 }
 #>
-    }
 }

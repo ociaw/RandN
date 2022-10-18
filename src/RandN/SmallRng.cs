@@ -1,45 +1,44 @@
 using System;
 using RandN.Rngs;
 
-namespace RandN
+namespace RandN;
+
+/// <summary>
+/// A non-cryptographically secure RNG with good performance and output quality, while requiring limited memory.
+/// </summary>
+public sealed class SmallRng : IRng
 {
+    private readonly Pcg32 _wrapped;
+
+    private SmallRng(Pcg32 wrapped) => _wrapped = wrapped;
+
     /// <summary>
-    /// A non-cryptographically secure RNG with good performance and output quality, while requiring limited memory.
+    /// Creates a <see cref="StandardRng"/>.
     /// </summary>
-    public sealed class SmallRng : IRng
+    public static SmallRng Create()
     {
-        private readonly Pcg32 _wrapped;
+        var rng = Pcg32.GetFactory().Create(ThreadLocalRng.Instance);
+        return new SmallRng(rng);
+    }
 
-        private SmallRng(Pcg32 wrapped) => _wrapped = wrapped;
+    /// <summary>
+    /// Gets the <see cref="StandardRng"/> factory.
+    /// </summary>
+    public static Factory GetFactory() => new();
 
-        /// <summary>
-        /// Creates a <see cref="StandardRng"/>.
-        /// </summary>
-        public static SmallRng Create()
-        {
-            var rng = Pcg32.GetFactory().Create(ThreadLocalRng.Instance);
-            return new SmallRng(rng);
-        }
+    /// <inheritdoc />
+    public void Fill(Span<Byte> buffer) => _wrapped.Fill(buffer);
 
-        /// <summary>
-        /// Gets the <see cref="StandardRng"/> factory.
-        /// </summary>
-        public static Factory GetFactory() => new();
+    /// <inheritdoc />
+    public UInt32 NextUInt32() => _wrapped.NextUInt32();
 
+    /// <inheritdoc />
+    public UInt64 NextUInt64() => _wrapped.NextUInt64();
+
+    /// <inheritdoc cref="IRngFactory{StandardRng}" />
+    public readonly struct Factory : IRngFactory<SmallRng>
+    {
         /// <inheritdoc />
-        public void Fill(Span<Byte> buffer) => _wrapped.Fill(buffer);
-
-        /// <inheritdoc />
-        public UInt32 NextUInt32() => _wrapped.NextUInt32();
-
-        /// <inheritdoc />
-        public UInt64 NextUInt64() => _wrapped.NextUInt64();
-
-        /// <inheritdoc cref="IRngFactory{StandardRng}" />
-        public readonly struct Factory : IRngFactory<SmallRng>
-        {
-            /// <inheritdoc />
-            public SmallRng Create() => SmallRng.Create();
-        }
+        public SmallRng Create() => SmallRng.Create();
     }
 }
