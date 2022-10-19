@@ -3,7 +3,6 @@ using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 #if X86_INTRINSICS
 using System.Numerics;
-using System.Runtime.Intrinsics.X86;
 #endif
 
 namespace RandN.Implementation
