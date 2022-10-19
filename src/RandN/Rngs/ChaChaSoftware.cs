@@ -54,6 +54,7 @@ internal sealed class ChaChaSoftware : ISeekableBlockRngCore<UInt32, UInt64>
         }
     }
 
+    /// <inheritdoc />
     public Int32 BlockLength => ChaCha.BufferLength;
 
     /// <summary>

@@ -4,9 +4,11 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
+using RandN.Implementation;
 
 namespace RandN.Rngs;
-internal sealed class ChaChaAvx2
+
+internal sealed class ChaChaAvx2 : ISeekableBlockRngCore<UInt32, UInt64>
 {
     private static readonly Vector256<UInt32> Constant;
 
@@ -46,6 +48,9 @@ internal sealed class ChaChaAvx2
     /// ChaCha's 64-bit stream id.
     /// </summary>
     public UInt64 Stream { get; set; }
+
+        /// <inheritdoc />
+        public Int32 BlockLength => ChaCha.BufferLength;
 
     /// <summary>
     /// Creates a new instance of <see cref="ChaChaSoftware"/>.
