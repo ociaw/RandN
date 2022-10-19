@@ -9,11 +9,11 @@ namespace RandN.Rngs;
 
 internal sealed class ChaChaSse2
 {
-    private static readonly Vector128<UInt32> _constant;
+    private static readonly Vector128<UInt32> Constant;
 
     static ChaChaSse2()
     {
-        _constant = Vector128.Create(
+        Constant = Vector128.Create(
             0x61707865u, // "expa"
             0x3320646Eu, // "nd 3"
             0x79622D32u, // "2-by"
@@ -24,13 +24,13 @@ internal sealed class ChaChaSse2
     private readonly Vector128<UInt32> _key1;
     private readonly Vector128<UInt32> _key2;
 
-    private readonly UInt32 DoubleRounds;
+    private readonly UInt32 _doubleRounds;
 
     private ChaChaSse2(Vector128<UInt32> key1, Vector128<UInt32> key2, UInt32 doubleRounds)
     {
         _key1 = key1;
         _key2 = key2;
-        DoubleRounds = doubleRounds;
+        _doubleRounds = doubleRounds;
     }
 
     /// <summary>
@@ -97,19 +97,19 @@ internal sealed class ChaChaSse2
     private void FullBlock(Span<UInt32> destination, UInt64 counter)
     {
         Debug.Assert(destination.Length >= ChaCha.WordCount);
-        Debug.Assert(DoubleRounds != 0);
+        Debug.Assert(_doubleRounds != 0);
 
         var input = Vector128.Create(counter, Stream).AsUInt32();
 
-        var b0 = _constant;
+        var b0 = Constant;
         var b1 = _key1;
         var b2 = _key2;
         var b3 = input;
 
-        for (var i = 0; i < DoubleRounds; i++)
+        for (var i = 0; i < _doubleRounds; i++)
             InnerBlock(ref b0, ref b1, ref b2, ref b3);
 
-        var out0 = Sse2.Add(_constant, b0);
+        var out0 = Sse2.Add(Constant, b0);
         var out1 = Sse2.Add(_key1, b1);
         var out2 = Sse2.Add(_key2, b2);
         var out3 = Sse2.Add(input, b3);
