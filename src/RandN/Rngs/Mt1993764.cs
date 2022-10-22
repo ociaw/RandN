@@ -26,6 +26,7 @@ public sealed class Mt1993764 : IRng
 
     // TGSFSR(R) tempering bit shifts
     private const Int32 SShift = 17;
+    // ReSharper disable once InconsistentNaming
     private const Int32 TShift = 37;
 
     // Additional tempering bit shifts and masks
