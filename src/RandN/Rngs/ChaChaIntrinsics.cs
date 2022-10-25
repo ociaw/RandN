@@ -20,34 +20,19 @@ namespace RandN.Rngs
     internal readonly struct ChaChaIntrinsics : ISeekableBlockRngCore<UInt32, UInt64>
     {
         [FieldOffset(0)]
-        private readonly ChaChaSoftware _software;
+        private readonly ChaChaSoftware _software = null!;
 
         [FieldOffset(0)]
-        private readonly ChaChaSse2 _sse2;
+        private readonly ChaChaSse2 _sse2 = null!;
 
         [FieldOffset(0)]
-        private readonly ChaChaAvx2 _avx2;
+        private readonly ChaChaAvx2 _avx2 = null!;
 
-        private ChaChaIntrinsics(ChaChaSoftware software)
-        {
-            _sse2 = null!;
-            _avx2 = null!;
-            _software = software;
-        }
+        private ChaChaIntrinsics(ChaChaSoftware software) => _software = software;
 
-        private ChaChaIntrinsics(ChaChaSse2 sse2)
-        {
-            _software = null!;
-            _avx2 = null!;
-            _sse2 = sse2;
-        }
+        private ChaChaIntrinsics(ChaChaSse2 sse2) => _sse2 = sse2;
 
-        private ChaChaIntrinsics(ChaChaAvx2 avx2)
-        {
-            _software = null!;
-            _sse2 = null!;
-            _avx2 = avx2;
-        }
+        private ChaChaIntrinsics(ChaChaAvx2 avx2) => _avx2 = avx2;
 
         /// <summary>
         /// ChaCha's 64-bit block counter.
@@ -59,10 +44,10 @@ namespace RandN.Rngs
             {
                 if (Avx2.IsSupported)
                     return _avx2.BlockCounter;
-                else if (Sse2.IsSupported)
+                if (Sse2.IsSupported)
                     return _sse2.BlockCounter;
-                else
-                    return _software.BlockCounter;
+                
+                return _software.BlockCounter;
             }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set
@@ -85,10 +70,10 @@ namespace RandN.Rngs
             {
                 if (Avx2.IsSupported)
                     return _avx2.Stream;
-                else if (Sse2.IsSupported)
+                if (Sse2.IsSupported)
                     return _sse2.Stream;
-                else
-                    return _software.Stream;
+
+                return _software.Stream;
             }
             set
             {
