@@ -46,7 +46,7 @@ $solution = "src/RandN.sln"
 $testProject = "src/Tests/Tests.csproj"
 
 [string[]]$configurations = "Debug","Release"
-[string[]]$frameworks = "netcoreapp3.1","net48","net5.0"
+[string[]]$frameworks = "netcoreapp3.1","net48","net6.0"
 
 if (-not $BuildVersion)
 {
