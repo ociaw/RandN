@@ -38,7 +38,7 @@ public sealed class ThreadLocalRngTests
                 wrapper.NextUInt32(); // Make sure the RNG is instantiated
                 var threadLocalField = typeof(ThreadLocalRng).GetField("ThreadLocal", BindingFlags.NonPublic | BindingFlags.Static);
                 var threadLocal = (ThreadLocal<ChaCha>)threadLocalField!.GetValue(wrapper);
-                var internalRng = threadLocal.Value;
+                var internalRng = threadLocal!.Value;
                 dictionary.TryAdd(internalRng, 0);
             }
             catch (Exception ex)
