@@ -8,8 +8,8 @@
     <RootNamespace>RandN.Examples</RootNamespace>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
-    <LangVersion>10.0</LangVersion>
-    <AnalysisLevel>6</AnalysisLevel>
+    <LangVersion>11.0</LangVersion>
+    <AnalysisLevel>7</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>
