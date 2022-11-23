@@ -1,4 +1,4 @@
-#if X86_INTRINSICS
+#if X86_INTRINSICS && !NET7_0_OR_GREATER
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -8,11 +8,14 @@ using RandN.Implementation;
 
 namespace RandN.Rngs;
 
-internal sealed class ChaChaAvx2 : ISeekableBlockRngCore<UInt32, UInt64>
+/// <summary>
+/// An implementation of ChaCha using AVX2 instructions. 
+/// </summary>
+internal sealed class ChaChaVec256 : ISeekableBlockRngCore<UInt32, UInt64>
 {
     private static readonly Vector256<UInt32> Constant;
 
-    static ChaChaAvx2()
+    static ChaChaVec256()
     {
             Constant = Vector256.Create(
             0x61707865u, // "expa"
@@ -32,7 +35,7 @@ internal sealed class ChaChaAvx2 : ISeekableBlockRngCore<UInt32, UInt64>
 
     private readonly UInt32 _doubleRounds;
 
-    private ChaChaAvx2(Vector256<UInt32> key1, Vector256<UInt32> key2, UInt32 doubleRounds)
+    private ChaChaVec256(Vector256<UInt32> key1, Vector256<UInt32> key2, UInt32 doubleRounds)
     {
         _key1 = key1;
         _key2 = key2;
@@ -62,7 +65,7 @@ internal sealed class ChaChaAvx2 : ISeekableBlockRngCore<UInt32, UInt64>
     /// The number of double rounds to perform. Half the total number of rounds,
     /// ex. ChaCha20 has 10 double rounds and ChaCha8 has 4 double rounds.
     /// </param>
-    public static ChaChaAvx2 Create(ReadOnlySpan<UInt32> key, UInt64 counter, UInt64 stream, UInt32 doubleRoundCount)
+    public static ChaChaVec256 Create(ReadOnlySpan<UInt32> key, UInt64 counter, UInt64 stream, UInt32 doubleRoundCount)
     {
         Debug.Assert(key.Length == ChaCha.KeyLength);
         Debug.Assert(doubleRoundCount != 0);
@@ -70,7 +73,7 @@ internal sealed class ChaChaAvx2 : ISeekableBlockRngCore<UInt32, UInt64>
         var key1 = Vector256.Create(key[0], key[1], key[2], key[3], key[0], key[1], key[2], key[3]);
         var key2 = Vector256.Create(key[4], key[5], key[6], key[7], key[4], key[5], key[6], key[7]);
 
-        return new ChaChaAvx2(key1, key2, doubleRoundCount) { BlockCounter = counter, Stream = stream };
+        return new ChaChaVec256(key1, key2, doubleRoundCount) { BlockCounter = counter, Stream = stream };
     }
 
     /// <inheritdoc />
