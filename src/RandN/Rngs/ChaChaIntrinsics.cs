@@ -3,7 +3,11 @@ using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+#if NET7_0_OR_GREATER
+using System.Runtime.Intrinsics;
+#else
 using System.Runtime.Intrinsics.X86;
+#endif
 using RandN.Implementation;
 
 /* References:
@@ -23,16 +27,16 @@ namespace RandN.Rngs
         private readonly ChaChaSoftware _software = null!;
 
         [FieldOffset(0)]
-        private readonly ChaChaSse2 _sse2 = null!;
+        private readonly ChaChaVec128 _vec128 = null!;
 
         [FieldOffset(0)]
-        private readonly ChaChaAvx2 _avx2 = null!;
+        private readonly ChaChaVec256 _vec256 = null!;
 
         private ChaChaIntrinsics(ChaChaSoftware software) => _software = software;
 
-        private ChaChaIntrinsics(ChaChaSse2 sse2) => _sse2 = sse2;
+        private ChaChaIntrinsics(ChaChaVec128 vec128) => _vec128 = vec128;
 
-        private ChaChaIntrinsics(ChaChaAvx2 avx2) => _avx2 = avx2;
+        private ChaChaIntrinsics(ChaChaVec256 vec256) => _vec256 = vec256;
 
         /// <summary>
         /// ChaCha's 64-bit block counter.
@@ -42,20 +46,33 @@ namespace RandN.Rngs
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
+#if NET7_0_OR_GREATER
+                if (Vector256.IsHardwareAccelerated)
+                    return _vec256.BlockCounter;
+                if (Vector128.IsHardwareAccelerated)
+                    return _vec128.BlockCounter;
+#else
                 if (Avx2.IsSupported)
-                    return _avx2.BlockCounter;
+                    return _vec256.BlockCounter;
                 if (Sse2.IsSupported)
-                    return _sse2.BlockCounter;
-                
+                    return _vec128.BlockCounter;
+#endif
                 return _software.BlockCounter;
             }
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             set
             {
+#if NET7_0_OR_GREATER
+                if (Vector256.IsHardwareAccelerated)
+                    _vec256.BlockCounter = value;
+                else if (Vector128.IsHardwareAccelerated)
+                    _vec128.BlockCounter = value;
+#else
                 if (Avx2.IsSupported)
-                    _avx2.BlockCounter = value;
+                    _vec256.BlockCounter = value;
                 else if (Sse2.IsSupported)
-                    _sse2.BlockCounter = value;
+                    _vec128.BlockCounter = value;
+#endif
                 else
                     _software.BlockCounter = value;
             }
@@ -68,19 +85,32 @@ namespace RandN.Rngs
         {
             get
             {
+#if NET7_0_OR_GREATER
+                if (Vector256.IsHardwareAccelerated)
+                    return _vec256.Stream;
+                if (Vector128.IsHardwareAccelerated)
+                    return _vec128.Stream;
+#else
                 if (Avx2.IsSupported)
-                    return _avx2.Stream;
+                    return _vec256.Stream;
                 if (Sse2.IsSupported)
-                    return _sse2.Stream;
-
+                    return _vec128.Stream;
+#endif
                 return _software.Stream;
             }
             set
             {
+#if NET7_0_OR_GREATER
+                if (Vector256.IsHardwareAccelerated)
+                    _vec256.Stream = value;
+                else if (Vector128.IsHardwareAccelerated)
+                    _vec128.Stream = value;
+#else
                 if (Avx2.IsSupported)
-                    _avx2.Stream = value;
+                    _vec256.Stream = value;
                 else if (Sse2.IsSupported)
-                    _sse2.Stream = value;
+                    _vec128.Stream = value;
+#endif
                 else
                     _software.Stream = value;
             }
@@ -104,11 +134,17 @@ namespace RandN.Rngs
             Debug.Assert(key.Length == 8);
             Debug.Assert(doubleRoundCount != 0);
 
+#if NET7_0_OR_GREATER
+            if (Vector256.IsHardwareAccelerated)
+                return new ChaChaIntrinsics(ChaChaVec256.Create(key, counter, stream, doubleRoundCount));
+            if (Vector128.IsHardwareAccelerated)
+                return new ChaChaIntrinsics(ChaChaVec128.Create(key, counter, stream, doubleRoundCount));
+#else
             if (Avx2.IsSupported)
-                return new ChaChaIntrinsics(ChaChaAvx2.Create(key, counter, stream, doubleRoundCount));
+                return new ChaChaIntrinsics(ChaChaVec256.Create(key, counter, stream, doubleRoundCount));
             if (Sse2.IsSupported)
-                return new ChaChaIntrinsics(ChaChaSse2.Create(key, counter, stream, doubleRoundCount));
-
+                return new ChaChaIntrinsics(ChaChaVec128.Create(key, counter, stream, doubleRoundCount));
+#endif
             return new ChaChaIntrinsics(ChaChaSoftware.Create(key, counter, stream, doubleRoundCount));
         }
 
@@ -116,10 +152,17 @@ namespace RandN.Rngs
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Generate(Span<UInt32> results)
         {
+#if NET7_0_OR_GREATER
+            if (Vector256.IsHardwareAccelerated)
+                _vec256.Generate(results);
+            else if (Vector128.IsHardwareAccelerated)
+                _vec128.Generate(results);
+#else
             if (Avx2.IsSupported)
-                _avx2.Generate(results);
+                _vec256.Generate(results);
             else if (Sse2.IsSupported)
-                _sse2.Generate(results);
+                _vec128.Generate(results);
+#endif
             else
                 _software.Generate(results);
         }
@@ -128,10 +171,17 @@ namespace RandN.Rngs
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Regenerate(Span<UInt32> results)
         {
+#if NET7_0_OR_GREATER
+            if (Vector256.IsHardwareAccelerated)
+                _vec256.Regenerate(results);
+            else if (Vector128.IsHardwareAccelerated)
+                _vec128.Regenerate(results);
+#else
             if (Avx2.IsSupported)
-                _avx2.Regenerate(results);
+                _vec256.Regenerate(results);
             else if (Sse2.IsSupported)
-                _sse2.Regenerate(results);
+                _vec128.Regenerate(results);
+#endif
             else
                 _software.Regenerate(results);
         }
