@@ -8,7 +8,11 @@ namespace RandN.Rngs;
 /// <summary>
 /// A cryptographically secure random number generator wrapping <see cref="RandomNumberGenerator"/>.
 /// </summary>
+#if NET7_0_OR_GREATER
+public sealed class SystemCryptoRng : ICryptoRng, ISelfSeedingRng<SystemCryptoRng>, IDisposable
+#else
 public sealed class SystemCryptoRng : ICryptoRng, IDisposable
+#endif
 {
     private readonly BlockBuffer32<BlockCore> _buffer;
     private readonly RandomNumberGenerator _rng;

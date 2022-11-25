@@ -6,7 +6,11 @@ namespace RandN;
 /// <summary>
 /// A cryptographically secure RNG with good performance.
 /// </summary>
+#if NET7_0_OR_GREATER
+public sealed class StandardRng : ICryptoRng, ISelfSeedingRng<StandardRng>
+#else
 public sealed class StandardRng : ICryptoRng
+#endif
 {
     private readonly ChaCha _wrapped;
 

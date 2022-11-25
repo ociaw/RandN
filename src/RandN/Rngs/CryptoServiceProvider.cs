@@ -13,7 +13,11 @@ namespace RandN.Rngs;
 /// becoming obsolete. See https://github.com/dotnet/runtime/issues/40169 for more details.
 /// </remarks>
 [Obsolete("This type is obsolete. Use SystemCryptoRng instead.")]
+#if NET7_0_OR_GREATER
+public sealed class CryptoServiceProvider : ICryptoRng, IDisposable, ISelfSeedingRng<CryptoServiceProvider>
+#else
 public sealed class CryptoServiceProvider : ICryptoRng, IDisposable
+#endif
 {
     private readonly BlockBuffer32<BlockCore> _buffer;
     private readonly RNGCryptoServiceProvider _rng;
@@ -63,7 +67,7 @@ public sealed class CryptoServiceProvider : ICryptoRng, IDisposable
     /// <inheritdoc />
     public void Dispose() => _rng.Dispose();
 
-    /// <inheritdoc cref="IRngFactory{CryptoServiceProvider}" />
+    /// <inheritdoc cref="IRngFactory{TRng}" />
     public readonly struct Factory : IRngFactory<CryptoServiceProvider>
     {
         /// <inheritdoc />

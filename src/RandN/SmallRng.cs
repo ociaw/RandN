@@ -6,7 +6,11 @@ namespace RandN;
 /// <summary>
 /// A non-cryptographically secure RNG with good performance and output quality, while requiring limited memory.
 /// </summary>
+#if NET7_0_OR_GREATER
+public sealed class SmallRng : IRng, ISelfSeedingRng<SmallRng>
+#else
 public sealed class SmallRng : IRng
+#endif
 {
     private readonly Pcg32 _wrapped;
 
