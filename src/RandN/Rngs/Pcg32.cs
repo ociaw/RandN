@@ -57,6 +57,13 @@ public sealed class Pcg32 : IRng
         return new Pcg32(state, increment);
     }
 
+    /// <inheritdoc cref="Factory.Create" />
+    public static Pcg32 Create(Seed seed) => Create(seed.State, seed.Stream);
+
+    /// <inheritdoc cref="Factory.CreateSeed{TSeedingRng}" />
+    public static Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng =>
+        new(seedingRng.NextUInt64(), seedingRng.NextUInt64());
+
     /// <summary>
     /// Gets the <see cref="XorShift" /> factory.
     /// </summary>
@@ -94,10 +101,10 @@ public sealed class Pcg32 : IRng
     public readonly struct Factory : IReproducibleRngFactory<Pcg32, Seed>
     {
         /// <inheritdoc />
-        public Pcg32 Create(Seed seed) => Pcg32.Create(seed.State, seed.Stream);
+        public Pcg32 Create(Seed seed) => Pcg32.Create(seed);
 
         /// <inheritdoc />
-        public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng => new(seedingRng.NextUInt64(), seedingRng.NextUInt64());
+        public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng => Pcg32.CreateSeed(seedingRng);
     }
 
     /// <summary>

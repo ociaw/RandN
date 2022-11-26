@@ -45,9 +45,7 @@ public sealed class Mt1993764 : IRng
         _index = state.Length;
     }
 
-    /// <summary>
-    /// Creates a new <see cref="Mt1993764" /> using the specified seed.
-    /// </summary>
+    /// <inheritdoc cref="Factory.Create(UInt64)" />
     public static Mt1993764 Create(UInt64 seed)
     {
         // Init state from seed
@@ -62,9 +60,7 @@ public sealed class Mt1993764 : IRng
         return new Mt1993764(state);
     }
 
-    /// <summary>
-    /// Creates a new <see cref="Mt1993764" /> using the specified seed.
-    /// </summary>
+    /// <inheritdoc cref="Factory.Create(UInt64[])" />
     public static Mt1993764 Create(UInt64[] seed)
     {
         const UInt64 initialSeed = 19650218ul;
@@ -103,6 +99,15 @@ public sealed class Mt1993764 : IRng
 
         state[0] = 1ul << 63;
         return rng;
+    }
+
+    /// <inheritdoc cref="Factory.CreateSeed{TSeedingRng}(TSeedingRng)" />
+    public static UInt64[] CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
+    {
+        UInt64[] seed = new UInt64[RecurrenceDegree];
+        Span<Byte> byteSeed = System.Runtime.InteropServices.MemoryMarshal.AsBytes<UInt64>(seed);
+        seedingRng.Fill(byteSeed);
+        return seed;
     }
 
     /// <summary>
@@ -163,13 +168,8 @@ public sealed class Mt1993764 : IRng
         public Mt1993764 Create(UInt64[] seed) => Mt1993764.Create(seed);
 
         /// <inheritdoc />
-        public UInt64[] CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
-        {
-            UInt64[] seed = new UInt64[RecurrenceDegree];
-            Span<Byte> byteSeed = System.Runtime.InteropServices.MemoryMarshal.AsBytes<UInt64>(seed);
-            seedingRng.Fill(byteSeed);
-            return seed;
-        }
+        public UInt64[] CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng =>
+            Mt1993764.CreateSeed(seedingRng);
 
         /// <inheritdoc />
         UInt64 IReproducibleRngFactory<Mt1993764, UInt64>.CreateSeed<TSeedingRng>(TSeedingRng seedingRng) => seedingRng.NextUInt64();

@@ -54,6 +54,16 @@ public sealed class ChaCha : ISeekableRng<ChaCha.Counter>, ICryptoRng
     /// <param name="seed">A seed containing the key and stream.</param>
     public static ChaCha Create(Seed seed) => Create(seed, 10);
 
+    /// <inheritdoc cref="Factory8.CreateSeed{TSeedingRng}" />
+    public static Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
+    {
+        Span<UInt32> key = stackalloc UInt32[KeyLength];
+        seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
+        const UInt64 stream = 0;
+
+        return new Seed(key, stream);
+    }
+
     /// <summary>
     /// Creates a ChaCha RNG using the given seed and number of double rounds.
     /// </summary>
@@ -119,14 +129,8 @@ public sealed class ChaCha : ISeekableRng<ChaCha.Counter>, ICryptoRng
         public ChaCha Create(Seed seed) => ChaCha.Create(seed, DoubleRounds);
 
         /// <inheritdoc />
-        public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
-        {
-            Span<UInt32> key = stackalloc UInt32[KeyLength];
-            seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
-            const UInt64 stream = 0;
-
-            return new Seed(key, stream);
-        }
+        public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng =>
+            ChaCha.CreateSeed(seedingRng);
     }
 
     /// <summary>
@@ -140,14 +144,8 @@ public sealed class ChaCha : ISeekableRng<ChaCha.Counter>, ICryptoRng
         public ChaCha Create(Seed seed) => ChaCha.Create(seed, DoubleRounds);
 
         /// <inheritdoc />
-        public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
-        {
-            Span<UInt32> key = stackalloc UInt32[KeyLength];
-            seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
-            const UInt64 stream = 0;
-
-            return new Seed(key, stream);
-        }
+        public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng =>
+            ChaCha.CreateSeed(seedingRng);
     }
 
     /// <summary>
@@ -161,14 +159,8 @@ public sealed class ChaCha : ISeekableRng<ChaCha.Counter>, ICryptoRng
         public ChaCha Create(Seed seed) => ChaCha.Create(seed, DoubleRounds);
 
         /// <inheritdoc />
-        public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng
-        {
-            Span<UInt32> key = stackalloc UInt32[KeyLength];
-            seedingRng.Fill(System.Runtime.InteropServices.MemoryMarshal.AsBytes(key));
-            const UInt64 stream = 0;
-
-            return new Seed(key, stream);
-        }
+        public Seed CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng =>
+            ChaCha.CreateSeed(seedingRng);
     }
 
     /// <summary>

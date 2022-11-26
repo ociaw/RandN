@@ -39,10 +39,17 @@ public sealed class XorShift : IRng
         return new XorShift(x, y, z, w);
     }
 
-    /// <summary>
-    /// Creates an XorShift RNG using the given seed.
-    /// </summary>
+    /// <inheritdoc cref="Factory.Create" />
     public static XorShift Create((UInt32 x, UInt32 y, UInt32 z, UInt32 w) seed) => Create(seed.x, seed.y, seed.z, seed.w);
+
+    /// <inheritdoc cref="Factory.CreateSeed{TSeedingRng}" />
+    public static (UInt32 x, UInt32 y, UInt32 z, UInt32 w) CreateSeed<TSeedingRng>(TSeedingRng seedingRng) where TSeedingRng : notnull, IRng =>
+    (
+        seedingRng.NextUInt32(),
+        seedingRng.NextUInt32(),
+        seedingRng.NextUInt32(),
+        seedingRng.NextUInt32()
+    );
 
     /// <summary>
     /// Gets the XorShift factory.
@@ -66,7 +73,7 @@ public sealed class XorShift : IRng
     /// <inheritdoc />
     public void Fill(Span<Byte> buffer) => Filler.FillBytesViaNext(this, buffer);
 
-    /// <inheritdoc cref="IRngFactory{CryptoServiceProvider}" />
+    /// <inheritdoc cref="IReproducibleRngFactory{TRng, TSeed}" />
     public readonly struct Factory : IReproducibleRngFactory<XorShift, (UInt32 x, UInt32 y, UInt32 z, UInt32 w)>
     {
         /// <inheritdoc />
