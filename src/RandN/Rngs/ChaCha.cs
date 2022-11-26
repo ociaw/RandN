@@ -7,7 +7,11 @@ namespace RandN.Rngs;
 /// <summary>
 /// A cryptographically secure random number generator using the ChaCha algorithm.
 /// </summary>
+#if NET7_0_OR_GREATER
+public sealed class ChaCha : ISeekableRng<ChaCha.Counter>, ICryptoRng, IReproducibleRng<ChaCha, ChaCha.Seed>
+#else
 public sealed class ChaCha : ISeekableRng<ChaCha.Counter>, ICryptoRng
+#endif
 {
     internal const Int32 ConstantLength = 4;
     internal const Int32 KeyLength = 8;

@@ -30,7 +30,11 @@ namespace RandN.Rngs;
 /// comprising 64 bits of state and a 64 bit stream selector. These are both set
 /// by <see cref="Factory"/>, using a 127-bit seed.
 /// </remarks>
+#if NET7_0_OR_GREATER
+public sealed class Pcg32 : IRng, IReproducibleRng<Pcg32, Pcg32.Seed>
+#else
 public sealed class Pcg32 : IRng
+#endif
 {
     private const UInt64 Multiplier = 6364136223846793005;
 

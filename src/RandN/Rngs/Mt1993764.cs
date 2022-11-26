@@ -8,7 +8,11 @@ namespace RandN.Rngs;
 /// Based on the pseudocode provided from https://en.wikipedia.org/wiki/Mersenne_twister
 /// and the original C code at http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/VERSIONS/C-LANG/mt19937-64.c
 /// </summary>
+#if NET7_0_OR_GREATER
+public sealed class Mt1993764 : IRng, IReproducibleRng<Mt1993764, UInt64[]>
+#else
 public sealed class Mt1993764 : IRng
+#endif
 {
     private const Int32 WordSize = sizeof(UInt64) * 8; // 64 bits (w)
     private const Int32 RecurrenceDegree = 312; // (n)

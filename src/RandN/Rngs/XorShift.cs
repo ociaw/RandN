@@ -10,7 +10,11 @@ namespace RandN.Rngs;
 /// <summary>
 /// A random number generator using the XOR Shift algorithm.
 /// </summary>
+#if NET7_0_OR_GREATER
+public sealed class XorShift : IRng, IReproducibleRng<XorShift, (UInt32 x, UInt32 y, UInt32 z, UInt32 w)>
+#else
 public sealed class XorShift : IRng
+#endif
 {
     private UInt32 _x;
     private UInt32 _y;
