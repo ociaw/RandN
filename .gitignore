@@ -21,3 +21,4 @@ config.wyam.*
 docs/output/**
 
 build-artifacts/**
+StrykerOutput/**

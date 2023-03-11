@@ -1,0 +1,9 @@
+{
+  "stryker-config":
+  {
+    "solution": "../RandN.sln",
+    "ignore-methods": [
+      "Argument*Exception"
+    ]
+  }
+}
