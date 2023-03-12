@@ -67,7 +67,7 @@ tasks:
   - mutate-core: |
       export PATH=$PATH://home/build/.dotnet/tools
       cd RandN/src/Tests
-      dotnet stryker --project RandN/RandN.csproj --output $HOME
+      dotnet stryker --project Core/Core.csproj --output $HOME
   - move-core-report: |
       mv $HOME/reports/mutation-report.html $artifacts/mutation-report-core.html
   - mutate-randn: |
