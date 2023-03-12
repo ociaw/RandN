@@ -1,0 +1,78 @@
+image: debian/bullseye
+arch: amd64
+repositories:
+  mono: https://download.mono-project.com/repo/debian stable-buster main 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+  msft: https://packages.microsoft.com/debian/11/prod bullseye main BC528686B50D79E339D3721CEB3E94ADBE1229CF
+artifacts:
+  - artifacts/packages.tgz
+  - artifacts/mutation-report-core.html
+  - artifacts/mutation-report-randn.html
+packages:
+  - dotnet-sdk-3.1
+  - dotnet-sdk-6.0
+  - dotnet-sdk-7.0
+  - mono-devel
+sources:
+  - hg+https://hg.sr.ht/~ociaw/RandN
+environment:
+  DOTNET_NOLOGO: true
+  DOTNET_GENERATE_ASPNET_CERTIFICATE: false
+  CI: true
+  config: "Release"
+  solution: "src/RandN.sln"
+  testProj: "src/Tests/Tests.csproj"
+  artifacts: "/home/build/artifacts"
+tasks:
+  - setup: |
+      dotnet tool install -g dotnet-stryker
+      mkdir -p $artifacts/packages
+  - build: |
+      cd RandN
+      hg update master
+      dotnet build $solution --configuration $config --verbosity quiet
+  - test-full: |
+      cd RandN
+      dotnet test $testProj --configuration $config --no-build --no-restore
+  - test-no-avx2: |
+      cd RandN
+      export COMPlus_EnableAVX2=0
+      dotnet test $testProj --configuration $config --no-build --no-restore
+  - test-no-sse2: |
+      cd RandN
+      export COMPlus_EnableAVX2=0
+      export COMPlus_EnableSSE2=0
+      dotnet test $testProj --configuration $config --no-build --no-restore
+  - package: |
+      cd RandN
+      export branch=`hg id --branch -r .`
+      export commit=`hg id --debug --id -r .`
+
+      dotnet pack src/Core/Core.csproj \
+        --no-build \
+        --nologo \
+        --configuration Release \
+        /p:RepositoryBranch=$branch \
+        /p:RepositoryCommit=$commit \
+        /p:PackageOutputPath=$artifacts/packages
+
+      dotnet pack src/RandN/RandN.csproj \
+        --no-build \
+        --nologo \
+        --configuration Release \
+        /p:RepositoryBranch=$branch \
+        /p:RepositoryCommit=$commit \
+        /p:PackageOutputPath=$artifacts/packages
+
+        tar -cvz $artifacts/packages/ -f $artifacts/packages.tgz
+  - mutate-core: |
+      export PATH=$PATH://home/build/.dotnet/tools
+      cd RandN/src/Tests
+      dotnet stryker --project RandN/RandN.csproj --output $HOME
+  - move-core-report: |
+      mv $HOME/reports/mutation-report.html $artifacts/mutation-report-core.html
+  - mutate-randn: |
+      export PATH=$PATH://home/build/.dotnet/tools
+      cd RandN/src/Tests
+      dotnet stryker --project RandN/RandN.csproj --output $HOME
+  - move-randn-report: |
+      mv $HOME/reports/mutation-report.html $artifacts/mutation-report-randn.html
