@@ -7,7 +7,8 @@ namespace RandN.Implementation;
 public sealed class FillerTests
 {
     [Theory]
-    [InlineData(0, 0x100000000)]
+    [InlineData(0, 0x0100000000)]
+    [InlineData(0x0123456789ABCDEF, 0x89ABCDF089ABCDEF)]
     [InlineData(UInt32.MaxValue, UInt32.MaxValue)]
     [InlineData(UInt64.MaxValue, UInt32.MaxValue)]
     public void NextUInt64ViaUInt32(UInt64 initialRngState, UInt64 expected)
@@ -18,6 +19,7 @@ public sealed class FillerTests
 
     [Theory]
     [InlineData(0, 0)]
+    [InlineData(0x0123456789ABCDEF, 0x89ABCDEF)]
     [InlineData(UInt32.MaxValue, UInt32.MaxValue)]
     [InlineData(UInt64.MaxValue, UInt32.MaxValue)]
     public void NextUInt32ViaUInt64(UInt64 initialRngState, UInt32 expected)
@@ -41,49 +43,78 @@ public sealed class FillerTests
     [Fact]
     public void FillViaNext4BytesLeft()
     {
-        var rng = new StepRng(0);
+        var rng = new StepRng(0x0123456789ABCDEF)
+        {
+            Increment = 0x0001000100010001
+        };
         var buffer = new UInt32[17];
         Filler.FillBytesViaNext(rng, MemoryMarshal.Cast<UInt32, Byte>(buffer));
-        for (UInt32 i = 0; i < buffer.Length / 2; i += 2)
+
+        var expected = new UInt32[]
         {
-            Assert.Equal(i / 2, buffer[i]);
-            Assert.Equal(0u, buffer[i + 1]);
-        }
-        Assert.Equal(8u, buffer[16]);
+            0x89ABCDEF, 0x01234567,
+            0x89ACCDF0, 0x01244568,
+            0x89ADCDF1, 0x01254569,
+            0x89AECDF2, 0x0126456A,
+            0x89AFCDF3, 0x0127456B,
+            0x89B0CDF4, 0x0128456C,
+            0x89B1CDF5, 0x0129456D,
+            0x89B2CDF6, 0x012A456E,
+            0x89B3CDF7,
+        };
+
+        Assert.Equal(expected, buffer);
     }
 
     [Fact]
     public void FillViaNext2BytesLeft()
     {
-        var rng = new StepRng(0);
+        var rng = new StepRng(0x0123456789ABCDEF)
+        {
+            Increment = 0x0001000100010001
+        };
         var buffer = new UInt16[33];
         Filler.FillBytesViaNext(rng, MemoryMarshal.Cast<UInt16, Byte>(buffer));
-        for (UInt32 i = 0; i < buffer.Length / 4; i += 4)
+        var expected = new UInt16[]
         {
-            Assert.Equal(i / 4, buffer[i]);
-            Assert.Equal(0u, buffer[i + 1]);
-            Assert.Equal(0u, buffer[i + 2]);
-            Assert.Equal(0u, buffer[i + 3]);
-        }
-        Assert.Equal(8u, buffer[32]);
+            0xCDEF, 0x89AB, 0x4567, 0x0123,
+            0xCDF0, 0x89AC, 0x4568, 0x0124,
+            0xCDF1, 0x89AD, 0x4569, 0x0125,
+            0xCDF2, 0x89AE, 0x456A, 0x0126,
+            0xCDF3, 0x89AF, 0x456B, 0x0127,
+            0xCDF4, 0x89B0, 0x456C, 0x0128,
+            0xCDF5, 0x89B1, 0x456D, 0x0129,
+            0xCDF6, 0x89B2, 0x456E, 0x012A,
+            0xCDF7,
+        };
+
+        Assert.Equal(expected, buffer);
     }
 
     [Fact]
     public void FillViaNext6BytesLeft()
     {
-        var rng = new StepRng(0);
+        var rng = new StepRng(0x0123456789ABCDEF)
+        {
+            Increment = 0x0001000100010001
+        };
         var buffer = new UInt16[35];
         Filler.FillBytesViaNext(rng, MemoryMarshal.Cast<UInt16, Byte>(buffer));
-        for (UInt32 i = 0; i < buffer.Length / 4; i += 4)
+
+        var expected = new UInt16[]
         {
-            Assert.Equal(i / 4, buffer[i]);
-            Assert.Equal(0u, buffer[i + 1]);
-            Assert.Equal(0u, buffer[i + 2]);
-            Assert.Equal(0u, buffer[i + 3]);
-        }
-        Assert.Equal(8u, buffer[32]);
-        Assert.Equal(0u, buffer[33]);
-        Assert.Equal(0u, buffer[34]);
+            0xCDEF, 0x89AB, 0x4567, 0x0123,
+            0xCDF0, 0x89AC, 0x4568, 0x0124,
+            0xCDF1, 0x89AD, 0x4569, 0x0125,
+            0xCDF2, 0x89AE, 0x456A, 0x0126,
+            0xCDF3, 0x89AF, 0x456B, 0x0127,
+            0xCDF4, 0x89B0, 0x456C, 0x0128,
+            0xCDF5, 0x89B1, 0x456D, 0x0129,
+            0xCDF6, 0x89B2, 0x456E, 0x012A,
+            0xCDF7, 0x89B3, 0x456F,
+        };
+
+        Assert.Equal(expected, buffer);
     }
 
     [Fact]
