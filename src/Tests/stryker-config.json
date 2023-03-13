@@ -3,7 +3,8 @@
   {
     "solution": "../RandN.sln",
     "ignore-methods": [
-      "Argument*Exception"
+      "Argument*Exception.ctor",
+      "Debug.Assert"
     ]
   }
 }
