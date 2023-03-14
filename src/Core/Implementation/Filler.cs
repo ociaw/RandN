@@ -41,13 +41,16 @@ public static class Filler
     public static void FillBytesViaNext<TRng>(TRng rng, Span<Byte> destination)
         where TRng : notnull, IRng
     {
-        while (destination.Length > 8)
+        // Do bulk filling until we have less than 8 bytes left
+        while (destination.Length >= 8)
         {
             var num = rng.NextUInt64();
             BinaryPrimitives.WriteUInt64LittleEndian(destination, num);
             destination = destination.Slice(8);
         }
 
+        // Clean up the last few bytes. If we have 5-7 bytes left, use NextUInt64. If we have 1-4 bytes left, use NextUInt32.
+        // Otherwise we have no bytes to fill and can simply exit.
         if (destination.Length > 4)
         {
             Span<Byte> chunk = stackalloc Byte[8];

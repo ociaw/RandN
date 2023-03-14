@@ -118,6 +118,173 @@ public sealed class FillerTests
     }
 
     [Fact]
+    public void FillViaNext0Bytes()
+    {
+        var rng = new StepRng(0x0123456789ABCDEF)
+        {
+            Increment = 0x0001000100010001
+        };
+        var buffer = new Byte[0];
+        Filler.FillBytesViaNext(rng, buffer);
+        var expected = new Byte[0];
+        
+        Assert.Equal(expected, buffer);
+    }
+
+    [Fact]
+    public void FillViaNext1Byte()
+    {
+        var rng = new StepRng(0x0123456789ABCDEF)
+        {
+            Increment = 0x0001000100010001
+        };
+        var buffer = new Byte[1];
+        Filler.FillBytesViaNext(rng, buffer);
+        var expected = new Byte[]
+        {
+            0xEF
+        };
+        
+        Assert.Equal(expected, buffer);
+    }
+
+    [Fact]
+    public void FillViaNext2Bytes()
+    {
+        var rng = new StepRng(0x0123456789ABCDEF)
+        {
+            Increment = 0x0001000100010001
+        };
+        var buffer = new Byte[2];
+        Filler.FillBytesViaNext(rng, buffer);
+        var expected = new Byte[]
+        {
+            0xEF, 0xCD,
+        };
+        
+        Assert.Equal(expected, buffer);
+    }
+
+    [Fact]
+    public void FillViaNext3Bytes()
+    {
+        var rng = new StepRng(0x0123456789ABCDEF)
+        {
+            Increment = 0x0001000100010001
+        };
+        var buffer = new Byte[3];
+        Filler.FillBytesViaNext(rng, buffer);
+        var expected = new Byte[]
+        {
+            0xEF, 0xCD, 0xAB,
+        };
+        
+        Assert.Equal(expected, buffer);
+    }
+
+    [Fact]
+    public void FillViaNext4Bytes()
+    {
+        var rng = new StepRng(0x0123456789ABCDEF)
+        {
+            Increment = 0x0001000100010001
+        };
+        var buffer = new Byte[4];
+        Filler.FillBytesViaNext(rng, buffer);
+        var expected = new Byte[]
+        {
+            0xEF, 0xCD, 0xAB, 0x89,
+        };
+        
+        Assert.Equal(expected, buffer);
+    }
+
+    [Fact]
+    public void FillViaNext5Bytes()
+    {
+        var rng = new StepRng(0x0123456789ABCDEF)
+        {
+            Increment = 0x0001000100010001
+        };
+        var buffer = new Byte[5];
+        Filler.FillBytesViaNext(rng, buffer);
+        var expected = new Byte[]
+        {
+            0xEF, 0xCD, 0xAB, 0x89, 0x67,
+        };
+        
+        Assert.Equal(expected, buffer);
+    }
+
+    [Fact]
+    public void FillViaNext6Bytes()
+    {
+        var rng = new StepRng(0x0123456789ABCDEF)
+        {
+            Increment = 0x0001000100010001
+        };
+        var buffer = new Byte[6];
+        Filler.FillBytesViaNext(rng, buffer);
+        var expected = new Byte[]
+        {
+            0xEF, 0xCD, 0xAB, 0x89, 0x67, 0x45,
+        };
+        
+        Assert.Equal(expected, buffer);
+    }
+
+    [Fact]
+    public void FillViaNext7Bytes()
+    {
+        var rng = new StepRng(0x0123456789ABCDEF)
+        {
+            Increment = 0x0001000100010001
+        };
+        var buffer = new Byte[7];
+        Filler.FillBytesViaNext(rng, buffer);
+        var expected = new Byte[]
+        {
+            0xEF, 0xCD, 0xAB, 0x89, 0x67, 0x45, 0x23,
+        };
+        
+        Assert.Equal(expected, buffer);
+    }
+
+    [Fact]
+    public void FillViaNext8Bytes()
+    {
+        var rng = new StepRng(0x0123456789ABCDEF)
+        {
+            Increment = 0x0001000100010001
+        };
+        var buffer = new Byte[8];
+        Filler.FillBytesViaNext(rng, buffer);
+        var expected = new Byte[]
+        {
+            0xEF, 0xCD, 0xAB, 0x89, 0x67, 0x45, 0x23, 0x01,
+        };
+        
+        Assert.Equal(expected, buffer);
+    }
+
+    [Fact]
+    public void FillViaNext9Bytes()
+    {
+        var rng = new StepRng(0x0123456789ABCDEF)
+        {
+            Increment = 0x0001000100010001
+        };
+        var buffer = new Byte[9];
+        Filler.FillBytesViaNext(rng, buffer);
+        var expected = new Byte[]
+        {
+            0xEF, 0xCD, 0xAB, 0x89, 0x67, 0x45, 0x23, 0x01, 0xF0,
+        };
+        
+        Assert.Equal(expected, buffer);
+    }
+
+    [Fact]
     public void FillViaUInt32ChunksIncomplete()
     {
         var source = new UInt32[]
