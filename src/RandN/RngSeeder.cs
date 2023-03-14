@@ -51,9 +51,6 @@ public static class RngSeeder
     public static RngSeeder<TRng, SystemCryptoRng, TSeed> Create<TRng, TSeed>(IReproducibleRngFactory<TRng, TSeed> rngFactory)
         where TRng : notnull, IRng
     {
-        if (rngFactory == null)
-            throw new ArgumentNullException(nameof(rngFactory));
-
         var seedSource = SystemCryptoRng.GetFactory().Create();
         return new RngSeeder<TRng, SystemCryptoRng, TSeed>(rngFactory, seedSource);
     }
@@ -63,13 +60,6 @@ public static class RngSeeder
     /// </summary>
     public static RngSeeder<TRng, TSeedingRng, TSeed> Create<TRng, TSeedingRng, TSeed>(IReproducibleRngFactory<TRng, TSeed> rngFactory, TSeedingRng seedSource)
         where TRng : notnull, IRng
-        where TSeedingRng : notnull, IRng
-    {
-        if (rngFactory == null)
-            throw new ArgumentNullException(nameof(rngFactory));
-        if (seedSource == null)
-            throw new ArgumentNullException(nameof(seedSource));
-
-        return new RngSeeder<TRng, TSeedingRng, TSeed>(rngFactory, seedSource);
-    }
+        where TSeedingRng : notnull, IRng =>
+        new RngSeeder<TRng, TSeedingRng, TSeed>(rngFactory, seedSource);
 }

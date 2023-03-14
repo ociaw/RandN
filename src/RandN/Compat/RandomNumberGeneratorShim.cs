@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Security.Cryptography;
 
 namespace RandN.Compat;
@@ -34,21 +35,11 @@ public sealed class RandomNumberGeneratorShim<TRng> : RandomNumberGenerator
     public RandomNumberGeneratorShim(TRng rng) => _rng = rng;
 
     /// <inheritdoc />
-    public override void GetBytes(Byte[] data)
-    {
-        // We normally rely on C# 8's nullable reference types, but this class is intended
-        // to be used for backwards compatibility, so we should null check arguments here.
-        if (data == null)
-            throw new ArgumentNullException(nameof(data));
-
-        _rng.Fill(data);
-    }
+    public override void GetBytes(Byte[] data) => _rng.Fill(data.AsSpan());
 
     /// <inheritdoc />
     public override void GetBytes(Byte[] data, Int32 offset, Int32 count)
     {
-        if (data == null)
-            throw new ArgumentNullException(nameof(data));
         if (offset < 0)
             throw new ArgumentOutOfRangeException(nameof(offset), "Must be non-negative.");
         if (count < 0)
@@ -66,67 +57,78 @@ public sealed class RandomNumberGeneratorShim<TRng> : RandomNumberGenerator
         /// <inheritdoc />
         public override void GetNonZeroBytes(Span<Byte> data)
         {
+            // Simple algorithm to remove zero bytes, searching for them one at a time. We don't bother with attempting
+            // to shift multiple zeros at a time since it's fairly unlikely to occur.
             while (data.Length > 0)
             {
+                // Fill the data with random bytes
                 Span<Byte> random = data;
                 _rng.Fill(random);
+
+                // Search for zero bytes
                 Int32 zeroCount = 0;
                 for (Int32 i = 0; i < random.Length; i++)
                 {
                     if (random[i] != 0)
                         continue;
 
+                    // Now that we've found a zero-byte, overwrite it with all the data after it
                     var src = random.Slice(i + 1);
                     var dst = random.Slice(i, src.Length);
                     src.CopyTo(dst);
 
+                    // Adjust the search window and start from the beginning
                     random = random.Slice(i, src.Length);
                     zeroCount += 1;
                     i = -1;
                 }
 
-                // The rest of this needs to be refilled, since these bytes were moved down.
+                // Slice away the data that's definitely non-zero.
+                // The rest of the data needs to be regenerated, since those bytes were moved down. We'll end up
+                // regenerating zeroCount bytes.
                 data = data.Slice(data.Length - zeroCount);
+                Debug.Assert(data.Length == zeroCount);
             }
         }
 
         /// <inheritdoc />
-        public override void GetNonZeroBytes(Byte[] data)
-        {
-            if (data == null)
-                throw new ArgumentNullException(nameof(data));
-
-            GetNonZeroBytes(data.AsSpan());
-        }
+        public override void GetNonZeroBytes(Byte[] data) => GetNonZeroBytes(data.AsSpan());
 #else
     /// <inheritdoc />
     public override void GetNonZeroBytes(Byte[] data)
     {
-        if (data == null)
-            throw new ArgumentNullException(nameof(data));
-
+        // Simple algorithm to remove zero bytes, searching for them one at a time. We don't bother with attempting
+        // to shift multiple zeros at a time since it's fairly unlikely to occur.
         var span = data.AsSpan();
         while (span.Length > 0)
         {
+            // Fill the data with random bytes
             Span<Byte> random = span;
             _rng.Fill(random);
+
+            // Search for zero bytes
             Int32 zeroCount = 0;
             for (Int32 i = 0; i < random.Length; i++)
             {
                 if (random[i] != 0)
                     continue;
 
+                // Now that we've found a zero-byte, overwrite it with all the data after it
                 var src = random.Slice(i + 1);
                 var dst = random.Slice(i, src.Length);
                 src.CopyTo(dst);
 
+                // Adjust the search window and start from the beginning
                 random = random.Slice(i, src.Length);
                 zeroCount += 1;
                 i = -1;
             }
 
-            // The rest of this needs to be refilled, since these bytes were moved down.
+            // Slice away the data that's definitely non-zero.
+            // The rest of the data needs to be regenerated, since those bytes were moved down. We'll end up
+            // regenerating zeroCount bytes.
             span = span.Slice(span.Length - zeroCount);
+            Debug.Assert(data.Length == zeroCount);
         }
     }
 #endif
