@@ -13,7 +13,7 @@ public sealed class UniformTimeSpanTests
     {
         var low = TimeSpan.FromTicks(lowInt);
         var high = TimeSpan.FromTicks(highInt);
-        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(high, low));
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.NewInclusive(high, low));
     }
 
     [Theory]
@@ -28,7 +28,7 @@ public sealed class UniformTimeSpanTests
     {
         var low = TimeSpan.FromTicks(lowInt);
         var high = TimeSpan.FromTicks(highInt);
-        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(high, low));
+        Assert.Throws<ArgumentOutOfRangeException>("high", () => Uniform.New(high, low));
     }
 
     [Theory]

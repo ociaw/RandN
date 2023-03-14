@@ -48,13 +48,19 @@ public sealed class RandomNumberGeneratorShimTests
 #endif
 
         var maxRng = new StepRng(UInt64.MaxValue) { Increment = 0 };
+        var halfRng = new StepRng(0x8080808080808080) { Increment = 0 };
         var maxShim = RandomNumberGeneratorShim.Create(maxRng);
+        var halfShim = RandomNumberGeneratorShim.Create(halfRng);
 
         buffer = new Byte[1024];
+        halfShim.GetBytes(buffer, 0, 200);
         maxShim.GetBytes(buffer, 200, 500);
-        Assert.All(buffer.Take(200), b => Assert.Equal(0, b));
+        halfShim.GetBytes(buffer, 700, 0);
+        halfShim.GetBytes(buffer, 1023, 1);
+        Assert.All(buffer.Take(200), b => Assert.Equal(0x80, b));
         Assert.All(buffer.Skip(200).Take(500), b => Assert.Equal(Byte.MaxValue, b));
-        Assert.All(buffer.Skip(700), b => Assert.Equal(0, b));
+        Assert.All(buffer.Skip(700).Take(323), b => Assert.Equal(0, b));
+        Assert.All(buffer.Skip(1023), b => Assert.Equal(0x80, b));
     }
 
     [Fact]
@@ -64,8 +70,8 @@ public sealed class RandomNumberGeneratorShimTests
         var shim = RandomNumberGeneratorShim.Create(rng);
         var bytes = new Byte[32];
         Assert.Throws<ArgumentNullException>(() => shim.GetBytes(null!, 0, 10));
-        Assert.Throws<ArgumentOutOfRangeException>(() => shim.GetBytes(bytes, -10, 10));
-        Assert.Throws<ArgumentOutOfRangeException>(() => shim.GetBytes(bytes, 10, -10));
+        Assert.Throws<ArgumentOutOfRangeException>("offset", () => shim.GetBytes(bytes, -10, 10));
+        Assert.Throws<ArgumentOutOfRangeException>("count", () => shim.GetBytes(bytes, 10, -10));
         Assert.Throws<ArgumentException>(() => shim.GetBytes(bytes, 32, 1));
     }
 
