@@ -5,6 +5,7 @@
     "ignore-methods": [
       "Argument*Exception.ctor",
       "Debug.Assert"
-    ]
+    ],
+    "target-framework": "net7.0"
   }
 }
