@@ -9,27 +9,29 @@ public class RngSeederTests
     public void CryptoRng()
     {
         var rngFactory = new StepRng.Factory(increment: 0);
-        var rngSeeder = RngSeeder.Create(rngFactory);
+        using var rngSeeder = RngSeeder.Create(rngFactory);
         var rng = rngSeeder.Create();
-        Assert.NotNull(rng);
-        rngSeeder.Dispose();
+        Assert.IsType<StepRng>(rng);
     }
 
     [Fact]
     public void SequentialSeedStaticRng()
     {
-        var seedSource = new StepRng(0);
+        var seedSource = new DisposableRng(new StepRng(0));
         var rngFactory = new StepRng.Factory(increment: 0);
-        using var rngSeeder = RngSeeder.Create(rngFactory, seedSource);
-
-        for (UInt64 i = 0; i < 10; i++)
+        using (var rngSeeder = RngSeeder.Create(rngFactory, seedSource))
         {
-            var rng = rngSeeder.Create();
-            Assert.Equal(i, rng.NextUInt64());
-            Assert.Equal(i, rng.NextUInt64());
-            Assert.Equal(i, rng.NextUInt64());
-            Assert.Equal(i, rng.NextUInt64());
+            for (UInt64 i = 0; i < 10; i++)
+            {
+                var rng = rngSeeder.Create();
+                Assert.IsType<StepRng>(rng);
+                Assert.Equal(i, rng.NextUInt64());
+                Assert.Equal(i, rng.NextUInt64());
+                Assert.Equal(i, rng.NextUInt64());
+                Assert.Equal(i, rng.NextUInt64());
+            }
         }
+        Assert.True(seedSource.Disposed);
     }
 
     [Fact]

@@ -78,7 +78,7 @@ public sealed class RandomNumberGeneratorShimTests
     [Fact]
     public void Disposal()
     {
-        var rng = new DisposableRng();
+        var rng = new DisposableRng(new StepRng(10));
         var shim = RandomNumberGeneratorShim.Create(rng);
         shim.Dispose();
         Assert.True(rng.Disposed);
@@ -92,18 +92,5 @@ public sealed class RandomNumberGeneratorShimTests
         var rng = RandomNumberGeneratorShim.Create(new StepRng(0));
         Assert.Throws<ArgumentNullException>(() => rng.GetBytes(null!));
         Assert.Throws<ArgumentNullException>(() => rng.GetNonZeroBytes(null!));
-    }
-
-    private sealed class DisposableRng : ICryptoRng, IDisposable
-    {
-        public Boolean Disposed { get; private set; }
-
-        public void Dispose() => Disposed = true;
-
-        public void Fill(Span<Byte> buffer) => buffer.Fill(0);
-
-        public UInt32 NextUInt32() => 0;
-
-        public UInt64 NextUInt64() => 0;
     }
 }
