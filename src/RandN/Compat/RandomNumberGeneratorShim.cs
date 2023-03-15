@@ -128,7 +128,7 @@ public sealed class RandomNumberGeneratorShim<TRng> : RandomNumberGenerator
             // The rest of the data needs to be regenerated, since those bytes were moved down. We'll end up
             // regenerating zeroCount bytes.
             span = span.Slice(span.Length - zeroCount);
-            Debug.Assert(data.Length == zeroCount);
+            Debug.Assert(span.Length == zeroCount);
         }
     }
 #endif

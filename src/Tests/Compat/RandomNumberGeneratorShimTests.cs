@@ -15,14 +15,27 @@ public sealed class RandomNumberGeneratorShimTests
     {
         var rng = new SequenceRng(new UInt32[] { 0, 1, 2, 0, 1, 2, 0, 1 });
         var shim = RandomNumberGeneratorShim.Create(rng);
+        var expected = new Byte[]
+        {
+            1, 2, 1, 2, 1,
+            1, 2, 1, 2, 1,
+            1, 2, 1, 2, 1,
+            1, 2, 1, 2, 1,
+            1, 2, 1, 2, 1,
+            1, 2, 1, 2, 1,
+            1, 2, 1, 2, 1,
+        };
 
         var buffer = new Byte[35];
         shim.GetNonZeroBytes(buffer);
         Assert.DoesNotContain((Byte)0, buffer);
+        Assert.Equal(expected, buffer);
 
 #if !NET48
+        Array.Fill(buffer, (Byte)0);
         shim.GetNonZeroBytes(buffer.AsSpan());
         Assert.DoesNotContain((Byte)0, buffer);
+        Assert.Equal(expected, buffer);
 #endif
     }
 
