@@ -89,7 +89,7 @@ namespace RandN.Rngs
             Assert.Equal(ChaCha.BufferLength, rng.BlockLength);
         }
 
-        [Vec128HwAccelRequiredFact]
+        [Vec256HwAccelRequiredFact]
         public void Generate1Kilobyte()
         {
             var rng = ChaChaVec256.Create(new UInt32[] { 0, 0, 0, 0, 0, 0, 0, 0 }, UInt64.MaxValue, 0, 10);
