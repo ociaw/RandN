@@ -28,7 +28,7 @@ tasks:
       mkdir -p $artifacts/packages
   - build: |
       cd RandN
-      hg update master
+      hg update tip
       dotnet build $solution --configuration $config --verbosity quiet
   - test-full: |
       cd RandN
