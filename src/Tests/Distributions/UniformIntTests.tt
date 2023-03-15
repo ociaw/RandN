@@ -149,14 +149,12 @@ public sealed class UniformIntegerTests
         const <#= type #> low = <#= type #>.MinValue;
         const <#= type #> high = <#= type #>.MaxValue - 1;
         const UInt64 maxRand = sizeof(<#= type #>) > 4 ? UInt64.MaxValue : UInt32.MaxValue;
-        const UInt64 rangeSize = unchecked((UInt64)high - (UInt64)low + 1);
-        const UInt64 rejectCount = (maxRand - rangeSize + 1) % rangeSize;
 
         var rng = new StepRng(maxRand - 1) { Increment = 0 };
-        var dist = Uniform.NewInclusive(<#= type #>.MinValue, (<#= type #>)(<#= type #>.MaxValue - 1));
+        var dist = Uniform.NewInclusive(low, high);
 
         Assert.Equal(UInt32.MaxValue - 1, rng.NextUInt32());
-        Assert.Equal(<#= type #>.MaxValue - 1, dist.Sample(rng));
+        Assert.Equal(high, dist.Sample(rng));
     }
 
     [Fact]
