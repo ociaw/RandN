@@ -77,6 +77,15 @@ public sealed class UniformIntegerTests
             Assert.True(low <= result);
             Assert.True(result <= high);
         }
+
+        for (var i = 0; i < 10000; i++)
+        {
+            if (!dist.TrySample(rng, out var result))
+                continue;
+
+            Assert.True(low <= result);
+            Assert.True(result <= high);
+        }
     }
 
     [Theory]
@@ -93,6 +102,15 @@ public sealed class UniformIntegerTests
         for (var i = 0; i < 10000; i++)
         {
             var result = dist.Sample(rng);
+            Assert.True(low <= result);
+            Assert.True(result < high);
+        }
+
+        for (var i = 0; i < 10000; i++)
+        {
+            if (!dist.TrySample(rng, out var result))
+                continue;
+
             Assert.True(low <= result);
             Assert.True(result < high);
         }
@@ -123,6 +141,22 @@ public sealed class UniformIntegerTests
         // Now test a blocking sample
         rng.State = maxRand - Math.Min(20, rejectCount) + 1;
         Assert.Equal(<#= type #>.MinValue, dist.Sample(rng));
+    }
+
+    [Fact]
+    public void ZoneEqualToGenerated<#= type #>()
+    {
+        const <#= type #> low = <#= type #>.MinValue;
+        const <#= type #> high = <#= type #>.MaxValue - 1;
+        const UInt64 maxRand = sizeof(<#= type #>) > 4 ? UInt64.MaxValue : UInt32.MaxValue;
+        const UInt64 rangeSize = unchecked((UInt64)high - (UInt64)low + 1);
+        const UInt64 rejectCount = (maxRand - rangeSize + 1) % rangeSize;
+
+        var rng = new StepRng(maxRand - 1) { Increment = 0 };
+        var dist = Uniform.NewInclusive(<#= type #>.MinValue, (<#= type #>)(<#= type #>.MaxValue - 1));
+
+        Assert.Equal(UInt32.MaxValue - 1, rng.NextUInt32());
+        Assert.Equal(<#= type #>.MaxValue - 1, dist.Sample(rng));
     }
 
     [Fact]
