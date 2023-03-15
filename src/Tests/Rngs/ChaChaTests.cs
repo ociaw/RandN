@@ -169,6 +169,39 @@ public sealed class ChaChaTests
             Assert.Equal(expected, rng1.NextUInt32());
     }
 
+    /// <summary>
+    /// 256 words generated from the empty seed (all zeros)
+    /// </summary>
+    [Fact]
+    public void Generate1Kilobyte()
+    {
+        var seed1 = new Seed();
+        var rng1 = ChaCha.Create(seed1);
+
+        foreach (var expected in ChaChaHelper.ChaCha20Output1Kibibyte)
+            Assert.Equal(expected, rng1.NextUInt32());
+    }
+
+    [Fact]
+    public void CounterWordWrapping()
+    {
+        var seed = new Seed();
+        var rng1 = ChaCha.Create(seed);
+        var rng2 = ChaCha.Create(seed);
+
+        rng1.Position = new ChaCha.Counter(1234, 0);
+        rng2.Position = new ChaCha.Counter(1233, 16);
+
+        Assert.Equal(rng1.Position, rng2.Position);
+        for (var i = 0; i < 128; i++)
+        {
+            var expected = rng1.NextUInt32();
+            var actual = rng2.NextUInt32();
+            Assert.Equal(expected, actual);
+        }
+        Assert.Equal(rng1.Position, rng2.Position);
+    }
+
     [Fact]
     public void BadArgs()
     {

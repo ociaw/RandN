@@ -1,5 +1,6 @@
 #if X86_INTRINSICS
 using System;
+using RandN.Implementation;
 using Xunit;
 
 namespace RandN.Rngs
@@ -78,6 +79,24 @@ namespace RandN.Rngs
 
             for (Int32 i = 0; i < buffer.Length; i++)
                 Assert.NotEqual(buffer[i], buffer2[i]);
+            Assert.Equal(1ul, rng.Stream);
+        }
+
+        [Vec128HwAccelRequiredFact]
+        public void BlockLength()
+        {
+            var rng = ChaChaVec128.Create(new UInt32[] { 0, 0, 1, 0, 2, 0, 3, 0 }, UInt64.MaxValue, 0, 4);
+            Assert.Equal(ChaCha.BufferLength, rng.BlockLength);
+        }
+
+        [Vec128HwAccelRequiredFact]
+        public void Generate1Kilobyte()
+        {
+            var rng = ChaChaVec128.Create(new UInt32[] { 0, 0, 0, 0, 0, 0, 0, 0 }, UInt64.MaxValue, 0, 10);
+            var blockBuffer = new BlockBuffer32<ChaChaVec128, UInt64>(rng);
+            
+            foreach (var expected in ChaChaHelper.ChaCha20Output1Kibibyte)
+                Assert.Equal(expected, blockBuffer.NextUInt32());
         }
     }
 }

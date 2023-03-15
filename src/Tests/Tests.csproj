@@ -33,6 +33,7 @@
 
   <ItemGroup Condition="'$(TargetFramework)'=='net48'">
     <PackageReference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel" Version="14.0.0" />
+    <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

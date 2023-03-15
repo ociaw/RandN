@@ -127,7 +127,7 @@ internal sealed class ChaChaVec256 : ISeekableBlockRngCore<UInt32, UInt64>
         {
             fixed (UInt32* ptr = destination)
             {
-                out0.GetLower().Store(ptr + 0);
+                out0.GetLower().Store(ptr);
                 out1.GetLower().Store(ptr + 4);
                 out2.GetLower().Store(ptr + 8);
                 out3.GetLower().Store(ptr + 12);

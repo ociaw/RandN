@@ -72,8 +72,8 @@ public sealed class ChaCha : ISeekableRng<ChaCha.Counter>, ICryptoRng
 
         var key = seed.Key.Length != 0 ? seed.Key.Span : stackalloc UInt32[KeyLength];
 #if X86_INTRINSICS
-            var core = ChaChaIntrinsics.Create(key, UInt64.MaxValue, seed.Stream, doubleRounds);
-            var blockBuffer = new BlockBuffer32<ChaChaIntrinsics, UInt64>(core);
+        var core = ChaChaIntrinsics.Create(key, UInt64.MaxValue, seed.Stream, doubleRounds);
+        var blockBuffer = new BlockBuffer32<ChaChaIntrinsics, UInt64>(core);
 #else
         var core = ChaChaSoftware.Create(key, UInt64.MaxValue, seed.Stream, doubleRounds);
         var blockBuffer = new BlockBuffer32<ChaChaSoftware, UInt64>(core);
