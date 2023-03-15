@@ -10,7 +10,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>11.0</LangVersion>
     <AnalysisLevel>7</AnalysisLevel>
-    <Version>0.3.0</Version>
+    <Version>0.4.0-alpha1</Version>
     <Authors>ociaw</Authors>
     <Company>ociaw</Company>
     <Description>RandN is an alternative library for random number generation, designed to replace the standard Random type.</Description>
@@ -20,11 +20,15 @@
     <RepositoryType>hg</RepositoryType>
     <PackageTags>rng random randn</PackageTags>
     <PackageReleaseNotes>
-      Version 0.3.0
+      Version 0.4.0
 
-      Moved the IDistribution and IPortableDistribution interfaces to RandN.Core
-      Remove NullGuard.Fody from public dependencies - this was only needed for build.
-      Fixed tests failing to run on Mono.
+      Added .NET 6 and .NET 7 targets
+      (Breaking Change) Dropped .NET 5 target since it's at End-of-Life
+      (Breaking Change) Deprecated the CryptoServiceProvider RNG due to deprecation of RNGCryptoServiceProvider
+      Added the SystemCryptoRNG to replace CryptoServiceProvider
+      Added the Singleton distribution
+      Added Select and SelectMany extension methods for IDistribution
+      Support for SIMD acceleration of ChaCha on ARM when running on .NET 7 or later 
     </PackageReleaseNotes>
   </PropertyGroup>
 
