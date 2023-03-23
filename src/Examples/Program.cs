@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics;
 using RandN.Distributions.UnitInterval;
-using RandN.Rngs;
 
 namespace RandN.Examples;
 
@@ -9,8 +8,7 @@ public sealed class Program
 {
     private static void Main()
     {
-        var seed = new ChaCha.Seed(new UInt32[] { 1, 2, 3, 4, 5, 6, 7, 8 });
-        var rng = ChaCha.Create(seed);
+        var rng = StandardRng.Create();
 
         var stopwatch = Stopwatch.StartNew();
         (Double pi, Double error) = EstimatePi(rng);
@@ -35,7 +33,7 @@ public sealed class Program
                 insideQuadrant += 1;
         }
 
-        Double error = 1 / Math.Sqrt(iterations);
+        Double error = 1 / Math.Sqrt(iterations) * 4;
         return ((Double)insideQuadrant / iterations * 4.0, error);
     }
 }
