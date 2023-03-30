@@ -99,4 +99,20 @@ public class DecimalTests
         Assert.Throws<ArgumentNullException>(() => Closed.Decimal.Instance.Sample<StepRng>(null));
         Assert.Throws<ArgumentNullException>(() => Open.Decimal.Instance.Sample<StepRng>(null));
     }
+
+    [Fact]
+    public void ValueStability()
+    {
+        StabilityTest(OpenClosed.Decimal.Instance, 0.1936767613994223449202733420m, 0.1212250305525918972556144708m, 0.1972665535654809360029766195m);
+        StabilityTest(Open.Decimal.Instance, 0.1936767613994223449202733420m, 0.1212250305525918972556144708m, 0.1972665535654809360029766195m);
+        StabilityTest(ClosedOpen.Decimal.Instance, 0.1936767613994223449202733420m, 0.1212250305525918972556144708m, 0.1972665535654809360029766195m);
+        StabilityTest(Closed.Decimal.Instance, 0.1936767613994223449202733420m, 0.1212250305525918972556144708m, 0.1972665535654809360029766195m);
+    }
+
+    private static void StabilityTest(IDistribution<Decimal> dist, params Decimal[] expectedValues)
+    {
+        var rng = Pcg32.Create(0x6f44f5646c2a7334, 11634580027462260723ul);
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng));
+    }
 }

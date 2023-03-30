@@ -65,7 +65,7 @@ public static partial class OpenClosed
         public Boolean TrySample<TRng>(TRng rng, out System.Decimal result) where TRng : notnull, IRng
         {
             result = DecimalUtils.GenerateCandidateDecimal(rng);
-            return 0 < result && result <= 1;
+            return result is > 0 and <= 1;
         }
     }
 }
@@ -133,7 +133,7 @@ public static partial class Open
         public Boolean TrySample<TRng>(TRng rng, out System.Decimal result) where TRng : notnull, IRng
         {
             result = DecimalUtils.GenerateCandidateDecimal(rng);
-            return 0 < result && result < 1;
+            return result is > 0 and < 1;
         }
     }
 }

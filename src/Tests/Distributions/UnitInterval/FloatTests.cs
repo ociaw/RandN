@@ -52,6 +52,13 @@ public sealed class FloatTests
         yield return new Object[] { Open.Single.Instance, seedStart + 3};
     }
 
+    private static void SingleStabilityTest(IDistribution<Single> dist, params Single[] expectedValues)
+    {
+        var rng = Pcg32.Create(0x6f44f5646c2a7334, 11634580027462260723ul);
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng), 0.0f);
+    }
+
     [Theory]
     [MemberData(nameof(SingleParams), 900)]
     public void SingleAverage(IDistribution<Single> dist, UInt64 seed)
@@ -136,6 +143,13 @@ public sealed class FloatTests
         yield return new Object[] { Open.Double.Instance, seedStart + 3};
     }
 
+    private static void DoubleStabilityTest(IDistribution<Double> dist, params Double[] expectedValues)
+    {
+        var rng = Pcg32.Create(0x6f44f5646c2a7334, 11634580027462260723ul);
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng), 0.0f);
+    }
+
     [Theory]
     [MemberData(nameof(DoubleParams), 900)]
     public void DoubleAverage(IDistribution<Double> dist, UInt64 seed)
@@ -175,5 +189,23 @@ public sealed class FloatTests
         Assert.Throws<ArgumentNullException>(() => OpenClosed.Double.Instance.Sample<StepRng>(null));
         Assert.Throws<ArgumentNullException>(() => Closed.Double.Instance.Sample<StepRng>(null));
         Assert.Throws<ArgumentNullException>(() => Open.Double.Instance.Sample<StepRng>(null));
+    }
+
+    [Fact]
+    public void DoubleStability()
+    {
+        DoubleStabilityTest(OpenClosed.Double.Instance, 0.7346051961657584, 0.2029854746297426, 0.8166436635290656);
+        DoubleStabilityTest(Open.Double.Instance, 0.7346051961657584, 0.20298547462974248, 0.8166436635290656);
+        DoubleStabilityTest(ClosedOpen.Double.Instance, 0.7346051961657583, 0.20298547462974248, 0.8166436635290655);
+        DoubleStabilityTest(Closed.Double.Instance, 0.7346051961657584, 0.20298547462974253, 0.8166436635290657);
+    }
+
+    [Fact]
+    public void SingleStability()
+    {
+        SingleStabilityTest(OpenClosed.Single.Instance, 0.003596425f, 0.73460525f, 0.09778178f);
+        SingleStabilityTest(Open.Single.Instance, 0.0035963655f, 0.73460525f, 0.09778172f);
+        SingleStabilityTest(ClosedOpen.Single.Instance, 0.00359636545f, 0.7346052f, 0.09778172f);
+        SingleStabilityTest(Closed.Single.Instance, 0.003596366f, 0.73460525f, 0.09778173f);
     }
 }

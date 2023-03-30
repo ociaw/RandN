@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Xunit;
 using RandN.Rngs;
@@ -340,4 +340,24 @@ public class UniformFloatTests
         var dist = Uniform.New(1.0d, 2.0d);
         Assert.Throws<ArgumentNullException>(() => dist.Sample<StepRng>(null));
     }
+
+   [Fact]
+   public void SingleStability()
+   {
+       var rng = Pcg32.Create(897, 11634580027462260723ul);
+       var dist = Uniform.New(0f, 1e-2f);
+       var expectedValues = new[] { 0.0003070104f, 0.0026630748f, 0.00979833f, 0.008194133f, 0.00398172f, 0.007428536f, };
+       foreach (var expected in expectedValues)
+           Assert.Equal(expected, dist.Sample(rng), 0.0f);
+   }
+
+   [Fact]
+   public void DoubleStability()
+   {
+       var rng = Pcg32.Create(897, 11634580027462260723ul);
+       var dist = Uniform.New(-1e10d, 1e10d);
+       var expectedValues = new[] { -4673848682.871551, 6388267422.932352, 4857075081.198343, 1173375212.1808167, 1917642852.109581, 2365076174.3153973, };
+       foreach (var expected in expectedValues)
+           Assert.Equal(expected, dist.Sample(rng), 0.0f);
+   }
 }
