@@ -107,6 +107,20 @@ public sealed class UniformTimeSpanTests
     }
 
     [Fact]
+    public void ZoneEqualToGeneratedInt64()
+    {
+        TimeSpan low = TimeSpan.FromTicks(Int64.MinValue);
+        TimeSpan high = TimeSpan.FromTicks(Int64.MaxValue - 1);
+        const UInt64 maxRand = UInt64.MaxValue;
+
+        var rng = new StepRng(maxRand - 1) { Increment = 0 };
+        var dist = Uniform.NewInclusive(low, high);
+
+        Assert.Equal(UInt32.MaxValue - 1, rng.NextUInt32());
+        Assert.Equal(high, dist.Sample(rng));
+    }
+
+    [Fact]
     public void FullRange()
     {
         var rng = new StepRng(UInt64.MaxValue - 4);
@@ -126,5 +140,25 @@ public sealed class UniformTimeSpanTests
         Assert.Equal(TimeSpan.FromTicks(-1), dist.Sample(rng)); // 0
         Assert.True(dist.TrySample(rng, out TimeSpan result)); // RNG wraps around to 0
         Assert.Equal(TimeSpan.Zero, result);
+    }
+
+    [Fact]
+    public void ValueStability()
+    {
+        var rng = Pcg32.Create(897, 11634580027462260723ul);
+        var dist = Uniform.New(TimeSpan.FromTicks(50), TimeSpan.FromTicks(200_000_000_000));
+        var expectedValues = new[] { TimeSpan.FromTicks(113474105527), TimeSpan.FromTicks(151896112770), TimeSpan.FromTicks(88763480610) };
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng));
+    }
+
+    [Fact]
+    public void ValueInclusiveStability()
+    {
+        var rng = Pcg32.Create(897, 11634580027462260723ul);
+        var dist = Uniform.NewInclusive(TimeSpan.FromTicks(50), TimeSpan.FromTicks(200_000_000_000));
+        var expectedValues = new[] { TimeSpan.FromTicks(113449542990), TimeSpan.FromTicks(151820535227), TimeSpan.FromTicks(88694964445) };
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng));
     }
 }

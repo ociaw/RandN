@@ -346,7 +346,17 @@ public class UniformFloatTests
    {
        var rng = Pcg32.Create(897, 11634580027462260723ul);
        var dist = Uniform.New(0f, 1e-2f);
-       var expectedValues = new[] { 0.0003070104f, 0.0026630748f, 0.00979833f, 0.008194133f, 0.00398172f, 0.007428536f, };
+       var expectedValues = new[] { 0.0003070104f, 0.0026630748f, 0.00979833025f, 0.00819413271f, 0.00398172019f, 0.00742853619f, };
+       foreach (var expected in expectedValues)
+           Assert.Equal(expected, dist.Sample(rng), 0.0f);
+   }
+
+   [Fact]
+   public void SingleInclusiveStability()
+   {
+       var rng = Pcg32.Create(897, 11634580027462260723ul);
+       var dist = Uniform.NewInclusive(0f, 1e-2f);
+       var expectedValues = new[] { 0.000307010429f, 0.00266307499f, 0.00979833119f, 0.00819413364f, 0.00398172066f, 0.00742853712f, };
        foreach (var expected in expectedValues)
            Assert.Equal(expected, dist.Sample(rng), 0.0f);
    }
@@ -356,7 +366,17 @@ public class UniformFloatTests
    {
        var rng = Pcg32.Create(897, 11634580027462260723ul);
        var dist = Uniform.New(-1e10d, 1e10d);
-       var expectedValues = new[] { -4673848682.871551, 6388267422.932352, 4857075081.198343, 1173375212.1808167, 1917642852.109581, 2365076174.3153973, };
+       var expectedValues = new[] { -4673848682.8715506, 6388267422.9323521, 4857075081.1983433, 1173375212.1808167, 1917642852.109581, 2365076174.3153973, };
+       foreach (var expected in expectedValues)
+           Assert.Equal(expected, dist.Sample(rng), 0.0f);
+   }
+
+   [Fact]
+   public void DoubleInclusiveStability()
+   {
+       var rng = Pcg32.Create(897, 11634580027462260723ul);
+       var dist = Uniform.NewInclusive(-1e10d, 1e10d);
+       var expectedValues = new[] { -4673848682.8715496, 6388267422.9323559, 4857075081.1983452, 1173375212.1808186, 1917642852.1095829, 2365076174.3153992, };
        foreach (var expected in expectedValues)
            Assert.Equal(expected, dist.Sample(rng), 0.0f);
    }

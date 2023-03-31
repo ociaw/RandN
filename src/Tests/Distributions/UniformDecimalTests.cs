@@ -154,4 +154,14 @@ public class UniformDecimalTests
         foreach (var expected in expectedValues)
             Assert.Equal(expected, dist.Sample(rng));
     }
+
+    [Fact]
+    public void DecimalInclusiveStability()
+    {
+        var rng = Pcg32.Create(0xb2834df18f196ce7ul, 11634580027462260723ul);
+        var dist = Uniform.New(-12345678901234123411223.98765m, 34567890234112523123123.56732m);
+        var expectedValues = new[] { 20476068794663794511043.616156m, 21673595918831626664045.433469m, 32162830977627440286535.068482m };
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng));
+    }
 }

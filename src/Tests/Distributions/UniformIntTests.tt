@@ -181,4 +181,84 @@ public sealed class UniformIntegerTests
 <#
 }
 #>
+
+    [Fact]
+    public void ByteStability()
+    {
+        var rng = Pcg32.Create(897, 11634580027462260723ul);
+        var dist = Uniform.New((Byte)50, (Byte)200);
+        var expectedValues = new Byte[] { 121, 86, 190 };
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng));
+    }
+
+    [Fact]
+    public void UInt16Stability()
+    {
+        var rng = Pcg32.Create(897, 11634580027462260723ul);
+        var dist = Uniform.New((UInt16)50, (UInt16)200);
+        var expectedValues = new UInt16[] { 121, 86, 190 };
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng));
+    }
+
+    [Fact]
+    public void UInt32Stability()
+    {
+        var rng = Pcg32.Create(897, 11634580027462260723ul);
+        var dist = Uniform.New(50u, 200u);
+        var expectedValues = new[] { 121u, 86u, 190u };
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng));
+    }
+
+    [Fact]
+    public void UInt64Stability()
+    {
+        var rng = Pcg32.Create(897, 11634580027462260723ul);
+        var dist = Uniform.New(50ul, 200_000_000_000ul);
+        var expectedValues = new[] { 113474105527ul, 151896112770ul, 88763480610ul };
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng));
+    }
+
+    [Fact]
+    public void SByteStability()
+    {
+        var rng = Pcg32.Create(897, 11634580027462260723ul);
+        var dist = Uniform.New((SByte)(-50), (SByte)100);
+        var expectedValues = new SByte[] { 21, -14, 90 };
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng));
+    }
+
+    [Fact]
+    public void Int16Stability()
+    {
+        var rng = Pcg32.Create(897, 11634580027462260723ul);
+        var dist = Uniform.New((Int16)50, (Int16)200);
+        var expectedValues = new Int16[] { 121, 86, 190 };
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng));
+    }
+
+    [Fact]
+    public void Int32Stability()
+    {
+        var rng = Pcg32.Create(897, 11634580027462260723ul);
+        var dist = Uniform.New(50, 200);
+        var expectedValues = new[] { 121, 86, 190 };
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng));
+    }
+
+    [Fact]
+    public void Int64Stability()
+    {
+        var rng = Pcg32.Create(897, 11634580027462260723ul);
+        var dist = Uniform.New(50, 200_000_000_000);
+        var expectedValues = new[] { 113474105527, 151896112770, 88763480610 };
+        foreach (var expected in expectedValues)
+            Assert.Equal(expected, dist.Sample(rng));
+    }
 }
