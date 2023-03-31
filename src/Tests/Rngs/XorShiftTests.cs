@@ -60,13 +60,44 @@ public class XorShiftTests
     public void BadSeed()
     {
         var seed = (0u, 0u, 0u, 0u);
-        var rng1 = XorShift.GetFactory().Create(seed);
+        var rng1 = XorShift.Create(seed);
 
         var num1 = rng1.NextUInt64();
         var num2 = rng1.NextUInt64();
 
         Assert.NotEqual(0ul, num1);
         Assert.NotEqual(num1, num2);
+    }
+
+    [Fact]
+    public void PartiallyZeroSeed()
+    {
+        // These tests exist mostly to satisfy Stryker, but they also demonstrate how sensitive XorShift is to bad seeds
+        // and zeros in ANY of its components
+        var rng1 = XorShift.Create((0u, 0xFF00FF00, 0xFF00FF00, 0xFF00FF00));
+
+        Assert.Equal(504676936644092128ul, rng1.NextUInt64());
+        Assert.Equal(504658244946427872ul, rng1.NextUInt64());
+        Assert.Equal(18390686710317907999ul, rng1.NextUInt64());
+        Assert.Equal(504658107645806567ul, rng1.NextUInt64());
+
+        var rng2 = XorShift.Create((0xFF00FF00, 0, 0xFF00FF00, 0xFF00FF00));
+        Assert.Equal(504658240785671967ul, rng2.NextUInt64());
+        Assert.Equal(504676936644092128ul, rng2.NextUInt64());
+        Assert.Equal(506653961767935775ul, rng2.NextUInt64());
+        Assert.Equal(18392631578883266808ul, rng2.NextUInt64());
+
+        var rng3 = XorShift.Create((0xFF00FF00, 0xFF00FF00, 0, 0xFF00FF00));
+        Assert.Equal(18374932770393745183ul, rng3.NextUInt64());
+        Assert.Equal(504658244946427872ul, rng3.NextUInt64());
+        Assert.Equal(18428764962772533279ul, rng3.NextUInt64());
+        Assert.Equal(574244029618143231ul, rng3.NextUInt64());
+
+        var rng4 = XorShift.Create((0xFF00FF00, 0xFF00FF00, 0xFF00FF00, 0));
+        Assert.Equal(34089021212671ul, rng4.NextUInt64());
+        Assert.Equal(17870292117364939007ul, rng4.NextUInt64());
+        Assert.Equal(17803257930307839ul, rng4.NextUInt64());
+        Assert.Equal(56233289412778208ul, rng4.NextUInt64());
     }
 
     [Fact]
