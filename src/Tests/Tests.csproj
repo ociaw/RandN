@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>net48;netcoreapp3.0;netcoreapp3.1;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net7.0;net6.0;netcoreapp3.1;netcoreapp3.0;net48</TargetFrameworks>
     <Optimize>false</Optimize>
     <AssemblyName>Tests</AssemblyName>
     <RootNamespace>RandN</RootNamespace>
