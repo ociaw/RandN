@@ -98,6 +98,18 @@ public class XorShiftTests
         Assert.Equal(17870292117364939007ul, rng4.NextUInt64());
         Assert.Equal(17803257930307839ul, rng4.NextUInt64());
         Assert.Equal(56233289412778208ul, rng4.NextUInt64());
+
+        var rng5 = XorShift.Create((0, 0, 0xFF00FF00, 0xFF00FF00));
+        Assert.Equal(18374966859414954208ul, rng5.NextUInt64());
+        Assert.Equal(18374932770393745183ul, rng5.NextUInt64());
+        Assert.Equal(18446497645800134880ul, rng5.NextUInt64());
+        Assert.Equal(522373610665879327ul, rng5.NextUInt64());
+
+        var rng6 = XorShift.Create((0xFF00FF00, 0xFF00FF00, 0, 0));
+        Assert.Equal(34089021212671ul, rng6.NextUInt64());
+        Assert.Equal(34084860468992ul, rng6.NextUInt64());
+        Assert.Equal(17888059160131002112ul, rng6.NextUInt64());
+        Assert.Equal(17888059233145446175ul, rng6.NextUInt64());
     }
 
     [Fact]
