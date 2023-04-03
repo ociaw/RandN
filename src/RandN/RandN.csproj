@@ -19,6 +19,7 @@
     <RepositoryUrl>https://hg.sr.ht/~ociaw/RandN</RepositoryUrl>
     <RepositoryType>hg</RepositoryType>
     <PackageTags>rng random randn</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>
       Version 0.4.0
 
@@ -94,6 +95,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Float.tt</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
   <!-- This seems to have something to do with T4 Templates. -->

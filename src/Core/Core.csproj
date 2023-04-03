@@ -19,6 +19,7 @@
     <RepositoryUrl>https://hg.sr.ht/~ociaw/RandN</RepositoryUrl>
     <RepositoryType>hg</RepositoryType>
     <PackageTags>rng random randn</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>
       Version 0.4.0
 
@@ -43,7 +44,6 @@
   <PropertyGroup Condition="'$(TargetFramework)'=='netstandard2.0' Or '$(TargetFramework)'=='netcoreapp3.1'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
-  
 
   <ItemGroup>
     <PackageReference Include="Fody" Version="6.2.0">
@@ -52,6 +52,10 @@
     </PackageReference>
     <PackageReference Include="NullGuard.Fody" Version="3.0.0" PrivateAssets="All" />
     <PackageReference Include="System.Memory" Version="4.5.4" Condition="'$(TargetFramework)'=='netstandard2.0'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/" />
   </ItemGroup>
 
   <!-- This seems to have something to do with T4 Templates. -->
