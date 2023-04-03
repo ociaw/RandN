@@ -46,11 +46,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="6.2.0">
+    <PackageReference Include="Fody" Version="6.6.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NullGuard.Fody" Version="3.0.0" PrivateAssets="All" />
+    <PackageReference Include="NullGuard.Fody" Version="3.1.1" PrivateAssets="All" />
     <PackageReference Include="System.Memory" Version="4.5.4" Condition="'$(TargetFramework)'=='netstandard2.0'" />
   </ItemGroup>
 

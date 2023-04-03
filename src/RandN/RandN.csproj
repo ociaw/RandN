@@ -42,12 +42,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="6.2.0">
+    <PackageReference Include="Fody" Version="6.6.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NullGuard.Fody" Version="3.0.0" PrivateAssets="All" />
-    <PackageReference Include="RandN.Core" Version="0.2.0" />
+    <PackageReference Include="NullGuard.Fody" Version="3.1.1" PrivateAssets="All" />
+    <PackageReference Include="RandN.Core" Version="[0.4.0,0.5.0)" />
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
