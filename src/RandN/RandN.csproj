@@ -10,7 +10,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>11.0</LangVersion>
     <AnalysisLevel>7</AnalysisLevel>
-    <Version>0.4.0-alpha1</Version>
+    <Version>0.4.0</Version>
     <Authors>ociaw</Authors>
     <Company>ociaw</Company>
     <Description>RandN is an alternative library for random number generation, designed to replace the standard Random type.</Description>

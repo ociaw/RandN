@@ -10,7 +10,7 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <LangVersion>11.0</LangVersion>
     <AnalysisLevel>7</AnalysisLevel>
-    <Version>0.4.0-alpha1</Version>
+    <Version>0.4.0</Version>
     <Authors>ociaw</Authors>
     <Company>ociaw</Company>
     <Description>RandN.Core defines the core interfaces of RandN, thus is intended only to be used by those implementing a random number generator. Others should instead use the RandN package itself. RandN.Core also provides RNG implementation helpers.</Description>
