@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
-#if X86_INTRINSICS
+#if BITWISE_ROTATION
 using System.Numerics;
 #endif
 
@@ -19,7 +19,7 @@ public static class BitwiseExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static UInt32 RotateLeft(this UInt32 original, Int32 amount)
     {
-#if X86_INTRINSICS
+#if BITWISE_ROTATION
         return BitOperations.RotateLeft(original, amount);
 #else
         return (original << amount) | (original >> (32 - amount));
@@ -33,7 +33,7 @@ public static class BitwiseExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static UInt32 RotateRight(this UInt32 original, Int32 amount)
     {
-#if X86_INTRINSICS
+#if BITWISE_ROTATION
         return BitOperations.RotateRight(original, amount);
 #else
         return (original >> amount) | (original << (32 - amount));

@@ -34,7 +34,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'!='netstandard2.0'">
-    <DefineConstants>X86_INTRINSICS</DefineConstants>
+    <DefineConstants>BITWISE_ROTATION</DefineConstants>
     <DefineConstants>GETBITS_SPAN</DefineConstants>
     <DefineConstants>BITWISE_FLOAT_CONVERSION</DefineConstants>
   </PropertyGroup>

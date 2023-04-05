@@ -1,4 +1,4 @@
-#if X86_INTRINSICS && !NET7_0_OR_GREATER
+#if NET6_0
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;

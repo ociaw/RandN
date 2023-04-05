@@ -1,4 +1,4 @@
-#if X86_INTRINSICS
+#if NET6_0_OR_GREATER
 using System;
 using RandN.Implementation;
 using Xunit;

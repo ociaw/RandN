@@ -10,7 +10,7 @@ public sealed class Vec256HwAccelRequiredFact : FactAttribute
 #if NET7_0_OR_GREATER
             if (!System.Runtime.Intrinsics.Vector256.IsHardwareAccelerated)
                 Skip = "Vector256 is not hardware accelerated";
-#elif X86_INTRINSICS
+#elif NET6_0
             if (!System.Runtime.Intrinsics.X86.Avx2.IsSupported)
                 Skip = "Vector256 is not hardware accelerated";
 #endif

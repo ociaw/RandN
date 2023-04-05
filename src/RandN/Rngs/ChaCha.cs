@@ -16,7 +16,7 @@ public sealed class ChaCha : ISeekableRng<ChaCha.Counter>, ICryptoRng
     internal const Int32 WordCount = ConstantLength + KeyLength + CounterLength + StreamLength;
     internal const Int32 BufferLength = WordCount * 4;
 
-#if X86_INTRINSICS
+#if NET6_0_OR_GREATER
         private readonly BlockBuffer32<ChaChaIntrinsics, UInt64> _blockBuffer;
 
         private ChaCha(BlockBuffer32<ChaChaIntrinsics, UInt64> blockBuffer)
@@ -71,7 +71,7 @@ public sealed class ChaCha : ISeekableRng<ChaCha.Counter>, ICryptoRng
             throw new ArgumentOutOfRangeException(nameof(doubleRounds));
 
         var key = seed.Key.Length != 0 ? seed.Key.Span : stackalloc UInt32[KeyLength];
-#if X86_INTRINSICS
+#if NET6_0_OR_GREATER
         var core = ChaChaIntrinsics.Create(key, UInt64.MaxValue, seed.Stream, doubleRounds);
         var blockBuffer = new BlockBuffer32<ChaChaIntrinsics, UInt64>(core);
 #else
