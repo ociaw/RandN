@@ -6,6 +6,7 @@ repositories:
 artifacts:
   - artifacts/packages.tgz
   - artifacts/mutation-report-core.html
+  - artifacts/mutation-report-chacha.html
   - artifacts/mutation-report-randn.html
 packages:
   - dotnet-sdk-3.1
@@ -70,6 +71,12 @@ tasks:
       dotnet stryker --project Core/Core.csproj --output $HOME
   - move-core-report: |
       mv $HOME/reports/mutation-report.html $artifacts/mutation-report-core.html
+  - mutate-chacha: |
+      export PATH=$PATH://home/build/.dotnet/tools
+      cd RandN/src/Tests
+      dotnet stryker --project ChaCha/ChaCha.csproj --output $HOME
+  - move-chacha-report: |
+      mv $HOME/reports/mutation-report.html $artifacts/mutation-report-chacha.html
   - mutate-randn: |
       export PATH=$PATH://home/build/.dotnet/tools
       cd RandN/src/Tests
