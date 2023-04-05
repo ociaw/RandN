@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mocks", "Mocks\Mocks.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChaCha", "ChaCha\ChaCha.csproj", "{1F23A258-8294-46C0-A8D0-380FF1FECA46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pcg32", "Pcg32\Pcg32.csproj", "{8CB8AF1D-61E2-47E6-A51B-5C2A10B28175}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{1F23A258-8294-46C0-A8D0-380FF1FECA46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F23A258-8294-46C0-A8D0-380FF1FECA46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F23A258-8294-46C0-A8D0-380FF1FECA46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CB8AF1D-61E2-47E6-A51B-5C2A10B28175}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CB8AF1D-61E2-47E6-A51B-5C2A10B28175}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CB8AF1D-61E2-47E6-A51B-5C2A10B28175}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CB8AF1D-61E2-47E6-A51B-5C2A10B28175}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

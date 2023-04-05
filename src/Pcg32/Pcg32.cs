@@ -58,7 +58,7 @@ public sealed class Pcg32 : IRng
     }
 
     /// <summary>
-    /// Gets the <see cref="XorShift" /> factory.
+    /// Gets the <see cref="Pcg32" /> factory.
     /// </summary>
     public static Factory GetFactory() => new();
 

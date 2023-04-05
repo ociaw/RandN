@@ -45,8 +45,10 @@
     <PackageReference Include="NullGuard.Fody" Version="3.1.1" PrivateAssets="All" />
     <PackageReference Include="RandN.Core" Version="[0.4.0,0.5.0)" />
     <PackageReference Include="RandN.ChaCha" Version="[0.4.0,0.5.0)" />
+    <PackageReference Include="RandN.Pcg32" Version="[0.4.0,0.5.0)" />
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\ChaCha\ChaCha.csproj" />
+    <ProjectReference Include="..\Pcg32\Pcg32.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
