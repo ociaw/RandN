@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>netcoreapp3.1;netstandard2.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Optimize>true</Optimize>
     <AssemblyName>Mocks</AssemblyName>
     <RootNamespace>RandN</RootNamespace>
