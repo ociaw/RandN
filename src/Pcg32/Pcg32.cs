@@ -77,7 +77,7 @@ public sealed class Pcg32 : IRng
         var rotation = unchecked((Int32)(state >> rotate));
         var xs = unchecked((UInt32)(((state >> xShift) ^ state) >> spare));
         // Rotate Right
-        return (xs >> rotation) | (xs << (32 - rotation));
+        return xs.RotateRight(rotation);
     }
 
     /// <inheritdoc />
