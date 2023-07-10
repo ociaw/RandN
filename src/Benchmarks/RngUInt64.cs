@@ -1,5 +1,7 @@
 using System;
+
 using BenchmarkDotNet.Attributes;
+
 using RandN.Rngs;
 
 namespace RandN.Benchmarks;
@@ -13,6 +15,9 @@ public class RngUInt64
     private readonly ChaCha _chaCha12;
     private readonly ChaCha _chaCha20;
     private readonly Pcg32 _pcg32;
+#if NET7_0_OR_GREATER
+    private readonly Pcg64Dxsm _pcg64Dxsm;
+#endif // NET7_0_OR_GREATER
     private readonly Mt1993764 _mt1993764;
     private readonly XorShift _xorShift;
     private readonly SystemCryptoRng _systemCryptoRng;
@@ -27,6 +32,9 @@ public class RngUInt64
         _chaCha12 = ChaCha.GetChaCha12Factory().Create(new ChaCha.Seed());
         _chaCha20 = ChaCha.GetChaCha20Factory().Create(new ChaCha.Seed());
         _pcg32 = Rngs.Pcg32.Create(0, 0);
+#if NET7_0_OR_GREATER
+        _pcg64Dxsm = Rngs.Pcg64Dxsm.Create(0, 0);
+#endif // NET7_0_OR_GREATER
         _mt1993764 = Rngs.Mt1993764.Create(0);
         _xorShift = Rngs.XorShift.Create(1, 1, 1, 1);
         _systemCryptoRng = Rngs.SystemCryptoRng.Create();
@@ -80,6 +88,19 @@ public class RngUInt64
             sum = unchecked(sum + _pcg32.NextUInt64());
         return sum;
     }
+
+#if NET7_0_OR_GREATER
+
+    [Benchmark]
+    public UInt64 Pcg64Dxsm()
+    {
+        UInt64 sum = 0;
+        for (Int32 i = 0; i < Iterations; i++)
+            sum = unchecked(sum + _pcg64Dxsm.NextUInt64());
+        return sum;
+    }
+
+#endif // NET7_0_OR_GREATER
 
     [Benchmark]
     public UInt64 XorShift()
