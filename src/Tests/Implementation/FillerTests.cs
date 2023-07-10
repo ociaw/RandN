@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+
 using Xunit;
 
 namespace RandN.Implementation;
@@ -27,6 +28,24 @@ public sealed class FillerTests
         var rng = new StepRng(initialRngState);
         Assert.Equal(expected, Filler.NextUInt32ViaUInt64(rng));
     }
+
+#if NET7_0_OR_GREATER
+
+    [Theory]
+    [InlineData(0x0000000000000000, 0x0000000000000001, 0x0000000000000000)]
+    [InlineData(0x0123456789ABCDEF, 0x0123456789ABCDF0, 0x0123456789ABCDEF)]
+    [InlineData(UInt32.MaxValue, ((UInt64)UInt32.MaxValue) + 1, UInt32.MaxValue)]
+    [InlineData(UInt64.MaxValue, UInt64.MinValue, UInt64.MaxValue)]
+    public void NextUInt128ViaUInt64(UInt64 initialRngState, UInt64 expectedUpper, UInt64 expectedLower)
+    {
+        var rng = new StepRng(initialRngState);
+        UInt128 value = Filler.NextUInt128ViaUInt64(rng);
+        UInt64 mask = 0xFFFFFFFFFFFFFFFF;
+        Assert.Equal(expectedUpper, (value >> 64) & mask);
+        Assert.Equal(expectedLower, value & mask);
+    }
+
+#endif // NET7_0_OR_GREATER
 
     [Fact]
     public void FillViaNextCleanly()
@@ -127,7 +146,7 @@ public sealed class FillerTests
         var buffer = new Byte[0];
         Filler.FillBytesViaNext(rng, buffer);
         var expected = new Byte[0];
-        
+
         Assert.Equal(expected, buffer);
     }
 
@@ -144,7 +163,7 @@ public sealed class FillerTests
         {
             0xEF
         };
-        
+
         Assert.Equal(expected, buffer);
     }
 
@@ -161,7 +180,7 @@ public sealed class FillerTests
         {
             0xEF, 0xCD,
         };
-        
+
         Assert.Equal(expected, buffer);
     }
 
@@ -178,7 +197,7 @@ public sealed class FillerTests
         {
             0xEF, 0xCD, 0xAB,
         };
-        
+
         Assert.Equal(expected, buffer);
     }
 
@@ -195,7 +214,7 @@ public sealed class FillerTests
         {
             0xEF, 0xCD, 0xAB, 0x89,
         };
-        
+
         Assert.Equal(expected, buffer);
     }
 
@@ -212,7 +231,7 @@ public sealed class FillerTests
         {
             0xEF, 0xCD, 0xAB, 0x89, 0x67,
         };
-        
+
         Assert.Equal(expected, buffer);
     }
 
@@ -229,7 +248,7 @@ public sealed class FillerTests
         {
             0xEF, 0xCD, 0xAB, 0x89, 0x67, 0x45,
         };
-        
+
         Assert.Equal(expected, buffer);
     }
 
@@ -246,7 +265,7 @@ public sealed class FillerTests
         {
             0xEF, 0xCD, 0xAB, 0x89, 0x67, 0x45, 0x23,
         };
-        
+
         Assert.Equal(expected, buffer);
     }
 
@@ -263,7 +282,7 @@ public sealed class FillerTests
         {
             0xEF, 0xCD, 0xAB, 0x89, 0x67, 0x45, 0x23, 0x01,
         };
-        
+
         Assert.Equal(expected, buffer);
     }
 
@@ -280,7 +299,7 @@ public sealed class FillerTests
         {
             0xEF, 0xCD, 0xAB, 0x89, 0x67, 0x45, 0x23, 0x01, 0xF0,
         };
-        
+
         Assert.Equal(expected, buffer);
     }
 
