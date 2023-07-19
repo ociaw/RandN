@@ -8,6 +8,7 @@ artifacts:
   - artifacts/mutation-report-core.html
   - artifacts/mutation-report-chacha.html
   - artifacts/mutation-report-pcg32.html
+  - artifacts/mutation-report-mersenne-twister.html
   - artifacts/mutation-report-randn.html
 packages:
   - dotnet-sdk-3.1
@@ -84,6 +85,12 @@ tasks:
       dotnet stryker --project Pcg32/Pcg32.csproj --output $HOME
   - move-pcg32-report: |
       mv $HOME/reports/mutation-report.html $artifacts/mutation-report-pcg32.html
+  - mutate-mersenne-twister: |
+      export PATH=$PATH://home/build/.dotnet/tools
+      cd RandN/src/Tests
+      dotnet stryker --project MersenneTwister/MersenneTwister.csproj --output $HOME
+  - move-mersenne-twister-report: |
+      mv $HOME/reports/mutation-report.html $artifacts/mutation-report-mersenne-twister.html
   - mutate-randn: |
       export PATH=$PATH://home/build/.dotnet/tools
       cd RandN/src/Tests

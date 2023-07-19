@@ -35,6 +35,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Mocks\Mocks.csproj" />
     <ProjectReference Include="..\RandN\RandN.csproj" />
+    <ProjectReference Include="..\MersenneTwister\MersenneTwister.csproj" />
   </ItemGroup>
 
   <ItemGroup>
