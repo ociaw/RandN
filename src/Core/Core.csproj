@@ -43,12 +43,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="6.6.4">
+    <PackageReference Include="Fody" Version="6.8.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="NullGuard.Fody" Version="3.1.1" PrivateAssets="All" />
-    <PackageReference Include="System.Memory" Version="4.5.4" Condition="'$(TargetFramework)'=='netstandard2.0'" />
   </ItemGroup>
 
   <ItemGroup>
@@ -58,6 +57,9 @@
   <!-- This seems to have something to do with T4 Templates. -->
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="System.Memory" Version="4.5.5" />
   </ItemGroup>
 
 </Project>
