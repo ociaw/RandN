@@ -2,15 +2,15 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>net7.0;net6.0;netstandard2.1;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net6.0;netstandard2.1;netstandard2.0</TargetFrameworks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <AssemblyName>RandN</AssemblyName>
     <RootNamespace>RandN</RootNamespace>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <LangVersion>11.0</LangVersion>
-    <AnalysisLevel>7</AnalysisLevel>
-    <Version>0.4.0</Version>
+    <LangVersion>12.0</LangVersion>
+    <AnalysisLevel>8</AnalysisLevel>
+    <Version>0.5.0</Version>
     <Authors>ociaw</Authors>
     <Company>ociaw</Company>
     <Description>RandN is an alternative library for random number generation, designed to replace the standard Random type.</Description>
@@ -21,15 +21,10 @@
     <PackageTags>rng random randn</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>
-      Version 0.4.0
+      Version 0.5.0
 
-      Added .NET 6 and .NET 7 targets
-      (Breaking Change) Dropped .NET 5 target since it's at End-of-Life
-      (Breaking Change) Deprecated the CryptoServiceProvider RNG due to deprecation of RNGCryptoServiceProvider
-      Added the SystemCryptoRNG to replace CryptoServiceProvider
-      Added the Singleton distribution
-      Added Select and SelectMany extension methods for IDistribution
-      Support for SIMD acceleration of ChaCha on ARM when running on .NET 7 or later 
+      Added .NET 8 target
+      (Breaking Change) Dropped .NET 7 target since it's at End-of-Life
     </PackageReleaseNotes>
   </PropertyGroup>
 
@@ -43,9 +38,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="NullGuard.Fody" Version="3.1.1" PrivateAssets="All" />
-    <PackageReference Include="RandN.Core" Version="[0.4.0,0.5.0)" />
-    <PackageReference Include="RandN.ChaCha" Version="[0.4.0,0.5.0)" />
-    <PackageReference Include="RandN.Pcg32" Version="[0.4.0,0.5.0)" />
+    <PackageReference Include="RandN.Core" Version="[0.5.0,0.6.0)" />
+    <PackageReference Include="RandN.ChaCha" Version="[0.5.0,0.6.0)" />
+    <PackageReference Include="RandN.Pcg32" Version="[0.5.0,0.6.0)" />
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\ChaCha\ChaCha.csproj" />
     <ProjectReference Include="..\Pcg32\Pcg32.csproj" />

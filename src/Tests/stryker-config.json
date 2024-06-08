@@ -6,6 +6,6 @@
       "Argument*Exception.ctor",
       "Debug.Assert"
     ],
-    "target-framework": "net7.0"
+    "target-framework": "net8.0"
   }
 }
