@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <AssemblyName>RandN.XorShift</AssemblyName>
+        <RootNamespace>RandN.Rngs</RootNamespace>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+        <LangVersion>11.0</LangVersion>
+        <AnalysisLevel>7</AnalysisLevel>
+        <Version>0.4.0</Version>
+        <Authors>ociaw</Authors>
+        <Company>ociaw</Company>
+        <Description>RandN.XorShift provides an implementation of a XorShift for RandN, an alternative library for random number generation.</Description>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://randn.dev/</PackageProjectUrl>
+        <RepositoryUrl>https://hg.sr.ht/~ociaw/RandN</RepositoryUrl>
+        <RepositoryType>hg</RepositoryType>
+        <PackageTags>rng random randn</PackageTags>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageReleaseNotes>
+            Version 0.4.0
+            Initial Release
+        </PackageReleaseNotes>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Fody" Version="6.6.4">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="NullGuard.Fody" Version="3.1.1" PrivateAssets="All" />
+        <PackageReference Include="RandN.Core" Version="[0.4.0,0.5.0)" />
+        <ProjectReference Include="..\Core\Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
+    </ItemGroup>
+</Project>
