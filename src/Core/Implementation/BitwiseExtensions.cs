@@ -62,4 +62,29 @@ public static class BitwiseExtensions
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static UInt64 CombineWithLow(this UInt32 high, UInt32 low) => ((UInt64)high << 32) | low;
+
+#if NET7_0_OR_GREATER
+    /// <summary>
+    /// Isolates and returns the 64 high bits of <paramref name="original"/>.
+    /// </summary>
+    [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static UInt64 IsolateHigh(this UInt128 original) => (UInt64)(original >> 64);
+
+    /// <summary>
+    /// Isolates and returns the 64 low bits of <paramref name="original"/>.
+    /// </summary>
+    [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static UInt64 IsolateLow(this UInt128 original) => unchecked((UInt64)original);
+
+    /// <summary>
+    /// Combines <paramref name="high"/> and <paramref name="low"/> into a <see cref="UInt128"/>.
+    /// </summary>
+    /// <param name="high">The 64 high bits.</param>
+    /// <param name="low">The 64 low bits.</param>
+    [Pure]
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static UInt128 CombineWithLow(this UInt64 high, UInt64 low) => new(high, low);
+#endif
 }

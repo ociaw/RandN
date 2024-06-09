@@ -249,4 +249,48 @@ public static partial class Uniform
     /// </exception>
     public static Uniform.Double NewInclusive(System.Double low, System.Double high) => Uniform.Double.CreateInclusive(low, high);
 
+#if NET7_0_OR_GREATER
+    /// <summary>
+    /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
+    /// </summary>
+    /// <param name="low">The inclusive lower bound.</param>
+    /// <param name="high">The exclusive upper bound.</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+    /// </exception>
+    public static Uniform.Int128 New(System.Int128 low, System.Int128 high) => Uniform.Int128.Create(low, high);
+
+    /// <summary>
+    /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
+    /// </summary>
+    /// <param name="low">The inclusive lower bound.</param>
+    /// <param name="high">The inclusive upper bound.</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+    /// </exception>
+    public static Uniform.Int128 NewInclusive(System.Int128 low, System.Int128 high) => Uniform.Int128.CreateInclusive(low, high);
+
+#endif
+#if NET7_0_OR_GREATER
+    /// <summary>
+    /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
+    /// </summary>
+    /// <param name="low">The inclusive lower bound.</param>
+    /// <param name="high">The exclusive upper bound.</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+    /// </exception>
+    public static Uniform.UInt128 New(System.UInt128 low, System.UInt128 high) => Uniform.UInt128.Create(low, high);
+
+    /// <summary>
+    /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
+    /// </summary>
+    /// <param name="low">The inclusive lower bound.</param>
+    /// <param name="high">The inclusive upper bound.</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+    /// </exception>
+    public static Uniform.UInt128 NewInclusive(System.UInt128 low, System.UInt128 high) => Uniform.UInt128.CreateInclusive(low, high);
+
+#endif
 }
