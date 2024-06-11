@@ -7,7 +7,7 @@ public sealed class Vec128HwAccelRequiredFact : FactAttribute
 {
     public Vec128HwAccelRequiredFact()
     {
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
             if (!System.Runtime.Intrinsics.Vector128.IsHardwareAccelerated)
                 Skip = "Vector128 is not hardware accelerated";
 #elif NET6_0

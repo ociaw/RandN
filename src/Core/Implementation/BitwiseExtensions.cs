@@ -63,7 +63,7 @@ public static class BitwiseExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static UInt64 CombineWithLow(this UInt32 high, UInt32 low) => ((UInt64)high << 32) | low;
 
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
     /// <summary>
     /// Isolates and returns the 64 high bits of <paramref name="original"/>.
     /// </summary>

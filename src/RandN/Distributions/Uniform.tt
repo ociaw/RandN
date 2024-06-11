@@ -39,7 +39,7 @@ foreach (var type in types)
     if (typeName.Contains("128"))
     {
 #>
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
 <#
     }
 #>

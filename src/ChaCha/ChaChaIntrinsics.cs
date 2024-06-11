@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
 using System.Runtime.Intrinsics;
 #else
 using System.Runtime.Intrinsics.X86;
@@ -45,7 +45,7 @@ internal readonly struct ChaChaIntrinsics : ISeekableBlockRngCore<UInt32, UInt64
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         get
         {
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
             if (Vector256.IsHardwareAccelerated)
                 return _vec256.BlockCounter;
             if (Vector128.IsHardwareAccelerated)
@@ -61,7 +61,7 @@ internal readonly struct ChaChaIntrinsics : ISeekableBlockRngCore<UInt32, UInt64
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         set
         {
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
             if (Vector256.IsHardwareAccelerated)
                 _vec256.BlockCounter = value;
             else if (Vector128.IsHardwareAccelerated)
@@ -84,7 +84,7 @@ internal readonly struct ChaChaIntrinsics : ISeekableBlockRngCore<UInt32, UInt64
     {
         get
         {
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
             if (Vector256.IsHardwareAccelerated)
                 return _vec256.Stream;
             if (Vector128.IsHardwareAccelerated)
@@ -99,7 +99,7 @@ internal readonly struct ChaChaIntrinsics : ISeekableBlockRngCore<UInt32, UInt64
         }
         set
         {
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
             if (Vector256.IsHardwareAccelerated)
                 _vec256.Stream = value;
             else if (Vector128.IsHardwareAccelerated)
@@ -133,7 +133,7 @@ internal readonly struct ChaChaIntrinsics : ISeekableBlockRngCore<UInt32, UInt64
         Debug.Assert(key.Length == 8);
         Debug.Assert(doubleRoundCount != 0);
 
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
         if (Vector256.IsHardwareAccelerated)
             return new ChaChaIntrinsics(ChaChaVec256.Create(key, counter, stream, doubleRoundCount));
         if (Vector128.IsHardwareAccelerated)
@@ -151,7 +151,7 @@ internal readonly struct ChaChaIntrinsics : ISeekableBlockRngCore<UInt32, UInt64
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Generate(Span<UInt32> results)
     {
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
         if (Vector256.IsHardwareAccelerated)
             _vec256.Generate(results);
         else if (Vector128.IsHardwareAccelerated)
@@ -170,7 +170,7 @@ internal readonly struct ChaChaIntrinsics : ISeekableBlockRngCore<UInt32, UInt64
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public void Regenerate(Span<UInt32> results)
     {
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
         if (Vector256.IsHardwareAccelerated)
             _vec256.Regenerate(results);
         else if (Vector128.IsHardwareAccelerated)

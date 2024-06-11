@@ -29,7 +29,7 @@ public class UniformDists
 
     private readonly Uniform.TimeSpan _uniformTimeSpan;
 
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
     private readonly Uniform.Int128 _uniformInt128;
     private readonly Uniform.UInt128 _uniformUInt128;
 #endif
@@ -52,7 +52,7 @@ public class UniformDists
 
         _uniformTimeSpan = Uniform.New(TimeSpan.FromHours(LowerBound), TimeSpan.FromHours(UpperBound));
 
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
         _uniformInt128 = Uniform.New((Int128)LowerBound, (Int128)UpperBound);
         _uniformUInt128 = Uniform.New((UInt128)LowerBound, (UInt128)UpperBound);
 #endif
@@ -156,7 +156,7 @@ public class UniformDists
             sum = unchecked(sum + _uniformTimeSpan.Sample(_rng));
         return sum;
     }
-#if NET7_0_OR_GREATER
+#if NET8_0_OR_GREATER
     [Benchmark]
     public Int128 SampleUnt128()
     {
