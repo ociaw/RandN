@@ -1,5 +1,7 @@
 using System;
+
 using BenchmarkDotNet.Attributes;
+
 using RandN.Rngs;
 
 namespace RandN.Benchmarks;
@@ -14,6 +16,9 @@ public class RngFill
     private readonly ChaCha _chaCha12;
     private readonly ChaCha _chaCha20;
     private readonly Pcg32 _pcg32;
+#if NET7_0_OR_GREATER
+    private readonly Pcg64Dxsm _pcg64Dxsm;
+#endif // NET7_0_OR_GREATER
     private readonly Mt1993764 _mt1993764;
     private readonly XorShift _xorShift;
     private readonly SystemCryptoRng _systemCryptoRng;
@@ -31,6 +36,9 @@ public class RngFill
         _chaCha12 = ChaCha.GetChaCha12Factory().Create(new ChaCha.Seed());
         _chaCha20 = ChaCha.GetChaCha20Factory().Create(new ChaCha.Seed());
         _pcg32 = Rngs.Pcg32.Create(0, 0);
+#if NET7_0_OR_GREATER
+        _pcg64Dxsm = Rngs.Pcg64Dxsm.Create(0, 0);
+#endif // NET7_0_OR_GREATER
         _mt1993764 = Rngs.Mt1993764.Create(0);
         _xorShift = Rngs.XorShift.Create(1, 1, 1, 1);
         _systemCryptoRng = Rngs.SystemCryptoRng.Create();
@@ -80,6 +88,18 @@ public class RngFill
             _pcg32.Fill(buffer);
     }
 
+#if NET7_0_OR_GREATER
+
+    [Benchmark]
+    public void Pcg64Dxsm()
+    {
+        Span<Byte> buffer = stackalloc Byte[BufferLength];
+        for (Int32 i = 0; i < Iterations; i++)
+            _pcg64Dxsm.Fill(buffer);
+    }
+
+#endif // NET7_0_OR_GREATER
+
     [Benchmark]
     public void XorShift()
     {
@@ -114,9 +134,9 @@ public class RngFill
         for (Int32 i = 0; i < Iterations; i++)
             _random.NextBytes(_buffer);
 #else
-            Span<Byte> buffer = stackalloc Byte[BufferLength];
-            for (Int32 i = 0; i < Iterations; i++)
-                _random.NextBytes(buffer);
+        Span<Byte> buffer = stackalloc Byte[BufferLength];
+        for (Int32 i = 0; i < Iterations; i++)
+            _random.NextBytes(buffer);
 #endif
     }
 }
