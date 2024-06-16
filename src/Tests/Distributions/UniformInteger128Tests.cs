@@ -1,6 +1,7 @@
 #if NET8_0_OR_GREATER
 
 using System;
+using System.Linq;
 using RandN.Implementation;
 using Xunit;
 using RandN.Rngs;
@@ -119,60 +120,26 @@ public sealed class UniformInteger128Tests
         UInt128 low = 0;
         UInt128 high = midpoint + 1;
 
-        UInt128 penultimateAccepted = high - 1;
-        UInt128 firstRejected = high + 1;
-        UInt128 secondRejected = firstRejected + 1;
-        UInt128 thirdRejected = secondRejected + 1;
+        var sequence = Enumerable.Range(0, 10).Select(x => UInt128.MaxValue / 2 + (UInt128)x);
 
         var dist = Uniform.NewInclusive(low, high);
-        var rng = new SequenceRng([
-            penultimateAccepted.IsolateLow(),
-            penultimateAccepted.IsolateHigh(),
-            high.IsolateLow(),
-            high.IsolateHigh(),
-            firstRejected.IsolateLow(),
-            firstRejected.IsolateHigh(),
-            secondRejected.IsolateLow(),
-            secondRejected.IsolateHigh(),
-            thirdRejected.IsolateLow(),
-            thirdRejected.IsolateHigh(),
+        var rng = new SequenceRng(sequence.SelectMany(x => new[] { x.IsolateLow(), x.IsolateHigh() }));
 
-            firstRejected.IsolateLow(),
-            firstRejected.IsolateHigh(),
-            secondRejected.IsolateLow(),
-            secondRejected.IsolateHigh(),
-            thirdRejected.IsolateLow(),
-            thirdRejected.IsolateHigh(),
-            0,
-            0,
-        ]);
-
+        Assert.False(dist.TrySample(rng, out _));
         Assert.True(dist.TrySample(rng, out UInt128 result));
-        Assert.Equal(midpoint, result);
+        Assert.Equal(new UInt128(0x4000000000000000, 0), result);
         Assert.True(dist.TrySample(rng, out result));
-        Assert.Equal(midpoint + 1, result);
+        Assert.Equal(new UInt128(0x4000000000000000, 1), result);
         Assert.False(dist.TrySample(rng, out _));
+        Assert.True(dist.TrySample(rng, out result));
+        Assert.Equal(new UInt128(0x4000000000000000, 2), result);
         Assert.False(dist.TrySample(rng, out _));
+        Assert.True(dist.TrySample(rng, out result));
+        Assert.Equal(new UInt128(0x4000000000000000, 3), result);
         Assert.False(dist.TrySample(rng, out _));
 
         // Now test a blocking sample
-        Assert.Equal(UInt128.Zero, dist.Sample(rng));
-    }
-
-    [Fact]
-    public void ZoneEqualToGeneratedUInt128()
-    {
-        UInt128 low = UInt128.MinValue;
-        UInt128 high = UInt128.MaxValue - 1;
-
-        var rng = new SequenceRng([high.IsolateLow(), high.IsolateHigh()]);
-        var dist = Uniform.NewInclusive(low, high);
-
-        Assert.Equal(UInt32.MaxValue - 1, rng.NextUInt32());
-        Assert.Equal(UInt32.MaxValue, rng.NextUInt32());
-        Assert.Equal(UInt32.MaxValue, rng.NextUInt32());
-        Assert.Equal(UInt32.MaxValue, rng.NextUInt32());
-        Assert.Equal(high, dist.Sample(rng));
+        Assert.Equal(new UInt128(0x4000000000000000, 4), dist.Sample(rng));
     }
 
     /// <summary>
@@ -203,9 +170,9 @@ public sealed class UniformInteger128Tests
         var dist = Uniform.New(new UInt128(0, 50), new UInt128(2_000, 200_000_000_000ul));
         var expectedValues = new[]
         {
-            new UInt128(0x0E9, 0x2C2DE5AC5A44EFE3),
-            new UInt128(0x04C, 0xB23B6C6817A5B06C),
-            new UInt128(0x1F6, 0xBD76F937FCFCFB8D),
+            new UInt128(0x666, 0xD3A5622DD2B654F2),
+            new UInt128(0x45D, 0x5667CA7B62179B9D),
+            new UInt128(0x4D4, 0x81F33768224909BA),
         };
         foreach (var expected in expectedValues)
             Assert.Equal(expected, dist.Sample(rng));

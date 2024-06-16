@@ -18,7 +18,7 @@ public static partial class Uniform
         {
             _low = low;
             _range = range;
-            _zone = zone;
+            _zone = System.UInt128.MaxValue - zone;
         }
 
         /// <summary>
@@ -62,9 +62,7 @@ public static partial class Uniform
             if (_range == 0) // 0 is a special case where we sample the entire range.
                 return unchecked((System.Int128)unsigned);
 
-            var zone = System.UInt128.MaxValue - _zone;
-
-            while (unsigned > zone)
+            while (unsigned > _zone)
             {
                 unsigned = NextUInt128(rng);
             }
@@ -82,9 +80,7 @@ public static partial class Uniform
                 return true;
             }
 
-            var zone = System.UInt128.MaxValue - _zone;
-
-            if (unsigned <= zone)
+            if (unsigned <= _zone)
             {
                 result = unchecked((System.Int128)(unsigned % _range) + _low);
                 return true;
@@ -116,7 +112,7 @@ public static partial class Uniform
         {
             _low = low;
             _range = range;
-            _zone = zone;
+            _zone = System.UInt128.MaxValue - zone;
         }
 
         /// <summary>
@@ -160,12 +156,17 @@ public static partial class Uniform
             if (_range == 0) // 0 is a special case where we sample the entire range.
                 return unsigned;
 
-            var zone = System.UInt128.MaxValue - _zone;
+            var zone = _zone;
 
-            while (unsigned > zone)
+            while (true)
+            {
+                var (hi, lo) = WideningMultiply(unsigned, _range);
+
+                if (lo <= zone)
+                    return unchecked(_low + hi);
+
                 unsigned = NextUInt128(rng);
-
-            return unchecked(unsigned % _range + _low);
+            }
         }
 
         /// <inheritdoc />
@@ -178,16 +179,36 @@ public static partial class Uniform
                 return true;
             }
 
-            var zone = System.UInt128.MaxValue - _zone;
+            var zone = _zone;
+            var (hi, lo) = WideningMultiply(unsigned, _range);
 
-            if (unsigned <= zone)
+            if (lo <= zone)
             {
-                result = unchecked((unsigned % _range) + _low);
+                result = unchecked(_low + hi);
                 return true;
             }
 
             result = default;
             return false;
+        }
+
+        private static (System.UInt128, System.UInt128) WideningMultiply(System.UInt128 left, System.UInt128 right)
+        {
+            System.UInt128 LOWER_MASK = System.UInt128.MaxValue >> 64;
+            System.UInt128 low = unchecked((left & LOWER_MASK) * (right & LOWER_MASK));
+            System.UInt128 t = low >> 64;
+            low &= LOWER_MASK;
+            t += unchecked((left >> 64) * (right & LOWER_MASK));
+            low += (t & LOWER_MASK) << 64;
+            System.UInt128 high = t >> 64;
+            t = low >> 64;
+            low &= LOWER_MASK;
+            t += unchecked((right >> 64) * (left & LOWER_MASK));
+            low += (t & LOWER_MASK) << 64;
+            high += t >> 64;
+            high += unchecked((left >> 64) * (right >> 64));
+
+            return (high, low);
         }
 
         private static System.UInt128 NextUInt128<TRng>(TRng rng) where TRng : notnull, IRng
