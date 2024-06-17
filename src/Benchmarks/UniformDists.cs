@@ -158,7 +158,7 @@ public class UniformDists
     }
 #if NET8_0_OR_GREATER
     [Benchmark]
-    public Int128 SampleUnt128()
+    public Int128 SampleInt128()
     {
         Int128 sum = 0;
         for (Int32 i = 0; i < Iterations; i++)

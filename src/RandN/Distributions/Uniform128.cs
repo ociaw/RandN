@@ -62,12 +62,17 @@ public static partial class Uniform
             if (_range == 0) // 0 is a special case where we sample the entire range.
                 return unchecked((System.Int128)unsigned);
 
-            while (unsigned > _zone)
-            {
-                unsigned = NextUInt128(rng);
-            }
+            var zone = _zone;
 
-            return unchecked((System.Int128)(unsigned % _range) + _low);
+            while (true)
+            {
+                var (hi, lo) = unsigned.WideningMultiply(_range);
+
+                if (lo <= zone)
+                    return unchecked((System.Int128)hi + _low);
+
+                unsigned = rng.NextUInt128();
+            }
         }
 
         /// <inheritdoc />
@@ -80,9 +85,12 @@ public static partial class Uniform
                 return true;
             }
 
-            if (unsigned <= _zone)
+            var zone = _zone;
+            var (hi, lo) = unsigned.WideningMultiply(_range);
+
+            if (lo <= zone)
             {
-                result = unchecked((System.Int128)(unsigned % _range) + _low);
+                result = unchecked((System.Int128)hi + _low);
                 return true;
             }
 
@@ -152,7 +160,7 @@ public static partial class Uniform
         /// <inheritdoc />
         public System.UInt128 Sample<TRng>(TRng rng) where TRng : notnull, IRng
         {
-            var unsigned = NextUInt128(rng);
+            var unsigned = rng.NextUInt128();
             if (_range == 0) // 0 is a special case where we sample the entire range.
                 return unsigned;
 
@@ -160,19 +168,19 @@ public static partial class Uniform
 
             while (true)
             {
-                var (hi, lo) = WideningMultiply(unsigned, _range);
+                var (hi, lo) = unsigned.WideningMultiply(_range);
 
                 if (lo <= zone)
-                    return unchecked(_low + hi);
+                    return unchecked(hi + _low);
 
-                unsigned = NextUInt128(rng);
+                unsigned = rng.NextUInt128();
             }
         }
 
         /// <inheritdoc />
         public Boolean TrySample<TRng>(TRng rng, out System.UInt128 result) where TRng : notnull, IRng
         {
-            var unsigned = NextUInt128(rng);
+            var unsigned = rng.NextUInt128();
             if (_range == 0) // 0 is a special case where we sample the entire range.
             {
                 result = unsigned;
@@ -180,43 +188,16 @@ public static partial class Uniform
             }
 
             var zone = _zone;
-            var (hi, lo) = WideningMultiply(unsigned, _range);
+            var (hi, lo) = unsigned.WideningMultiply(_range);
 
             if (lo <= zone)
             {
-                result = unchecked(_low + hi);
+                result = unchecked(hi + _low);
                 return true;
             }
 
             result = default;
             return false;
-        }
-
-        private static (System.UInt128, System.UInt128) WideningMultiply(System.UInt128 left, System.UInt128 right)
-        {
-            System.UInt128 LOWER_MASK = System.UInt128.MaxValue >> 64;
-            System.UInt128 low = unchecked((left & LOWER_MASK) * (right & LOWER_MASK));
-            System.UInt128 t = low >> 64;
-            low &= LOWER_MASK;
-            t += unchecked((left >> 64) * (right & LOWER_MASK));
-            low += (t & LOWER_MASK) << 64;
-            System.UInt128 high = t >> 64;
-            t = low >> 64;
-            low &= LOWER_MASK;
-            t += unchecked((right >> 64) * (left & LOWER_MASK));
-            low += (t & LOWER_MASK) << 64;
-            high += t >> 64;
-            high += unchecked((left >> 64) * (right >> 64));
-
-            return (high, low);
-        }
-
-        private static System.UInt128 NextUInt128<TRng>(TRng rng) where TRng : notnull, IRng
-        {
-            // Use Little Endian; we explicitly generate one value before the next.
-            var x = rng.NextUInt64();
-            var y = rng.NextUInt64();
-            return new System.UInt128(y, x);
         }
     }
 }
