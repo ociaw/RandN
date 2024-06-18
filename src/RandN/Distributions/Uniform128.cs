@@ -58,7 +58,7 @@ public static partial class Uniform
         /// <inheritdoc />
         public System.Int128 Sample<TRng>(TRng rng) where TRng : notnull, IRng
         {
-            var unsigned = NextUInt128(rng);
+            var unsigned = rng.NextUInt128();
             if (_range == 0) // 0 is a special case where we sample the entire range.
                 return unchecked((System.Int128)unsigned);
 
@@ -78,7 +78,7 @@ public static partial class Uniform
         /// <inheritdoc />
         public Boolean TrySample<TRng>(TRng rng, out System.Int128 result) where TRng : notnull, IRng
         {
-            var unsigned = NextUInt128(rng);
+            var unsigned = rng.NextUInt128();
             if (_range == 0) // 0 is a special case where we sample the entire range.
             {
                 result = unchecked((System.Int128)unsigned);
@@ -96,14 +96,6 @@ public static partial class Uniform
 
             result = default;
             return false;
-        }
-
-        private static System.UInt128 NextUInt128<TRng>(TRng rng) where TRng : notnull, IRng
-        {
-            // Use Little Endian; we explicitly generate one value before the next.
-            var x = rng.NextUInt64();
-            var y = rng.NextUInt64();
-            return new System.UInt128(y, x);
         }
     }
 
