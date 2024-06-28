@@ -22,7 +22,7 @@ public static partial class Uniform
         }
 
         /// <summary>
-        /// Creates a <see cref="Int64" /> with an exclusive upper bound. Should not
+        /// Creates a <see cref="Int128" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(System.Int128, System.Int128)" />.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">
@@ -37,7 +37,7 @@ public static partial class Uniform
         }
 
         /// <summary>
-        /// Creates a <see cref="Int64" /> with an exclusive lower bound. Should not
+        /// Creates a <see cref="Int128" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(System.Int128, System.Int128)" />.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">
@@ -116,7 +116,7 @@ public static partial class Uniform
         }
 
         /// <summary>
-        /// Creates a <see cref="UInt64" /> with an exclusive upper bound. Should not
+        /// Creates a <see cref="UInt128" /> with an exclusive upper bound. Should not
         /// be used directly; instead, use <see cref="Uniform.New(System.UInt128, System.UInt128)" />.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">
@@ -131,7 +131,7 @@ public static partial class Uniform
         }
 
         /// <summary>
-        /// Creates a <see cref="UInt64" /> with an exclusive lower bound. Should not
+        /// Creates a <see cref="UInt128" /> with an exclusive lower bound. Should not
         /// be used directly; instead, use <see cref="Uniform.NewInclusive(System.UInt128, System.UInt128)" />.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">

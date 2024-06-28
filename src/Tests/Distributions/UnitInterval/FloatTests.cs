@@ -46,10 +46,10 @@ public sealed class FloatTests
 
     public static IEnumerable<Object[]> SingleParams(Int32 seedStart)
     {
-        yield return new Object [] { OpenClosed.Single.Instance, seedStart };
-        yield return new Object[] { ClosedOpen.Single.Instance, seedStart + 1 };
-        yield return new Object[] { Closed.Single.Instance, seedStart + 2};
-        yield return new Object[] { Open.Single.Instance, seedStart + 3};
+        yield return [OpenClosed.Single.Instance, seedStart];
+        yield return [ClosedOpen.Single.Instance, seedStart + 1];
+        yield return [Closed.Single.Instance, seedStart + 2];
+        yield return [Open.Single.Instance, seedStart + 3];
     }
 
     private static void SingleStabilityTest(IDistribution<Single> dist, params Single[] expectedValues)
@@ -137,10 +137,10 @@ public sealed class FloatTests
 
     public static IEnumerable<Object[]> DoubleParams(Int32 seedStart)
     {
-        yield return new Object [] { OpenClosed.Double.Instance, seedStart };
-        yield return new Object[] { ClosedOpen.Double.Instance, seedStart + 1 };
-        yield return new Object[] { Closed.Double.Instance, seedStart + 2};
-        yield return new Object[] { Open.Double.Instance, seedStart + 3};
+        yield return [OpenClosed.Double.Instance, seedStart];
+        yield return [ClosedOpen.Double.Instance, seedStart + 1];
+        yield return [Closed.Double.Instance, seedStart + 2];
+        yield return [Open.Double.Instance, seedStart + 3];
     }
 
     private static void DoubleStabilityTest(IDistribution<Double> dist, params Double[] expectedValues)

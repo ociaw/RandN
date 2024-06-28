@@ -61,10 +61,10 @@ public sealed class FloatTests
 
     public static IEnumerable<Object[]> <#= type #>Params(Int32 seedStart)
     {
-        yield return new Object [] { OpenClosed.<#= type #>.Instance, seedStart };
-        yield return new Object[] { ClosedOpen.<#= type #>.Instance, seedStart + 1 };
-        yield return new Object[] { Closed.<#= type #>.Instance, seedStart + 2};
-        yield return new Object[] { Open.<#= type #>.Instance, seedStart + 3};
+        yield return [OpenClosed.<#= type #>.Instance, seedStart];
+        yield return [ClosedOpen.<#= type #>.Instance, seedStart + 1];
+        yield return [Closed.<#= type #>.Instance, seedStart + 2];
+        yield return [Open.<#= type #>.Instance, seedStart + 3];
     }
 
     private static void <#= type #>StabilityTest(IDistribution<<#= type #>> dist, params <#= type #>[] expectedValues)

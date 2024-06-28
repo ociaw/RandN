@@ -27,23 +27,23 @@ public class UniformDecimalTests
 
     public static IEnumerable<Object[]> RangeParams() => new[]
     {
-        new Object[] { 0, 1 },
-        new Object[] { -1, 0 },
-        new Object[] { 0.0m, 100.0m },
-        new Object[] { -1e28m, -1e25m },
-        new Object[] { 1e-28m, 1e-25m },
-        new Object[] { 0ul, 3ul },
-        new Object[] { -10, -1 },
-        new Object[] { -5, 0.0m },
-        new Object[] { -7, -0.0m },
+        [0, 1],
+        [-1, 0],
+        [0.0m, 100.0m],
+        [-1e28m, -1e25m],
+        [1e-28m, 1e-25m],
+        [0ul, 3ul],
+        [-10, -1],
+        [-5, 0.0m],
+        [-7, -0.0m],
         // The next two need to decrement the scale when building the distribution.
-        new Object[] { 5, Decimal.MaxValue - 5 }, // This simply produces an initial maximum larger than high.
-        new Object[] { 10.0m, Decimal.MaxValue }, // This does the same, but causes an overflow in the process.
-        new Object[] { -100.0m, Decimal.MaxValue },
-        new Object[] { -Decimal.MaxValue / 5.0m, Decimal.MaxValue },
-        new Object[] { -Decimal.MaxValue, Decimal.MaxValue / 5.0m },
-        new Object[] { -Decimal.MaxValue * 0.8m, Decimal.MaxValue * 0.7m },
-        new Object[] { -Decimal.MaxValue, Decimal.MaxValue },
+        [5, Decimal.MaxValue - 5], // This simply produces an initial maximum larger than high.
+        [10.0m, Decimal.MaxValue], // This does the same, but causes an overflow in the process.
+        [-100.0m, Decimal.MaxValue],
+        [-Decimal.MaxValue / 5.0m, Decimal.MaxValue],
+        [-Decimal.MaxValue, Decimal.MaxValue / 5.0m],
+        [-Decimal.MaxValue * 0.8m, Decimal.MaxValue * 0.7m],
+        [-Decimal.MaxValue, Decimal.MaxValue],
         new Object[] { 0m, new Decimal(-1, -1, -1, false, 28) },
     };
 
@@ -84,13 +84,16 @@ public class UniformDecimalTests
 
     public static IEnumerable<Object[]> AverageParams() => new[]
     {
-        new Object[] {0m, 1000m, 0},
-        new Object[] {0m, 1m, 1},
-        new Object[] {-50.0m, 50.0m, 2},
-        new Object[] {0m, Decimal.MaxValue, 3},
-        new Object[] {Decimal.MinValue, 0m, 4},
-        new Object[] {38.9m, 64.6m, 5},
-        new Object[] {1e-28m, 1e-24m, 6},
+        [0m, 1000m, 0],
+        [0m, 1m, 1],
+        [0m, 1_000_000m, 2],
+        [-50.0m, 50.0m, 3],
+        [-1_000_000m, 1_000_000m, 4],
+        [-(Decimal)UInt64.MaxValue, UInt64.MaxValue, 5],
+        [0m, Decimal.MaxValue, 6],
+        [Decimal.MinValue, 0m, 7],
+        [38.9m, 64.6m, 8],
+        new Object[] {1e-28m, 1e-24m, 9},
     };
 
 
@@ -122,7 +125,7 @@ public class UniformDecimalTests
             var inclusiveDelta = inclusive - inclusiveMean;
             inclusiveMean += inclusiveDelta / (i + 1);
             Assert.True(low <= inclusive);
-            Assert.True(inclusive < high);
+            Assert.True(inclusive <= high);
         }
 
         Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
