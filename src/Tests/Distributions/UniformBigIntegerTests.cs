@@ -127,12 +127,12 @@ public class UniformBigIntegerTests
 
     public static IEnumerable<Object[]> AverageParams() => new[]
     {
-        new Object[] { -new BigInteger(UInt64.MaxValue), new BigInteger(UInt64.MaxValue), 0},
+        new Object[] { -new BigInteger(UInt64.MaxValue), new BigInteger(UInt64.MaxValue), 0 },
         [new BigInteger(-1_000_000), new BigInteger(1_000_000), 1],
-        [Decimal.MinValue, BigInteger.Zero, 2],
+        [(BigInteger)Decimal.MinValue, BigInteger.Zero, 2],
         [BigInteger.Zero, new BigInteger(1_000_000), 3],
         [BigInteger.Zero, BigInteger.One, 4],
-        [BigInteger.Zero, Decimal.MaxValue, 5],
+        [BigInteger.Zero, (BigInteger)Decimal.MaxValue, 5],
         [new BigInteger(10), new BigInteger(110), 6],
     };
 
