@@ -127,20 +127,24 @@ public class UniformBigIntegerTests
 
     public static IEnumerable<Object[]> AverageParams() => new[]
     {
-        new Object[] { -new BigInteger(UInt64.MaxValue), new BigInteger(UInt64.MaxValue), 0 },
-        [new BigInteger(-1_000_000), new BigInteger(1_000_000), 1],
-        [(BigInteger)Decimal.MinValue, BigInteger.Zero, 2],
-        [BigInteger.Zero, new BigInteger(1_000_000), 3],
-        [BigInteger.Zero, BigInteger.One, 4],
-        [BigInteger.Zero, (BigInteger)Decimal.MaxValue, 5],
-        [new BigInteger(10), new BigInteger(110), 6],
+        new Object[] { -new Decimal(UInt64.MaxValue), new Decimal(UInt64.MaxValue), 0 },
+        [-1_000_000m, 1_000_000m, 1],
+        [Decimal.MinValue, 0m, 2],
+        [0m, 1_000_000m, 3],
+        [0m, Decimal.One, 4],
+        [0m, Decimal.MaxValue, 5],
+        [10m, 110, 6],
+        [Decimal.MinValue, Decimal.MaxValue, 7],
     };
 
     [Theory]
     [MemberData(nameof(AverageParams))]
-    public void Average(BigInteger low, BigInteger high, UInt64 seed)
+    public void Average(Decimal lowDec, Decimal highDec, UInt64 seed)
     {
         const Int32 iterations = 10_000;
+        
+        BigInteger low = (BigInteger)lowDec;
+        BigInteger high = (BigInteger)highDec;
 
         var sqr3InverseNumerator = new BigInteger(1.0m / 1.7320508075688772935274463415m * 10000000000000000000000000000m);
         var sqr3InverseDenominator = new BigInteger(10000000000000000000000000000m);
