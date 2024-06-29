@@ -293,7 +293,6 @@ public static partial class Uniform
     public static Uniform.UInt128 NewInclusive(System.UInt128 low, System.UInt128 high) => Uniform.UInt128.CreateInclusive(low, high);
 
 #endif
-#if NET6_0_OR_GREATER
     /// <summary>
     /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
     /// </summary>
@@ -314,5 +313,4 @@ public static partial class Uniform
     /// </exception>
     public static Uniform.BigInteger NewInclusive(System.Numerics.BigInteger low, System.Numerics.BigInteger high) => Uniform.BigInteger.CreateInclusive(low, high);
 
-#endif
 }

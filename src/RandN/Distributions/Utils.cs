@@ -1,14 +1,13 @@
-#if NET6_0_OR_GREATER
 using System;
+using System.Numerics;
 
 namespace RandN.Distributions;
 
 /// <summary>
-/// Utilities for 128 bit distributions.
+/// Utilities for distributions.
 /// </summary>
 internal static class Utils
 {
-    
 #if NET8_0_OR_GREATER
     /// <summary>
     /// Multiplies two <see cref="System.UInt128"/>s and returns the result split into upper and lower bits.
@@ -46,6 +45,39 @@ internal static class Utils
         var y = rng.NextUInt64();
         return new UInt128(y, x);
     }
+#elif !NET6_0_OR_GREATER
+    /// <summary>
+    /// Gets the number of bits required to represent the positive, unsigned value of this integer.
+    /// </summary>
+    /// <remarks>GetBitLength isn't available in .NET Standard, so this is a backport of sorts of the method </remarks>
+    public static UInt64 GetBitLength(this BigInteger bigInt)
+    {
+#if NETSTANDARD2_0
+        bigInt = BigInteger.Abs(bigInt);
+        // Unfortunately we have to allocate a new array for this since we don't have any way to get the underlying byte
+        // array without allocating in .NET Standard 2.0
+        var bytes = bigInt.ToByteArray();
+#endif
+#if NETSTANDARD2_1
+        var byteCount = (UInt64)bigInt.GetByteCount(true);
+        Span<Byte> bytes = byteCount > 1024 ? new Byte[1024] : stackalloc Byte[1024];
+        bigInt.TryWriteBytes(bytes, out _, true, false);
+#endif
+        return (UInt64)bytes.Length * 8 - CountLeadingZeros(bytes[bytes.Length - 1]);
+    }
+    
+    public static UInt64 CountLeadingZeros(Byte input)
+    {
+        // Adapted from https://stackoverflow.com/a/31377558
+        if (input == 0) return 8;
+
+        Byte n = 1;
+        if (input >> 4 == 0) { n = (Byte)(n + 4); input = (Byte)(input << 4); }
+        if (input >> 6 == 0) { n = (Byte)(n + 2); input = (Byte)(input << 2); }
+        n = (Byte)(n - (input >> 7));
+
+        return n;
+    }
 #endif
 }
-#endif
+

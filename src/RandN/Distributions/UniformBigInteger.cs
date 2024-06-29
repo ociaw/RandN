@@ -1,5 +1,3 @@
-#if NET6_0_OR_GREATER
-
 using System;
 
 namespace RandN.Distributions;
@@ -93,6 +91,7 @@ public static partial class Uniform
             return true;
         }
 
+#if NET6_0_OR_GREATER || NETSTANDARD2_1
         private System.Numerics.BigInteger NextCandidate<TRng>(TRng rng) where TRng : notnull, IRng
         {
             if (_bytesToGenerate == 0)
@@ -104,6 +103,20 @@ public static partial class Uniform
 
             return new System.Numerics.BigInteger(span, true);
         }
+#else
+        private System.Numerics.BigInteger NextCandidate<TRng>(TRng rng) where TRng : notnull, IRng
+        {
+            if (_bytesToGenerate == 0)
+                return System.Numerics.BigInteger.Zero;
+
+            System.Byte[] bytes = new System.Byte[_bytesToGenerate + 1];
+            // Ensure the last bit is zero to ensure the result is a positive number
+            var span = bytes.AsSpan().Slice(0, bytes.Length - 1);
+            rng.Fill(span);
+            bytes[bytes.Length - 2] &= _bitmask;
+
+            return new System.Numerics.BigInteger(bytes);
+        }
+#endif
     }
 }
-#endif
