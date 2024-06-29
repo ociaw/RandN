@@ -133,7 +133,7 @@ public class UniformBigIntegerTests
         [0m, 1_000_000m, 3],
         [0m, Decimal.One, 4],
         [0m, Decimal.MaxValue, 5],
-        [10m, 110, 6],
+        [10m, 110m, 6],
         [Decimal.MinValue, Decimal.MaxValue, 7],
     };
 
