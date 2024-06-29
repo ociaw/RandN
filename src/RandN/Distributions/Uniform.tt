@@ -18,6 +18,7 @@ var types = new Type[]
     typeof(Double),
     typeof(Int128),
     typeof(UInt128),
+    typeof(System.Numerics.BigInteger),
 };
 #>
 using System;
@@ -42,6 +43,12 @@ foreach (var type in types)
 #if NET8_0_OR_GREATER
 <#
     }
+    else if (typeName.Contains("BigInteger"))
+    {
+#>
+#if NET6_0_OR_GREATER
+<#
+    }
 #>
     /// <summary>
     /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
@@ -64,7 +71,7 @@ foreach (var type in types)
     public static Uniform.<#= typeName #> NewInclusive(<#= fullTypeName #> low, <#= fullTypeName #> high) => Uniform.<#= typeName #>.CreateInclusive(low, high);
 
 <#
-    if (typeName.Contains("128"))
+    if (typeName.Contains("128") || typeName.Contains("BigInteger"))
     {
 #>
 #endif

@@ -293,4 +293,26 @@ public static partial class Uniform
     public static Uniform.UInt128 NewInclusive(System.UInt128 low, System.UInt128 high) => Uniform.UInt128.CreateInclusive(low, high);
 
 #endif
+#if NET6_0_OR_GREATER
+    /// <summary>
+    /// Creates uniform distribution in the interval [low, high), inclusive of low and exclusive of high.
+    /// </summary>
+    /// <param name="low">The inclusive lower bound.</param>
+    /// <param name="high">The exclusive upper bound.</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when <paramref name="low"/> is greater than or equal to <paramref name="high"/>.
+    /// </exception>
+    public static Uniform.BigInteger New(System.Numerics.BigInteger low, System.Numerics.BigInteger high) => Uniform.BigInteger.Create(low, high);
+
+    /// <summary>
+    /// Creates uniform distribution in the interval [low, high], inclusive of low and high.
+    /// </summary>
+    /// <param name="low">The inclusive lower bound.</param>
+    /// <param name="high">The inclusive upper bound.</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when <paramref name="low"/> is greater than <paramref name="high"/>.
+    /// </exception>
+    public static Uniform.BigInteger NewInclusive(System.Numerics.BigInteger low, System.Numerics.BigInteger high) => Uniform.BigInteger.CreateInclusive(low, high);
+
+#endif
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 
 namespace RandN;
 
@@ -41,6 +42,13 @@ public static class Statistics
         var margin = popStdDev / (Decimal)Math.Sqrt(sampleCount) * (Decimal)zScore;
         var difference = Math.Abs(popMean - sampleMean);
         return difference < margin;
+    }
+
+    public static Boolean WithinConfidence(BigInteger popMean, BigInteger popStdDev, BigInteger sampleMean, UInt64 sampleCount, Double zScore = ZScore)
+    {
+        var margin = popStdDev / new BigInteger(Math.Sqrt(sampleCount) / zScore) + BigInteger.One;
+        var difference = BigInteger.Abs(popMean - sampleMean);
+        return difference <= margin;
     }
 
     /// <summary>

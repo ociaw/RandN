@@ -1,4 +1,4 @@
-#if NET8_0_OR_GREATER
+#if NET6_0_OR_GREATER
 using System;
 
 namespace RandN.Distributions;
@@ -8,6 +8,8 @@ namespace RandN.Distributions;
 /// </summary>
 internal static class Utils
 {
+    
+#if NET8_0_OR_GREATER
     /// <summary>
     /// Multiplies two <see cref="System.UInt128"/>s and returns the result split into upper and lower bits.
     /// </summary>
@@ -44,5 +46,6 @@ internal static class Utils
         var y = rng.NextUInt64();
         return new UInt128(y, x);
     }
+#endif
 }
 #endif
