@@ -59,8 +59,8 @@ internal static class Utils
         var bytes = bigInt.ToByteArray();
 #endif
 #if NETSTANDARD2_1
-        var byteCount = (UInt64)bigInt.GetByteCount(true);
-        Span<Byte> bytes = byteCount > 1024 ? new Byte[1024] : stackalloc Byte[1024];
+        var byteCount = bigInt.GetByteCount(true);
+        Span<Byte> bytes = byteCount > 1024 ? new Byte[byteCount] : stackalloc Byte[byteCount];
         bigInt.TryWriteBytes(bytes, out _, true, false);
 #endif
         return (UInt64)bytes.Length * 8 - CountLeadingZeros(bytes[bytes.Length - 1]);
