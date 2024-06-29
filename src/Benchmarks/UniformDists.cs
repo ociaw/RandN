@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using BenchmarkDotNet.Attributes;
 using RandN.Distributions;
 // ReSharper disable RedundantCast
@@ -28,6 +29,7 @@ public class UniformDists
     private readonly Uniform.Double _uniformDouble;
 
     private readonly Uniform.TimeSpan _uniformTimeSpan;
+    private readonly Uniform.BigInteger _uniformBigInteger;
 
 #if NET8_0_OR_GREATER
     private readonly Uniform.Int128 _uniformInt128;
@@ -51,6 +53,7 @@ public class UniformDists
         _uniformDouble = Uniform.New((Double)LowerBound, (Double)UpperBound);
 
         _uniformTimeSpan = Uniform.New(TimeSpan.FromHours(LowerBound), TimeSpan.FromHours(UpperBound));
+        _uniformBigInteger = Uniform.New(new BigInteger(LowerBound), new BigInteger(UpperBound));
 
 #if NET8_0_OR_GREATER
         _uniformInt128 = Uniform.New((Int128)LowerBound, (Int128)UpperBound);
@@ -156,6 +159,16 @@ public class UniformDists
             sum = unchecked(sum + _uniformTimeSpan.Sample(_rng));
         return sum;
     }
+
+    [Benchmark]
+    public BigInteger SampleBigInteger()
+    {
+        BigInteger sum = BigInteger.Zero;
+        for (Int32 i = 0; i < Iterations; i++)
+            sum = unchecked(sum + _uniformBigInteger.Sample(_rng));
+        return sum;
+    }
+
 #if NET8_0_OR_GREATER
     [Benchmark]
     public Int128 SampleInt128()
