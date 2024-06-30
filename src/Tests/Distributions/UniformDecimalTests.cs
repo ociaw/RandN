@@ -82,18 +82,18 @@ public class UniformDecimalTests
         Assert.Equal(-Decimal.MaxValue, minDoubleInclusive.Sample(rng));
     }
 
-    public static IEnumerable<Object[]> AverageParams() => new[]
+    public static TheoryData<Decimal, Decimal, UInt64> AverageParams() => new()
     {
-        [0m, 1000m, 0],
-        [0m, 1m, 1],
-        [0m, 1_000_000m, 2],
-        [-50.0m, 50.0m, 3],
-        [-1_000_000m, 1_000_000m, 4],
-        [-(Decimal)UInt64.MaxValue, UInt64.MaxValue, 5],
-        [0m, Decimal.MaxValue, 6],
-        [Decimal.MinValue, 0m, 7],
-        [38.9m, 64.6m, 8],
-        new Object[] {1e-28m, 1e-24m, 9},
+        { 0m, 1000m, 0 },
+        { 0m, 1m, 1 },
+        { 0m, 1_000_000m, 2 },
+        { -50.0m, 50.0m, 3 },
+        { -1_000_000m, 1_000_000m, 4 },
+        { -(Decimal)UInt64.MaxValue, UInt64.MaxValue, 5 },
+        { 0m, Decimal.MaxValue, 6 },
+        { Decimal.MinValue, 0m, 7 },
+        { 38.9m, 64.6m, 8 },
+        { 1e-28m, 1e-24m, 9 },
     };
 
 
