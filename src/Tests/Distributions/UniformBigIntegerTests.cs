@@ -11,9 +11,11 @@ public class UniformBigIntegerTests
     [Theory]
     [InlineData(100000000, -100000000)]
     [InlineData(Int32.MaxValue, Int32.MinValue)]
-    public void BadInclusiveRange(BigInteger high, BigInteger low)
+    public void BadInclusiveRange(Int32 lowInt32, Int32 highInt32)
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(high, low));
+        BigInteger low = lowInt32;
+        BigInteger high = highInt32;
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.NewInclusive(low, high));
     }
 
     [Theory]
@@ -24,9 +26,11 @@ public class UniformBigIntegerTests
     [InlineData(Int32.MinValue, Int32.MinValue)]
     [InlineData(Int32.MaxValue, Int32.MinValue)]
     [InlineData(Int32.MaxValue, Int32.MaxValue)]
-    public void BadExclusiveRange(BigInteger high, BigInteger low)
+    public void BadExclusiveRange(Int32 lowInt32, Int32 highInt32)
     {
-        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(high, low));
+        BigInteger low = lowInt32;
+        BigInteger high = highInt32;
+        Assert.Throws<ArgumentOutOfRangeException>(() => Uniform.New(low, high));
     }
 
     /// <summary>
@@ -50,8 +54,11 @@ public class UniformBigIntegerTests
     [InlineData(Int32.MaxValue, Int32.MaxValue)]
     [InlineData(Int32.MinValue, 1)]
     [InlineData(0, Int32.MaxValue)]
-    public void SampleInclusiveSmall(BigInteger low, BigInteger high)
+    public void SampleInclusiveSmall(Int32 lowInt32, Int32 highInt32)
     {
+        BigInteger low = lowInt32;
+        BigInteger high = highInt32;
+
         var dist = Uniform.NewInclusive(low, high);
         var rng = Pcg32.Create(252, 11634580027462260723ul);
 
@@ -78,8 +85,11 @@ public class UniformBigIntegerTests
     [InlineData(Int32.MinValue, Int32.MaxValue)]
     [InlineData(Int32.MinValue, 1)]
     [InlineData(0, Int32.MaxValue)]
-    public void SampleExclusiveSmall(BigInteger low, BigInteger high)
+    public void SampleExclusiveSmall(Int32 lowInt32, Int32 highInt32)
     {
+        BigInteger low = lowInt32;
+        BigInteger high = highInt32;
+
         var dist = Uniform.New(low, high);
         var rng = Pcg32.Create(252, 11634580027462260723ul);
 
