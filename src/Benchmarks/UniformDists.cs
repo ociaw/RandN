@@ -30,6 +30,7 @@ public class UniformDists
 
     private readonly Uniform.TimeSpan _uniformTimeSpan;
     private readonly Uniform.BigInteger _uniformBigInteger;
+    private readonly Uniform.BigInteger _uniformBigIntegerLarge;
 
 #if NET8_0_OR_GREATER
     private readonly Uniform.Int128 _uniformInt128;
@@ -54,6 +55,7 @@ public class UniformDists
 
         _uniformTimeSpan = Uniform.New(TimeSpan.FromHours(LowerBound), TimeSpan.FromHours(UpperBound));
         _uniformBigInteger = Uniform.New(new BigInteger(LowerBound), new BigInteger(UpperBound));
+        _uniformBigIntegerLarge = Uniform.New(-BigInteger.Pow(2, 2048), BigInteger.Pow(2, 2048));
 
 #if NET8_0_OR_GREATER
         _uniformInt128 = Uniform.New((Int128)LowerBound, (Int128)UpperBound);
@@ -166,6 +168,15 @@ public class UniformDists
         BigInteger sum = BigInteger.Zero;
         for (Int32 i = 0; i < Iterations; i++)
             sum = unchecked(sum + _uniformBigInteger.Sample(_rng));
+        return sum;
+    }
+
+    [Benchmark]
+    public BigInteger SampleLargeBigInteger()
+    {
+        BigInteger sum = BigInteger.Zero;
+        for (Int32 i = 0; i < Iterations; i++)
+            sum = unchecked(sum + _uniformBigIntegerLarge.Sample(_rng));
         return sum;
     }
 
