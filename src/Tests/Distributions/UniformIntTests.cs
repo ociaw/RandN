@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using Xunit;
 using RandN.Rngs;
 // ReSharper disable RedundantCast
@@ -154,6 +155,48 @@ public sealed class UniformIntegerTests
         Assert.True(dist.TrySample(rng, out Byte result)); // RNG wraps around to 0
         Assert.Equal((Byte)0, result);
     }
+
+    [Theory]
+    [InlineData(0, 1, 0)]
+    [InlineData(50, 200, 1)]
+    [InlineData(Byte.MinValue, Byte.MaxValue, 2)]
+    [InlineData(Byte.MinValue, 1, 3)]
+    [InlineData(0, Byte.MaxValue, 4)]
+    public void AverageByte(Byte low, Byte high, UInt64 seed)
+    {
+        const Int32 iterations = 10_000;
+
+        var sqr3InverseNumerator = new BigInteger(1.0m / 1.7320508075688772935274463415m * 10000000000000000000000000000m);
+        var sqr3InverseDenominator = new BigInteger(10000000000000000000000000000m);
+
+        var populationMean = ((BigInteger)high + (BigInteger)low) / 2;
+        var popStdDev = ((BigInteger)high - (BigInteger)low) / 2 * sqr3InverseNumerator / sqr3InverseDenominator;
+
+        var exclusiveDist = Uniform.New(low, high);
+        var inclusiveDist = Uniform.NewInclusive(low, high);
+        var rng = Pcg32.Create(789 + seed, 11634580027462260726ul);
+
+        BigInteger exclusiveSum = 0;
+        BigInteger inclusiveSum = 0;
+        for (var i = 0; i < iterations; i++)
+        {
+            var exclusive = exclusiveDist.Sample(rng);
+            exclusiveSum += exclusive;
+            Assert.True(low <= exclusive);
+            Assert.True(exclusive < high);
+
+            var inclusive = inclusiveDist.Sample(rng);
+            inclusiveSum += inclusive;
+            Assert.True(low <= inclusive);
+            Assert.True(inclusive <= high);
+        }
+
+        BigInteger exclusiveMean = exclusiveSum / iterations;
+        BigInteger inclusiveMean = inclusiveSum / iterations;
+
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
+    }
     [Theory]
     [InlineData(2000, 50)]
     [InlineData(UInt16.MaxValue, UInt16.MinValue)]
@@ -296,6 +339,48 @@ public sealed class UniformIntegerTests
         Assert.Equal(unchecked((UInt16)UInt64.MaxValue), dist.Sample(rng)); // 0
         Assert.True(dist.TrySample(rng, out UInt16 result)); // RNG wraps around to 0
         Assert.Equal((UInt16)0, result);
+    }
+
+    [Theory]
+    [InlineData(0, 1, 0)]
+    [InlineData(50, 2000, 1)]
+    [InlineData(UInt16.MinValue, UInt16.MaxValue, 2)]
+    [InlineData(UInt16.MinValue, 1, 3)]
+    [InlineData(0, UInt16.MaxValue, 4)]
+    public void AverageUInt16(UInt16 low, UInt16 high, UInt64 seed)
+    {
+        const Int32 iterations = 10_000;
+
+        var sqr3InverseNumerator = new BigInteger(1.0m / 1.7320508075688772935274463415m * 10000000000000000000000000000m);
+        var sqr3InverseDenominator = new BigInteger(10000000000000000000000000000m);
+
+        var populationMean = ((BigInteger)high + (BigInteger)low) / 2;
+        var popStdDev = ((BigInteger)high - (BigInteger)low) / 2 * sqr3InverseNumerator / sqr3InverseDenominator;
+
+        var exclusiveDist = Uniform.New(low, high);
+        var inclusiveDist = Uniform.NewInclusive(low, high);
+        var rng = Pcg32.Create(789 + seed, 11634580027462260726ul);
+
+        BigInteger exclusiveSum = 0;
+        BigInteger inclusiveSum = 0;
+        for (var i = 0; i < iterations; i++)
+        {
+            var exclusive = exclusiveDist.Sample(rng);
+            exclusiveSum += exclusive;
+            Assert.True(low <= exclusive);
+            Assert.True(exclusive < high);
+
+            var inclusive = inclusiveDist.Sample(rng);
+            inclusiveSum += inclusive;
+            Assert.True(low <= inclusive);
+            Assert.True(inclusive <= high);
+        }
+
+        BigInteger exclusiveMean = exclusiveSum / iterations;
+        BigInteger inclusiveMean = inclusiveSum / iterations;
+
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
     }
     [Theory]
     [InlineData(200000000, 50)]
@@ -440,6 +525,48 @@ public sealed class UniformIntegerTests
         Assert.True(dist.TrySample(rng, out UInt32 result)); // RNG wraps around to 0
         Assert.Equal((UInt32)0, result);
     }
+
+    [Theory]
+    [InlineData(0, 1, 0)]
+    [InlineData(50, 200000000, 1)]
+    [InlineData(UInt32.MinValue, UInt32.MaxValue, 2)]
+    [InlineData(UInt32.MinValue, 1, 3)]
+    [InlineData(0, UInt32.MaxValue, 4)]
+    public void AverageUInt32(UInt32 low, UInt32 high, UInt64 seed)
+    {
+        const Int32 iterations = 10_000;
+
+        var sqr3InverseNumerator = new BigInteger(1.0m / 1.7320508075688772935274463415m * 10000000000000000000000000000m);
+        var sqr3InverseDenominator = new BigInteger(10000000000000000000000000000m);
+
+        var populationMean = ((BigInteger)high + (BigInteger)low) / 2;
+        var popStdDev = ((BigInteger)high - (BigInteger)low) / 2 * sqr3InverseNumerator / sqr3InverseDenominator;
+
+        var exclusiveDist = Uniform.New(low, high);
+        var inclusiveDist = Uniform.NewInclusive(low, high);
+        var rng = Pcg32.Create(789 + seed, 11634580027462260726ul);
+
+        BigInteger exclusiveSum = 0;
+        BigInteger inclusiveSum = 0;
+        for (var i = 0; i < iterations; i++)
+        {
+            var exclusive = exclusiveDist.Sample(rng);
+            exclusiveSum += exclusive;
+            Assert.True(low <= exclusive);
+            Assert.True(exclusive < high);
+
+            var inclusive = inclusiveDist.Sample(rng);
+            inclusiveSum += inclusive;
+            Assert.True(low <= inclusive);
+            Assert.True(inclusive <= high);
+        }
+
+        BigInteger exclusiveMean = exclusiveSum / iterations;
+        BigInteger inclusiveMean = inclusiveSum / iterations;
+
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
+    }
     [Theory]
     [InlineData(200000000000, 50)]
     [InlineData(UInt64.MaxValue, UInt64.MinValue)]
@@ -582,6 +709,48 @@ public sealed class UniformIntegerTests
         Assert.Equal(unchecked((UInt64)UInt64.MaxValue), dist.Sample(rng)); // 0
         Assert.True(dist.TrySample(rng, out UInt64 result)); // RNG wraps around to 0
         Assert.Equal((UInt64)0, result);
+    }
+
+    [Theory]
+    [InlineData(0, 1, 0)]
+    [InlineData(50, 200000000000, 1)]
+    [InlineData(UInt64.MinValue, UInt64.MaxValue, 2)]
+    [InlineData(UInt64.MinValue, 1, 3)]
+    [InlineData(0, UInt64.MaxValue, 4)]
+    public void AverageUInt64(UInt64 low, UInt64 high, UInt64 seed)
+    {
+        const Int32 iterations = 10_000;
+
+        var sqr3InverseNumerator = new BigInteger(1.0m / 1.7320508075688772935274463415m * 10000000000000000000000000000m);
+        var sqr3InverseDenominator = new BigInteger(10000000000000000000000000000m);
+
+        var populationMean = ((BigInteger)high + (BigInteger)low) / 2;
+        var popStdDev = ((BigInteger)high - (BigInteger)low) / 2 * sqr3InverseNumerator / sqr3InverseDenominator;
+
+        var exclusiveDist = Uniform.New(low, high);
+        var inclusiveDist = Uniform.NewInclusive(low, high);
+        var rng = Pcg32.Create(789 + seed, 11634580027462260726ul);
+
+        BigInteger exclusiveSum = 0;
+        BigInteger inclusiveSum = 0;
+        for (var i = 0; i < iterations; i++)
+        {
+            var exclusive = exclusiveDist.Sample(rng);
+            exclusiveSum += exclusive;
+            Assert.True(low <= exclusive);
+            Assert.True(exclusive < high);
+
+            var inclusive = inclusiveDist.Sample(rng);
+            inclusiveSum += inclusive;
+            Assert.True(low <= inclusive);
+            Assert.True(inclusive <= high);
+        }
+
+        BigInteger exclusiveMean = exclusiveSum / iterations;
+        BigInteger inclusiveMean = inclusiveSum / iterations;
+
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
     }
     [Theory]
     [InlineData(100, -50)]
@@ -726,6 +895,48 @@ public sealed class UniformIntegerTests
         Assert.True(dist.TrySample(rng, out SByte result)); // RNG wraps around to 0
         Assert.Equal((SByte)0, result);
     }
+
+    [Theory]
+    [InlineData(0, 1, 0)]
+    [InlineData(-50, 100, 1)]
+    [InlineData(SByte.MinValue, SByte.MaxValue, 2)]
+    [InlineData(SByte.MinValue, 1, 3)]
+    [InlineData(0, SByte.MaxValue, 4)]
+    public void AverageSByte(SByte low, SByte high, UInt64 seed)
+    {
+        const Int32 iterations = 10_000;
+
+        var sqr3InverseNumerator = new BigInteger(1.0m / 1.7320508075688772935274463415m * 10000000000000000000000000000m);
+        var sqr3InverseDenominator = new BigInteger(10000000000000000000000000000m);
+
+        var populationMean = ((BigInteger)high + (BigInteger)low) / 2;
+        var popStdDev = ((BigInteger)high - (BigInteger)low) / 2 * sqr3InverseNumerator / sqr3InverseDenominator;
+
+        var exclusiveDist = Uniform.New(low, high);
+        var inclusiveDist = Uniform.NewInclusive(low, high);
+        var rng = Pcg32.Create(789 + seed, 11634580027462260726ul);
+
+        BigInteger exclusiveSum = 0;
+        BigInteger inclusiveSum = 0;
+        for (var i = 0; i < iterations; i++)
+        {
+            var exclusive = exclusiveDist.Sample(rng);
+            exclusiveSum += exclusive;
+            Assert.True(low <= exclusive);
+            Assert.True(exclusive < high);
+
+            var inclusive = inclusiveDist.Sample(rng);
+            inclusiveSum += inclusive;
+            Assert.True(low <= inclusive);
+            Assert.True(inclusive <= high);
+        }
+
+        BigInteger exclusiveMean = exclusiveSum / iterations;
+        BigInteger inclusiveMean = inclusiveSum / iterations;
+
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
+    }
     [Theory]
     [InlineData(1000, -1000)]
     [InlineData(Int16.MaxValue, Int16.MinValue)]
@@ -868,6 +1079,48 @@ public sealed class UniformIntegerTests
         Assert.Equal(unchecked((Int16)UInt64.MaxValue), dist.Sample(rng)); // 0
         Assert.True(dist.TrySample(rng, out Int16 result)); // RNG wraps around to 0
         Assert.Equal((Int16)0, result);
+    }
+
+    [Theory]
+    [InlineData(0, 1, 0)]
+    [InlineData(-1000, 1000, 1)]
+    [InlineData(Int16.MinValue, Int16.MaxValue, 2)]
+    [InlineData(Int16.MinValue, 1, 3)]
+    [InlineData(0, Int16.MaxValue, 4)]
+    public void AverageInt16(Int16 low, Int16 high, UInt64 seed)
+    {
+        const Int32 iterations = 10_000;
+
+        var sqr3InverseNumerator = new BigInteger(1.0m / 1.7320508075688772935274463415m * 10000000000000000000000000000m);
+        var sqr3InverseDenominator = new BigInteger(10000000000000000000000000000m);
+
+        var populationMean = ((BigInteger)high + (BigInteger)low) / 2;
+        var popStdDev = ((BigInteger)high - (BigInteger)low) / 2 * sqr3InverseNumerator / sqr3InverseDenominator;
+
+        var exclusiveDist = Uniform.New(low, high);
+        var inclusiveDist = Uniform.NewInclusive(low, high);
+        var rng = Pcg32.Create(789 + seed, 11634580027462260726ul);
+
+        BigInteger exclusiveSum = 0;
+        BigInteger inclusiveSum = 0;
+        for (var i = 0; i < iterations; i++)
+        {
+            var exclusive = exclusiveDist.Sample(rng);
+            exclusiveSum += exclusive;
+            Assert.True(low <= exclusive);
+            Assert.True(exclusive < high);
+
+            var inclusive = inclusiveDist.Sample(rng);
+            inclusiveSum += inclusive;
+            Assert.True(low <= inclusive);
+            Assert.True(inclusive <= high);
+        }
+
+        BigInteger exclusiveMean = exclusiveSum / iterations;
+        BigInteger inclusiveMean = inclusiveSum / iterations;
+
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
     }
     [Theory]
     [InlineData(100000000, -100000000)]
@@ -1012,6 +1265,48 @@ public sealed class UniformIntegerTests
         Assert.True(dist.TrySample(rng, out Int32 result)); // RNG wraps around to 0
         Assert.Equal((Int32)0, result);
     }
+
+    [Theory]
+    [InlineData(0, 1, 0)]
+    [InlineData(-100000000, 100000000, 1)]
+    [InlineData(Int32.MinValue, Int32.MaxValue, 2)]
+    [InlineData(Int32.MinValue, 1, 3)]
+    [InlineData(0, Int32.MaxValue, 4)]
+    public void AverageInt32(Int32 low, Int32 high, UInt64 seed)
+    {
+        const Int32 iterations = 10_000;
+
+        var sqr3InverseNumerator = new BigInteger(1.0m / 1.7320508075688772935274463415m * 10000000000000000000000000000m);
+        var sqr3InverseDenominator = new BigInteger(10000000000000000000000000000m);
+
+        var populationMean = ((BigInteger)high + (BigInteger)low) / 2;
+        var popStdDev = ((BigInteger)high - (BigInteger)low) / 2 * sqr3InverseNumerator / sqr3InverseDenominator;
+
+        var exclusiveDist = Uniform.New(low, high);
+        var inclusiveDist = Uniform.NewInclusive(low, high);
+        var rng = Pcg32.Create(789 + seed, 11634580027462260726ul);
+
+        BigInteger exclusiveSum = 0;
+        BigInteger inclusiveSum = 0;
+        for (var i = 0; i < iterations; i++)
+        {
+            var exclusive = exclusiveDist.Sample(rng);
+            exclusiveSum += exclusive;
+            Assert.True(low <= exclusive);
+            Assert.True(exclusive < high);
+
+            var inclusive = inclusiveDist.Sample(rng);
+            inclusiveSum += inclusive;
+            Assert.True(low <= inclusive);
+            Assert.True(inclusive <= high);
+        }
+
+        BigInteger exclusiveMean = exclusiveSum / iterations;
+        BigInteger inclusiveMean = inclusiveSum / iterations;
+
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
+    }
     [Theory]
     [InlineData(100000000000, -100000000000)]
     [InlineData(Int64.MaxValue, Int64.MinValue)]
@@ -1154,6 +1449,48 @@ public sealed class UniformIntegerTests
         Assert.Equal(unchecked((Int64)UInt64.MaxValue), dist.Sample(rng)); // 0
         Assert.True(dist.TrySample(rng, out Int64 result)); // RNG wraps around to 0
         Assert.Equal((Int64)0, result);
+    }
+
+    [Theory]
+    [InlineData(0, 1, 0)]
+    [InlineData(-100000000000, 100000000000, 1)]
+    [InlineData(Int64.MinValue, Int64.MaxValue, 2)]
+    [InlineData(Int64.MinValue, 1, 3)]
+    [InlineData(0, Int64.MaxValue, 4)]
+    public void AverageInt64(Int64 low, Int64 high, UInt64 seed)
+    {
+        const Int32 iterations = 10_000;
+
+        var sqr3InverseNumerator = new BigInteger(1.0m / 1.7320508075688772935274463415m * 10000000000000000000000000000m);
+        var sqr3InverseDenominator = new BigInteger(10000000000000000000000000000m);
+
+        var populationMean = ((BigInteger)high + (BigInteger)low) / 2;
+        var popStdDev = ((BigInteger)high - (BigInteger)low) / 2 * sqr3InverseNumerator / sqr3InverseDenominator;
+
+        var exclusiveDist = Uniform.New(low, high);
+        var inclusiveDist = Uniform.NewInclusive(low, high);
+        var rng = Pcg32.Create(789 + seed, 11634580027462260726ul);
+
+        BigInteger exclusiveSum = 0;
+        BigInteger inclusiveSum = 0;
+        for (var i = 0; i < iterations; i++)
+        {
+            var exclusive = exclusiveDist.Sample(rng);
+            exclusiveSum += exclusive;
+            Assert.True(low <= exclusive);
+            Assert.True(exclusive < high);
+
+            var inclusive = inclusiveDist.Sample(rng);
+            inclusiveSum += inclusive;
+            Assert.True(low <= inclusive);
+            Assert.True(inclusive <= high);
+        }
+
+        BigInteger exclusiveMean = exclusiveSum / iterations;
+        BigInteger inclusiveMean = inclusiveSum / iterations;
+
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
+        Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
     }
 
     [Fact]
