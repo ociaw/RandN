@@ -5,9 +5,6 @@ using BenchmarkDotNet.Attributes;
 
 namespace RandN.Benchmarks;
 
-//[SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net48)]
-//[SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net60)]
-//[SimpleJob(BenchmarkDotNet.Jobs.RuntimeMoniker.Net80)]
 public class Extensions
 {
     public const Int32 Iterations = 16384;
