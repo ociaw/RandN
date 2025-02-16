@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using RandN.Distributions;
 
 namespace RandN;
@@ -7,8 +9,7 @@ namespace RandN;
 /// <summary>
 /// Various extension methods to simplify use of RNGs.
 /// </summary>
-public static class RngExtensions
-{
+public static class RngExtensions {
     /// <summary>
     /// Shuffles a list using the in-place Fisher-Yates shuffling algorithm.
     /// </summary>
@@ -17,14 +18,44 @@ public static class RngExtensions
     public static void ShuffleInPlace<TRng, T>(this TRng rng, IList<T> list)
         where TRng : notnull, IRng
     {
-        // Fisher-Yates shuffle
-        for (Int32 i = list.Count - 1; i >= 1; i--)
+        if (list.GetType() == typeof(T[]))
         {
+            ShuffleInPlace(rng, Unsafe.As<T[]>(list).AsSpan());
+            return;
+        }
+#if NET5_0_OR_GREATER
+        else if (list.GetType() == typeof(List<T>))
+        {
+            ShuffleInPlace(rng, CollectionsMarshal.AsSpan(Unsafe.As<List<T>>(list)));
+            return;
+        }
+#endif
+        // Fisher-Yates shuffle
+        for (Int32 i = list.Count - 1; i >= 1; i--) {
             var dist = Uniform.NewInclusive(0, i);
             var swapIndex = dist.Sample(rng);
             T temp = list[swapIndex];
             list[swapIndex] = list[i];
             list[i] = temp;
+        }
+    }
+
+    /// <summary>
+    /// Shuffles a span using the in-place Fisher-Yates shuffling algorithm.
+    /// </summary>
+    /// <param name="rng">The RNG used to shuffle the list.</param>
+    /// <param name="span">The span to be shuffled.</param>
+    public static void ShuffleInPlace<TRng, T>(this TRng rng, Span<T> span)
+        where TRng : notnull, IRng
+    {
+        ref var first = ref MemoryMarshal.GetReference(span); ;
+        // Fisher-Yates shuffle
+        for (Int32 i = span.Length - 1; i >= 1; i--) {
+            var dist = Uniform.NewInclusive(0, i);
+            var swapIndex = dist.Sample(rng);
+            ref var right = ref Unsafe.Add(ref first, i);
+            ref var left = ref Unsafe.Add(ref first, swapIndex);
+            (right, left) = (left, right);
         }
     }
 
@@ -36,8 +67,7 @@ public static class RngExtensions
     /// <returns>A new <typeparamref name="TRng"/> instance.</returns>
     public static TRng Create<TRng, TSeed, TSeedingRng>(this IReproducibleRngFactory<TRng, TSeed> factory, TSeedingRng seedingRng)
         where TRng : notnull, IRng
-        where TSeedingRng : notnull, IRng
-    {
+        where TSeedingRng : notnull, IRng {
         var seed = factory.CreateSeed(seedingRng);
         return factory.Create(seed);
     }
