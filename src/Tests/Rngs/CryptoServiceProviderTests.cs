@@ -13,7 +13,7 @@ public sealed class CryptoServiceProviderTests
 #pragma warning disable CS0618
         var factory = CryptoServiceProvider.GetFactory();
 #pragma warning restore CS0618
-        var rng = factory.Create();
+        using var rng = factory.Create();
         Assert.True(Statistics.TestMonobitFrequency32(rng, 100_000, Statistics.WideZScore));
         Assert.True(Statistics.TestMonobitFrequency64(rng, 100_000, Statistics.WideZScore));
         Assert.True(Statistics.TestMonobitFrequencyFill(rng, 32, Statistics.WideZScore));

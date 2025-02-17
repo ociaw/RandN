@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFrameworks>net8.0;net6.0;netcoreapp3.0;net48</TargetFrameworks>
+    <RollForward>LatestMajor</RollForward>
     <Optimize>false</Optimize>
     <AssemblyName>Tests</AssemblyName>
     <RootNamespace>RandN</RootNamespace>
@@ -12,6 +13,11 @@
     <AnalysisLevel>8</AnalysisLevel>
     <!-- We intentionally target netcoreapp3.0 since it's the only way to test .NET Standard 2.1 without bringing in mono. -->
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
+  </PropertyGroup>
+
+  <!-- If the globalization packages can't be found, tests break. To avoid this, we use invariant globalization for tests. -->
+  <PropertyGroup>
+    <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
   <ItemGroup>

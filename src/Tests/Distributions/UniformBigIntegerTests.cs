@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Numerics;
 using Xunit;
 using RandN.Rngs;
@@ -185,5 +184,18 @@ public class UniformBigIntegerTests
 
         Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, exclusiveMean, iterations));
         Assert.True(Statistics.WithinConfidence(populationMean, popStdDev, inclusiveMean, iterations));
+    }
+    
+    [Fact]
+    public void Rejections()
+    {
+        var rng = new SequenceRng(new[] { 0b10000000u, 0b10000001u, 0x81u, 0x81u });
+        var lower = BigInteger.Zero;
+        var upper = new BigInteger(0b10000000u);
+
+        var dist = Uniform.NewInclusive(lower, upper);
+        Assert.True(dist.TrySample(rng, out var result));
+        Assert.Equal(0b10000000u, result);
+        Assert.False(dist.TrySample(rng, out _));
     }
 }
