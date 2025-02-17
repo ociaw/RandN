@@ -12,8 +12,12 @@
     <AnalysisLevel>8</AnalysisLevel>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'!='net48'">
     <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)'=='net48'">
+    <!-- 0.13.3 breaks with Mono on Linux, so we hold the .NET 4.8 target back -->
+    <PackageReference Include="BenchmarkDotNet" Version="0.13.2" />
   </ItemGroup>
 
   <ItemGroup>
