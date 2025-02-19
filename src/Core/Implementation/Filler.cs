@@ -81,19 +81,21 @@ public static class Filler
         {
             var srcBytes = MemoryMarshal.AsBytes(src).Slice(0, chunkSizeByte);
             srcBytes.CopyTo(dest);
+            return (chunkSize, chunkSizeByte);
         }
-        else
+#if !ENABLE_BIG_ENDIAN
+        throw new NotSupportedException("Big-endian processors are untested and disabled by default.");
+#else
+        Span<Byte> leBytes = stackalloc Byte[size];
+        for (var i = 0; i < chunkSize; i++)
         {
-            Span<Byte> leBytes = stackalloc Byte[size];
-            for (var i = 0; i < chunkSize; i++)
-            {
-                BinaryPrimitives.WriteUInt32LittleEndian(leBytes, src[i]);
-                var byteCount = Math.Min(size, chunkSizeByte - i * size);
-                leBytes.Slice(0, i * byteCount).CopyTo(dest);
-                dest = dest.Slice(byteCount);
-            }
+            BinaryPrimitives.WriteUInt32LittleEndian(leBytes, src[i]);
+            var byteCount = Math.Min(size, chunkSizeByte - i * size);
+            leBytes.Slice(0, i * byteCount).CopyTo(dest);
+            dest = dest.Slice(byteCount);
         }
         return (chunkSize, chunkSizeByte);
+#endif
     }
 
     /// <summary>
@@ -110,18 +112,21 @@ public static class Filler
         {
             var srcBytes = MemoryMarshal.AsBytes(src).Slice(0, chunkSizeByte);
             srcBytes.CopyTo(dest);
+            return (chunkSize, chunkSizeByte);
         }
-        else
+        
+#if !ENABLE_BIG_ENDIAN
+        throw new NotSupportedException("Big-endian processors are untested and disabled by default.");
+#else
+        Span<Byte> leBytes = stackalloc Byte[size];
+        for (var i = 0; i < chunkSize; i++)
         {
-            Span<Byte> leBytes = stackalloc Byte[size];
-            for (var i = 0; i < chunkSize; i++)
-            {
-                BinaryPrimitives.WriteUInt64LittleEndian(leBytes, src[i]);
-                var byteCount = Math.Min(size, chunkSizeByte - i * size);
-                leBytes.Slice(0, i * byteCount).CopyTo(dest);
-                dest = dest.Slice(byteCount);
-            }
+            BinaryPrimitives.WriteUInt64LittleEndian(leBytes, src[i]);
+            var byteCount = Math.Min(size, chunkSizeByte - i * size);
+            leBytes.Slice(0, i * byteCount).CopyTo(dest);
+            dest = dest.Slice(byteCount);
         }
         return (chunkSize, chunkSizeByte);
+#endif
     }
 }
