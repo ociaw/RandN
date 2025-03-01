@@ -4,7 +4,7 @@
         <OutputType>Library</OutputType>
         <TargetFramework>netstandard2.0</TargetFramework>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <AssemblyName>RandN.MersenneTwister</AssemblyName>
+        <AssemblyName>RandN.ExtraRngs</AssemblyName>
         <RootNamespace>RandN.Rngs</RootNamespace>
         <Nullable>enable</Nullable>
         <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
@@ -13,12 +13,12 @@
         <Version>0.5.0</Version>
         <Authors>ociaw</Authors>
         <Company>ociaw</Company>
-        <Description>RandN.MersenneTwister provides an implementation of Mersenne Twister for RandN, an alternative library for random number generation.</Description>
+        <Description>RandN.ExtraRngs provides an extra RNG algorithms for RandN, an alternative library for random number generation.</Description>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://randn.dev/</PackageProjectUrl>
         <RepositoryUrl>https://hg.sr.ht/~ociaw/RandN</RepositoryUrl>
         <RepositoryType>hg</RepositoryType>
-        <PackageTags>rng random randn mersenne twister</PackageTags>
+        <PackageTags>rng random randn mersenne twister xorshift</PackageTags>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageReleaseNotes>
             Version 0.5.0
