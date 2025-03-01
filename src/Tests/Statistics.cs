@@ -98,7 +98,7 @@ public static class Statistics
     private static UInt32 PopCount(UInt32 num)
     {
 #if NET6_0_OR_GREATER
-            return (UInt32)System.Numerics.BitOperations.PopCount(num);
+            return (UInt32)BitOperations.PopCount(num);
 #else
         UInt32 count = 0;
         for (Int32 i = 0; i < 32; i++)
@@ -113,7 +113,7 @@ public static class Statistics
     private static UInt32 PopCount(UInt64 num)
     {
 #if NET6_0_OR_GREATER
-            return (UInt32)System.Numerics.BitOperations.PopCount(num);
+            return (UInt32)BitOperations.PopCount(num);
 #else
         UInt64 count = 0;
         for (Int32 i = 0; i < 64; i++)
@@ -128,7 +128,7 @@ public static class Statistics
     private static UInt32 PopCount(Byte num)
     {
 #if NET6_0_OR_GREATER
-            return (UInt32)System.Numerics.BitOperations.PopCount(num);
+            return (UInt32)BitOperations.PopCount(num);
 #else
         UInt64 count = 0;
         for (Int32 i = 0; i < 8; i++)

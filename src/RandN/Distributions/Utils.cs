@@ -1,3 +1,4 @@
+// ReSharper disable twice RedundantUsingDirective
 using System;
 using System.Numerics;
 
@@ -61,12 +62,12 @@ internal static class Utils
 #if NETSTANDARD2_1
         var byteCount = bigInt.GetByteCount(true);
         Span<Byte> bytes = byteCount > 1024 ? new Byte[byteCount] : stackalloc Byte[byteCount];
-        bigInt.TryWriteBytes(bytes, out _, true, false);
+        bigInt.TryWriteBytes(bytes, out _, isUnsigned: true, isBigEndian: false);
 #endif
         return (UInt64)bytes.Length * 8 - CountLeadingZeros(bytes[bytes.Length - 1]);
     }
     
-    public static UInt64 CountLeadingZeros(Byte input)
+    private static UInt64 CountLeadingZeros(Byte input)
     {
         // Adapted from https://stackoverflow.com/a/31377558
         if (input == 0) return 8;
