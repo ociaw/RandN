@@ -5,14 +5,9 @@ using BenchmarkDotNet.Running;
 
 namespace RandN.Benchmarks;
 
-internal sealed class ThroughputColumn : IColumn
+internal sealed class ThroughputColumn(UInt64 bytesPerIteration) : IColumn
 {
-    public ThroughputColumn(UInt64 bytesPerIteration)
-    {
-        BytesPerIteration = bytesPerIteration;
-    }
-
-    public UInt64 BytesPerIteration { get; }
+    public UInt64 BytesPerIteration { get; } = bytesPerIteration;
 
     public String Id => nameof(ThroughputColumn);
 
@@ -36,7 +31,7 @@ internal sealed class ThroughputColumn : IColumn
 
     public String GetValue(Summary summary, BenchmarkCase benchmarkCase)
     {
-        Double meanNsPerIteration = summary[benchmarkCase]!.ResultStatistics!.Mean;
+        Double meanNsPerIteration = summary[benchmarkCase]?.ResultStatistics?.Mean ?? 0d;
         Double meanSecPerIteration = meanNsPerIteration / (1.0 * 1000 * 1000 * 1000);
         Double bytesPerSecond = BytesPerIteration / meanSecPerIteration;
         Double megabytesPerSecond = bytesPerSecond / (1024 * 1024);
