@@ -24,7 +24,9 @@
       Version 0.5.0
 
       Added .NET 8 target
-      (Breaking Change) Dropped .NET 7 target since it's at End-of-Life
+      (Breaking Change) Dropped .NET Core 3.1 and .NET 7 targets
+      Fixed failure to use intrinsics for bitwise-operations when available
+      (Breaking Change) Removed Big-Endian support
     </PackageReleaseNotes>
   </PropertyGroup>
 

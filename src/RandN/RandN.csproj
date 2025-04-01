@@ -24,7 +24,15 @@
       Version 0.5.0
 
       Added .NET 8 target
-      (Breaking Change) Dropped .NET 7 target since it's at End-of-Life
+      (Breaking Change) Dropped .NET Core 3.1 and .NET 7 targets
+      Added a Uniform distribution for BigInteger
+      Added Uniform distributions for UInt128 and Int128 - these are only available on .NET 8 and later targets.
+      Greatly improve performance of ShuffleInPlace on Lists and arrays
+      (Breaking Change) Removed Big-Endian support
+      Reorganized RNG algorithms into separate packages:
+      Moved the PCG 32 RNG into the new `RandN.Pcg32` package and made it a dependency of `RandN`.
+      Moved the ChaCha RNG into the new `RandN.ChaCha` package and made it a dependency of `RandN`.
+      (Breaking Change) Moved XorShift and Mersenne Twister into the optional `RandN.ExtraRngs` package
     </PackageReleaseNotes>
   </PropertyGroup>
 

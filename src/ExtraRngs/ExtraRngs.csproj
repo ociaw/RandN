@@ -22,7 +22,9 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageReleaseNotes>
             Version 0.5.0
-            Initial Release
+
+            Initial release
+            Includes the Mersenne Twister variant MT19937-64 and an Xor Shift variant.
         </PackageReleaseNotes>
     </PropertyGroup>
 

@@ -22,7 +22,9 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageReleaseNotes>
             Version 0.5.0
-            Initial Release
+
+            Initial release
+            Includes an implementation of the PCG 32 PRNG algorithm.
         </PackageReleaseNotes>
     </PropertyGroup>
 
