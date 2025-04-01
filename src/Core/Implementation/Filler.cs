@@ -34,6 +34,23 @@ public static class Filler
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static UInt32 NextUInt32ViaUInt64<TRng>(TRng rng) where TRng : notnull, IRng => unchecked((UInt32)rng.NextUInt64());
 
+#if NET7_0_OR_GREATER
+
+    /// <summary>
+    /// Implement NextUInt128 via NextUInt64, using Little Endian order.
+    /// </summary>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static UInt128 NextUInt128ViaUInt64<TRng>(TRng rng)
+        where TRng : notnull, IRng
+    {
+        // Use Little Endian; we explicitly generate one value before the next.
+        var x = rng.NextUInt64();
+        var y = rng.NextUInt64();
+        return ((UInt128)y << 64) | x;
+    }
+
+#endif // NET7_0_OR_GREATER
+
     /// <summary>
     /// Implement FillBytes via NextUInt64 and NextUInt32, little-endian order.
     /// </summary>
